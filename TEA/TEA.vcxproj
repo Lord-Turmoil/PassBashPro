@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e4e90399-0a11-482f-8d76-a7c7fcfec450}</ProjectGuid>
-    <RootNamespace>PassBashPro</RootNamespace>
+    <ProjectGuid>{e88779e5-8ef6-48ee-8ad7-1c7c020808f1}</ProjectGuid>
+    <RootNamespace>TEA</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -71,16 +71,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IntDir>$(SolutionDir)Build\dist-int\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)Build\dist\$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)Console\;$(SolutionDir)TinyXML2\;$(SolutionDir)TEA\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)lib\</OutDir>
+    <IntDir>$(SolutionDir)int\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>tea_b</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IntDir>$(SolutionDir)Build\dist-int\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)Publish\</OutDir>
-    <IncludePath>$(SolutionDir)Console\;$(SolutionDir)TinyXML2\;$(SolutionDir)TEA\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)lib\</OutDir>
+    <IntDir>$(SolutionDir)int\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>tea</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -139,6 +137,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="inc\tea_core.h" />
+    <ClInclude Include="inc\tea_defines.h" />
+    <ClInclude Include="inc\tea_util.h" />
+    <ClInclude Include="tea.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\tea_util.cpp" />
+    <ClCompile Include="src\tea_core.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
