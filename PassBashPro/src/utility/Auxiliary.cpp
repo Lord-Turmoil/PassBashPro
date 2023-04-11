@@ -37,19 +37,19 @@ char* strstrip(char* str)
 	char* left = base;
 	char* right = base + strlen(str) - 1;
 
-	if (right < left)
-		return str;
+	if (left <= right)
+	{
+		while ((left <= right) && isspace(*left))
+			left++;
+		while ((left <= right) && isspace(*right))
+			right--;
 
-	while ((left <= right) && isspace(*left))
-		left++;
-	while ((left <= right) && isspace(*right))
-		right--;
+		for (char* p = left; p <= right; p++)
+			*(base++) = *p;
+		*base = '\0';
+	}
 
-	for (char* p = left; p <= right; p++)
-		*(base++) = *p;
-	*base = '\0';
-
-	return base;
+	return str;
 }
 
 bool is_null_or_empty(const char* str)
