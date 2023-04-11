@@ -26,18 +26,18 @@
 #define _SERVICE_H_
 
 // start up
-int exec_start(int argc, char* argv[]);
+int srv_start(int argc, char* argv[]);
 // register new user
-int exec_register(int argc, char* argv[]);
+int srv_register(int argc, char* argv[]);
 // login
-int exec_login(int argc, char* argv[]);
+int srv_login(int argc, char* argv[]);
 // logout
-int exec_logout(int argc, char* argv[]);
+int srv_logout(int argc, char* argv[]);
 // change master password
-int exec_remaster(int argc, char* argv[]);
+int srv_remaster(int argc, char* argv[]);
 
 // receive and dispatch command
-int exec_host(int argc, char* argv[]);
+int srv_host(int argc, char* argv[]);
 
 
 #endif

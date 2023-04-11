@@ -41,5 +41,5 @@ int exec_edit_setw(int argc, char* argv[])
 static void _setw_usage()
 {
 	ExecHost::GetInstance()
-		->execl(EXEC_EDITOR, "help", "help", "setw");
+		->execl(EXEC_EDIT, "help", "help", "setw");
 }

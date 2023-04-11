@@ -25,16 +25,14 @@
 #ifndef _EXEC_H_
 #define _EXEC_H_
 
-#include "Functions.h"
-#include "Service.h"
-
 
 typedef int (*Exec)(int, char* []);
 
 
 // Identifiers for different executable factories.
+const char EXEC_IDLE[] = "offline";
 const char EXEC_GLOBAL[]  = "global";
-const char EXEC_EDITOR[]  = "editor";
+const char EXEC_EDIT[]  = "editor";
 const char EXEC_HIDDEN[]  = "hidden";
 const char EXEC_SERVICE[] = "service";
 

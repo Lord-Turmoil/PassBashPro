@@ -57,5 +57,5 @@ int exec_edit_unset(int argc, char* argv[])
 static void _unset_usage()
 {
 	ExecHost::GetInstance()
-		->execl(EXEC_EDITOR, "help", "help", "unset", nullptr);
+		->execl(EXEC_EDIT, "help", "help", "unset", nullptr);
 }

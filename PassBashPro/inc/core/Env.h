@@ -36,12 +36,19 @@
 */
 struct Env
 {
+	// different user can have different local username
 	std::string username;
+
+	// email is used as unique identifier for online service
+	std::string email;
 
 	std::string configPath;
 	std::string dataPath;
+	std::string profilePath;
 
 	char password[PASSWORD_BUFFER_SIZE];
+
+	bool online;
 };
 
 #endif

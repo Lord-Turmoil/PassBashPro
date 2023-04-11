@@ -33,15 +33,26 @@
 
 #define HOOK(FACTORY, DESCR, CMD) FACTORY->Hook(DESCR, CMD)
 
+static void _InitService();
 static void _InitGlobal();
 static void _InitEditor();
 static void _InitHidden();
 
 void InitExecHost()
 {
+	_InitService();
 	_InitGlobal();
 	_InitEditor();
 	_InitHidden();
+}
+
+static void _InitService()
+{
+	ExecFactoryPtr factory(new ExecFactory());
+
+	HOOK(factory, "editor", exec_edit_host);
+
+	ExecHost::GetInstance()->Register(EXEC_SERVICE, factory);
 }
 
 static void _InitGlobal()
@@ -107,7 +118,7 @@ static void _InitEditor()
 	HOOK(factory, "quit",  exec_edit_exit);
 	HOOK(factory, "q",     exec_edit_exit);
 
-	ExecHost::GetInstance()->Register(EXEC_EDITOR, factory);
+	ExecHost::GetInstance()->Register(EXEC_EDIT, factory);
 }
 
 static void _InitHidden()

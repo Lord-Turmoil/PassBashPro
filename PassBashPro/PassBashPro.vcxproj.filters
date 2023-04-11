@@ -90,6 +90,9 @@
     <ClInclude Include="inc\exec\editor\EditorAux.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\core\Profile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -213,6 +216,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="inc\exec\editor\EditorHeader.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\service\srv_host.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\exec\service\ServiceHeader.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\function\exec_edit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\service\srv_start.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

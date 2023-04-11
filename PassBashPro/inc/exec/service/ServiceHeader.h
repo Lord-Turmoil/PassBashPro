@@ -3,17 +3,17 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Global.h                                  *
+ *                      File Name : ServiceHeader.h                           *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 11, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   For global variables.                                                    *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
@@ -22,52 +22,10 @@
 
 #pragma once
 
-#ifndef _GLOBAL_H_
-#define _GLOBAL_H_
+#ifndef _SERVICE_HEADER_H_
+#define _SERVICE_HEADER_H_
 
-#include <string>
-#include <vector>
-
-
-// Internal default password.
-extern const char g_defaultPassword[];
-
-
-// Present working directory.
-extern std::string g_pwd;
-
-
-// Current user info.
-struct Env;
-extern Env* g_env;
-
-struct Profile;
-extern std::vector<Profile> g_profile;
-
-extern bool g_isOnline;
-
-
-// PassDoc
-struct PashDoc;
-extern PashDoc g_doc;
-
-
-// Default data content.
-extern const char DEFAULT_DATA[];
-
-
-// Position variables.
-extern const int VAR_SIZE;
-extern std::vector<std::string> g_var;
-
-
-// Versions.
-extern const char PASH_HOST_VERSION[];
-extern const char PASH_EDITOR_VERSION[];
-
-
-// Working mode.
-extern int g_mode;
-
+#include "../ExecHeader.h"
+#include "Service.h"
 
 #endif

@@ -31,12 +31,21 @@ XMLElementPtr _edit_item;
 std::string _edit_item_path;
 cnsl::InputHistory _edit_history;
 
+static int _edit_host_parse_arg(int argc, char* argv[]);
+
 int exec_edit_host(int argc, char* argv[])
 {
-	_edit_print_header(true);
+	// Get Item to edit.
+	if (_edit_host_parse_arg(argc, argv) != 0)
+	{
+		EXEC_PRINT_ERR("Pash Editor parameter error!\n");
+		return 1;
+	}
 
 	// clear previous history
 	_edit_history.Clear();
+	
+	_edit_print_header(true);
 
 	// main loop
 	ExecHost* host = ExecHost::GetInstance();
@@ -58,19 +67,40 @@ int exec_edit_host(int argc, char* argv[])
 			char* arg;
 			_edit_parse_cmd(cmd, &type, &arg);
 
-			int ret = host->execl(EXEC_EDITOR, type, type, arg, nullptr);
+			int ret = host->execl(EXEC_EDIT, type, type, arg, nullptr);
 			if (ret == -1)
 				host->execl(EXEC_HIDDEN, "edit_unk", "edit_unk", type, nullptr);
 			else if (ret == TERMINATION)
 				break;
 			else if (ret != 0)
+			{
 				LOG_ERROR("Editor \"%s\" -- Error Code: %d", type, ret);
+				if (ret == -TERMINATION)
+				{
+					EXEC_PRINT_ERR("Pash Editor encountered critical error!\n");
+					break;
+				}
+			}
 		}
 
 		_edit_print_prompt();
 	}
 
 	_edit_print_footer();
+
+	return 0;
+}
+
+static int _edit_host_parse_arg(int argc, char* argv[])
+{
+	if (argc != 2)
+		return 1;
+
+	_edit_item_path = argv[1];
+	_edit_item = PashDocUtil::GetNodeByPath(_edit_item_path);
+
+	if (!_edit_item)
+		return 2;
 
 	return 0;
 }

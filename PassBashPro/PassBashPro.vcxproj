@@ -164,9 +164,11 @@
     <ClInclude Include="inc\utility\EnvUtil.h" />
     <ClInclude Include="inc\utility\PashDocUtil.h" />
     <ClInclude Include="inc\utility\xml.h" />
+    <ClInclude Include="inc\core\Profile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="inc\exec\editor\EditorHeader.h" />
+    <ClCompile Include="inc\exec\service\ServiceHeader.h" />
     <ClCompile Include="inc\utility\FileUtil.h" />
     <ClCompile Include="src\exec\editor\exec_edit_clear.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_exit.cpp" />
@@ -179,6 +181,9 @@
     <ClCompile Include="src\exec\editor\exec_edit_unknown.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_unset.cpp" />
     <ClCompile Include="src\exec\editor\EditorAux.cpp" />
+    <ClCompile Include="src\exec\function\exec_edit.cpp" />
+    <ClCompile Include="src\exec\service\srv_host.cpp" />
+    <ClCompile Include="src\exec\service\srv_start.cpp" />
     <ClCompile Include="src\utility\ExecUtil.cpp" />
     <ClCompile Include="src\core\PashDoc.cpp" />
     <ClCompile Include="src\exec\ExecHost.cpp" />

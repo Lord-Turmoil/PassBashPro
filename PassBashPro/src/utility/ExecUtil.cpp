@@ -21,6 +21,30 @@
  ******************************************************************************/
 
 #include "../../inc/exec/ExecHeader.h"
+#include "../../inc/core/Env.h"
+
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Common utilities.
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+int _PrintPrompt()
+{
+	if (!g_env)
+	{
+		LOG_ERROR("No logged in user");
+		return -1;
+	}
+
+	std::string prompt = g_env->username;
+	prompt += '@';
+	prompt += g_pwd;
+
+	cnsl::InsertText(PWD_COLOR, "%s", prompt.c_str());
+	cnsl::InsertText(PROMPT_COLOR, "\b$ ");
+
+	return 0;
+}
 
 
 /*

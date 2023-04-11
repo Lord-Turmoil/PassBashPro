@@ -3,7 +3,7 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Global.h                                  *
+ *                      File Name : exec_edit.cpp                             *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
@@ -13,61 +13,63 @@
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   For global variables.                                                    *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#pragma once
+#include "../../../inc/exec/function/FuncHeader.h"
 
-#ifndef _GLOBAL_H_
-#define _GLOBAL_H_
+static int _edit_usage();
+static int _edit_parse_args(int argc, char* argv[], std::string& path);
 
-#include <string>
-#include <vector>
+int exec_edit(int argc, char* argv[])
+{
+	std::string path;
 
+	if (_edit_parse_args(argc, argv, path) != 0)
+	{
+		_edit_usage();
+		return 1;
+	}
 
-// Internal default password.
-extern const char g_defaultPassword[];
+	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
+	if (!node)
+	{
+		EXEC_PRINT_ERR("Password item doesn't exist!\n");
+		node = PashDocUtil::CreateItemNodeByPath(path);
+		cnsl::InsertText(MESSAGE_COLOR, "Password item \"%s\" created.\n",
+						 PashDocUtil::GetNodeDirectory(node, path));
+	}
+	else if (!PashDocUtil::IsItem(node))
+	{
+		EXEC_PRINT_ERR("You can only edit a password item!\n");
+		_edit_usage();
+		return 2;
+	}
 
+	int ret = ExecHost::GetInstance()
+		->execl(EXEC_SERVICE, "editor", "editor", path.c_str(), nullptr);
+	if (ret != 0)
+	{
+		EXEC_PRINT_ERR("Failed to launch password editor!\n");
+		return 3;
+	}
 
-// Present working directory.
-extern std::string g_pwd;
+	g_doc.Mark();
 
+	return 0;
+}
 
-// Current user info.
-struct Env;
-extern Env* g_env;
+static int _edit_usage()
+{
+	return ExecHost::GetInstance()
+		->execl(MODE_TO_EXEC[g_mode], "help", "help", "edit");
+}
 
-struct Profile;
-extern std::vector<Profile> g_profile;
-
-extern bool g_isOnline;
-
-
-// PassDoc
-struct PashDoc;
-extern PashDoc g_doc;
-
-
-// Default data content.
-extern const char DEFAULT_DATA[];
-
-
-// Position variables.
-extern const int VAR_SIZE;
-extern std::vector<std::string> g_var;
-
-
-// Versions.
-extern const char PASH_HOST_VERSION[];
-extern const char PASH_EDITOR_VERSION[];
-
-
-// Working mode.
-extern int g_mode;
-
-
-#endif
+static int _edit_parse_args(int argc, char* argv[], std::string& path)
+{
+	return _ParseArgs(argc, argv, path);
+}

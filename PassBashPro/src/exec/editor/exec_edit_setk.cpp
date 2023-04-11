@@ -41,5 +41,5 @@ int exec_edit_setk(int argc, char* argv[])
 static void _setk_usage()
 {
 	ExecHost::GetInstance()
-		->execl(EXEC_EDITOR, "help", "help", "setk", nullptr);
+		->execl(EXEC_EDIT, "help", "help", "setk", nullptr);
 }

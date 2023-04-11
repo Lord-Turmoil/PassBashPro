@@ -24,7 +24,7 @@
 
 int exec_save(int argc, char* argv[])
 {
-	if (g_doc.Save(g_user))
+	if (g_doc.Save(g_env))
 	{
 		EXEC_PRINT_MSG("Password successfully saved!\n");
 		return 0;

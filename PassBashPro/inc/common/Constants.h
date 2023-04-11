@@ -51,14 +51,17 @@ const char ROOT_DIR_NAME[]   = "./";
 
 
 // Working mode.
-const int MODE_PASH = 0;
-const int MODE_EDIT = 1;
+const int MODE_IDLE = 0;	// not logged in
+const int MODE_PASH = 1;
+const int MODE_EDIT = 2;
 
+const char* MODE_TO_EXEC[] = { EXEC_IDLE, EXEC_GLOBAL, EXEC_EDIT };
 
 // Local path.
 const char PASH_DIR[]        = R"(.pash\)";
 const char HELP_ROOT_DIR[]   = R"(manual\)";
-const char* HELP_DIR[] = { R"(pash\)", R"(edit\)" };
+
+const char* HELP_DIR[] = { R"(idle\)", R"(pash\)", R"(edit\)" };
 
 const char CONFIG_FILE[]  = "config";
 const char DATA_FILE[]    = "data";
