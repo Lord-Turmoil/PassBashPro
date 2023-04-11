@@ -29,6 +29,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 
 struct Env;
@@ -42,9 +43,9 @@ public:
 	PashDoc();
 	~PashDoc();
 
-	bool Load(Env& env);
+	bool Load(Env* env);
 	void UnLoad();
-	bool Save(Env& env);
+	bool Save(Env* env);
 
 	// For debug purpose, import and export plain text to debug.xml.
 	bool DebugLoad();
@@ -67,12 +68,24 @@ public:
 	// Mark modified.
 	void Mark();
 
-private:
-	// Generate default data.
-	bool _GenerateData(Env& env);
+public:
+	// Be careful!!!
+	PashDoc& operator=(PashDoc& doc)
+	{
+		// Old file will be deleted automatically.
+		this->m_pFile = std::move(doc.m_pFile);
+
+		this->m_root = doc.m_root;
+		this->m_current = doc.m_current;
+		this->m_modified = doc.m_modified;
+	};
 
 private:
-	XMLFile m_file;
+	// Generate default data.
+	bool _GenerateData(Env* env);
+
+private:
+	XMLFilePtr m_pFile;
 
 	XMLElementPtr m_root;
 	XMLElementPtr m_current;

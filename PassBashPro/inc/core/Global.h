@@ -38,7 +38,7 @@ extern std::string g_pwd;
 
 // Current user info.
 struct Env;
-extern Env g_user;
+extern Env* g_env;
 
 
 // PassDoc

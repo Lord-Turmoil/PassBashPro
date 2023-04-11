@@ -31,9 +31,12 @@
 #include <vector>
 #include <string>
 #include <tinyxml.h>
-
+#include <memory>
 
 typedef std::vector<XMLElementPtr> XMLElementPtrList;
+
+class XMLFile;
+typedef std::unique_ptr<XMLFile> XMLFilePtr;
 
 
 /********************************************************************
