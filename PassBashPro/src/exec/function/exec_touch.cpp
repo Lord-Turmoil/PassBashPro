@@ -36,23 +36,23 @@ int exec_touch(int argc, char* argv[])
 	}
 
 	std::string name;
-	PassDocUtil::GetBaseName(path, name);
+	PashDocUtil::GetBaseName(path, name);
 	if (name.empty())
 	{
 		EXEC_PRINT_ERR("No name? You must specify a name!\n");
 		return 2;
 	}
 
-	XMLElementPtr node = PassDocUtil::GetNodeByPath(path);
+	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
 	if (node)
 	{
 		EXEC_PRINT_ERR("%s with name \"%s\" already exists!\n",
-					   PassDocUtil::IsGroup(node) ? "Group" : "Password item",
+					   PashDocUtil::IsGroup(node) ? "Group" : "Password item",
 					   path.c_str());
 		return 3;
 	}
 
-	node = PassDocUtil::CreateItemNodeByPath(path);
+	node = PashDocUtil::CreateItemNodeByPath(path);
 	if (node)
 		EXEC_PRINT_MSG("Password item \"%s\" created.\n", path.c_str());
 	else

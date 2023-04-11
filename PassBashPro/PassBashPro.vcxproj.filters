@@ -30,7 +30,7 @@
     <ClInclude Include="inc\utility\xml.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\core\PassDoc.h">
+    <ClInclude Include="inc\core\PashDoc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\utility\PashDocUtil.h">
@@ -110,7 +110,7 @@
     <ClCompile Include="src\exec\Init.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\PassDoc.cpp">
+    <ClCompile Include="src\core\PashDoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\exec\function\exec_cd.cpp">

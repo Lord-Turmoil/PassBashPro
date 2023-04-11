@@ -36,8 +36,8 @@ int exec_move(int argc, char* argv[])
 		return 1;
 	}
 
-	XMLElementPtr srcNode = PassDocUtil::GetNodeByPath(srcPath);
-	XMLElementPtr destGroup = PassDocUtil::GetNodeByPath(destPath);
+	XMLElementPtr srcNode = PashDocUtil::GetNodeByPath(srcPath);
+	XMLElementPtr destGroup = PashDocUtil::GetNodeByPath(destPath);
 
 	if (!srcNode)
 	{
@@ -49,7 +49,7 @@ int exec_move(int argc, char* argv[])
 		EXEC_PRINT_ERR("Destination group doesn't exist!\n");
 		return 3;
 	}
-	if (!PassDocUtil::IsGroup(destGroup))
+	if (!PashDocUtil::IsGroup(destGroup))
 	{
 		EXEC_PRINT_ERR("Destination must be a group!\n");
 		return 4;
@@ -64,7 +64,7 @@ int exec_move(int argc, char* argv[])
 	** 2022/01/19 TS:
 	** Fixed name duplicated bug.
 	*/
-	if (PassDocUtil::GetDirectChildNode(destGroup, PassDocUtil::GetNodeName(srcNode)))
+	if (PashDocUtil::GetDirectChildNode(destGroup, PashDocUtil::GetNodeName(srcNode)))
 	{
 		EXEC_PRINT_ERR("Name exists in destination group!\n");
 		return 6;
@@ -73,9 +73,9 @@ int exec_move(int argc, char* argv[])
 	// See tinyxml2, it will automatically move from old place.
 	std::string oldPath;
 	std::string newPath;
-	PassDocUtil::GetNodeDirectory(srcNode, oldPath);
-	PassDocUtil::AddChildNode(destGroup, srcNode);
-	PassDocUtil::GetNodeDirectory(srcNode, newPath);
+	PashDocUtil::GetNodeDirectory(srcNode, oldPath);
+	PashDocUtil::AddChildNode(destGroup, srcNode);
+	PashDocUtil::GetNodeDirectory(srcNode, newPath);
 	EXEC_PRINT_MSG("Moved \"%s\" to \"%s\".\n",
 					 oldPath.c_str(), newPath.c_str());
 

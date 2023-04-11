@@ -20,8 +20,7 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#include "../../../inc/exec/ExecHeader.h"
-
+#include "../../../inc/exec/editor/EditorHeader.h"
 
 void exec_edit_header(bool showPrompt = false)
 {

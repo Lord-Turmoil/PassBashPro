@@ -146,7 +146,7 @@
     <ClInclude Include="inc\common\Macros.h" />
     <ClInclude Include="inc\core\Env.h" />
     <ClInclude Include="inc\core\Global.h" />
-    <ClInclude Include="inc\core\PassDoc.h" />
+    <ClInclude Include="inc\core\PashDoc.h" />
     <ClInclude Include="inc\exec\editor\Editor.h" />
     <ClInclude Include="inc\exec\Exec.h" />
     <ClInclude Include="inc\exec\ExecFactory.h" />
@@ -178,7 +178,7 @@
     <ClCompile Include="src\exec\editor\exec_edit_unset.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_util.cpp" />
     <ClCompile Include="src\utility\ExecUtil.cpp" />
-    <ClCompile Include="src\core\PassDoc.cpp" />
+    <ClCompile Include="src\core\PashDoc.cpp" />
     <ClCompile Include="src\exec\ExecHost.cpp" />
     <ClCompile Include="src\common\Logger.cpp" />
     <ClCompile Include="src\exec\ExecFactory.cpp" />

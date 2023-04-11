@@ -35,16 +35,16 @@ int exec_mkdir(int argc, char* argv[])
 		return 1;
 	}
 
-	XMLElementPtr node = PassDocUtil::GetNodeByPath(path);
+	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
 	if (node)
 	{
 		EXEC_PRINT_ERR("%s with name \"%s\" already exists!\n",
-					   PassDocUtil::IsGroup(node) ? "Group" : "Password item",
+					   PashDocUtil::IsGroup(node) ? "Group" : "Password item",
 					   path.c_str());
 		return 2;
 	}
 
-	node = PassDocUtil::CreateGroupNodeByPath(path);
+	node = PashDocUtil::CreateGroupNodeByPath(path);
 	if (node)
 		EXEC_PRINT_MSG("Group \"%s\" created.\n", path.c_str());
 	else

@@ -49,14 +49,14 @@ int exec_cd(int argc, char* argv[])
 	if (path == "-")
 		node = last_dir;
 	else
-		node = PassDocUtil::GetNodeByPath(path);
+		node = PashDocUtil::GetNodeByPath(path);
 
 	if (!node)
 	{
 		EXEC_PRINT_ERR("Group doesn't exist!\n");
 		return false;
 	}
-	if (!PassDocUtil::IsGroup(node))
+	if (!PashDocUtil::IsGroup(node))
 	{
 		EXEC_PRINT_ERR("You can only enter a group!\n");
 		_cd_usage();
@@ -64,7 +64,7 @@ int exec_cd(int argc, char* argv[])
 	}
 
 	last_dir = g_doc.SetCurrent(node);
-	PassDocUtil::GetPresentWorkingDirectory(g_pwd);
+	PashDocUtil::GetPresentWorkingDirectory(g_pwd);
 
 	return 0;
 }

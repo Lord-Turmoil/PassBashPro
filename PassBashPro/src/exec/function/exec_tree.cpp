@@ -35,14 +35,14 @@ int exec_tree(int argc, char* argv[])
 
 	_tree_init();
 
-	PassDocUtil::GetPresentWorkingDirectory(path);
+	PashDocUtil::GetPresentWorkingDirectory(path);
 	if (_tree_parse_args(argc, argv, path) != 0)
 	{
 		_tree_usage();
 		return 1;
 	}
 
-	XMLElementPtr node = PassDocUtil::GetNodeByPath(path);
+	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
 	if (!node)
 	{
 		EXEC_PRINT_ERR("Group doesn't exist!\n");
@@ -116,20 +116,20 @@ static int _tree_parse_args(int argc, char* argv[], std::string& path)
 static void _tree(XMLElementPtr node, const std::string& leading)
 {
 	// First output itself, with leading previously added.
-	if (PassDocUtil::IsGroup(node))
-		cnsl::InsertText(GROUP_COLOR, " %s/\n", PassDocUtil::GetNodeName(node));
+	if (PashDocUtil::IsGroup(node))
+		cnsl::InsertText(GROUP_COLOR, " %s/\n", PashDocUtil::GetNodeName(node));
 	else
 	{
-		cnsl::InsertText(ITEM_COLOR, " %s\n", PassDocUtil::GetNodeName(node));
+		cnsl::InsertText(ITEM_COLOR, " %s\n", PashDocUtil::GetNodeName(node));
 		return;
 	}
 
 	// Then, output its children with leading.
 	XMLElementPtrList list;
 	if (group_only)
-		PassDocUtil::GetGroupChildren(node, list);
+		PashDocUtil::GetGroupChildren(node, list);
 	else
-		PassDocUtil::GetChildren(node, list);
+		PashDocUtil::GetChildren(node, list);
 	for (auto it : list)
 	{
 		cnsl::InsertText("%s", leading.c_str());

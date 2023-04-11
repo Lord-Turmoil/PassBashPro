@@ -36,7 +36,7 @@ int exec_rename(int argc, char* argv[])
 		return 1;
 	}
 
-	XMLElementPtr node = PassDocUtil::GetNodeByPath(srcPath);
+	XMLElementPtr node = PashDocUtil::GetNodeByPath(srcPath);
 	if (!node)
 	{
 		EXEC_PRINT_ERR("Node doesn't exist!\n");
@@ -47,14 +47,14 @@ int exec_rename(int argc, char* argv[])
 		EXEC_PRINT_ERR("You can not rename root!\n");
 		return 3;
 	}
-	if (!PassDocUtil::IsLegalNodeName(destName))
+	if (!PashDocUtil::IsLegalNodeName(destName))
 	{
 		EXEC_PRINT_ERR("Illegal node name! No '/' allowed.\n");
 		return 4;
 	}
 
-	XMLElementPtr parent = PassDocUtil::GetParentNode(node);
-	if (PassDocUtil::GetDirectChildNode(parent, destName.c_str()))
+	XMLElementPtr parent = PashDocUtil::GetParentNode(node);
+	if (PashDocUtil::GetDirectChildNode(parent, destName.c_str()))
 	{
 		EXEC_PRINT_ERR("New name already exist!\n");
 		return 5;
@@ -62,9 +62,9 @@ int exec_rename(int argc, char* argv[])
 
 	std::string oldPath;
 	std::string newPath;
-	PassDocUtil::GetNodeDirectory(node, oldPath);
+	PashDocUtil::GetNodeDirectory(node, oldPath);
 	node->SetAttribute("name", destName.c_str());
-	PassDocUtil::GetNodeDirectory(node, newPath);
+	PashDocUtil::GetNodeDirectory(node, newPath);
 
 	EXEC_PRINT_MSG("Rename \"%s\" to \"%s\".\n",
 					 oldPath.c_str(), newPath.c_str());

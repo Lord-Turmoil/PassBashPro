@@ -3,13 +3,13 @@
  ******************************************************************************
  *                   Project Name : PassBash                                  *
  *                                                                            *
- *                      File Name : PassDoc.h                                 *
+ *                      File Name : PashDoc.h                                 *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
  *                     Start Date : January 17, 2023                          *
  *                                                                            *
- *                    Last Update : April 9, 2023                             *
+ *                    Last Update : April 11, 2023                            *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
@@ -20,8 +20,8 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#ifndef _PASS_DOC_H_
-#define _PASS_DOC_H_
+#ifndef _PASH_DOC_H_
+#define _PASH_DOC_H_
 
 #include "../common/Constants.h"
 #include "../utility/Auxiliary.h"
@@ -36,11 +36,11 @@ struct Env;
 /********************************************************************
 ** Core data structure to store runtime passwords.
 */
-class PassDoc
+class PashDoc
 {
 public:
-	PassDoc();
-	~PassDoc();
+	PashDoc();
+	~PashDoc();
 
 	bool Load(Env& env);
 	void UnLoad();

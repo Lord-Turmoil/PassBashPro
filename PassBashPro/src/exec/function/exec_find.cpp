@@ -66,8 +66,8 @@ int find(int argc, char* argv[])
 				cnsl::InsertText(FOREGROUND_GREEN | FOREGROUND_INTENSITY, " $%d) ", i);
 			else
 				cnsl::InsertText("     ");
-			cnsl::InsertText(PassDocUtil::IsGroup(it) ? GROUP_COLOR : ITEM_COLOR,
-							 "\t%s\n", PassDocUtil::GetNodeDirectory(it, path));
+			cnsl::InsertText(PashDocUtil::IsGroup(it) ? GROUP_COLOR : ITEM_COLOR,
+							 "\t%s\n", PashDocUtil::GetNodeDirectory(it, path));
 			if (i < VAR_SIZE)
 				g_var[i++] = path;
 		}
@@ -80,7 +80,7 @@ static void _find_init()
 {
 	is_deep = false;
 	is_strict = false;
-	PassDocUtil::GetPresentWorkingDirectory(root_path);
+	PashDocUtil::GetPresentWorkingDirectory(root_path);
 	pattern = "";
 }
 
@@ -140,10 +140,10 @@ static int _find_parse_args(int argc, char* argv[])
 
 static void _search_item(XMLElementPtr root, XMLElementPtrList& list)
 {
-	if (!PassDocUtil::IsItem(root))
+	if (!PashDocUtil::IsItem(root))
 		return;
 
-	if (std::regex_match(PassDocUtil::GetNodeName(root), regex_pattern))
+	if (std::regex_match(PashDocUtil::GetNodeName(root), regex_pattern))
 	{
 		list.push_back(root);
 		return;
@@ -155,12 +155,12 @@ static void _search_item(XMLElementPtr root, XMLElementPtrList& list)
 	XMLElementPtr it = root->FirstChildElement();
 	while (it)
 	{
-		if (std::regex_match(PassDocUtil::GetNodeAttr(it, "key"), regex_pattern))
+		if (std::regex_match(PashDocUtil::GetNodeAttr(it, "key"), regex_pattern))
 		{
 			list.push_back(root);
 			return;
 		}
-		else if (std::regex_match(PassDocUtil::GetNodeAttr(it, "value"), regex_pattern))
+		else if (std::regex_match(PashDocUtil::GetNodeAttr(it, "value"), regex_pattern))
 		{
 			list.push_back(root);
 			return;
@@ -174,9 +174,9 @@ static void _search(XMLElementPtr root, XMLElementPtrList& list)
 	XMLElementPtr it = root->FirstChildElement();
 	while (it)
 	{
-		if (PassDocUtil::IsGroup(it))
+		if (PashDocUtil::IsGroup(it))
 		{
-			if (std::regex_match(PassDocUtil::GetNodeName(it), regex_pattern))
+			if (std::regex_match(PashDocUtil::GetNodeName(it), regex_pattern))
 				list.push_back(it);
 			_search(it, list);
 		}
@@ -189,8 +189,8 @@ static void _search(XMLElementPtr root, XMLElementPtrList& list)
 
 static void _find(XMLElementPtrList& list)
 {
-	XMLElementPtr node = PassDocUtil::GetNodeByPath(root_path);
-	if (!node || !PassDocUtil::IsGroup(node))
+	XMLElementPtr node = PashDocUtil::GetNodeByPath(root_path);
+	if (!node || !PashDocUtil::IsGroup(node))
 	{
 		EXEC_PRINT_ERR("Invalid root path!\n");
 		return;

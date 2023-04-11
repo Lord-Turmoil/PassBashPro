@@ -52,7 +52,7 @@ int exec_rm(int argc, char* argv[])
 			continue;
 		path = argv[i];
 
-		XMLElementPtr node = PassDocUtil::GetNodeByPath(path);
+		XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
 		if (!node)
 		{
 			EXEC_PRINT_ERR("%s doesn't exists.\n", node->Name());
@@ -62,15 +62,15 @@ int exec_rm(int argc, char* argv[])
 		else if (node == g_doc.GetCurrent())
 			return _remove_current();
 
-		if (!PassDocUtil::IsParent(g_doc.GetCurrent(), node))
+		if (!PashDocUtil::IsParent(g_doc.GetCurrent(), node))
 		{
 			EXEC_PRINT_ERR("Do not attempt to remove parent group!\n");
 			continue;
 		}
 
-		PassDocUtil::GetNodeDirectory(node, path);
+		PashDocUtil::GetNodeDirectory(node, path);
 
-		if (!recursive && PassDocUtil::IsGroup(node) && !node->NoChildren())
+		if (!recursive && PashDocUtil::IsGroup(node) && !node->NoChildren())
 		{
 			EXEC_PRINT_ERR("Group %s is not empty! ", path.c_str());
 			EXEC_PRINT_MSG("Use -r to delete it recursively.\n");
@@ -82,7 +82,7 @@ int exec_rm(int argc, char* argv[])
 		prompt += "\"? (Y/N) $ ";
 		if (_remove_confirm(prompt.c_str()))
 		{
-			if (PassDocUtil::IsGroup(node))
+			if (PashDocUtil::IsGroup(node))
 			{
 				EXEC_PRINT_MSG("Group \"%s\" and its contents deleted permanently!\n",
 							   path.c_str());
@@ -92,7 +92,7 @@ int exec_rm(int argc, char* argv[])
 				EXEC_PRINT_MSG("Password item \"%s\" deleted permanently!\n",
 							   path.c_str());
 			}
-			PassDocUtil::DeleteNode(node);
+			PashDocUtil::DeleteNode(node);
 		}
 		else
 			EXEC_PRINT_MSG("Nothing changed.\n");
@@ -169,8 +169,8 @@ static int _remove_root()
 	if (_remove_confirm("You're sure to delete ALL passwords? (Y/N) $ "))
 	{
 		g_doc.SetCurrent(g_doc.GetRoot());
-		PassDocUtil::GetPresentWorkingDirectory(g_pwd);
-		PassDocUtil::DeleteChildren(g_doc.GetRoot());
+		PashDocUtil::GetPresentWorkingDirectory(g_pwd);
+		PashDocUtil::DeleteChildren(g_doc.GetRoot());
 		EXEC_PRINT_MSG("All passwords cleared!\n");
 	}
 	else
@@ -186,10 +186,10 @@ static int _remove_current()
 	if (_remove_confirm("You're sure to delete current group? (Y/N) $ "))
 	{
 		XMLElementPtr current = g_doc.GetCurrent();
-		XMLElementPtr parent = PassDocUtil::GetParentNode(current);
+		XMLElementPtr parent = PashDocUtil::GetParentNode(current);
 		g_doc.SetCurrent(parent);
-		PassDocUtil::GetPresentWorkingDirectory(g_pwd);
-		PassDocUtil::DeleteNode(current);
+		PashDocUtil::GetPresentWorkingDirectory(g_pwd);
+		PashDocUtil::DeleteNode(current);
 		EXEC_PRINT_MSG("Current group removed!\n");
 	}
 	else

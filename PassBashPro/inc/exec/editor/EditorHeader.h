@@ -34,7 +34,7 @@
 #include "../../exec/ExecHost.h"
 
 #include "../../core/Global.h"
-#include "../../core/PassDoc.h"
+#include "../../core/PashDoc.h"
 
 #include "../../utility/Argument.h"
 #include "../../utility/ExecUtil.h"

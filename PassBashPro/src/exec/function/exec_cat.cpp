@@ -38,13 +38,13 @@ int exec_cat(int argc, char* argv[])
 		return 1;
 	}
 
-	XMLElementPtr node = PassDocUtil::GetNodeByPath(path);
+	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
 	if (!node)
 	{
 		EXEC_PRINT_ERR("Password item doesn't exist!\n");
 		return 2;
 	}
-	if (!PassDocUtil::IsItem(node))
+	if (!PashDocUtil::IsItem(node))
 	{
 		EXEC_PRINT_ERR("You can only cat a password item!\n");
 		_cat_usage();

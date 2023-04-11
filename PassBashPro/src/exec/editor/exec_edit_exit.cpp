@@ -20,7 +20,7 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#include "../../../inc/exec/function/FuncHeader.h"
+#include "../../../inc/exec/editor/EditorHeader.h"
 
 int exec_edit_exit(int argc, char* argv[])
 {

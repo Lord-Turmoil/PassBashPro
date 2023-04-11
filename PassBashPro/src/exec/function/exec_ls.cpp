@@ -29,7 +29,7 @@ static int _ls_parse_arg(int argc, char* argv[], std::string& path);
 int exec_ls(int argc, char* argv[])
 {
 	std::string path;
-	PassDocUtil::GetPresentWorkingDirectory(path);
+	PashDocUtil::GetPresentWorkingDirectory(path);
 
 	if (_ls_parse_arg(argc, argv, path) != 0)
 	{
@@ -37,13 +37,13 @@ int exec_ls(int argc, char* argv[])
 		return 1;
 	}
 
-	XMLElementPtr node = PassDocUtil::GetNodeByPath(path);
+	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
 	if (!node)
 	{
 		EXEC_PRINT_ERR("Group doesn't exist!\n");
 		return 2;
 	}
-	else if (!PassDocUtil::IsGroup(node))
+	else if (!PashDocUtil::IsGroup(node))
 	{
 		EXEC_PRINT_ERR("You can only list a group.\n");
 		_ls_usage();
@@ -51,7 +51,7 @@ int exec_ls(int argc, char* argv[])
 	}
 
 	XMLElementPtrList list;
-	PassDocUtil::GetChildren(node, list);
+	PashDocUtil::GetChildren(node, list);
 	if (list.empty())
 		EXEC_PRINT_MSG("Nothing...\n");
 	else
@@ -60,15 +60,15 @@ int exec_ls(int argc, char* argv[])
 		EXEC_PRINT_MSG("Total %d groups and items:\n", size);
 		for (auto it : list)
 		{
-			if (PassDocUtil::IsGroup(it))
+			if (PashDocUtil::IsGroup(it))
 			{
 				cnsl::InsertText(GROUP_COLOR, "\t%s/\n",
-								 PassDocUtil::GetNodeAttr(it, "name"));
+								 PashDocUtil::GetNodeAttr(it, "name"));
 			}
 			else
 			{
 				cnsl::InsertText(ITEM_COLOR, "\t%s\n",
-								 PassDocUtil::GetNodeAttr(it, "name"));
+								 PashDocUtil::GetNodeAttr(it, "name"));
 			}
 		}
 	}

@@ -22,38 +22,38 @@
 
 #include "../../inc/utility/PashDocUtil.h"
 #include "../../inc/core/Global.h"
-#include "../../inc/core/PassDoc.h"
+#include "../../inc/core/PashDoc.h"
 
 #include <algorithm>
 #include <stack>
 
 
-bool PassDocUtil::IsGroup(XMLElementPtr node)
+bool PashDocUtil::IsGroup(XMLElementPtr node)
 {
 	return _STR_SAME(node->Name(), GROUP_TAG);
 }
 
-bool PassDocUtil::IsItem(XMLElementPtr node)
+bool PashDocUtil::IsItem(XMLElementPtr node)
 {
 	return _STR_SAME(node->Name(), ITEM_TAG);
 }
 
-const char* PassDocUtil::GetNodeAttr(XMLElementPtr node, const char* attr)
+const char* PashDocUtil::GetNodeAttr(XMLElementPtr node, const char* attr)
 {
 	return node->Attribute(attr);
 }
 
-const char* PassDocUtil::GetNodeName(XMLElementPtr node)
+const char* PashDocUtil::GetNodeName(XMLElementPtr node)
 {
 	return GetNodeAttr(node, "name");
 }
 
-XMLElementPtr PassDocUtil::GetParentNode(XMLElementPtr node)
+XMLElementPtr PashDocUtil::GetParentNode(XMLElementPtr node)
 {
 	return node->Parent()->ToElement();
 }
 
-bool PassDocUtil::IsLegalNodeName(const std::string& name)
+bool PashDocUtil::IsLegalNodeName(const std::string& name)
 {
 	return (
 		(name.find('/') == std::string::npos) &&
@@ -61,23 +61,23 @@ bool PassDocUtil::IsLegalNodeName(const std::string& name)
 }
 
 
-XMLElementPtr PassDocUtil::CreateNode(const char* tag)
+XMLElementPtr PashDocUtil::CreateNode(const char* tag)
 {
 	return g_doc.NewElement(tag);
 }
 
-void PassDocUtil::DeleteNode(XMLElementPtr node)
+void PashDocUtil::DeleteNode(XMLElementPtr node)
 {
 	g_doc.DeleteElement(node);
 }
 
-XMLElementPtr PassDocUtil::AddChildNode(XMLElementPtr node, XMLElementPtr child)
+XMLElementPtr PashDocUtil::AddChildNode(XMLElementPtr node, XMLElementPtr child)
 {
 	node->InsertEndChild(child);
 	return child;
 }
 
-const char* PassDocUtil::GetNodeDirectory(XMLElementPtr node, std::string& path)
+const char* PashDocUtil::GetNodeDirectory(XMLElementPtr node, std::string& path)
 {
 	XMLElementPtr root = g_doc.GetRoot();
 	std::stack<XMLElementPtr> chain;
@@ -102,7 +102,7 @@ const char* PassDocUtil::GetNodeDirectory(XMLElementPtr node, std::string& path)
 	return path.c_str();
 }
 
-const char* PassDocUtil::GetPresentWorkingDirectory(std::string& path)
+const char* PashDocUtil::GetPresentWorkingDirectory(std::string& path)
 {
 	return GetNodeDirectory(g_doc.GetCurrent(), path);
 }
@@ -113,7 +113,7 @@ const char* PassDocUtil::GetPresentWorkingDirectory(std::string& path)
 ** Group and Item
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-XMLElementPtr PassDocUtil::GetDirectChildNode(XMLElementPtr node, const char* name)
+XMLElementPtr PashDocUtil::GetDirectChildNode(XMLElementPtr node, const char* name)
 {
 	if (!name)
 		return nullptr;
@@ -131,7 +131,7 @@ XMLElementPtr PassDocUtil::GetDirectChildNode(XMLElementPtr node, const char* na
 	return nullptr;
 }
 
-bool PassDocUtil::GetChildren(XMLElementPtr node, XMLElementPtrList& nodes)
+bool PashDocUtil::GetChildren(XMLElementPtr node, XMLElementPtrList& nodes)
 {
 	nodes.clear();
 
@@ -150,7 +150,7 @@ bool PassDocUtil::GetChildren(XMLElementPtr node, XMLElementPtrList& nodes)
 	return true;
 }
 
-XMLElementPtr PassDocUtil::GetNodeByPath(const std::string& path)
+XMLElementPtr PashDocUtil::GetNodeByPath(const std::string& path)
 {
 	char* buffer = _strdup(path.c_str());
 	char* context = nullptr;
@@ -190,7 +190,7 @@ XMLElementPtr PassDocUtil::GetNodeByPath(const std::string& path)
 	return node;
 }
 
-XMLElementPtr PassDocUtil::GetChildNodeByPath(const std::string& path)
+XMLElementPtr PashDocUtil::GetChildNodeByPath(const std::string& path)
 {
 	XMLElementPtr current = g_doc.GetCurrent();
 	XMLElementPtr child = GetNodeByPath(path);
@@ -201,7 +201,7 @@ XMLElementPtr PassDocUtil::GetChildNodeByPath(const std::string& path)
 		return nullptr;
 }
 
-XMLElementPtr PassDocUtil::GetOrCreateChildNode(XMLElementPtr node, const char* tag, const char* name)
+XMLElementPtr PashDocUtil::GetOrCreateChildNode(XMLElementPtr node, const char* tag, const char* name)
 {
 	XMLElementPtr child = GetDirectChildNode(node, name);
 	if (child)
@@ -214,19 +214,19 @@ XMLElementPtr PassDocUtil::GetOrCreateChildNode(XMLElementPtr node, const char* 
 	return child;
 }
 
-void PassDocUtil::DeleteChildNode(XMLElementPtr node, const char* name)
+void PashDocUtil::DeleteChildNode(XMLElementPtr node, const char* name)
 {
 	XMLElementPtr child = GetDirectChildNode(node, name);
 	if (child)
 		DeleteNode(child);
 }
 
-void PassDocUtil::DeleteChildren(XMLElementPtr node)
+void PashDocUtil::DeleteChildren(XMLElementPtr node)
 {
 	node->DeleteChildren();
 }
 
-bool PassDocUtil::IsParent(XMLElementPtr parent, XMLElementPtr child)
+bool PashDocUtil::IsParent(XMLElementPtr parent, XMLElementPtr child)
 {
 	XMLElementPtr root = g_doc.GetRoot();
 
@@ -243,7 +243,7 @@ bool PassDocUtil::IsParent(XMLElementPtr parent, XMLElementPtr child)
 	return false;
 }
 
-void PassDocUtil::GetBaseName(const std::string& path, std::string& name)
+void PashDocUtil::GetBaseName(const std::string& path, std::string& name)
 {
 	size_t pos = path.find_last_of('/');
 
@@ -267,7 +267,7 @@ void PassDocUtil::GetBaseName(const std::string& path, std::string& name)
 	}
 }
 
-void PassDocUtil::GetParentPath(const std::string& path, std::string& name)
+void PashDocUtil::GetParentPath(const std::string& path, std::string& name)
 {
 	std::string temp = path;
 	while (!temp.empty() && temp.back() == '/')
@@ -285,7 +285,7 @@ void PassDocUtil::GetParentPath(const std::string& path, std::string& name)
 ** Group
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-XMLElementPtr PassDocUtil::CreateGroupNodeByPath(const std::string& path)
+XMLElementPtr PashDocUtil::CreateGroupNodeByPath(const std::string& path)
 {
 	char* buffer = _strdup(path.c_str());
 	char* context = nullptr;
@@ -320,7 +320,7 @@ XMLElementPtr PassDocUtil::CreateGroupNodeByPath(const std::string& path)
 	return node;
 }
 
-bool PassDocUtil::GetGroupChildren(XMLElementPtr node, XMLElementPtrList& nodes)
+bool PashDocUtil::GetGroupChildren(XMLElementPtr node, XMLElementPtrList& nodes)
 {
 	nodes.clear();
 
@@ -343,7 +343,7 @@ bool PassDocUtil::GetGroupChildren(XMLElementPtr node, XMLElementPtrList& nodes)
 ** Item
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-XMLElementPtr PassDocUtil::CreateItemNodeByPath(const std::string& path)
+XMLElementPtr PashDocUtil::CreateItemNodeByPath(const std::string& path)
 {
 	std::string name;
 
@@ -397,7 +397,7 @@ XMLElementPtr PassDocUtil::CreateItemNodeByPath(const std::string& path)
 ** Entry
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-bool PassDocUtil::GetEntry(XMLElementPtr node, const char* key, Entry* entry)
+bool PashDocUtil::GetEntry(XMLElementPtr node, const char* key, Entry* entry)
 {
 	if (!IsItem(node))
 		return false;
@@ -424,7 +424,7 @@ bool PassDocUtil::GetEntry(XMLElementPtr node, const char* key, Entry* entry)
 	return false;
 }
 
-bool PassDocUtil::GetEntries(XMLElementPtr node, EntryList& entries)
+bool PashDocUtil::GetEntries(XMLElementPtr node, EntryList& entries)
 {
 	if (!IsItem(node))
 		return false;
@@ -450,7 +450,7 @@ bool PassDocUtil::GetEntries(XMLElementPtr node, EntryList& entries)
 	return true;
 }
 
-XMLElementPtr PassDocUtil::GetEntryNode(XMLElementPtr node, const char* key)
+XMLElementPtr PashDocUtil::GetEntryNode(XMLElementPtr node, const char* key)
 {
 	if (!IsItem(node))
 		return nullptr;
@@ -466,7 +466,7 @@ XMLElementPtr PassDocUtil::GetEntryNode(XMLElementPtr node, const char* key)
 	return p;
 }
 
-XMLElementPtr PassDocUtil::GetEntryNode(XMLElementPtr node, int id)
+XMLElementPtr PashDocUtil::GetEntryNode(XMLElementPtr node, int id)
 {
 	if (!IsItem(node))
 		return nullptr;
@@ -481,7 +481,7 @@ XMLElementPtr PassDocUtil::GetEntryNode(XMLElementPtr node, int id)
 		return nullptr;
 }
 
-XMLElementPtr PassDocUtil::GetOrCreateEntryNode(XMLElementPtr node, const char* key)
+XMLElementPtr PashDocUtil::GetOrCreateEntryNode(XMLElementPtr node, const char* key)
 {
 	if (!IsItem(node))
 		return nullptr;
@@ -498,7 +498,7 @@ XMLElementPtr PassDocUtil::GetOrCreateEntryNode(XMLElementPtr node, const char* 
 }
 
 // If exists, it will override current one.
-bool PassDocUtil::SetEntry(XMLElementPtr node, const Entry& entry)
+bool PashDocUtil::SetEntry(XMLElementPtr node, const Entry& entry)
 {
 	XMLElementPtr child = GetOrCreateEntryNode(node, entry.key);
 	if (!child)

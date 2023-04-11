@@ -3,7 +3,7 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : PassDocUtil.h                             *
+ *                      File Name : PashDocUtil.h                             *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
@@ -67,7 +67,7 @@ typedef std::vector<Entry> EntryList;
 /********************************************************************
 ** Utility functions for PashDoc.
 */
-class PassDocUtil
+class PashDocUtil
 {
 public:
 	static bool IsGroup(XMLElementPtr node);
@@ -131,7 +131,7 @@ public:
 
 
 private:
-	PassDocUtil() {}
+	PashDocUtil() {}
 };
 
 
@@ -140,16 +140,16 @@ struct XMLElementPtrCompare
 	// Must be group or item! Both have name.
 	bool operator()(const XMLElementPtr& lhs, const XMLElementPtr& rhs)
 	{
-		const char* lhsName = PassDocUtil::GetNodeName(lhs);
-		const char* rhsName = PassDocUtil::GetNodeName(rhs);
+		const char* lhsName = PashDocUtil::GetNodeName(lhs);
+		const char* rhsName = PashDocUtil::GetNodeName(rhs);
 		
 		PASH_ASSERT(lhsName && rhsName);
 
 		if (!(lhsName && rhsName))
 			return false;
 
-		bool lhsGroup = PassDocUtil::IsGroup(lhs);
-		bool rhsGroup = PassDocUtil::IsGroup(rhs);
+		bool lhsGroup = PashDocUtil::IsGroup(lhs);
+		bool rhsGroup = PashDocUtil::IsGroup(rhs);
 
 		// same type
 		if ((lhsGroup && rhsGroup) || (!lhsGroup && !rhsGroup))

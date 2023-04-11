@@ -42,8 +42,8 @@ extern Env g_user;
 
 
 // PassDoc
-struct PassDoc;
-extern PassDoc g_doc;
+struct PashDoc;
+extern PashDoc g_doc;
 
 
 // Default data content.

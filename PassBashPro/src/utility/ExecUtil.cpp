@@ -172,7 +172,7 @@ int _ParseArgs(int argc, char* argv[], std::string& _1, std::string& _2)
 int _ShowItem(XMLElementPtr node, const char* key, WORD color)
 {
 	EntryList list;
-	if (!PassDocUtil::GetEntries(node, list))
+	if (!PashDocUtil::GetEntries(node, list))
 	{
 		EXEC_PRINT_ERR("I... I can't see it!\n");	// :P
 		return 1;

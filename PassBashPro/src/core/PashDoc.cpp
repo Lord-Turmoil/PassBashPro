@@ -3,7 +3,7 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : PassDoc.cpp                               *
+ *                      File Name : PashDoc.cpp                               *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
@@ -20,7 +20,7 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#include "../../inc/core/PassDoc.h"
+#include "../../inc/core/PashDoc.h"
 #include "../../inc/core/Global.h"
 #include "../../inc/core/Env.h"
 #include "../../inc/common/Logger.h"
@@ -31,11 +31,11 @@
 #include <stack>
 
 
-PassDoc::PassDoc() : m_root(nullptr), m_current(nullptr), m_modified(false) {}
+PashDoc::PashDoc() : m_root(nullptr), m_current(nullptr), m_modified(false) {}
 
-PassDoc::~PassDoc() {}
+PashDoc::~PashDoc() {}
 
-bool PassDoc::Load(Env& env)
+bool PashDoc::Load(Env& env)
 {
 	if (IsLoaded())
 		UnLoad();
@@ -82,13 +82,13 @@ bool PassDoc::Load(Env& env)
 	return true;
 }
 
-void PassDoc::UnLoad()
+void PashDoc::UnLoad()
 {
 	m_file.UnLoad();
 }
 
 
-bool PassDoc::Save(Env& env)
+bool PashDoc::Save(Env& env)
 {
 	if (!IsLoaded())
 	{
@@ -118,7 +118,7 @@ bool PassDoc::Save(Env& env)
 	return true;
 }
 
-bool PassDoc::DebugLoad()
+bool PashDoc::DebugLoad()
 {
 #ifdef PASH_CHEAT
 	if (!m_file.Load("debug.xml"))
@@ -139,7 +139,7 @@ bool PassDoc::DebugLoad()
 #endif
 }
 
-bool PassDoc::DebugSave()
+bool PashDoc::DebugSave()
 {
 #ifdef PASH_CHEAT
 	m_file.Save("debug.xml");
@@ -150,17 +150,17 @@ bool PassDoc::DebugSave()
 #endif
 }
 
-bool PassDoc::IsLoaded() const
+bool PashDoc::IsLoaded() const
 {
 	return m_file.IsLoaded();
 }
 
-XMLElementPtr PassDoc::SetCurrent(XMLElementPtr current)
+XMLElementPtr PashDoc::SetCurrent(XMLElementPtr current)
 {
 	if (!current)
 		return m_current;
 
-	if (!PassDocUtil::IsGroup(current))
+	if (!PashDocUtil::IsGroup(current))
 		return nullptr;
 
 	XMLElementPtr ret = m_current;
@@ -169,7 +169,7 @@ XMLElementPtr PassDoc::SetCurrent(XMLElementPtr current)
 	return ret;
 }
 
-XMLElementPtr PassDoc::NewElement(const char* name)
+XMLElementPtr PashDoc::NewElement(const char* name)
 {
 	if (!IsLoaded())
 		return nullptr;
@@ -177,17 +177,17 @@ XMLElementPtr PassDoc::NewElement(const char* name)
 	return m_file.Doc().NewElement(name);
 }
 
-void PassDoc::DeleteElement(XMLElementPtr node)
+void PashDoc::DeleteElement(XMLElementPtr node)
 {
 	m_file.Doc().DeleteNode(node);
 }
 
-void PassDoc::Mark()
+void PashDoc::Mark()
 {
 	m_modified = true;
 }
 
-bool PassDoc::_GenerateData(Env& env)
+bool PashDoc::_GenerateData(Env& env)
 {
 	FILE* output;
 	const char* dataPath = env.dataPath.c_str();
