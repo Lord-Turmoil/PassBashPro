@@ -20,7 +20,7 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#include "../../../inc/exec/ExecHeader.h"
+#include "../../../inc/exec/function/FuncHeader.h"
 
 static int _rename_usage();
 static int _rename_parse_args(int argc, char* argv[], std::string& src, std::string& dest);

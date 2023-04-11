@@ -20,7 +20,7 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#include "../../../inc/exec/ExecHeader.h"
+#include "../../../inc/exec/function/FuncHeader.h"
 
 int exec_pwd(int argc, char* argv[])
 {

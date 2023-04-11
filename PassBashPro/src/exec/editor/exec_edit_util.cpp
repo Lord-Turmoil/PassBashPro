@@ -1,55 +1,41 @@
 /******************************************************************************
  ***                        T O N Y ' S  S T U D I O                        ***
  ******************************************************************************
- *                   Project Name : PassBashPro                               *
+ *                   Project Name : PassPashPro                               *
  *                                                                            *
- *                      File Name : exec_help.cpp                             *
+ *                      File Name : exec_edit_util.cpp                        *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 11, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   None                                                                     *
+ *   Common utility functions for Editor.                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#include "../../../inc/exec/function/FuncHeader.h"
+#include "../../../inc/exec/ExecHeader.h"
 
-static int _help_usage();
-static int _help_parse_args(int argc, char* argv[], std::string& target);
-static int _help_all();
-static int _help(const std::string& target);
 
-int help(int argc, char* argv[])
+void exec_edit_header(bool showPrompt = false)
 {
-	std::string target;
-	if (_help_parse_args(argc, argv, target) != 0)
-	{
-		// Prevent potential recursive call.
-		if (argc > 0 && argv[0][0] != '_')
-			_help_usage();
-	}
+	static char buffer[128];
 
-	if (target == "")
-		return _help_all();
-	else
-		return _help(target);
+	sprintf(buffer, "Pash Editor %s", PASH_EDITOR_VERSION);
+	cnsl::InsertHeaderLine(buffer, '-');
+
+	if (showPrompt)
+		cnsl::InsertText(MESSAGE_COLOR, "Use \"help\" for more information.\n");
 }
 
-static int _help_usage()
+void exec_edit_footer()
 {
-	// Use '_help' to differentiate internal and external call.
-	return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "_help", "help", nullptr);
-}
-
-static int _help_parse_args(int argc, char* argv[], std::string& target)
-{
-	return _ParseArgs(argc, argv, target);
+	cnsl::InsertNewLine();
+	cnsl::InsertHeaderLine("Pash Editor End", '-');
 }

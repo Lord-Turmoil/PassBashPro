@@ -3,7 +3,7 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : EditorFunctions.h                         *
+ *                      File Name : ExecHeader.h                              *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
@@ -13,42 +13,34 @@
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   For password editor functions.                                           *
+ *   For some common header files of executable source files.                 *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#ifndef _EDITOR_FUNCTIONS_H_
-#define _EDITOR_FUNCTIONS_H_
+#pragma once
 
-// static void _edit_usage()
-// static int _edit_parse_args(int argc, char* argv[], std::string& path)
-// static void _edit_parse_cmd(char* cmd, char*& type, char*& arg);
-// static void _edit_print_prompt();
+#ifndef _EXEC_HEADER_H_
+#define _EXEC_HEADER_H_
 
-int exec_edit_edit(int argc, char* argv[]);
-int exec_edit_help(int argc, char* argv[]);
-int exec_edit_clear(int argc, char* argv[]);
-int exec_edit_see(int argc, char* argv[]);
-int exec_edit_set(int argc, char* argv[]);
-int exec_edit_setk(int argc, char* argv[]);
-int exec_edit_setv(int argc, char* argv[]);
-int exec_edit_setw(int argc, char* argv[]);
-int exec_edit_unset(int argc, char* argv[]);
-int exec_edit_unknown(int argc, char* argv[]);
-int exec_edit_exit(int argc, char* argv[]);
+#include "../../common/Error.h"
+#include "../../common/Colors.h"
+#include "../../common/Constants.h"
+#include "../../common/Logger.h"
+#include "../../common/Macros.h"
 
-// static int _set_key(const char* idStr, const char* newKey);
-// static int _set_value(const char* idStr, const char* value);
-// static int _set_weight(const char* idStr, const char* weightStr);
-// static int _set_entry(const char* key, const char* value, const char* weightStr);
-// static int _edit_parse_params(char* arg, int argc, const char* params[]);
-// static void _set_usage();
-// static void _setk_usage();
-// static void _setv_usage();
-// static void _setw_usage();
-// static void _unset_usage();
+#include "../../exec/function/Function.h"
+#include "../../exec/ExecHost.h"
+
+#include "../../core/Global.h"
+#include "../../core/PassDoc.h"
+
+#include "../../utility/Argument.h"
+#include "../../utility/ExecUtil.h"
+#include "../../utility/PashDocUtil.h"
+
+#include <cnsl.h>
 
 #endif
