@@ -33,12 +33,13 @@ cnsl::InputHistory _edit_history;
 
 int exec_edit_host(int argc, char* argv[])
 {
-	exec_edit_header(true);
+	_edit_print_header(true);
 
 	// clear previous history
 	_edit_history.Clear();
 
 	// main loop
+	ExecHost* host = ExecHost::GetInstance();
 	char buffer[PASH_BUFFER_SIZE + 4];
 	int ret;
 	PashDocUtil::GetNodeDirectory(_edit_item, _edit_item_path);
@@ -52,25 +53,24 @@ int exec_edit_host(int argc, char* argv[])
 		cnsl::InsertNewLine();
 		if (ret > 0)
 		{
-			char* cmd = _edit_strip_white_space(buffer);
+			char* cmd = strstrip(buffer);
 			char* type;
 			char* arg;
-			_edit_parse_cmd(cmd, type, arg);
+			_edit_parse_cmd(cmd, &type, &arg);
 
-			int ret = g_editorFactory.execl(type, type, arg, nullptr);
+			int ret = host->execl(EXEC_EDITOR, type, type, arg, nullptr);
 			if (ret == -1)
-				g_hiddenFactory.execl("_edit_unknown", "_edit_unknown", type, nullptr);
-			else if (ret == 66)
+				host->execl(EXEC_HIDDEN, "edit_unk", "edit_unk", type, nullptr);
+			else if (ret == TERMINATION)
 				break;
 			else if (ret != 0)
 				LOG_ERROR("Editor \"%s\" -- Error Code: %d", type, ret);
 		}
+
 		_edit_print_prompt();
 	}
 
-	//end
-	cnsl::InsertNewLine();
-	cnsl::InsertHeaderLine("Edit End", '-');
+	_edit_print_footer();
 
 	return 0;
 }

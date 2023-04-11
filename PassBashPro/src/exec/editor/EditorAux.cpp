@@ -22,7 +22,7 @@
 
 #include "../../../inc/exec/editor/EditorHeader.h"
 
-void exec_edit_header(bool showPrompt = false)
+void _edit_print_header(bool showPrompt = false)
 {
 	static char buffer[128];
 
@@ -33,7 +33,7 @@ void exec_edit_header(bool showPrompt = false)
 		cnsl::InsertText(MESSAGE_COLOR, "Use \"help\" for more information.\n");
 }
 
-void exec_edit_footer()
+void _edit_print_footer()
 {
 	cnsl::InsertNewLine();
 	cnsl::InsertHeaderLine("Pash Editor End", '-');

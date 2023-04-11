@@ -21,3 +21,11 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/editor/EditorHeader.h"
+
+int exec_edit_unknown(int argc, char* argv[])
+{
+	cnsl::InsertText(ERROR_COLOR, "\"%s\" is not an edit command.\n", argv[1]);
+	cnsl::InsertText(MESSAGE_COLOR, "Use \"help\" for more information.\n");
+
+	return 0;
+}

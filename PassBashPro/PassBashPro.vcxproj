@@ -178,7 +178,7 @@
     <ClCompile Include="src\exec\editor\exec_edit_setw.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_unknown.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_unset.cpp" />
-    <ClCompile Include="src\exec\editor\exec_edit_util.cpp" />
+    <ClCompile Include="src\exec\editor\EditorAux.cpp" />
     <ClCompile Include="src\utility\ExecUtil.cpp" />
     <ClCompile Include="src\core\PashDoc.cpp" />
     <ClCompile Include="src\exec\ExecHost.cpp" />

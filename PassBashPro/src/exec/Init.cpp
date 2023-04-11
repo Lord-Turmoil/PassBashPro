@@ -24,9 +24,9 @@
 #include "../../inc/exec/ExecHost.h"
 #include "../../inc/exec/Exec.h"
 
-#include "../../inc/exec/Functions.h"
-#include "../../inc/exec/EditorFunctions.h"
-#include "../../inc/exec/Service.h"
+#include "../../inc/exec/function/Function.h"
+#include "../../inc/exec/editor/Editor.h"
+#include "../../inc/exec/service/Service.h"
 
 #include "../../inc/common/Macros.h"
 
@@ -90,8 +90,7 @@ static void _InitEditor()
 	HOOK(factory, "clear", exec_edit_clear);
 	HOOK(factory, "cls",   exec_edit_clear);
 	HOOK(factory, "c",     exec_edit_clear);
-	HOOK(factory, "help",  exec_edit_help);
-	HOOK(factory, "h",     exec_edit_help);
+	HOOK(factory, "help",  exec_help);HOOK(factory, "h",     exec_help);
 	HOOK(factory, "see",   exec_edit_see);
 	HOOK(factory, "s",     exec_edit_see);
 	HOOK(factory, "set",   exec_edit_set);

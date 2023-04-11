@@ -59,4 +59,9 @@ extern std::vector<std::string> g_var;
 extern const char PASH_HOST_VERSION[];
 extern const char PASH_EDITOR_VERSION[];
 
+
+// Working mode.
+extern int g_mode;
+
+
 #endif

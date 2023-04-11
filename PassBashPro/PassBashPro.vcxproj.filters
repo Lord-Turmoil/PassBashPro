@@ -206,7 +206,7 @@
     <ClCompile Include="src\exec\editor\exec_edit_unset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\exec\editor\exec_edit_util.cpp">
+    <ClCompile Include="src\exec\editor\EditorAux.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\exec\editor\exec_edit_host.cpp">

@@ -37,7 +37,7 @@
 int exec_edit_host(int argc, char* argv[]);
 
 int exec_edit_edit(int argc, char* argv[]);
-int exec_edit_help(int argc, char* argv[]);
+// int exec_edit_help(int argc, char* argv[]);
 int exec_edit_clear(int argc, char* argv[]);
 int exec_edit_see(int argc, char* argv[]);
 int exec_edit_set(int argc, char* argv[]);

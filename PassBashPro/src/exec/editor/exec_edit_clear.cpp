@@ -25,7 +25,7 @@
 int exec_edit_clear(int argc, char* argv[])
 {
 	cnsl::Clear();
-	exec_edit_header();
+	_edit_print_header();
 
 	return 0;
 }

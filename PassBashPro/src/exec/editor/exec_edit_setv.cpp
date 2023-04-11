@@ -21,3 +21,25 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/editor/EditorHeader.h"
+
+static void _setv_usage();
+
+int exec_edit_setv(int argc, char* argv[])
+{
+	const char* params[2] = { nullptr, nullptr };
+	int ret = _edit_parse_params(argv[1], 2, params);
+
+	if (ret != 2)
+	{
+		_setv_usage();
+		return 1;
+	}
+
+	return _set_value(params[0], params[1]);
+}
+
+static void _setv_usage()
+{
+	ExecHost::GetInstance()
+		->execl(EXEC_EDITOR, "help", "help", "setv", nullptr);
+}
