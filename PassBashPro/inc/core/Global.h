@@ -28,6 +28,8 @@
 #include <string>
 #include <vector>
 
+#include "Env.h"
+
 
 // Internal default password.
 extern const char g_defaultPassword[];
@@ -38,11 +40,7 @@ extern std::string g_pwd;
 
 
 // Current user info.
-struct Env;
-extern Env* g_env;
-
-struct Profile;
-extern std::vector<Profile> g_profile;
+extern EnvPtr g_env;
 
 extern bool g_isOnline;
 

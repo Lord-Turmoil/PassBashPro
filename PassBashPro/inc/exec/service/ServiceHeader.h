@@ -26,6 +26,8 @@
 #define _SERVICE_HEADER_H_
 
 #include "../ExecHeader.h"
+#include "../../utility/FileUtil.h"
+
 #include "Service.h"
 
 #endif

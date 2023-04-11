@@ -29,7 +29,7 @@
 #include "PashDoc.h"
 
 #include <string>
-
+#include <memory>
 
 /********************************************************************
 ** All info needed for a user.
@@ -50,5 +50,7 @@ struct Env
 
 	bool online;
 };
+
+typedef std::unique_ptr<Env> EnvPtr;
 
 #endif

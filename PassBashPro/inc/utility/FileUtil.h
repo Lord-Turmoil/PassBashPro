@@ -25,6 +25,10 @@
 #ifndef _FILE_UTIL_H_
 #define _FILE_UTIL_H_
 
+#include <vector>
+#include <string>
+
+
 /********************************************************************
 ** A collection of file operations.
 ** Since CreateFile and CreateDirectory are... occupied by Windows
@@ -41,7 +45,33 @@ public:
 	static bool NewDirectory(const char* path, bool hidden = false);
 	static bool NewDirectory(const char* path, const char* dirname, bool hidden = false);
 
+	static bool GetFiles(const char* path,
+						 std::vector<std::string>* files,
+						 std::vector<std::string>* names);
+	static bool GetDirectories(const char* path,
+							   std::vector<std::string>* dirs,
+							   std::vector<std::string>* names);
+	static bool GetContent(const char* path,
+						   std::vector<std::string>* paths,
+						   std::vector<std::string>* names);
+
 private:
+	enum FileType : unsigned int
+	{
+		_FILE = 1,
+		_DIR  = 2,
+		_ALL  = _FILE | _DIR
+	};
+
+	static bool _GetContent(const char* path,
+							std::vector<std::string>* paths,
+							std::vector<std::string>* names,
+							FileType type);
+	static void _GetContentAux(const char* path,
+							   std::vector<std::string>* paths,
+							   std::vector<std::string>* names,
+							   FileType type);
+
 	FileUtil() {}
 };
 

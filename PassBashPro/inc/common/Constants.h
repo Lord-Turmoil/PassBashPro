@@ -35,6 +35,8 @@ const int PASSWORD_BUFFER_SIZE = 32;
 const int PASSWORD_MIN_LENGTH = 6;
 const int PASSWORD_MAX_LENGTH = 16;
 
+const int USERNAME_BUFFER_SIZE = 32;
+
 const int EXEC_ARG_SIZE = 32;
 
 
@@ -63,6 +65,7 @@ const char HELP_ROOT_DIR[]   = R"(manual\)";
 
 const char* HELP_DIR[] = { R"(idle\)", R"(pash\)", R"(edit\)" };
 
+const char CACHE_FILE[]   = "cache";
 const char CONFIG_FILE[]  = "config";
 const char DATA_FILE[]    = "data";
 const char PROFILE_FILE[] = ".profile";

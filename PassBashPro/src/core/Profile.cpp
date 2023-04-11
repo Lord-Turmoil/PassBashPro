@@ -3,45 +3,69 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Service.h                                 *
+ *                      File Name : Profile.cpp                               *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 11, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   For service executables.                                                 *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#pragma once
-
-#ifndef _SERVICE_H_
-#define _SERVICE_H_
-
-// start up
-int srv_start(int argc, char* argv[]);
-
-// create a new local profile
-int srv_profile(int argc, char* argv[]);
-
-// login
-int srv_login(int argc, char* argv[]);
-
-// logout
-int srv_logout(int argc, char* argv[]);
-
-// change master password
-int srv_remaster(int argc, char* argv[]);
-
-// receive and dispatch command
-int srv_host(int argc, char* argv[]);
+#include "../../inc/core/Profile.h"
 
 
-#endif
+bool ProfilePool::Add(const Profile& profile)
+{
+	for (auto& it : m_profiles)
+	{
+		if (it.username == profile.username)
+			return false;
+	}
+	m_profiles.emplace_back(profile);
+
+	return true;
+}
+
+bool ProfilePool::Remove(const std::string& username)
+{
+	for (auto it = m_profiles.begin(); it != m_profiles.end(); it++)
+	{
+		if (it->username == username)
+		{
+			m_profiles.erase(it);
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void ProfilePool::Clear()
+{
+	m_profiles.clear();
+}
+
+bool ProfilePool::IsEmpty()
+{
+	return m_profiles.empty();
+}
+
+Profile* ProfilePool::Get(const std::string& username)
+{
+	for (auto it = m_profiles.begin(); it != m_profiles.end(); it++)
+	{
+		if (it->username == username)
+			return &(*it);
+	}
+
+	return nullptr;
+}

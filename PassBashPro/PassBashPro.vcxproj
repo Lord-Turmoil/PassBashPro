@@ -170,6 +170,7 @@
     <ClCompile Include="inc\exec\editor\EditorHeader.h" />
     <ClCompile Include="inc\exec\service\ServiceHeader.h" />
     <ClCompile Include="inc\utility\FileUtil.h" />
+    <ClCompile Include="src\core\Profile.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_clear.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_exit.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_host.cpp" />
