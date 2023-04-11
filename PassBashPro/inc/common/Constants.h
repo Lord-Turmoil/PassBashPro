@@ -50,13 +50,19 @@ const char SELF_DIR_NAME[]   = ".";
 const char ROOT_DIR_NAME[]   = "./";
 
 
+// Working mode.
+const int MODE_PASH = 0;
+const int MODE_EDIT = 1;
+
+
 // Local path.
-const char PASH_DIR[] = ".pash";
-const char HELP_DIR[] = R"(manual\)";
+const char PASH_DIR[]        = R"(.pash\)";
+const char HELP_ROOT_DIR[]   = R"(manual\)";
+const char* HELP_DIR[] = { R"(pash\)", R"(edit\)" };
 
-const char CONFIG_FILE[] = "config";
-const char DATA_FILE[]   = "data";
-
+const char CONFIG_FILE[]  = "config";
+const char DATA_FILE[]    = "data";
+const char PROFILE_FILE[] = ".profile";
 
 
 const int TERMINATION = 66;

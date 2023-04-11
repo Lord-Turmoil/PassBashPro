@@ -197,7 +197,7 @@ bool PassDoc::_GenerateData(Env& env)
 		return false;
 	}
 
-	tea::TEABufferReader* reader = new tea::TEABufferReader(g_DEFAULT_DATA);
+	tea::TEABufferReader* reader = new tea::TEABufferReader(DEFAULT_DATA);
 	tea::TEAFileWriter* writer = new tea::TEAFileWriter(output);
 	tea::encode(reader, writer, g_defaultPassword);
 	delete reader;

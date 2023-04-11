@@ -147,15 +147,15 @@
     <ClInclude Include="inc\core\Env.h" />
     <ClInclude Include="inc\core\Global.h" />
     <ClInclude Include="inc\core\PassDoc.h" />
-    <ClInclude Include="inc\exec\EditorFunctions.h" />
+    <ClInclude Include="inc\exec\editor\Editor.h" />
     <ClInclude Include="inc\exec\Exec.h" />
     <ClInclude Include="inc\exec\ExecFactory.h" />
-    <ClInclude Include="inc\exec\ExecHeader.h" />
+    <ClInclude Include="inc\exec\function\FuncHeader.h" />
     <ClInclude Include="inc\exec\ExecHost.h" />
     <ClInclude Include="inc\utility\ExecUtil.h" />
-    <ClInclude Include="inc\exec\Functions.h" />
+    <ClInclude Include="inc\exec\function\Function.h" />
     <ClInclude Include="inc\exec\Init.h" />
-    <ClInclude Include="inc\exec\Service.h" />
+    <ClInclude Include="inc\exec\service\Service.h" />
     <ClInclude Include="inc\template\Singleton.h" />
     <ClInclude Include="inc\utility\Argument.h" />
     <ClInclude Include="inc\utility\Auxiliary.h" />
@@ -164,7 +164,19 @@
     <ClInclude Include="inc\utility\xml.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="inc\exec\editor\EditorHeader.h" />
     <ClCompile Include="inc\utility\FileUtil.h" />
+    <ClCompile Include="src\exec\editor\exec_edit_clear.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_exit.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_host.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_see.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_set.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_setk.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_setv.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_setw.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_unknown.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_unset.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_util.cpp" />
     <ClCompile Include="src\utility\ExecUtil.cpp" />
     <ClCompile Include="src\core\PassDoc.cpp" />
     <ClCompile Include="src\exec\ExecHost.cpp" />

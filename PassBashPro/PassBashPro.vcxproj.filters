@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\exec\Functions.h">
+    <ClInclude Include="inc\exec\function\Function.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\exec\Exec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\exec\Service.h">
+    <ClInclude Include="inc\exec\service\Service.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\utility\Auxiliary.h">
@@ -57,7 +57,7 @@
     <ClInclude Include="inc\exec\Init.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\exec\EditorFunctions.h">
+    <ClInclude Include="inc\exec\editor\Editor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\common\Constants.h">
@@ -75,7 +75,7 @@
     <ClInclude Include="inc\common\Colors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\exec\ExecHeader.h">
+    <ClInclude Include="inc\exec\function\FuncHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\utility\Argument.h">
@@ -171,6 +171,42 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\utility\FileUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_clear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_exit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_see.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_set.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_setk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_setv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_setw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_unknown.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_unset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_host.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\exec\editor\EditorHeader.h">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

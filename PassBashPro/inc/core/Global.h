@@ -29,7 +29,7 @@
 
 
 // Internal default password.
-extern char g_defaultPassword[];
+extern const char g_defaultPassword[];
 
 
 // Present working directory.
@@ -47,7 +47,7 @@ extern PassDoc g_doc;
 
 
 // Default data content.
-extern const char g_DEFAULT_DATA[];
+extern const char DEFAULT_DATA[];
 
 
 // Position variables.
