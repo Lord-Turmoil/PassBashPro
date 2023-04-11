@@ -28,6 +28,7 @@ const int  EDIT_VALUE_MAX_LENGTH = 45;
 const int  EDIT_WEIGHT_MAX_LENGTH = 9;
 
 XMLElementPtr _edit_item;
+std::string _edit_item_path;
 cnsl::InputHistory _edit_history;
 
 int exec_edit_host(int argc, char* argv[])
@@ -40,10 +41,10 @@ int exec_edit_host(int argc, char* argv[])
 	// main loop
 	char buffer[PASH_BUFFER_SIZE + 4];
 	int ret;
-	PashDocUtil::GetNodeDirectory(item, item_path);
+	PashDocUtil::GetNodeDirectory(_edit_item, _edit_item_path);
 
-	cnsl::InputOptions options(0, CMD_BUFFER_SIZE, 0, true);
-	options.history = &history;
+	cnsl::InputOptions options(0, PASH_BUFFER_SIZE, 0, true);
+	options.history = &_edit_history;
 
 	_edit_print_prompt();
 	while ((ret = cnsl::GetString(buffer, options)) != -1)

@@ -148,8 +148,10 @@
     <ClInclude Include="inc\core\Global.h" />
     <ClInclude Include="inc\core\PashDoc.h" />
     <ClInclude Include="inc\exec\editor\Editor.h" />
+    <ClInclude Include="inc\exec\editor\EditorAux.h" />
     <ClInclude Include="inc\exec\Exec.h" />
     <ClInclude Include="inc\exec\ExecFactory.h" />
+    <ClInclude Include="inc\exec\ExecHeader.h" />
     <ClInclude Include="inc\exec\function\FuncHeader.h" />
     <ClInclude Include="inc\exec\ExecHost.h" />
     <ClInclude Include="inc\utility\ExecUtil.h" />

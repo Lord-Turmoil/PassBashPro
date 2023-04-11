@@ -20,27 +20,13 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
+#pragma once
+
 #ifndef _EDITOR_HEADER_H_
 #define _EDITOR_HEADER_H_
 
-
-#include "../../common/Error.h"
-#include "../../common/Colors.h"
-#include "../../common/Constants.h"
-#include "../../common/Logger.h"
-#include "../../common/Macros.h"
-
-#include "../../exec/editor/Editor.h"
-#include "../../exec/ExecHost.h"
-
-#include "../../core/Global.h"
-#include "../../core/PashDoc.h"
-
-#include "../../utility/Argument.h"
-#include "../../utility/ExecUtil.h"
-#include "../../utility/PashDocUtil.h"
-
-#include <cnsl.h>
-
+#include "../ExecHeader.h"
+#include "Editor.h"
+#include "EditorAux.h"
 
 #endif

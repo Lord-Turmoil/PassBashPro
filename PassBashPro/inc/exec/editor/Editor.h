@@ -20,28 +20,19 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
+#pragma once
+
 #ifndef _EDITOR_FUNCTIONS_H_
 #define _EDITOR_FUNCTIONS_H_
 
 #include <tinyxml.h>
+#include <string>
 #include <cnsl.h>
-
-extern const char EDIT_IGNORE[] = "|";
-extern const int EDIT_KEY_MAX_LENGTH = 30;
-extern const int EDIT_VALUE_MAX_LENGTH = 45;
-extern const int EDIT_WEIGHT_MAX_LENGTH = 9;
-
-extern XMLElementPtr _edit_item;
-extern cnsl::InputHistory _edit_history;
-
 
 // static void _edit_usage()
 // static int _edit_parse_args(int argc, char* argv[], std::string& path)
 // static void _edit_parse_cmd(char* cmd, char*& type, char*& arg);
 // static void _edit_print_prompt();
-
-void exec_edit_header(bool showPrompt = false);
-void exec_edit_footer();
 
 int exec_edit_host(int argc, char* argv[]);
 
