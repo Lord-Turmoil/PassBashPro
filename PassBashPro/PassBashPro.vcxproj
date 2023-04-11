@@ -184,6 +184,7 @@
     <ClCompile Include="src\exec\editor\EditorAux.cpp" />
     <ClCompile Include="src\exec\function\exec_edit.cpp" />
     <ClCompile Include="src\exec\service\srv_host.cpp" />
+    <ClCompile Include="src\exec\service\srv_profile.cpp" />
     <ClCompile Include="src\exec\service\srv_start.cpp" />
     <ClCompile Include="src\utility\ExecUtil.cpp" />
     <ClCompile Include="src\core\PashDoc.cpp" />

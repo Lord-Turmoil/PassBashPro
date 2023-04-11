@@ -36,11 +36,7 @@ int _PrintPrompt()
 		return -1;
 	}
 
-	std::string prompt = g_env->username;
-	prompt += '@';
-	prompt += g_pwd;
-
-	cnsl::InsertText(PWD_COLOR, "%s", prompt.c_str());
+	cnsl::InsertText(PWD_COLOR, "%s@%s", g_env->username.c_str(), g_pwd.c_str());
 	cnsl::InsertText(PROMPT_COLOR, "\b$ ");
 
 	return 0;
