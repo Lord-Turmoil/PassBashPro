@@ -73,6 +73,6 @@ void _FormatPassword(const char* buffer, char* password);
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
 #define EXEC_PRINT_MSG(...) cnsl::InsertText(MESSAGE_COLOR, __VA_ARGS__)
-#define EXEC_PRINT_ERR(...)   cnsl::InsertText(ERROR_COLOR, __VA_ARGS__)
+#define EXEC_PRINT_ERR(...) cnsl::InsertText(ERROR_COLOR, __VA_ARGS__)
 
 #endif
