@@ -34,9 +34,6 @@ int srv_profile(int argc, char* argv[]);
 // login
 int srv_login(int argc, char* argv[]);
 
-// logout
-int srv_logout(int argc, char* argv[]);
-
 // change master password
 int srv_remaster(int argc, char* argv[]);
 

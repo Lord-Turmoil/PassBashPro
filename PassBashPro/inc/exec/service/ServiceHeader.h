@@ -29,5 +29,6 @@
 #include "../../utility/FileUtil.h"
 
 #include "Service.h"
+#include "ServiceAux.h"
 
 #endif

@@ -93,6 +93,9 @@
     <ClInclude Include="inc\core\Profile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\exec\service\ServiceAux.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -234,6 +237,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\exec\service\srv_profile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\service\srv_login.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\service\ServiceAux.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

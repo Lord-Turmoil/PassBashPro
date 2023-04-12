@@ -3,39 +3,46 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Main.cpp                                  *
+ *                      File Name : ServiceAux.h                              *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 11, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   Main entrance of PassBash.                                               *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#include "../inc/common/Macros.h"
-#include "../inc/common/Error.h"
-#include "../inc/common/Logger.h"
-#include "../inc/exec/ExecHost.h"
-#include "../inc/exec/Init.h"
+#pragma once
 
-int main(int argc, char* argv[])
-{
-	InitExecHost();
+#ifndef _SERVICE_AUX_H_
+#define _SERVICE_AUX_H_
 
-	ExecHost::GetInstance()->execl(EXEC_SERVICE, "start", nullptr);
+#include "../../core/Env.h"
+#include "../../core/Profile.h"
 
-#ifdef PASH_DEBUG
-	LOG_PRINT_ERROR();
-	LOG_PRINT_MESSAGE();
+
+EnvPtr CreateEnv(Profile* profile);
+
+
+int InitConfig(EnvPtr env);
+int InitData(EnvPtr env);
+
+/********************************************************************
+** These save functions are not well designed.
+*/
+int SaveConfig(EnvPtr env, bool overwrite = false);
+int SaveData(PashDoc& doc, EnvPtr env, bool overwrite = false);
+
+// config
+int InitEnvFiles(EnvPtr env);
+
+
 #endif
-
-	return 0;
-}

@@ -154,6 +154,7 @@
     <ClInclude Include="inc\exec\ExecHeader.h" />
     <ClInclude Include="inc\exec\function\FuncHeader.h" />
     <ClInclude Include="inc\exec\ExecHost.h" />
+    <ClInclude Include="inc\exec\service\ServiceAux.h" />
     <ClInclude Include="inc\utility\ExecUtil.h" />
     <ClInclude Include="inc\exec\function\Function.h" />
     <ClInclude Include="inc\exec\Init.h" />
@@ -183,7 +184,9 @@
     <ClCompile Include="src\exec\editor\exec_edit_unset.cpp" />
     <ClCompile Include="src\exec\editor\EditorAux.cpp" />
     <ClCompile Include="src\exec\function\exec_edit.cpp" />
+    <ClCompile Include="src\exec\service\ServiceAux.cpp" />
     <ClCompile Include="src\exec\service\srv_host.cpp" />
+    <ClCompile Include="src\exec\service\srv_login.cpp" />
     <ClCompile Include="src\exec\service\srv_profile.cpp" />
     <ClCompile Include="src\exec\service\srv_start.cpp" />
     <ClCompile Include="src\utility\ExecUtil.cpp" />

@@ -29,7 +29,7 @@ static int _ensure_env();
 static int _load_env();
 static int _load_profile();
 static int _load_cache();
-static int _init_env();
+static int _login_init_env();
 
 static char _cached_user[USERNAME_BUFFER_SIZE];
 
@@ -49,6 +49,8 @@ int srv_start(int argc, char* argv[])
 			->execl(EXEC_SERVICE, "profile", nullptr);
 		if (ret != 0)
 		{
+			if (ret == -TERMINATION)
+				return 0;
 			LOG_ERROR("Failed to create profile: %d", ret);
 			return 2;
 		}
@@ -63,6 +65,8 @@ int srv_start(int argc, char* argv[])
 		->execl(EXEC_SERVICE, "login", "login", nullptr);
 	if (ret != 0)
 	{
+		if (ret == -TERMINATION)
+			return 0;
 		LOG_ERROR("Failed to login: %d", ret);
 		return 4;
 	}
@@ -71,6 +75,8 @@ int srv_start(int argc, char* argv[])
 		->execl(EXEC_SERVICE, "host", "host", nullptr);
 	if (ret != 0)
 	{
+		if (ret == -TERMINATION)
+			return 0;
 		LOG_ERROR("Error occurred in host: %d", ret);
 		return 5;
 	}
@@ -95,7 +101,7 @@ static int _load_env()
 	_load_profile();
 	_load_cache();
 
-	_init_env();
+	_login_init_env();
 
 	return 0;
 }
@@ -148,7 +154,7 @@ static int _load_cache()
 	fclose(fp);
 }
 
-static int _init_env()
+static int _login_init_env()
 {
 	ProfilePool* pool = ProfilePool::GetInstance();
 	Profile* p;
@@ -163,11 +169,7 @@ static int _init_env()
 	if (!p)
 		return 1;
 
-	g_env = EnvPtr(new Env());
-	g_env->username.assign(p->username);
-	g_env->dataPath.assign(p->path).append(DATA_FILE);
-	g_env->configPath.assign(p->path).append(CONFIG_FILE);
-	g_env->profilePath.assign(p->path).append(PROFILE_FILE);
+	g_env = CreateEnv(p);
 
 	return 0;
 }
