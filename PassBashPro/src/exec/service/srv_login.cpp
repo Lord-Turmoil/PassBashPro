@@ -58,6 +58,7 @@ int srv_login(int argc, char* argv[])
 
 		return 1;
 	}
+	_login_init_validate();
 	if (_login_receive_password() != 0)
 		return -TERMINATION;
 	if (!_login_init_env(g_env))
@@ -97,10 +98,11 @@ static int _login_list_users()
 			cnsl::InsertText(HIGHLIGHT_COLOR, profile->username.c_str());
 		else
 			cnsl::InsertText(MESSAGE_COLOR, profile->username.c_str());
+		cnsl::InsertNewLine();
 	}
 	cnsl::InsertSplitLine('_');
 
-	return true;
+	return 0;
 }
 
 /********************************************************************

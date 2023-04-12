@@ -186,9 +186,9 @@ void FileUtil::_GetContentAux(const char* path,
 				if (names)
 					names->push_back(fileInfo.name);
 			}
-			_GetContent(p.c_str(), paths, names, type);
+			// _GetContent(p.c_str(), paths, names, type);
 		}
-		else
+		else if (type & _FILE)
 		{
 			p.assign(base);
 			p.append("\\");

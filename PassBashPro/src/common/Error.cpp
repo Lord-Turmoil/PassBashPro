@@ -21,6 +21,7 @@
  ******************************************************************************/
 
 #include "../../inc/common/Error.h"
+#include "../../inc/common/Logger.h"
 
 #include <cstdio>
 #include <cstdarg>
@@ -41,6 +42,9 @@ void _panic(const char* filename, int line, const char* func, const char* format
 	printf(message);
 	
 	printf("\n\nPash aborted.\n");
+
+	LOG_PRINT_MESSAGE();
+	LOG_PRINT_ERROR();
 
 	exit(-1);
 }

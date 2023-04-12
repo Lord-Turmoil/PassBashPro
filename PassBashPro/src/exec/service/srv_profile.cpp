@@ -125,13 +125,15 @@ static int _profile_parse_arg(int argc, char* argv[])
 
 static int _profile_cli()
 {
-	if (_profile_receive_username() == 0)
+	int ret = _profile_receive_username();
+	if (ret == 0)
 	{
-		if (_profile_receive_password() == 0)
+		ret = _profile_receive_password();
+		if (ret == 0)
 			return _profile_silent();
 	}
-
-	return 1;
+	
+	return ret;
 }
 
 
@@ -166,6 +168,7 @@ static int _profile_silent()
 	pool->Add(profile);
 	EnvPtr env = CreateEnv(&profile);
 	_FormatPassword(password.c_str(), env->password);
+	
 	InitEnvFiles(env);
 
 	return 0;
@@ -178,7 +181,7 @@ static int _profile_receive_username()
 
 	cnsl::InsertText("Please enter the ");
 	cnsl::InsertText(HIGHLIGHT_COLOR, "username");
-	cnsl::InsertText("for this profile:\n");
+	cnsl::InsertText(" for this profile:\n");
 
 	cnsl::InsertText(MESSAGE_COLOR,
 					 "1 to %d characters, only a-zA-Z0-9 is allowed.\n",
@@ -196,7 +199,7 @@ static int _profile_receive_username()
 		while (ret < options.minLen)
 		{
 			if (ret == -1)
-				return 1;
+				return -TERMINATION;
 			cnsl::Clear(0);
 			cnsl::InsertText(PROMPT_COLOR, "$ ");
 			ret = cnsl::GetString(buffer, options);
@@ -228,7 +231,7 @@ static int _profile_receive_password()
 
 	cnsl::InsertText("Please enter the ");
 	cnsl::InsertText(HIGHLIGHT_COLOR, "password");
-	cnsl::InsertText("for this profile:\n");
+	cnsl::InsertText(" for this profile:\n");
 
 	cnsl::InsertText(MESSAGE_COLOR,
 					 "%d to %d characters, any ascii that is printable.\n",
@@ -244,7 +247,7 @@ static int _profile_receive_password()
 	while (ret < options.minLen)
 	{
 		if (ret == -1)
-			return 1;
+			return -TERMINATION;
 		cnsl::Clear(0);
 		cnsl::InsertText(PROMPT_COLOR, "$ ");
 		ret = cnsl::GetString(buffer, options);

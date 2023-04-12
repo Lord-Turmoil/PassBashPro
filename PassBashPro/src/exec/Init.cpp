@@ -51,7 +51,7 @@ void InitExecHost()
 void InitConsole()
 {
 	cnsl::InitConsoleSize(120, 30);
-	cnsl::InitConsole(116);
+	cnsl::InitConsole(118);
 
 	cnsl::SetHeader(TITLE, COPYRIGHT, AUTHOR);
 	cnsl::SetTextForeground(FOREGROUND_WHITE);

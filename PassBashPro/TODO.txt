@@ -1,0 +1,4 @@
+BUG LIST:
+
+srv_login.cpp:64
+	_login_init_env

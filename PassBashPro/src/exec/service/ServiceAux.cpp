@@ -85,7 +85,7 @@ int InitData(EnvPtr env)
 	if (fopen_s(&output, dataPath, "wb") != 0)
 	{
 		LOG_ERROR("Cannot open file \"%s\"", dataPath);
-		return false;
+		return 2;
 	}
 
 	tea::TEABufferReader* reader = new tea::TEABufferReader(DEFAULT_DATA);
@@ -94,7 +94,7 @@ int InitData(EnvPtr env)
 	delete reader;
 	delete writer;
 
-	return true;
+	return 0;
 }
 
 
