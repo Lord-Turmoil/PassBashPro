@@ -27,11 +27,14 @@
 
 
 // Try execute, and return immediately if error occurred.
-#define PASH_TRY(expression)	\
-	do {						\
-		int ret = (expression);	\
-		if (ret != 0)			\
-			return ret;			\
+#define PASH_TRY(expression)						\
+	do {											\
+		int ret = (expression);						\
+		if (ret != 0)								\
+		{											\
+			LOG_ERROR("%s: %d", #expression, ret);	\
+			return ret;								\
+		}											\
 	} while (0)
 
 
