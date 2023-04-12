@@ -51,6 +51,7 @@ public:
 	bool Remove(const std::string& username);
 	void Clear();
 	bool IsEmpty();
+	int Size();
 
 	Profile* Get(const std::string& username);
 

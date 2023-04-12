@@ -43,9 +43,9 @@ public:
 	PashDoc();
 	~PashDoc();
 
-	bool Load(Env* env);
+	bool Load(EnvPtr env);
 	void UnLoad();
-	bool Save(Env* env);
+	bool Save(EnvPtr env);
 
 	// For debug purpose, import and export plain text to debug.xml.
 	bool DebugLoad();
@@ -82,7 +82,7 @@ public:
 
 private:
 	// Generate default data.
-	bool _GenerateData(Env* env);
+	bool _GenerateData(EnvPtr env);
 
 private:
 	XMLFilePtr m_pFile;

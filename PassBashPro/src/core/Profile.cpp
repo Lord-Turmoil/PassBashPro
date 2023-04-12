@@ -59,6 +59,11 @@ bool ProfilePool::IsEmpty()
 	return m_profiles.empty();
 }
 
+int ProfilePool::Size()
+{
+	return (int)m_profiles.size();
+}
+
 Profile* ProfilePool::Get(const std::string& username)
 {
 	for (auto it = m_profiles.begin(); it != m_profiles.end(); it++)

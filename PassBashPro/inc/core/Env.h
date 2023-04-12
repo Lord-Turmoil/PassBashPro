@@ -42,6 +42,7 @@ struct Env
 	// email is used as unique identifier for online service
 	std::string email;
 
+	std::string rootPath;
 	std::string configPath;
 	std::string dataPath;
 	std::string profilePath;
@@ -51,6 +52,6 @@ struct Env
 	bool online;
 };
 
-typedef std::unique_ptr<Env> EnvPtr;
+typedef std::shared_ptr<Env> EnvPtr;
 
 #endif

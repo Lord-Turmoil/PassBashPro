@@ -32,7 +32,7 @@
 
 
 // Internal default password.
-extern const char g_defaultPassword[];
+extern const char DEFAULT_PASSWORD[];
 
 
 // Present working directory.

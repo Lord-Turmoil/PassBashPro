@@ -42,7 +42,7 @@ PashDoc::~PashDoc()
 	UnLoad();
 }
 
-bool PashDoc::Load(Env* env)
+bool PashDoc::Load(EnvPtr env)
 {
 	if (IsLoaded())
 		UnLoad();
@@ -54,18 +54,8 @@ bool PashDoc::Load(Env* env)
 	const char* dataPath = env->dataPath.c_str();
 	if (fopen_s(&input, dataPath, "rb") != 0)
 	{
-		LOG_MESSAGE("Missing file \"%s\"", dataPath);
-		LOG_MESSAGE("Attempt to generate default data");
-		if (!_GenerateData(env))
-		{
-			LOG_ERROR("Failed to generate initial data");
-			return false;
-		}
-		else if (fopen_s(&input, dataPath, "rb") != 0)
-		{
-			LOG_ERROR("Missing essential file \"%s\"", dataPath);
-			return false;
-		}
+		LOG_ERROR("Missing essential file \"%s\"", dataPath);
+		return false;
 	}
 
 	fseek(input, 0, SEEK_END);
@@ -79,7 +69,7 @@ bool PashDoc::Load(Env* env)
 	delete writer;
 
 	// Now xml file is in xml buffer!
-	if (!m_pFile.Parse(xml))
+	if (!m_pFile->Parse(xml))
 	{
 		LOG_ERROR("\t|- Perhaps wrong password or file missing?");
 		LOG_ERROR("Failed to load data!");
@@ -87,7 +77,7 @@ bool PashDoc::Load(Env* env)
 	}
 	delete[] xml;
 
-	m_current = m_root = m_pFile.GetRoot();
+	m_current = m_root = m_pFile->GetRoot();
 
 	return true;
 }
@@ -102,7 +92,7 @@ void PashDoc::UnLoad()
 }
 
 
-bool PashDoc::Save(Env* env)
+bool PashDoc::Save(EnvPtr env)
 {
 	if (!IsLoaded())
 	{
@@ -111,7 +101,7 @@ bool PashDoc::Save(Env* env)
 	}
 
 	XMLPrinter stream(0, true, 0);
-	m_pFile.Doc().Print(&stream);
+	m_pFile->Doc().Print(&stream);
 
 	FILE* output;
 	const char* dataPath = env->dataPath.c_str();
@@ -135,13 +125,13 @@ bool PashDoc::Save(Env* env)
 bool PashDoc::DebugLoad()
 {
 #ifdef PASH_CHEAT
-	if (!m_pFile.Load("debug.xml"))
+	if (!m_pFile->Load("debug.xml"))
 	{
 		LOG_ERROR("Failed to import data.");
 		return false;
 	}
 
-	m_root = m_pFile.GetRoot();
+	m_root = m_pFile->GetRoot();
 	m_current = m_root;
 
 	// PashDocUtil::GetPresentWorkingDirectory(g_pwd);
@@ -156,7 +146,7 @@ bool PashDoc::DebugLoad()
 bool PashDoc::DebugSave()
 {
 #ifdef PASH_CHEAT
-	m_pFile.Save("debug.xml");
+	m_pFile->Save("debug.xml");
 	return true;
 #else
 	LOG_ERROR("A pathetic attempt.");
@@ -188,12 +178,12 @@ XMLElementPtr PashDoc::NewElement(const char* name)
 	if (!IsLoaded())
 		return nullptr;
 
-	return m_pFile.Doc().NewElement(name);
+	return m_pFile->Doc().NewElement(name);
 }
 
 void PashDoc::DeleteElement(XMLElementPtr node)
 {
-	m_pFile.Doc().DeleteNode(node);
+	m_pFile->Doc().DeleteNode(node);
 }
 
 void PashDoc::Mark()
@@ -201,7 +191,7 @@ void PashDoc::Mark()
 	m_modified = true;
 }
 
-bool PashDoc::_GenerateData(Env* env)
+bool PashDoc::_GenerateData(EnvPtr env)
 {
 	FILE* output;
 	const char* dataPath = env->dataPath.c_str();
@@ -213,7 +203,7 @@ bool PashDoc::_GenerateData(Env* env)
 
 	tea::TEABufferReader* reader = new tea::TEABufferReader(DEFAULT_DATA);
 	tea::TEAFileWriter* writer = new tea::TEAFileWriter(output);
-	tea::encode(reader, writer, g_defaultPassword);
+	tea::encode(reader, writer, DEFAULT_PASSWORD);
 	delete reader;
 	delete writer;
 
