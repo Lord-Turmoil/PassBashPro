@@ -45,6 +45,8 @@ public:
 	static bool NewDirectory(const char* path, bool hidden = false);
 	static bool NewDirectory(const char* path, const char* dirname, bool hidden = false);
 
+	static bool DeletePath(const char* path);
+
 	static bool GetFiles(const char* path,
 						 std::vector<std::string>* files,
 						 std::vector<std::string>* names);

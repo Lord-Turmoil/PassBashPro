@@ -104,6 +104,13 @@ bool FileUtil::NewDirectory(const char* path, const char* dirname, bool hidden)
 	return NewDirectory(fullPath.c_str(), hidden);
 }
 
+bool FileUtil::DeletePath(const char* path)
+{
+	if (!Exists(path))
+		return true;
+
+	return remove(path) == 0;
+}
 
 bool FileUtil::GetFiles(const char* path,
 						std::vector<std::string>* files,
