@@ -47,4 +47,7 @@ bool narrow(char* dest, const wchar_t* src);
 char* narrow(const wchar_t* src);
 
 
+// timestamp
+const char* GetCurrentTimestamp();
+
 #endif

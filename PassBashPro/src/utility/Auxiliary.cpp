@@ -26,6 +26,9 @@
 #include <cctype>
 #include <cstring>
 #include <cstdlib>
+#include <cstdio>
+
+#include <Windows.h>
 
 
 char* strstrip(char* str)
@@ -193,4 +196,21 @@ char* narrow(const wchar_t* src)
 	errno_t err = wcstombs_s(&ret, dest, wcslen(src) + 1, src, PASH_BUFFER_SIZE);
 
 	return err ? nullptr : dest;
+}
+
+
+const char* GetCurrentTimestamp()
+{
+	static char _time_buffer[64];
+
+	SYSTEMTIME sysTime;
+
+	GetLocalTime(&sysTime);
+
+	//YYYY-MM-DD HH-MM-SS
+	sprintf_s(_time_buffer, "%4hu-%02hu-%02hu %02hu-%02hu-%02hu",
+			  sysTime.wYear, sysTime.wMonth, sysTime.wDay,
+			  sysTime.wHour, sysTime.wMinute, sysTime.wSecond);
+
+	return _time_buffer;
 }
