@@ -125,17 +125,25 @@ bool PashDoc::Save(EnvPtr env)
 bool PashDoc::DebugLoad()
 {
 #ifdef PASH_CHEAT
-	if (!m_pFile->Load("debug.xml"))
+	if (!g_env)
+		return false;
+	std::string filename(g_env->username);
+	filename.append(".xml");
+	
+	// Protect current data.
+	XMLFilePtr newFile(new XMLFile());
+	if (!newFile->Load(filename.c_str()))
 	{
 		LOG_ERROR("Failed to import data.");
 		return false;
 	}
 
+	m_pFile = std::move(newFile);
 	m_root = m_pFile->GetRoot();
 	m_current = m_root;
 
 	// PashDocUtil::GetPresentWorkingDirectory(g_pwd);
-
+	
 	return true;
 #else
 	LOG_ERROR("A pathetic attempt.");
@@ -146,7 +154,11 @@ bool PashDoc::DebugLoad()
 bool PashDoc::DebugSave()
 {
 #ifdef PASH_CHEAT
-	m_pFile->Save("debug.xml");
+	if (!g_env)
+		return false;
+	std::string filename(g_env->username);
+	filename.append(".xml");
+	m_pFile->Save(filename.c_str());
 	return true;
 #else
 	LOG_ERROR("A pathetic attempt.");

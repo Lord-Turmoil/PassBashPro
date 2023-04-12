@@ -3,39 +3,78 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Exec.h                                    *
+ *                      File Name : exec_order.cpp                            *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 12, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   Basic declarations of executables.                                       *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#pragma once
+#include "../../../inc/exec/function/FuncHeader.h"
 
-#ifndef _EXEC_H_
-#define _EXEC_H_
+static int _order_parse_args(int argc, char* argv[], std::string& order);
 
+int exec_order(int argc, char* argv[])
+{
+	std::string order;
 
-typedef int (*Exec)(int, char* []);
+	if (_order_parse_args(argc, argv, order) != 0)
+	{
+		// order doesn't have help info!
+		return 1;
+	}
 
+	if (order == "msg")
+		LOG_PRINT_MESSAGE();
+	else if (order == "cmsg")
+		LOG_CLEAR_MESSAGES();
+	else if (order == "err")
+		LOG_PRINT_ERROR();
+	else if (order == "cerr")
+		LOG_CLEAR_ERRORS();
+	else if (order == "66")
+	{
+		if (g_doc.DebugSave())
+			EXEC_PRINT_MSG("Password exported in plain text.\n");
+		else
+		{
+			EXEC_PRINT_ERR("Failed to export password.\n");
+			return 2;
+		}
+	}
+	else if (order == "99")
+	{
+		if (g_doc.DebugLoad())
+		{
+			EXEC_PRINT_MSG("Plain text password imported.\n");
+			g_doc.Mark();
+		}
+		else
+		{
+			EXEC_PRINT_ERR("Failed to import password.\n");
+			return 3;
+		}
+	}
+	else
+	{
+		EXEC_PRINT_ERR("Invalid order.\n");
+		return 4;
+	}
 
-// Identifiers for different executable factories.
-const char EXEC_IDLE[]   = "offline";
-const char EXEC_GLOBAL[] = "global";
-const char EXEC_EDIT[]   = "editor";
-const char EXEC_HIDDEN[] = "hidden";
-const char EXEC_SERVICE[] = "service";
+	return 0;
+}
 
-const char* const MODE_TO_EXEC[] = { EXEC_IDLE, EXEC_GLOBAL, EXEC_EDIT };
-
-#endif
+static int _order_parse_args(int argc, char* argv[], std::string& order)
+{
+	return _ParseArgs(argc, argv, order);
+}

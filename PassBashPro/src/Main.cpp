@@ -30,7 +30,8 @@ int main(int argc, char* argv[])
 {
 	InitExecHost();
 
-	ExecHost::GetInstance()->execl(EXEC_SERVICE, "start", nullptr);
+	PASH_PANIC_ON(
+		ExecHost::GetInstance()->execl(EXEC_SERVICE, "start", nullptr) != -1);
 
 #ifdef PASH_DEBUG
 	LOG_PRINT_ERROR();

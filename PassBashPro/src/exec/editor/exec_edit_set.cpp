@@ -40,6 +40,6 @@ int exec_edit_set(int argc, char* argv[])
 
 static int _set_usage()
 {
-	ExecHost::GetInstance()
+	return ExecHost::GetInstance()
 		->execl(EXEC_EDIT, "help", "help", "set", nullptr);
 }

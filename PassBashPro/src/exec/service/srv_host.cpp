@@ -53,6 +53,8 @@ int srv_host(int argc, char* argv[])
 {
 	ExecHost* host = ExecHost::GetInstance();
 	
+	g_mode = MODE_PASH;
+
 	_host_greet();
 	while (_host_peek_command() == 0)
 	{

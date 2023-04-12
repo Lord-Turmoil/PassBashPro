@@ -24,6 +24,8 @@
 #include "../../../inc/exec/service/ServiceHeader.h"
 #include "../../../inc/core/Profile.h"
 
+#include <cstring>
+
 
 static int _ensure_env();
 static int _load_env();
@@ -46,7 +48,7 @@ int srv_start(int argc, char* argv[])
 	{
 		// Use absolute zero to indicate internal call.
 		ret = ExecHost::GetInstance()
-			->execl(EXEC_SERVICE, "profile", nullptr);
+			->execl(EXEC_SERVICE, "profile", "profile", "-i", nullptr);
 		if (ret != 0)
 		{
 			if (ret == -TERMINATION)
@@ -88,7 +90,11 @@ static int _ensure_env()
 {
 	if (!FileUtil::Exists(PASH_DIR))
 	{
+#if PASH_CHEAT
+		FileUtil::NewDirectory(PASH_DIR, false);
+#else
 		FileUtil::NewDirectory(PASH_DIR, true);
+#endif
 	}
 
 	return 0;
@@ -116,7 +122,7 @@ static int _load_profile()
 		return 1;
 	}
 
-	int size = dirs.size();
+	int size = (int)dirs.size();
 	if (size != names.size())
 		return 2;
 
@@ -124,6 +130,8 @@ static int _load_profile()
 	pool->Clear();
 	for (int i = 0; i < size; i++)
 		pool->Add(Profile(names[i], dirs[i]));
+
+	return 0;
 }
 
 static int _load_cache()
@@ -132,6 +140,8 @@ static int _load_cache()
 	path.append(CACHE_FILE);
 	FILE* fp;
 	ProfilePool* pool = ProfilePool::GetInstance();
+
+	memset(_cached_user, 0, sizeof(_cached_user));
 
 	if (fopen_s(&fp, path.c_str(), "r") != 0)
 	{
@@ -150,8 +160,10 @@ static int _load_cache()
 	}
 
 	// here, fp is open
-	fscanf_s(fp, "%[^\n]", _cached_user);
+	fscanf_s(fp, "%s", _cached_user, (unsigned int)_countof(_cached_user));
 	fclose(fp);
+
+	return 0;
 }
 
 static int _login_init_env()

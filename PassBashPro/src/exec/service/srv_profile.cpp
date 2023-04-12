@@ -125,8 +125,6 @@ static int _profile_parse_arg(int argc, char* argv[])
 
 static int _profile_cli()
 {
-	int ret;
-
 	if (_profile_receive_username() == 0)
 	{
 		if (_profile_receive_password() == 0)

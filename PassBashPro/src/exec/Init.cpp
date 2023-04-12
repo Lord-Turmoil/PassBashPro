@@ -30,6 +30,8 @@
 
 #include "../../inc/common/Macros.h"
 
+#include "../../inc/core/Global.h"
+
 
 #define HOOK(FACTORY, DESCR, CMD) FACTORY->Hook(DESCR, CMD)
 
@@ -46,11 +48,28 @@ void InitExecHost()
 	_InitHidden();
 }
 
+void InitConsole()
+{
+	cnsl::InitConsoleSize(120, 30);
+	cnsl::InitConsole(116);
+
+	cnsl::SetHeader(TITLE, COPYRIGHT, AUTHOR);
+	cnsl::SetTextForeground(FOREGROUND_WHITE);
+	cnsl::SetTextBackground(BACKGROUND_BLACK);
+	cnsl::Print();
+	cnsl::OverflowReprint(false);
+}
+
 static void _InitService()
 {
 	ExecFactoryPtr factory(new ExecFactory());
 
-	HOOK(factory, "editor", exec_edit_host);
+	HOOK(factory, "host",    srv_host);
+	HOOK(factory, "login",   srv_login);
+	HOOK(factory, "profile", srv_profile);
+	HOOK(factory, "start",   srv_start);
+	
+	HOOK(factory, "editor",  exec_edit_host);
 
 	ExecHost::GetInstance()->Register(EXEC_SERVICE, factory);
 }
@@ -86,7 +105,7 @@ static void _InitGlobal()
 	HOOK(factory, "q",       exec_exit);
 	HOOK(factory, "edit",    exec_edit);
 	HOOK(factory, "mod",     exec_edit);
-	HOOK(factory, "tea",     exec_tea);
+	// HOOK(factory, "tea",     exec_tea);
 #if PASH_CHEAT
 	HOOK(factory, "order",   exec_order);
 #endif
@@ -101,7 +120,8 @@ static void _InitEditor()
 	HOOK(factory, "clear", exec_edit_clear);
 	HOOK(factory, "cls",   exec_edit_clear);
 	HOOK(factory, "c",     exec_edit_clear);
-	HOOK(factory, "help",  exec_help);HOOK(factory, "h",     exec_help);
+	HOOK(factory, "help",  exec_help);
+	HOOK(factory, "h",     exec_help);
 	HOOK(factory, "see",   exec_edit_see);
 	HOOK(factory, "s",     exec_edit_see);
 	HOOK(factory, "set",   exec_edit_set);
@@ -126,9 +146,9 @@ static void _InitHidden()
 	ExecFactoryPtr factory(new ExecFactory());
 
 	factory = ExecFactoryPtr(new ExecFactory());
-	HOOK(factory, "unk", exec_unknown);
+	HOOK(factory, "unk",      exec_unknown);
 	HOOK(factory, "edit_unk", exec_edit_unknown);
-	HOOK(factory, "order", exec_order);
+	HOOK(factory, "order",    exec_order);
 
 	ExecHost::GetInstance()->Register(EXEC_HIDDEN, factory);
 }

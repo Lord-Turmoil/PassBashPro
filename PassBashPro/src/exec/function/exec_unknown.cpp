@@ -3,39 +3,33 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Exec.h                                    *
+ *                      File Name : exec_unknown.cpp                          *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 12, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   Basic declarations of executables.                                       *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#pragma once
+#include "../../../inc/exec/function/FuncHeader.h"
 
-#ifndef _EXEC_H_
-#define _EXEC_H_
+int exec_unknown(int argc, char* argv[])
+{
+	if (argc == 2)
+		EXEC_PRINT_ERR("\"%s\" is not a command.\n", argv[1]);
+	else
+		EXEC_PRINT_ERR("Command not recognized.\n");
 
+	EXEC_PRINT_MSG("Use \"help\" for more information.\n");
 
-typedef int (*Exec)(int, char* []);
-
-
-// Identifiers for different executable factories.
-const char EXEC_IDLE[]   = "offline";
-const char EXEC_GLOBAL[] = "global";
-const char EXEC_EDIT[]   = "editor";
-const char EXEC_HIDDEN[] = "hidden";
-const char EXEC_SERVICE[] = "service";
-
-const char* const MODE_TO_EXEC[] = { EXEC_IDLE, EXEC_GLOBAL, EXEC_EDIT };
-
-#endif
+	return 0;
+}

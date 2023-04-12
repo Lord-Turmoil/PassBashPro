@@ -171,6 +171,8 @@
     <ClCompile Include="inc\exec\editor\EditorHeader.h" />
     <ClCompile Include="inc\exec\service\ServiceHeader.h" />
     <ClCompile Include="inc\utility\FileUtil.h" />
+    <ClCompile Include="src\common\Error.cpp" />
+    <ClCompile Include="src\core\Global.cpp" />
     <ClCompile Include="src\core\Profile.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_clear.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_exit.cpp" />
@@ -184,6 +186,8 @@
     <ClCompile Include="src\exec\editor\exec_edit_unset.cpp" />
     <ClCompile Include="src\exec\editor\EditorAux.cpp" />
     <ClCompile Include="src\exec\function\exec_edit.cpp" />
+    <ClCompile Include="src\exec\function\exec_order.cpp" />
+    <ClCompile Include="src\exec\function\exec_unknown.cpp" />
     <ClCompile Include="src\exec\service\ServiceAux.cpp" />
     <ClCompile Include="src\exec\service\srv_host.cpp" />
     <ClCompile Include="src\exec\service\srv_login.cpp" />
@@ -217,6 +221,9 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\utility\Auxiliary.cpp" />
     <ClCompile Include="src\utility\xml.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

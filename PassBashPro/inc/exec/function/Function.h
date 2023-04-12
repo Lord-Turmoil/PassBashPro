@@ -82,7 +82,7 @@ int exec_exit(int argc, char* argv[]);
 // edit <item name>
 int exec_edit(int argc, char* argv[]);
 // tea [-u] <src> <dst> <password>
-int exec_tea(int argc, char* argv[]);
+// int exec_tea(int argc, char* argv[]);
 
 
 /*

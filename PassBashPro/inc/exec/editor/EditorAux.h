@@ -29,10 +29,10 @@
 #include <tinyxml.h>
 #include <cnsl.h>
 
-extern const char EDIT_IGNORE[] = "|";
-extern const int EDIT_KEY_MAX_LENGTH = 30;
-extern const int EDIT_VALUE_MAX_LENGTH = 45;
-extern const int EDIT_WEIGHT_MAX_LENGTH = 9;
+extern const char EDIT_IGNORE[];
+extern const int EDIT_KEY_MAX_LENGTH;
+extern const int EDIT_VALUE_MAX_LENGTH;
+extern const int EDIT_WEIGHT_MAX_LENGTH;
 
 extern XMLElementPtr _edit_item;
 extern std::string _edit_item_path;

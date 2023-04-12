@@ -3,39 +3,61 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Exec.h                                    *
+ *                      File Name : Global.cpp                                *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 12, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   Basic declarations of executables.                                       *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#pragma once
+#include "../../inc/core/Global.h"
+#include "../../inc/core/PashDoc.h"
+#include "../../inc/exec/Exec.h"
 
-#ifndef _EXEC_H_
-#define _EXEC_H_
+// Internal default password.
+const char DEFAULT_PASSWORD[] = "null";
+
+// Present working directory.
+std::string g_pwd;
+
+// Current user info.
+EnvPtr g_env;
+bool g_isOnline;
+
+// PashDoc
+PashDoc g_doc;
+
+// Default data content.
+const char DEFAULT_DATA[]{
+R"(<?xml version="1.0" encoding="UTF-8"?>
+<Group name=".">
+</Group>
+)"
+};
 
 
-typedef int (*Exec)(int, char* []);
+// Position variables.
+const int VAR_SIZE = 10;
+std::vector<std::string> g_var;
 
+// Versions.
+const char PASH_HOST_VERSION[] = "3.0.0";
+const char PASH_EDITOR_VERSION[] = "Pash Editor 2.0.0";
 
-// Identifiers for different executable factories.
-const char EXEC_IDLE[]   = "offline";
-const char EXEC_GLOBAL[] = "global";
-const char EXEC_EDIT[]   = "editor";
-const char EXEC_HIDDEN[] = "hidden";
-const char EXEC_SERVICE[] = "service";
+// Working mode.
+int g_mode = MODE_IDLE;
 
-const char* const MODE_TO_EXEC[] = { EXEC_IDLE, EXEC_GLOBAL, EXEC_EDIT };
-
-#endif
+// Copyright info.
+const char TITLE[]     { "PassBash" };
+const char COPYRIGHT[] { "Tony's Studio (C) 2020 - 2023" };
+const char AUTHOR[]    { "Tony Skywalker" };

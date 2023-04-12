@@ -22,6 +22,8 @@
 
 #pragma once
 
+#if 0
+
 #ifndef _ENV_UTIL_H_
 #define _ENV_UTIL_H_
 
@@ -35,5 +37,7 @@ public:
 private:
 	EnvUtil() {}
 };
+
+#endif
 
 #endif

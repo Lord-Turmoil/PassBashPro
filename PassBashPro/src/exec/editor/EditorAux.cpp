@@ -22,11 +22,11 @@
 
 #include "../../../inc/exec/editor/EditorHeader.h"
 
-void _edit_print_header(bool showPrompt = false)
+void _edit_print_header(bool showPrompt)
 {
 	static char buffer[128];
 
-	sprintf(buffer, "Pash Editor %s", PASH_EDITOR_VERSION);
+	sprintf_s(buffer, "Pash Editor %s", PASH_EDITOR_VERSION);
 	cnsl::InsertHeaderLine(buffer, '-');
 
 	if (showPrompt)
@@ -63,6 +63,8 @@ int _edit_parse_cmd(char* cmd, char** type, char** arg)
 	while (p > *arg && isspace(*p))
 		p--;
 	*(p + 1) = '\0';
+
+	return 0;
 }
 
 int _edit_parse_params(char* arg, int argc, const char* params[])

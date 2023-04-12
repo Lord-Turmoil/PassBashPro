@@ -36,6 +36,8 @@ int _PrintPrompt()
 		return -1;
 	}
 
+	PashDocUtil::GetPresentWorkingDirectory(g_pwd);
+
 	cnsl::InsertText(PWD_COLOR, "%s@%s", g_env->username.c_str(), g_pwd.c_str());
 	cnsl::InsertText(PROMPT_COLOR, "\b$ ");
 

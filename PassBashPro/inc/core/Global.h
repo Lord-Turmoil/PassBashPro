@@ -41,12 +41,11 @@ extern std::string g_pwd;
 
 // Current user info.
 extern EnvPtr g_env;
-
 extern bool g_isOnline;
 
 
-// PassDoc
-struct PashDoc;
+// PashDoc
+class PashDoc;
 extern PashDoc g_doc;
 
 
@@ -67,5 +66,10 @@ extern const char PASH_EDITOR_VERSION[];
 // Working mode.
 extern int g_mode;
 
+
+// Copyright info.
+extern const char TITLE[];
+extern const char COPYRIGHT[];
+extern const char AUTHOR[];
 
 #endif

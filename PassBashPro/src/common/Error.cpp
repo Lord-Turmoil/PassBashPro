@@ -3,39 +3,44 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Exec.h                                    *
+ *                      File Name : Error.cpp                                 *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 12, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   Basic declarations of executables.                                       *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#pragma once
+#include "../../inc/common/Error.h"
 
-#ifndef _EXEC_H_
-#define _EXEC_H_
+#include <cstdio>
+#include <cstdarg>
+#include <cnsl.h>
 
+void _panic(const char* filename, int line, const char* func, const char* format, ...)
+{
+	static char message[1024];
 
-typedef int (*Exec)(int, char* []);
+	va_list va;
+	va_start(va, format);
+	vsprintf_s(message, format, va);
+	va_end(va);
 
+	printf("File: '%s'\n", filename);
+	printf("Line: '%d'\n", line);
+	printf("Func: '%s'\n", func);
+	printf(message);
+	
+	printf("\n\nPash aborted.\n");
 
-// Identifiers for different executable factories.
-const char EXEC_IDLE[]   = "offline";
-const char EXEC_GLOBAL[] = "global";
-const char EXEC_EDIT[]   = "editor";
-const char EXEC_HIDDEN[] = "hidden";
-const char EXEC_SERVICE[] = "service";
-
-const char* const MODE_TO_EXEC[] = { EXEC_IDLE, EXEC_GLOBAL, EXEC_EDIT };
-
-#endif
+	exit(-1);
+}

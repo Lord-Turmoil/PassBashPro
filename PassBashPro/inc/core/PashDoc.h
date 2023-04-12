@@ -20,6 +20,8 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
+#pragma once
+
 #ifndef _PASH_DOC_H_
 #define _PASH_DOC_H_
 
@@ -27,12 +29,9 @@
 #include "../utility/Auxiliary.h"
 #include "../utility/xml.h"
 
-#include <vector>
-#include <string>
-#include <memory>
-
 
 struct Env;
+typedef std::shared_ptr<Env> EnvPtr;
 
 /********************************************************************
 ** Core data structure to store runtime passwords.

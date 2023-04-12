@@ -45,6 +45,9 @@ int exec_edit_host(int argc, char* argv[])
 	// clear previous history
 	_edit_history.Clear();
 	
+	int old_mode = g_mode;
+	g_mode = MODE_EDIT;
+
 	_edit_print_header(true);
 
 	// main loop
@@ -87,6 +90,8 @@ int exec_edit_host(int argc, char* argv[])
 	}
 
 	_edit_print_footer();
+
+	g_mode = old_mode;
 
 	return 0;
 }

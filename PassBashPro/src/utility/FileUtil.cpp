@@ -172,6 +172,11 @@ void FileUtil::_GetContentAux(const char* path,
 	{
 		if (fileInfo.attrib & _A_SUBDIR)	// is a directory
 		{
+			if (_STR_SAME(fileInfo.name, "."))
+				continue;
+			if (_STR_SAME(fileInfo.name, ".."))
+				continue;
+
 			p.assign(base);
 			p.append("\\").append(fileInfo.name).append("\\");
 			if (type & _DIR)

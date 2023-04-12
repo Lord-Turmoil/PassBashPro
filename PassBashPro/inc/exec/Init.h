@@ -26,5 +26,6 @@
 #define _INIT_H_
 
 void InitExecHost();
+void InitConsole();
 
 #endif

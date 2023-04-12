@@ -38,7 +38,7 @@ static void _search_item(XMLElementPtr root, XMLElementPtrList& list);
 static void _search(XMLElementPtr root, XMLElementPtrList& list);
 static void _find(XMLElementPtrList& list);
 
-int find(int argc, char* argv[])
+int exec_find(int argc, char* argv[])
 {
 	_find_init();
 
