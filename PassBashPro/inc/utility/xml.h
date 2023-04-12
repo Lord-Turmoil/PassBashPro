@@ -46,7 +46,10 @@ typedef std::unique_ptr<XMLFile> XMLFilePtr;
 class XMLFile
 {
 public:
-	XMLFile() : m_filename(nullptr), m_isLoaded(false) {}
+	/*
+	** std::string() does not accept nullptr.
+	*/
+	XMLFile() : m_filename(""), m_isLoaded(false) {}
 	~XMLFile();
 
 	/*

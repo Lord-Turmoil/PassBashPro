@@ -9,7 +9,7 @@
  *                                                                            *
  *                     Start Date : April 9, 2022                             *
  *                                                                            *
- *                    Last Update : April 9, 2023                             *
+ *                    Last Update : April 13, 2023                            *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
@@ -72,7 +72,8 @@ bool XMLFile::Parse(const char* xml)
 	if (m_isLoaded)
 		UnLoad();
 
-	m_filename = nullptr;
+	// String does not support nullptr.
+	m_filename = "";
 	ret = m_doc.Parse(xml);
 	if (ret != tinyxml2::XML_SUCCESS)
 		return false;
@@ -115,6 +116,13 @@ bool XMLFile::Load(const char* filename)
 
 bool XMLFile::Save()
 {
+	if (m_filename == "")
+	{
+		std::string filename(GetCurrentTimestamp());
+		filename.append(".xml");
+		return Save(filename.c_str());
+	}
+
 	return Save(m_filename.c_str());
 }
 
