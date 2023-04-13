@@ -39,13 +39,18 @@ static const WORD COLORS[] = {
 	FOREGROUND_LIGHT(FOREGROUND_CYAN)
 };
 
-static char BANNER[] {
-	"C O P Y R I G H T  (C)  T O N Y ' S  S T U D I O  2 0 2 0 - 2 0 2 3"
-};
-
 int exec_pash(int argc, char* argv[])
 {
+	cnsl::Clear();
+
+	cnsl::InsertNewLine();
 	ExecHost::GetInstance()->execl(EXEC_GLOBAL, "version", "version", nullptr);
+	cnsl::InsertNewLine();
+	
+	cnsl::InsertChar(' ', (int)(cnsl::GetConsoleWidth() - strlen(BANNER)) / 2);
+	for (const char* p = BANNER; *p; p++)
+		cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
+
 	for (const char* p = LOGO; *p; p++)
 	{
 		if (*p == ':')
@@ -54,9 +59,12 @@ int exec_pash(int argc, char* argv[])
 			cnsl::InsertText("%c", *p);
 	}
 	cnsl::InsertNewLine();
-	cnsl::InsertChar(' ', (int)(cnsl::GetConsoleWidth() - strlen(BANNER)) / 2);
-	for (const char* p = BANNER; *p; p++)
+	
+	cnsl::InsertChar(' ', (int)(cnsl::GetConsoleWidth() - strlen(THANKS)) / 2);
+	for (const char* p = THANKS; *p; p++)
 		cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
+
+	cnsl::InsertNewLine();
 	cnsl::InsertNewLine();
 
 	return 0;
