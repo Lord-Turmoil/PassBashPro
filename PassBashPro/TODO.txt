@@ -1,4 +1,4 @@
-BUG LIST:
-
-srv_login.cpp:64
-	_login_init_env
+Service:
+	add common method for user verification
+srv_profile:
+	add delete profile
