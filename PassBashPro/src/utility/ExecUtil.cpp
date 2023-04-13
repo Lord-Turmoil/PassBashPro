@@ -297,10 +297,9 @@ void _FormatPassword(char* password)
 void _FormatPassword(const char* buffer, char* password)
 {
 	memset(password, 0, sizeof(char) * PASSWORD_MAX_LENGTH);
-	const char* p;
-
 	char* q = password;
-	for (p = buffer; *p; p++)
+	
+	for (const char* p = buffer; *p; p++)
 		*(q++) = *p;
 	while (q - password < PASSWORD_MAX_LENGTH)
 		*(q++) = '\0';
