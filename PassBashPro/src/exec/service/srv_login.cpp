@@ -138,7 +138,7 @@ static int _login_receive_username()
 		{
 			cnsl::InsertNewLine();
 			EXEC_PRINT_ERR("Username doesn't exist!");
-			Sleep(500);
+			Sleep(800);
 			cnsl::Clear(0);
 			cnsl::InsertReverseLineFeed();
 			cnsl::Clear(0);

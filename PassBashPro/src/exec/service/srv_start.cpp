@@ -44,6 +44,7 @@ int srv_start(int argc, char* argv[])
 		return 1;
 	}
 
+	// first launch
 	if (!g_env)
 	{
 		// Use absolute zero to indicate internal call.
@@ -56,11 +57,6 @@ int srv_start(int argc, char* argv[])
 			LOG_ERROR("Failed to create profile: %d", ret);
 			return 2;
 		}
-	}
-	if (!g_env)
-	{
-		LOG_ERROR("Env init failed");
-		return 3;
 	}
 
 	ret = ExecHost::GetInstance()

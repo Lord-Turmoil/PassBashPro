@@ -169,7 +169,7 @@ static int _profile_silent()
 	EnvPtr env = CreateEnv(&profile);
 	_FormatPassword(password.c_str(), env->password);
 	
-	InitEnvFiles(env);
+	PASH_PANIC_ON(InitEnvFiles(env));
 
 	return 0;
 }
