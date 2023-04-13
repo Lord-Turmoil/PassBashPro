@@ -39,7 +39,7 @@ int exec_branch(int argc, char* argv[])
 
 int _branch_list()
 {
-	ProfilePool* pool = ProfilePool::GetInstance();
+	ProfilePoolPtr pool = ProfilePool::GetInstance();
 	Profile* profile;
 
 	EXEC_PRINT_MSG("Available users:\n");

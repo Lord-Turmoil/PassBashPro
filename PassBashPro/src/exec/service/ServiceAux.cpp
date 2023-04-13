@@ -26,8 +26,15 @@
 
 #include <tea.h>
 
+ProfilePtr CreateProfile(const std::string& username)
+{
+	std::string path(PASH_DIR);
+	path.append(username);
 
-EnvPtr CreateEnv(Profile* profile)
+	return ProfilePtr(new Profile(username, path));
+}
+
+EnvPtr CreateEnv(ProfilePtr profile)
 {
 	if (!profile)
 		return nullptr;
@@ -44,7 +51,7 @@ EnvPtr CreateEnv(Profile* profile)
 	return env;
 }
 
-int DeleteProfile(Profile* profile)
+int DeleteProfile(ProfilePtr profile)
 {
 	if (!profile)
 		return 0;
@@ -52,7 +59,8 @@ int DeleteProfile(Profile* profile)
 	// shouldn't delete current.
 	if (g_env && (g_env->username == profile->username))
 		return 1;
-		
+	
+
 	if (!FileUtil::DeletePath(profile->path.c_str()))
 		return 2;
 

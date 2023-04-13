@@ -23,11 +23,11 @@
 #include "../../inc/core/Profile.h"
 
 
-bool ProfilePool::Add(const Profile& profile)
+bool ProfilePool::Add(ProfilePtr profile)
 {
 	for (auto& it : m_profiles)
 	{
-		if (it.username == profile.username)
+		if (it->username == profile->username)
 			return false;
 	}
 	m_profiles.emplace_back(profile);
@@ -39,7 +39,7 @@ bool ProfilePool::Remove(const std::string& username)
 {
 	for (auto it = m_profiles.begin(); it != m_profiles.end(); it++)
 	{
-		if (it->username == username)
+		if ((*it)->username == username)
 		{
 			m_profiles.erase(it);
 			return true;
@@ -64,12 +64,12 @@ int ProfilePool::Size()
 	return (int)m_profiles.size();
 }
 
-Profile* ProfilePool::Get(const std::string& username)
+ProfilePtr ProfilePool::Get(const std::string& username)
 {
-	for (auto it = m_profiles.begin(); it != m_profiles.end(); it++)
+	for (auto it : m_profiles)
 	{
 		if (it->username == username)
-			return &(*it);
+			return it;
 	}
 
 	return nullptr;

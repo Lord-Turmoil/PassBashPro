@@ -1,5 +1,8 @@
-Service:
-	add common method for user verification
 srv_profile:
-	add delete profile
+	add verification
 
+srv_checkout:
+	TBC
+
+TODO:
+	password evaluation

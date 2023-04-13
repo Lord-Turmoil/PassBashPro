@@ -29,9 +29,14 @@
 #include "../../core/Profile.h"
 
 
-EnvPtr CreateEnv(Profile* profile);
-int DeleteProfile(Profile* profile);
+// Create a profile from username.
+ProfilePtr CreateProfile(const std::string& username);
 
+// Create a Env from profile.
+EnvPtr CreateEnv(ProfilePtr profile);
+
+// Delete a profile physically.
+int DeleteProfile(ProfilePtr profile);
 
 int InitConfig(EnvPtr env);
 int InitData(EnvPtr env);

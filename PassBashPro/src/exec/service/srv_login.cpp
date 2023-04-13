@@ -98,15 +98,15 @@ static void _login_footer()
 
 static int _login_list_users()
 {
-	ProfilePool* pool = ProfilePool::GetInstance();
-	Profile* profile;
+	ProfilePoolPtr pool = ProfilePool::GetInstance();
+	ProfilePtr profile;
 
 	const char** candidate = _candidates;
 
 	cnsl::InsertText(MESSAGE_COLOR, "Available users:\n");
 	for (int i = 0; i < pool->Size(); i++)
 	{
-		profile = &(*pool)[i];
+		profile = (*pool)[i];
 		cnsl::InsertText("\t");
 		if (profile->username == g_env->username)
 			cnsl::InsertText(HIGHLIGHT_COLOR, profile->username.c_str());
@@ -127,7 +127,7 @@ static int _login_list_users()
 static int _login_receive_username()
 {
 	char buffer[USERNAME_BUFFER_SIZE];
-	ProfilePool* pool = ProfilePool::GetInstance();
+	ProfilePoolPtr pool = ProfilePool::GetInstance();
 
 	cnsl::InsertText("Username");
 	cnsl::InsertText(PROMPT_COLOR, "$ ");
@@ -166,7 +166,7 @@ static int _login_receive_username()
 	}
 	cnsl::InsertNewLine();
 
-	Profile* profile = pool->Get(buffer);
+	ProfilePtr profile = pool->Get(buffer);
 	g_env = CreateEnv(profile);
 
 	UpdateCache();

@@ -154,10 +154,10 @@ static int _load_profile()
 	if (size != names.size())
 		return 2;
 
-	ProfilePool* pool = ProfilePool::GetInstance();
+	ProfilePoolPtr pool = ProfilePool::GetInstance();
 	pool->Clear();
 	for (int i = 0; i < size; i++)
-		pool->Add(Profile(names[i], dirs[i]));
+		pool->Add(ProfilePtr(new Profile(names[i], dirs[i])));
 
 	return 0;
 }
@@ -167,7 +167,7 @@ static int _load_cache()
 	std::string path(PASH_DIR);
 	path.append(CACHE_FILE);
 	FILE* fp;
-	ProfilePool* pool = ProfilePool::GetInstance();
+	ProfilePoolPtr pool = ProfilePool::GetInstance();
 
 	memset(_cached_user, 0, sizeof(_cached_user));
 
@@ -176,7 +176,7 @@ static int _load_cache()
 		if (!pool->IsEmpty())
 		{
 			fopen_s(&fp, path.c_str(), "w");
-			fprintf(fp, "%s\n", (*pool)[0].username.c_str());
+			fprintf(fp, "%s\n", (*pool)[0]->username.c_str());
 			fclose(fp);
 		}
 
@@ -196,7 +196,7 @@ static int _load_cache()
 		if (!pool->IsEmpty())
 		{
 			fopen_s(&fp, path.c_str(), "w");
-			fprintf(fp, "%s\n", (*pool)[0].username.c_str());
+			fprintf(fp, "%s\n", (*pool)[0]->username.c_str());
 			fclose(fp);
 		}
 	}
@@ -206,14 +206,12 @@ static int _load_cache()
 
 static int _login_init_env()
 {
-	ProfilePool* pool = ProfilePool::GetInstance();
-	Profile* p;
-
-	p = pool->Get(_cached_user);
+	ProfilePoolPtr pool = ProfilePool::GetInstance();
+	auto p = pool->Get(_cached_user);
 	if (!p)
 	{
 		if (!pool->IsEmpty())
-			p = &(*pool)[0];
+			p = (*pool)[0];
 	}
 
 	if (!p)

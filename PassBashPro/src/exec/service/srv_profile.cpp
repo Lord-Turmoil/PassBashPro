@@ -157,7 +157,7 @@ static int _profile_cli()
 
 static int _profile_silent()
 {
-	ProfilePool* pool = ProfilePool::GetInstance();
+	ProfilePoolPtr pool = ProfilePool::GetInstance();
 
 	if (pool->Get(username))
 	{
@@ -177,14 +177,14 @@ static int _profile_silent()
 	if (!FileUtil::NewDirectory(path.c_str()))
 		return 13;
 	
-	Profile profile(username, path);
+	ProfilePtr profile(new Profile(username, path));
 	pool->Add(profile);
-	EnvPtr env = CreateEnv(&profile);
+	EnvPtr env = CreateEnv(profile);
 	_FormatPassword(password.c_str(), env->password);
 	
 	PASH_PANIC_ON(InitEnvFiles(env));
 
-	EXEC_PRINT_MSG("New profile '%s' created!\n", profile.username.c_str());
+	EXEC_PRINT_MSG("New profile '%s' created!\n", profile->username.c_str());
 
 	return 0;
 }
@@ -196,7 +196,7 @@ static int _profile_delete()
 	if (!VerifyPassword(password))
 		return 22;
 
-	Profile* profile = ProfilePool::GetInstance()->Get(username);
+	ProfilePtr profile = ProfilePool::GetInstance()->Get(username);
 	int ret = DeleteProfile(profile);
 	if (ret != 0)
 	{
@@ -217,7 +217,7 @@ static int _profile_delete()
 static int _profile_receive_username()
 {
 	char buffer[USERNAME_BUFFER_SIZE];
-	ProfilePool* pool = ProfilePool::GetInstance();
+	ProfilePoolPtr pool = ProfilePool::GetInstance();
 
 	cnsl::InsertText("Please enter the ");
 	cnsl::InsertText(HIGHLIGHT_COLOR, "username");

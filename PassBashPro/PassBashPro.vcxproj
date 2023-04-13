@@ -137,6 +137,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /e /y  "manual\"  "$(SolutionDir)Publish\manual\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="inc\common\Colors.h" />
@@ -186,12 +189,14 @@
     <ClCompile Include="src\exec\editor\exec_edit_unset.cpp" />
     <ClCompile Include="src\exec\editor\EditorAux.cpp" />
     <ClCompile Include="src\exec\function\exec_branch.cpp" />
+    <ClCompile Include="src\exec\function\exec_checkout.cpp" />
     <ClCompile Include="src\exec\function\exec_edit.cpp" />
     <ClCompile Include="src\exec\function\exec_order.cpp" />
     <ClCompile Include="src\exec\function\exec_pash.cpp" />
     <ClCompile Include="src\exec\function\exec_remaster.cpp" />
     <ClCompile Include="src\exec\function\exec_unknown.cpp" />
     <ClCompile Include="src\exec\service\ServiceAux.cpp" />
+    <ClCompile Include="src\exec\service\srv_checkout.cpp" />
     <ClCompile Include="src\exec\service\srv_host.cpp" />
     <ClCompile Include="src\exec\service\srv_login.cpp" />
     <ClCompile Include="src\exec\service\srv_profile.cpp" />

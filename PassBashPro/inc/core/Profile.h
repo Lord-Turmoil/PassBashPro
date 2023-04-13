@@ -29,6 +29,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 struct Profile
 {
@@ -42,26 +43,30 @@ struct Profile
 	}
 };
 
+typedef std::shared_ptr<Profile> ProfilePtr;
+
 class ProfilePool : public Singleton<ProfilePool>
 {
 	friend class Singleton<ProfilePool>;
 
 public:
-	bool Add(const Profile& profile);
+	bool Add(ProfilePtr profile);
 	bool Remove(const std::string& username);
 	void Clear();
 	bool IsEmpty();
 	int Size();
 
-	Profile* Get(const std::string& username);
+	ProfilePtr Get(const std::string& username);
 
-	Profile& operator[](size_t id)
+	ProfilePtr operator[](size_t id)
 	{
 		return m_profiles[id];
 	}
 
 private:
-	std::vector<Profile> m_profiles;
+	std::vector<ProfilePtr> m_profiles;
 };
+
+typedef ProfilePool* ProfilePoolPtr;
 
 #endif

@@ -44,8 +44,13 @@ int srv_checkout(int argc, char* argv[])
 	if (!VerifyPassword(password))
 		return 3;
 
-	VerifyProfileInit();
-	if (!VerifyProfile(password.c_str())
+	EnvPtr env = CreateEnv(CreateProfile(username));
+	VerifyProfileInit(env);
+
+	if (!VerifyProfile(password.c_str()))
+	{
+		
+	}
 }
 
 static int _checkout_usage()
