@@ -119,7 +119,7 @@ static const char* _get_completion(const char* input, int* revert)
 	}
 
 	const char* completion = nullptr;
-	*revert = false;
+	*revert = 0;
 	const char** candidate = _candidates;
 	while (*candidate)
 	{
@@ -208,7 +208,7 @@ static int _host_peek_command()
 
 	// first arg is command name
 	_argc = 0;
-	_cmd = token;
+	_cmd = strtolower(token);
 	_argv[_argc++] = _cmd;
 
 	while (token = strtok_s(nullptr, HOST_IGNORE, &context))

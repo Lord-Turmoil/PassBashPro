@@ -64,6 +64,7 @@ int _ParseOptionalArgs(int argc, char* argv[], std::string& _1)
 		{
 			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
 			err = true;
+			resetopt();
 			break;
 		}
 		switch (opt)
@@ -110,6 +111,7 @@ int _ParseArgs(int argc, char* argv[], std::string& _1)
 		{
 			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
 			err = true;
+			resetopt();
 			break;
 		}
 		switch (opt)
@@ -163,12 +165,14 @@ int _ParseArgs(int argc, char* argv[], std::string& _1, std::string& _2)
 		{
 			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
 			err = true;
+			resetopt();
 			break;
 		}
 		if (opterr != 0)
 		{
 			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
 			err = true;
+			resetopt();
 			break;
 		}
 		switch (opt)

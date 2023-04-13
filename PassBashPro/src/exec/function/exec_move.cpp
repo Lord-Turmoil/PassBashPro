@@ -59,6 +59,15 @@ int exec_move(int argc, char* argv[])
 		EXEC_PRINT_ERR("Source and destination must not be the same!\n");
 		return 5;
 	}
+	/*
+	** 2022/04/13 TS:
+	** Fixed illegal move from parent to child.
+	*/
+	if (PashDocUtil::IsGroup(srcNode) && PashDocUtil::IsParent(srcNode, destGroup))
+	{
+		EXEC_PRINT_ERR("Cannot move parent group into its child!\n");
+		return 6;
+	}
 
 	/*
 	** 2022/01/19 TS:
@@ -67,7 +76,7 @@ int exec_move(int argc, char* argv[])
 	if (PashDocUtil::GetDirectChildNode(destGroup, PashDocUtil::GetNodeName(srcNode)))
 	{
 		EXEC_PRINT_ERR("Name exists in destination group!\n");
-		return 6;
+		return 7;
 	}
 
 	// See tinyxml2, it will automatically move from old place.

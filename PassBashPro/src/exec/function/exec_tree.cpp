@@ -76,6 +76,7 @@ static int _tree_parse_args(int argc, char* argv[], std::string& path)
 		{
 			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
 			err = true;
+			resetopt();
 			break;
 		}
 		switch (opt)

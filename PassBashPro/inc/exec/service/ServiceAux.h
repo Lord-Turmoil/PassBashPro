@@ -30,6 +30,7 @@
 
 
 EnvPtr CreateEnv(Profile* profile);
+int DeleteProfile(Profile* profile);
 
 
 int InitConfig(EnvPtr env);
@@ -43,6 +44,18 @@ int SaveData(PashDoc& doc, EnvPtr env, bool overwrite = false);
 
 // config
 int InitEnvFiles(EnvPtr env);
+
+bool UsernameVerifier(char ch);
+bool PasswordVerifier(char ch);
+bool YesNoVerifier(char ch);
+
+
+// Update login cache
+int UpdateCache();
+
+// Verify profile on login.
+bool VerifyProfileInit();
+bool VerifyProfile(const char* password);
 
 
 #endif

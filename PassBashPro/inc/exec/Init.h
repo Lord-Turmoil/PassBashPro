@@ -28,4 +28,6 @@
 void InitExecHost();
 void InitConsole();
 
+void InitAddons();
+
 #endif

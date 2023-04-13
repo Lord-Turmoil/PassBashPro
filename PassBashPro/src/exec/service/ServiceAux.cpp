@@ -44,6 +44,22 @@ EnvPtr CreateEnv(Profile* profile)
 	return env;
 }
 
+int DeleteProfile(Profile* profile)
+{
+	if (!profile)
+		return 0;
+
+	// shouldn't delete current.
+	if (g_env && (g_env->username == profile->username))
+		return 1;
+		
+	if (!FileUtil::DeletePath(profile->path.c_str()))
+		return 2;
+
+	ProfilePool::GetInstance()->Remove(profile->username);
+	
+	return 0;
+}
 
 int InitConfig(EnvPtr env)
 {
@@ -163,4 +179,76 @@ int InitEnvFiles(EnvPtr env)
 	}
 
 	return 0;
+}
+
+
+bool UsernameVerifier(char ch)
+{
+	return isalnum(ch) || (ch == '_');
+}
+
+bool PasswordVerifier(char ch)
+{
+	return isgraph(ch);
+}
+
+bool YesNoVerifier(char ch)
+{
+	char lower = tolower(ch);
+	return (lower == 'y') || (lower == 'n');
+}
+
+int UpdateCache()
+{
+	PASH_PANIC_ON(g_env == NULL);
+
+	std::string path(PASH_DIR);
+	path.append(CACHE_FILE);
+	FILE* fp;
+
+	if (fopen_s(&fp, path.c_str(), "w") != 0)
+	{
+		LOG_ERROR("Failed to update cache!");
+		return 1;
+	}
+	fprintf(fp, "%s\n", g_env->username.c_str());
+	fclose(fp);
+		
+	return 0;
+}
+
+
+static char _encoded_password[PASSWORD_BUFFER_SIZE];
+static char _decoded_password[PASSWORD_BUFFER_SIZE];
+
+bool VerifyProfileInit()
+{
+	FILE* input;
+	const char* configPath = g_env->configPath.c_str();
+	if (fopen_s(&input, configPath, "rb") != 0)
+	{
+		LOG_ERROR("Failed to open file \"%s\"", configPath);
+		return false;
+	}
+
+	char buffer[32];
+	tea::TEAFileReader* reader = new tea::TEAFileReader(input);
+	tea::TEABufferWriter* writer = new tea::TEABufferWriter(_encoded_password);
+	reader->Read(buffer, PASSWORD_MAX_LENGTH);
+	writer->Write(buffer, PASSWORD_MAX_LENGTH);
+	delete reader;
+	delete writer;
+
+	return true;
+}
+
+bool VerifyProfile(const char* password)
+{
+	tea::TEABufferReader* reader = new tea::TEABufferReader(_encoded_password);
+	tea::TEABufferWriter* writer = new tea::TEABufferWriter(_decoded_password);
+	tea::decode(reader, writer, password);
+	delete reader;
+	delete writer;
+
+	return _STR_SAME(password, _decoded_password);
 }

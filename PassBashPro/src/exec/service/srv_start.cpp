@@ -37,6 +37,12 @@ static char _cached_user[USERNAME_BUFFER_SIZE];
 
 int srv_start(int argc, char* argv[])
 {
+	if (ExecHost::GetInstance()
+		->execl(EXEC_GLOBAL, "version", "version", nullptr) == 0)
+	{
+		cnsl::InsertNewLine();
+	}
+
 	int ret = _load_env();
 	if (ret != 0)
 	{
@@ -52,18 +58,41 @@ int srv_start(int argc, char* argv[])
 			->execl(EXEC_SERVICE, "profile", "profile", "-i", nullptr);
 		if (ret != 0)
 		{
-			if (ret == -TERMINATION)
+			if (ret == TERMINATION)
 				return 0;
 			LOG_ERROR("Failed to create profile: %d", ret);
 			return 2;
 		}
+
+		// double-check
+		PASH_PANIC_ON(_load_env());
 	}
 
 	ret = ExecHost::GetInstance()
 		->execl(EXEC_SERVICE, "login", "login", nullptr);
+	while (ret == -1)	// To create new user.
+	{
+		ret = ExecHost::GetInstance()
+			->execl(EXEC_SERVICE, "profile", "profile", "-i", nullptr);
+		if (ret != 0)
+		{
+			if (ret == TERMINATION)
+				return 0;
+			LOG_ERROR("Failed to create profile: %d", ret);
+			return 2;
+		}
+
+		// double-check
+		PASH_PANIC_ON(_load_env());
+
+		// re-login
+		ret = ExecHost::GetInstance()
+			->execl(EXEC_SERVICE, "login", "login", nullptr);
+	}
+
 	if (ret != 0)
 	{
-		if (ret == -TERMINATION)
+		if (ret == TERMINATION)
 			return 0;
 		LOG_ERROR("Failed to login: %d", ret);
 		return 4;
@@ -73,7 +102,7 @@ int srv_start(int argc, char* argv[])
 		->execl(EXEC_SERVICE, "host", "host", nullptr);
 	if (ret != 0)
 	{
-		if (ret == -TERMINATION)
+		if (ret == TERMINATION)
 			return 0;
 		LOG_ERROR("Error occurred in host: %d", ret);
 		return 5;

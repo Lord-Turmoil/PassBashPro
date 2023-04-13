@@ -54,7 +54,7 @@ int exec_pash(int argc, char* argv[])
 			cnsl::InsertText("%c", *p);
 	}
 	cnsl::InsertNewLine();
-	cnsl::InsertChar(' ', (cnsl::GetConsoleWidth() - strlen(BANNER)) / 2);
+	cnsl::InsertChar(' ', (int)(cnsl::GetConsoleWidth() - strlen(BANNER)) / 2);
 	for (const char* p = BANNER; *p; p++)
 		cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
 	cnsl::InsertNewLine();

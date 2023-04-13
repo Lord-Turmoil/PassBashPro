@@ -29,6 +29,12 @@
 static char _encoded_password[PASSWORD_BUFFER_SIZE];
 static char _decoded_password[PASSWORD_BUFFER_SIZE];
 
+static const int MAX_CANDIDATE_NUM = 64;
+static const char* _candidates[MAX_CANDIDATE_NUM + 4];
+
+static const char* _get_completion(const char* input, int* revert);
+
+
 static void _login_header();
 static void _login_footer();
 
@@ -38,17 +44,22 @@ static int _login_receive_password();
 
 static bool _login_check_env(EnvPtr env);
 static bool _login_init_env(EnvPtr env);
-static bool _login_init_validate();
-static bool _login_validate(const char* password);
+
+static int _handle_user_not_exists(const char* username);
 
 int srv_login(int argc, char* argv[])
 {
+	// There must be at least one possible user!
+	PASH_PANIC_ON(g_env == nullptr);
+
 	_login_header();
 
 	PASH_TRY(_login_list_users());
 	
-	if (_login_receive_username() != 0)
-		return -TERMINATION;
+	int ret = _login_receive_username();
+	if (ret != 0)
+		return ret;
+
 	if (!_login_check_env(g_env))
 	{
 		/*
@@ -58,9 +69,10 @@ int srv_login(int argc, char* argv[])
 
 		return 1;
 	}
-	_login_init_validate();
-	if (_login_receive_password() != 0)
-		return -TERMINATION;
+	VerifyProfileInit();
+	ret = _login_receive_password();
+	if (ret != 0)
+		return TERMINATION;
 	if (!_login_init_env(g_env))
 	{
 		/*
@@ -89,6 +101,8 @@ static int _login_list_users()
 	ProfilePool* pool = ProfilePool::GetInstance();
 	Profile* profile;
 
+	const char** candidate = _candidates;
+
 	cnsl::InsertText(MESSAGE_COLOR, "Available users:\n");
 	for (int i = 0; i < pool->Size(); i++)
 	{
@@ -97,10 +111,12 @@ static int _login_list_users()
 		if (profile->username == g_env->username)
 			cnsl::InsertText(HIGHLIGHT_COLOR, profile->username.c_str());
 		else
-			cnsl::InsertText(MESSAGE_COLOR, profile->username.c_str());
+			cnsl::InsertText(profile->username.c_str());
+		*candidate++ = profile->username.c_str();
 		cnsl::InsertNewLine();
 	}
 	cnsl::InsertSplitLine('_');
+	*candidate = nullptr;
 
 	return 0;
 }
@@ -120,6 +136,9 @@ static int _login_receive_username()
 	options.minLen = 1;
 	options.maxLen = USERNAME_MAX_LENGTH;
 	options.interruptible = true;
+	options.placeholder = g_env->username.c_str();
+	options.verifier = UsernameVerifier;
+	options.completer = _get_completion;
 
 	for (; ; )
 	{
@@ -127,7 +146,7 @@ static int _login_receive_username()
 		while (ret < options.minLen)
 		{
 			if (ret == -1)
-				return 1;
+				return TERMINATION;
 			cnsl::Clear(0);
 			cnsl::InsertText("Username");
 			cnsl::InsertText(PROMPT_COLOR, "$ ");
@@ -136,12 +155,9 @@ static int _login_receive_username()
 		strstrip(buffer);
 		if (!pool->Get(buffer))
 		{
-			cnsl::InsertNewLine();
-			EXEC_PRINT_ERR("Username doesn't exist!");
-			Sleep(800);
-			cnsl::Clear(0);
-			cnsl::InsertReverseLineFeed();
-			cnsl::Clear(0);
+			if (_handle_user_not_exists(buffer) != 0)
+				return -1;	// create new user
+
 			cnsl::InsertText("Username");
 			cnsl::InsertText(PROMPT_COLOR, "$ ");
 		}
@@ -152,6 +168,8 @@ static int _login_receive_username()
 
 	Profile* profile = pool->Get(buffer);
 	g_env = CreateEnv(profile);
+
+	UpdateCache();
 
 	return 0;
 }
@@ -170,6 +188,7 @@ static int _login_receive_password()
 	options.maxLen = PASSWORD_MAX_LENGTH;
 	options.decoy = '*';
 	options.interruptible = true;
+	options.verifier = PasswordVerifier;
 
 	cnsl::InsertText("Password");
 	cnsl::InsertText(PROMPT_COLOR, "$ ");
@@ -177,11 +196,11 @@ static int _login_receive_password()
 	{
 		ret = cnsl::GetString(buffer, options);
 		if (ret == -1)
-			return 1;
+			return TERMINATION;
 	} while (ret == 0);
 	_FormatPassword(buffer);
 
-	while (!_login_validate(buffer))
+	while (!VerifyProfile(buffer))
 	{
 		cnsl::InsertNewLine();
 		cnsl::InsertText(ERROR_COLOR, "WRONG PASSWORD!");
@@ -196,7 +215,7 @@ static int _login_receive_password()
 		{
 			ret = cnsl::GetString(buffer, options);
 			if (ret == -1)
-				return 1;
+				return TERMINATION;
 		} while (ret == 0);
 		_FormatPassword(buffer);
 	}
@@ -217,32 +236,59 @@ static bool _login_init_env(EnvPtr env)
 	return g_doc.Load(env);
 }
 
-static bool _login_init_validate()
+static const char* _get_completion(const char* input, int* revert)
 {
-	FILE* input;
-	const char* configPath = g_env->configPath.c_str();
-	if (fopen_s(&input, configPath, "rb") != 0)
+	if (!_candidates[0])
+		return nullptr;
+
+	// Get last substring to complete.
+	const char* completion = nullptr;
+	*revert = 0;
+	const char** candidate = _candidates;
+	while (*candidate)
 	{
-		LOG_ERROR("Failed to open file \"%s\"", configPath);
-		return false;
+		const char* pos = cnsl::BeginsWith(*candidate, input);
+		if (!*pos)	// full match
+		{
+			candidate++;
+			completion = *candidate ? *candidate : _candidates[0];
+			*revert = (int)strlen(input);
+			break;
+		}
+		if (pos != *candidate)	// partial match
+		{
+			if (!completion)
+				completion = pos;
+			else
+				return nullptr;	// ignore multiple possible match
+		}
+		candidate++;
 	}
 
-	char buffer[32];
-	tea::TEAFileReader* reader = new tea::TEAFileReader(input);
-	tea::TEABufferWriter* writer = new tea::TEABufferWriter(_encoded_password);
-	reader->Read(buffer, PASSWORD_MAX_LENGTH);
-	writer->Write(buffer, PASSWORD_MAX_LENGTH);
-	delete reader;
-	delete writer;
+	return completion;
 }
 
-static bool _login_validate(const char* password)
+static int _handle_user_not_exists(const char* username)
 {
-	tea::TEABufferReader* reader = new tea::TEABufferReader(_encoded_password);
-	tea::TEABufferWriter* writer = new tea::TEABufferWriter(_decoded_password);
-	tea::decode(reader, writer, password);
-	delete reader;
-	delete writer;
+	cnsl::InsertNewLine();
+	EXEC_PRINT_ERR("Username doesn't exist!\n");
+	cnsl::InsertText("Create new user? (Y/N) ");
+	cnsl::InsertText(PROMPT_COLOR, "$ ");
 
-	return _STR_SAME(password, _decoded_password);
+	char buffer[4];
+
+	cnsl::InputOptions options;
+	options.minLen = 1;
+	options.maxLen = 1;
+	options.verifier = YesNoVerifier;
+	cnsl::GetString(buffer, options);
+
+	// restore input
+	cnsl::Clear(0);
+	cnsl::InsertReverseLineFeed();
+	cnsl::Clear(0);
+	cnsl::InsertReverseLineFeed();
+	cnsl::Clear(0);
+
+	return tolower(buffer[0]) == 'y';
 }

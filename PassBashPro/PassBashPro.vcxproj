@@ -185,13 +185,17 @@
     <ClCompile Include="src\exec\editor\exec_edit_unknown.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_unset.cpp" />
     <ClCompile Include="src\exec\editor\EditorAux.cpp" />
+    <ClCompile Include="src\exec\function\exec_branch.cpp" />
     <ClCompile Include="src\exec\function\exec_edit.cpp" />
     <ClCompile Include="src\exec\function\exec_order.cpp" />
+    <ClCompile Include="src\exec\function\exec_pash.cpp" />
+    <ClCompile Include="src\exec\function\exec_remaster.cpp" />
     <ClCompile Include="src\exec\function\exec_unknown.cpp" />
     <ClCompile Include="src\exec\service\ServiceAux.cpp" />
     <ClCompile Include="src\exec\service\srv_host.cpp" />
     <ClCompile Include="src\exec\service\srv_login.cpp" />
     <ClCompile Include="src\exec\service\srv_profile.cpp" />
+    <ClCompile Include="src\exec\service\srv_remaster.cpp" />
     <ClCompile Include="src\exec\service\srv_start.cpp" />
     <ClCompile Include="src\utility\ExecUtil.cpp" />
     <ClCompile Include="src\core\PashDoc.cpp" />

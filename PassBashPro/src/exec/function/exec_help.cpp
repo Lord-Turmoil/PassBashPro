@@ -37,7 +37,9 @@ static int _help_single(const std::string& item, bool brief = false);	// help si
 static int _help_current(const char* root = nullptr);	// help current faction (in brief)
 static int _help_all();		// help all factions (in brief)
 
-static int _print_help(const char* path, int n = -1);
+static int _print_help(const char* path, bool brief);
+
+static bool _is_empty_line(const char* line);
 
 int exec_help(int argc, char* argv[])
 {
@@ -76,10 +78,19 @@ static int _help_parse_args(int argc, char* argv[])
 	bool err = false;
 	while (opt = getopt(argc, argv, "a"))
 	{
+		if (opterr != 0)
+		{
+			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
+			err = true;
+			resetopt();
+			break;
+		}
+
 		switch (opt)
 		{
 		case 'a':
-			showAll = true;
+			// temporarily disable this feature
+			// showAll = true;
 			break;
 		case '!':
 			arg_cnt++;
@@ -120,8 +131,10 @@ static int _help_single(const std::string& item, bool brief)	// help single comm
 	std::string path(HELP_ROOT_DIR);
 	path.append(HELP_DIR[g_mode]);
 	path.append(item);
+	if (!ends_with(path.c_str(), ".txt"))
+		path.append(".txt");
 
-	int ret = _print_help(path.c_str(), brief ? 1 : -1);
+	int ret = _print_help(path.c_str(), brief);
 	if (ret != 0)
 	{
 		EXEC_PRINT_ERR("Help for '%s' is not available!\n", item.c_str());
@@ -143,12 +156,18 @@ static int _help_current(const char* root)	// help current faction (in brief)
 	std::vector<std::string> names;
 	FileUtil::GetFiles(path.c_str(), nullptr, &names);
 
+	std::string faction;
+	PashDocUtil::GetBaseName(path, faction);
+	cnsl::InsertHeaderLine(faction.c_str(), '-');
 	if (names.empty())
 		EXEC_PRINT_MSG("No available help information.\n");
 	else
 	{
 		for (auto name : names)
+		{
 			_help_single(name, true);
+			cnsl::InsertNewLine();
+		}
 	}
 
 	return 0;
@@ -176,7 +195,18 @@ static int _help_all()		// help all factions (in brief)
 	return ret;
 }
 
-static int _print_help(const char* path, int n)
+static bool _is_empty_line(const char* line)
+{
+	for (const char* p = line; *p; p++)
+	{
+		if (!isspace(*p))
+			return false;
+	}
+
+	return true;
+}
+
+static int _print_help(const char* path, bool brief)
 {
 	FILE* fp;
 
@@ -185,12 +215,20 @@ static int _print_help(const char* path, int n)
 
 	WORD old = cnsl::SetTextForeground(MESSAGE_COLOR);
 
-	if (n < 0)
-		n = 1024;
-	while ((n > 0) && (fgets(_help_buffer, PASH_BUFFER_SIZE, fp) != NULL))
+	if (brief)
 	{
-		n--;
-		cnsl::InsertText("%s", _help_buffer);
+		while (fgets(_help_buffer, PASH_BUFFER_SIZE, fp) != nullptr)
+		{
+			if (_is_empty_line(_help_buffer))
+				break;
+			cnsl::InsertText("%s", _help_buffer);
+		}
+	}
+	else
+	{
+		cnsl::InsertText("Usage:\n");
+		while (fgets(_help_buffer, PASH_BUFFER_SIZE, fp) != nullptr)
+			cnsl::InsertText("%s", _help_buffer);
 	}
 	
 	cnsl::SetTextForeground(old);

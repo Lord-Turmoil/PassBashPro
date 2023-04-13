@@ -32,6 +32,8 @@
 
 #include "../../inc/core/Global.h"
 
+#include "../../inc/utility/Auxiliary.h"
+
 
 #define HOOK(FACTORY, DESCR, CMD) FACTORY->Hook(DESCR, CMD)
 
@@ -60,16 +62,21 @@ void InitConsole()
 	cnsl::OverflowReprint(false);
 }
 
+void InitAddons()
+{
+	SetRandomSeed();
+}
+
 static void _InitService()
 {
 	ExecFactoryPtr factory(new ExecFactory());
 
-	HOOK(factory, "host",    srv_host);
-	HOOK(factory, "login",   srv_login);
-	HOOK(factory, "profile", srv_profile);
-	HOOK(factory, "start",   srv_start);
-	
-	HOOK(factory, "editor",  exec_edit_host);
+	HOOK(factory, "host",     srv_host);
+	HOOK(factory, "login",    srv_login);
+	HOOK(factory, "profile",  srv_profile);
+	HOOK(factory, "start",    srv_start);
+	HOOK(factory, "remaster", srv_remaster);
+	HOOK(factory, "editor",   exec_edit_host);
 
 	ExecHost::GetInstance()->Register(EXEC_SERVICE, factory);
 }
@@ -78,34 +85,38 @@ static void _InitGlobal()
 {
 	ExecFactoryPtr factory(new ExecFactory());
 
-	HOOK(factory, "cd",      exec_cd);
-	HOOK(factory, "ls",      exec_ls);
-	HOOK(factory, "l",       exec_ls);
-	HOOK(factory, "touch",   exec_touch);
-	HOOK(factory, "mkdir",   exec_mkdir);
-	HOOK(factory, "rm",      exec_rm);
-	HOOK(factory, "move",    exec_move);
-	HOOK(factory, "mv",      exec_move);
-	HOOK(factory, "rename",  exec_rename);
-	HOOK(factory, "rn",      exec_rename);
-	HOOK(factory, "cat",     exec_cat);
-	HOOK(factory, "save",    exec_save);
-	HOOK(factory, "s",       exec_save);
-	HOOK(factory, "pwd",     exec_pwd);
-	HOOK(factory, "tree",    exec_tree);
-	HOOK(factory, "find",    exec_find);
-	HOOK(factory, "f",       exec_find);
-	HOOK(factory, "clear",   exec_clear);
-	HOOK(factory, "cls",     exec_clear);
-	HOOK(factory, "version", exec_version);
-	HOOK(factory, "ver",     exec_version);
-	HOOK(factory, "exit",    exec_exit);
-	HOOK(factory, "quit",    exec_exit);
-	HOOK(factory, "q",       exec_exit);
-	HOOK(factory, "edit",    exec_edit);
-	HOOK(factory, "mod",     exec_edit);
-	HOOK(factory, "help",    exec_help);
-	HOOK(factory, "h",       exec_help);
+	HOOK(factory, "cd",       exec_cd);
+	HOOK(factory, "ls",       exec_ls);
+	HOOK(factory, "l",        exec_ls);
+	HOOK(factory, "touch",    exec_touch);
+	HOOK(factory, "mkdir",    exec_mkdir);
+	HOOK(factory, "rm",       exec_rm);
+	HOOK(factory, "move",     exec_move);
+	HOOK(factory, "mv",       exec_move);
+	HOOK(factory, "rename",   exec_rename);
+	HOOK(factory, "rn",       exec_rename);
+	HOOK(factory, "cat",      exec_cat);
+	HOOK(factory, "save",     exec_save);
+	HOOK(factory, "s",        exec_save);
+	HOOK(factory, "pwd",      exec_pwd);
+	HOOK(factory, "tree",     exec_tree);
+	HOOK(factory, "find",     exec_find);
+	HOOK(factory, "f",        exec_find);
+	HOOK(factory, "clear",    exec_clear);
+	HOOK(factory, "cls",      exec_clear);
+	HOOK(factory, "version",  exec_version);
+	HOOK(factory, "ver",      exec_version);
+	HOOK(factory, "exit",     exec_exit);
+	HOOK(factory, "quit",     exec_exit);
+	HOOK(factory, "q",        exec_exit);
+	HOOK(factory, "edit",     exec_edit);
+	HOOK(factory, "mod",      exec_edit);
+	HOOK(factory, "help",     exec_help);
+	HOOK(factory, "h",        exec_help);
+	HOOK(factory, "remaster", exec_remaster);
+	HOOK(factory, "profile",  exec_branch);
+	HOOK(factory, "branch",	  exec_branch);
+	HOOK(factory, "pash",     exec_pash);
 	// HOOK(factory, "tea",     exec_tea);
 #if PASH_CHEAT
 	HOOK(factory, "order",   exec_order);
