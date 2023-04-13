@@ -41,8 +41,10 @@ void _edit_print_footer()
 
 void _edit_print_prompt()
 {
-	cnsl::InsertText("[Edit Mode]");
-	cnsl::InsertText(PWD_COLOR, "%s@%s", g_env->username.c_str(), _edit_item_path.c_str());
+	cnsl::InsertText(PROMPT_COLOR, "[Edit Mode] ");
+	cnsl::InsertText(USER_COLOR, "%s", g_env->username.c_str());
+	cnsl::InsertText(PROMPT_COLOR, ":");
+	cnsl::InsertText(PWD_COLOR, "%s", _edit_item_path.c_str());
 	cnsl::InsertText(PROMPT_COLOR, "> ");
 }
 

@@ -55,7 +55,7 @@ int exec_mkdir(int argc, char* argv[])
 
 	g_doc.Mark();
 
-	return true;
+	return 0;
 }
 
 static int _mkdir_parse_arg(int argc, char* argv[], std::string& path)

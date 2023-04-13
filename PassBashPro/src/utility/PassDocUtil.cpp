@@ -176,7 +176,7 @@ XMLElementPtr PashDocUtil::GetNodeByPath(const std::string& path)
 			if (node != g_doc.GetRoot())
 				node = GetParentNode(node);
 		}
-		else if (!_STR_SAME(token, SELF_DIR_NAME))
+		else if (_STR_SAME(token, SELF_DIR_NAME))
 			node = node;
 		else
 			node = GetDirectChildNode(node, token);

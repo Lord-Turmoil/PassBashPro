@@ -203,6 +203,11 @@ void PashDoc::Mark()
 	m_modified = true;
 }
 
+bool PashDoc::IsMarked() const
+{
+	return m_modified;
+}
+
 bool PashDoc::_GenerateData(EnvPtr env)
 {
 	FILE* output;

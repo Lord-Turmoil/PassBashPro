@@ -66,6 +66,7 @@ public:
 
 	// Mark modified.
 	void Mark();
+	bool IsMarked() const;
 
 public:
 	// Be careful!!!

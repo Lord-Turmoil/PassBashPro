@@ -79,6 +79,9 @@ int srv_start(int argc, char* argv[])
 		return 5;
 	}
 
+	if (g_env && g_doc.IsLoaded() && g_doc.IsMarked())
+		g_doc.Save(g_env);
+
 	return 0;
 }
 
