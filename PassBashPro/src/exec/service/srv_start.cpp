@@ -66,6 +66,8 @@ int srv_start(int argc, char* argv[])
 
 		// double-check
 		PASH_PANIC_ON(_load_env());
+
+		cnsl::InsertSplitLine('_');
 	}
 
 	ret = ExecHost::GetInstance()
@@ -84,6 +86,8 @@ int srv_start(int argc, char* argv[])
 
 		// double-check
 		PASH_PANIC_ON(_load_env());
+
+		cnsl::InsertSplitLine('_');
 
 		// re-login
 		ret = ExecHost::GetInstance()
