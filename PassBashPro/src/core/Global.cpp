@@ -48,7 +48,7 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
 
 // Position variables.
 const int VAR_SIZE = 10;
-std::vector<std::string> g_var;
+std::vector<std::string> g_var(VAR_SIZE, "");
 
 // Versions.
 const char PASH_HOST_VERSION[] = "3.0.0";

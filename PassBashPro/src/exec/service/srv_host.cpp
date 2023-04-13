@@ -190,8 +190,7 @@ static int _host_peek_command()
 
 	_cmd = nullptr;
 
-	cnsl::InsertText(PWD_COLOR, "%s", g_pwd.c_str());
-	cnsl::InsertText(PROMPT_COLOR, "\b$ ");
+	_PrintPrompt();
 
 	cnsl::InputOptions options;
 	options.minLen = 0;
