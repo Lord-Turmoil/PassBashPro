@@ -18,6 +18,26 @@
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
+ * -------------------------------------------------------------------------- *
+ * Comments:
+ *   This is an upgraded version of the original PassBash, with extra account *
+ * control features.                                                          *
+ *   Initialize motivation came from Fengrubei of BUAA, which turned out to   *
+ * be quite a haste. 10K+ lines of code within a week is too ridiculous, even *
+ * if it has a prototype.                                                     *
+ * -------------------------------------------------------------------------- *
+ *                                     "                                      *
+ *        I'm never gonna dance again. Guilty feet have got no rhythm.        *
+ *           Though it's easy to pretend. I know you're not a fool.           *
+ *               Should've known better than to cheat a friend.               *
+ *                 And waste the chance that I've been given.                 *
+ *                      So I'm never gonna dance again.                       *
+ *                        The way I dance with you~~.                         *
+ *                                     "                                      *
+ *                                                        - Careless Whisper  *
+ * -------------------------------------------------------------------------- *
+ * Acknowledgement:                                                           *
+ *    For more information, please visit http://www.tonys-studio.top.         *
  ******************************************************************************/
 
 #include "../inc/common/Macros.h"
