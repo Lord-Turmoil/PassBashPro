@@ -189,7 +189,6 @@ static int _load_cache()
 
 	// here, fp is open
 	fscanf_s(fp, "%s", _cached_user, (unsigned int)_countof(_cached_user));
-	fclose(fp);
 
 	if (!pool->Get(_cached_user))
 	{
@@ -197,9 +196,10 @@ static int _load_cache()
 		{
 			fopen_s(&fp, path.c_str(), "w");
 			fprintf(fp, "%s\n", (*pool)[0]->username.c_str());
-			fclose(fp);
 		}
 	}
+
+	fclose(fp);
 
 	return 0;
 }

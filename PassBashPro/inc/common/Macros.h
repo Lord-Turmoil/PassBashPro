@@ -41,5 +41,10 @@
 // Whether enable cheat test or not.
 #define PASH_CHEAT 1
 
+#ifdef PASH_DEBUG
+#define PASH_HIDE_ROOT 1
+#else
+#define PASH_HIDE_ROOT 0
+#endif
 
 #endif
