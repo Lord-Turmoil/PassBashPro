@@ -9,7 +9,7 @@
  *                                                                            *
  *                     Start Date : January 1, 2023                           *
  *                                                                            *
- *                    Last Update : March 10, 2023                            *
+ *                    Last Update : April 13, 2023                            *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
@@ -48,6 +48,7 @@ struct InputHistory
 };
 
 typedef const char* (*Completer)(const char*, int*);
+typedef bool (*CharsetVerifier)(char);
 
 struct InputOptions
 {
@@ -55,7 +56,12 @@ struct InputOptions
 	int maxLen;
 
 	InputHistory* history;
+	
 	Completer completer;
+	CharsetVerifier verifier;
+
+	// The default value before input.
+	const char* placeholder;
 
 	char decoy;
 	bool interruptible;
@@ -65,17 +71,19 @@ struct InputOptions
 		maxLen(INPUT_BUFFER_SIZE - 1),
 		history(nullptr),
 		completer(nullptr),
+		verifier(nullptr),
+		placeholder(nullptr),
 		decoy(0),
 		interruptible(false)
 	{
 	}
 
 	InputOptions(int _minLen, int _maxLen, char _decoy = 0, bool _interruptible = false) :
-		minLen(_minLen), maxLen(_maxLen), history(nullptr), completer(nullptr),
-		decoy(_decoy), interruptible(_interruptible)
+		minLen(_minLen), maxLen(_maxLen),
+		history(nullptr), completer(nullptr), verifier(nullptr),
+		placeholder(nullptr), decoy(_decoy), interruptible(_interruptible)
 	{
 	}
-
 };
 
 /*
@@ -85,7 +93,7 @@ struct InputOptions
 */
 int GetString(char* buffer, const InputOptions& options);
 
-// Below are old and deprecated functions.
+// Get a string with default options.
 int GetString(char* buffer);
 
 template<typename _Ty>

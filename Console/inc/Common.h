@@ -34,12 +34,15 @@ const char SPACE		= ' ';
 const char ESCAPE       = 27;
 const char TAB			= '\t';
 
+const char CTRL_BACKSPACE      = 127;
+
 const char SPECIAL_LEADING     = (char)224;
 const char SPECIAL_ARROW_UP    = 72;
 const char SPECIAL_ARROW_DOWN  = 80;
 const char SPECIAL_ARROW_LEFT  = 75;
 const char SPECIAL_ARROW_RIGHT = 77;
 const char SPECIAL_DELETE      = 83;
+const char SPECIAL_CTRL_DELETE = (char)-109;
 const char SPECIAL_HOME        = 71;
 const char SPECIAL_END         = 79;
 

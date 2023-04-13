@@ -43,26 +43,16 @@ _CNSL_BEGIN
 
 char _default_buffer[INPUT_BUFFER_SIZE];
 
-static void ResetInput(SHORT beginX, int maxLen, int& pos, int& length, char* input, char* history)
-{
-	if (!history)
-		return;
-
-	cnsl::Clear(beginX, beginX + length);
-	cnsl::InsertText("%.*s", maxLen, history);
-	length = std::min(maxLen, (int)strlen(history));
-	pos = length;
-	
-	strncpy(input, history, length);
-	input[length] = '\0';
-}
-
 typedef void _input_action_t(const InputOptions& opt, InputContext& ctx);
 
-_input_action_t _reset_input;
+static void ResetInput(SHORT beginX, int maxLen, int& pos, int& length, char* input, char* history);
+static void InputPlaceholder(const InputOptions& opt, InputContext& ctx);
+
+static _input_action_t _reset_input;
 
 static _input_action_t _insert_char;
 static _input_action_t _insert_backspace;
+static _input_action_t _insert_ctrl_backspace;
 static _input_action_t _insert_completion;
 
 static void _special_input_handler(char ch, const InputOptions& opt, InputContext& ctx);
@@ -75,6 +65,8 @@ static _input_action_t _special_arrow_ctrl_left;
 static _input_action_t _special_arrow_ctrl_right;
 
 static _input_action_t _special_delete;
+static _input_action_t _special_ctrl_delete;
+
 static _input_action_t _special_home;
 static _input_action_t _special_end;
 
@@ -103,6 +95,8 @@ int GetString(char* buffer, const InputOptions& options)
 
 	FlushInput();
 	
+	InputPlaceholder(opt, ctx);
+
 	char ch;
 	for (; ;)
 	{
@@ -127,6 +121,10 @@ int GetString(char* buffer, const InputOptions& options)
 		{
 			_insert_backspace(opt, ctx);
 		}
+		else if (ch == CTRL_BACKSPACE)
+		{
+			_insert_ctrl_backspace(opt, ctx);
+		}
 		else if (ch == TAB)
 		{
 			_insert_completion(opt, ctx);
@@ -142,6 +140,31 @@ int GetString(char* buffer, const InputOptions& options)
 		opt.history->Push(ctx.buffer);
 
 	return ctx.length;
+}
+
+static void ResetInput(SHORT beginX, int maxLen, int& pos, int& length, char* input, char* history)
+{
+	if (!history)
+		return;
+
+	cnsl::Clear(beginX, beginX + length);
+	cnsl::InsertText("%.*s", maxLen, history);
+	length = std::min(maxLen, (int)strlen(history));
+	pos = length;
+
+	strncpy(input, history, length);
+	input[length] = '\0';
+}
+
+static void InputPlaceholder(const InputOptions& opt, InputContext& ctx)
+{
+	if (!opt.placeholder)
+		return;
+	for (const char* p = opt.placeholder; *p; p++)
+	{
+		ctx.ch = *p;
+		_insert_char(opt, ctx);
+	}
 }
 
 static void _reset_input(const InputOptions& opt, InputContext& ctx)
@@ -160,6 +183,9 @@ static void _reset_input(const InputOptions& opt, InputContext& ctx)
 
 static void _insert_char(const InputOptions& opt, InputContext& ctx)
 {
+	if (opt.verifier && !opt.verifier(ctx.ch))
+		return;
+
 	if ((ctx.length < opt.maxLen) && isprint(ctx.ch))
 	{
 		for (int i = ctx.length; i > ctx.pos; i--)
@@ -190,6 +216,14 @@ static void _insert_backspace(const InputOptions& opt, InputContext& ctx)
 		ctx.length--;
 		ctx.buffer[ctx.length] = '\0';
 	}
+}
+
+static void _insert_ctrl_backspace(const InputOptions& opt, InputContext& ctx)
+{
+	while ((ctx.pos > 0) && !isalnum(ctx.buffer[ctx.pos - 1]))
+		_insert_backspace(opt, ctx);
+	while ((ctx.pos > 0) && isalnum(ctx.buffer[ctx.pos - 1]))
+		_insert_backspace(opt, ctx);
 }
 
 static void _insert_completion(const InputOptions& opt, InputContext& ctx)
@@ -238,6 +272,9 @@ static void _special_input_handler(char ch, const InputOptions& opt, InputContex
 		break;
 	case SPECIAL_DELETE:
 		_special_delete(opt, ctx);
+		break;
+	case SPECIAL_CTRL_DELETE:
+		_special_ctrl_delete(opt, ctx);
 		break;
 	case SPECIAL_HOME:
 		_special_home(opt, ctx);
@@ -290,25 +327,15 @@ static void _special_arrow_down(const InputOptions& opt, InputContext& ctx)
 
 static void _special_arrow_ctrl_left(const InputOptions& opt, InputContext& ctx)
 {
-	while ((ctx.pos > 0) && isalnum(ctx.buffer[ctx.pos]))
+	while ((ctx.pos > 0) && !isalnum(ctx.buffer[ctx.pos - 1]))
 	{
 		InsertBackspace();
 		ctx.pos--;
 	}
-	while ((ctx.pos > 0) && !isalnum(ctx.buffer[ctx.pos]))
+	while ((ctx.pos > 0) && isalnum(ctx.buffer[ctx.pos - 1]))
 	{
 		InsertBackspace();
 		ctx.pos--;
-	}
-	while ((ctx.pos > 0) && isalnum(ctx.buffer[ctx.pos]))
-	{
-		InsertBackspace();
-		ctx.pos--;
-	}
-	if (!isalnum(ctx.buffer[ctx.pos]) && ctx.pos < ctx.length)
-	{
-		InsertChar(opt.decoy ? opt.decoy : ctx.buffer[ctx.pos]);
-		ctx.pos++;
 	}
 }
 
@@ -340,6 +367,17 @@ static void _special_delete(const InputOptions& opt, InputContext& ctx)
 		ctx.length--;
 		ctx.buffer[ctx.length] = '\0';
 	}
+}
+
+static void _special_ctrl_delete(const InputOptions& opt, InputContext& ctx)
+{
+	if (isalnum(ctx.buffer[ctx.pos]))
+	{
+		while ((ctx.pos < ctx.length) && isalnum(ctx.buffer[ctx.pos]))
+			_special_delete(opt, ctx);
+	}
+	while ((ctx.pos < ctx.length) && !isalnum(ctx.buffer[ctx.pos]))
+		_special_delete(opt, ctx);
 }
 
 static void _special_home(const InputOptions& opt, InputContext& ctx)
