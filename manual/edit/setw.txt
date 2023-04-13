@@ -1,0 +1,12 @@
+  setw id|weight
+
+--------------------------------------------------------------------------------
+
+Alias:
+  setw, sw
+
+Description:
+  Set the weight of a specific entry.
+
+Note:
+  You can find the id through "see" command.

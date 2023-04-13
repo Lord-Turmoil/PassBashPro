@@ -1,0 +1,12 @@
+  move (group | item) (group)
+
+--------------------------------------------------------------------------------
+
+Alias:
+  move, mv
+
+Description:
+  Move group or item into another group.
+
+Note:
+  There's no need to enter the group name again in target group.

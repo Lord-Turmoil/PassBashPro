@@ -1,0 +1,9 @@
+  cat item
+
+--------------------------------------------------------------------------------
+
+Description:
+  Show the content of a specified password item.
+
+Hint:
+  Item name could be either a absolute path or a relative path.

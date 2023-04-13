@@ -1,0 +1,12 @@
+  setk id|key
+
+--------------------------------------------------------------------------------
+
+Alias:
+  setk, sk
+
+Description:
+  Set the key of a specific entry.
+
+Note:
+  You can find the id through "see" command.

@@ -1,0 +1,6 @@
+  pwd
+
+--------------------------------------------------------------------------------
+
+Description:
+  Display present working directory.

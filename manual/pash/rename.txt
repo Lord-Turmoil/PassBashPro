@@ -1,0 +1,13 @@
+  rename src dst
+
+--------------------------------------------------------------------------------
+
+Alias:
+  rename, rn
+
+Description:
+  Rename group or item.
+
+Note:
+  src and dst should be full name of group or item. Both relative and absolute
+  path is acceptable.

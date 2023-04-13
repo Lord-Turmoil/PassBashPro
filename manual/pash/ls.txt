@@ -1,0 +1,13 @@
+  ls [group]
+
+--------------------------------------------------------------------------------
+
+Alias:
+  ls, l
+
+Description:
+  List all groups and items under current group.
+
+Note:
+  If group is specified, it will list content of that group instead. Both
+  relative and absolute path is acceptable.

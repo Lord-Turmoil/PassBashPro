@@ -1,0 +1,12 @@
+  setv id|value
+
+--------------------------------------------------------------------------------
+
+Alias:
+  setv, sv
+
+Description:
+  Set the value of a specific entry.
+
+Note:
+  You can find the id through "see" command.

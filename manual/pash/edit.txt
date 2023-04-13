@@ -1,0 +1,16 @@
+  edit item
+  mod item
+
+--------------------------------------------------------------------------------
+
+Alias:
+  edit, mod
+
+Description:
+  Edit password item.
+
+Hint:
+  Item path could be either absolute or relative.
+
+Note:
+  Specified password item will be created if doesn't exist before.

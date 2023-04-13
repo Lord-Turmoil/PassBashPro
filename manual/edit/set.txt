@@ -1,0 +1,17 @@
+  set key|value[|weight]
+
+--------------------------------------------------------------------------------
+
+Alias:
+  set, st
+
+Description:
+  Create a new entry, or overwrite current one.
+
+Hint:
+  key     --  A string.
+  value   --  A string.
+  weight  --  A non-negative integer.
+Note:
+  Entries are sorted ascending by weight. If weight is not specified or is
+  negative, it will be generated automatically to the largest.

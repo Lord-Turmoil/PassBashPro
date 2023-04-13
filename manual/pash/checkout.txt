@@ -1,0 +1,6 @@
+  checkout -u username -p password
+
+--------------------------------------------------------------------------------
+
+Description:
+  Change current active user.

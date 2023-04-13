@@ -1,0 +1,9 @@
+  mkdir group
+
+--------------------------------------------------------------------------------
+
+Description:
+  Create new group.
+
+Note:
+  Group name could be either relative or absolute.

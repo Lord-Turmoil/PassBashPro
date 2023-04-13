@@ -1,0 +1,12 @@
+  tree [-g] [group]
+
+--------------------------------------------------------------------------------
+
+Description:
+  Show group's content in tree form.
+
+Hint:
+  -g  --  Show groups only.
+
+Note:
+  If group is not specified, current group will be displayed.

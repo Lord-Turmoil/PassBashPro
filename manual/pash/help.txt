@@ -1,0 +1,15 @@
+  help [cmd]
+
+--------------------------------------------------------------------------------
+
+Alias:
+  help, h
+
+Description:
+  Show help information for specified command.
+
+Note:
+  If no parameters assigned, help will show information of usable commands
+  in current state.
+  If -a is set, cmd will be ignored.
+  Detailed help is only displayed when cmd is specified.

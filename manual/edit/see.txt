@@ -1,0 +1,12 @@
+  see
+
+--------------------------------------------------------------------------------
+
+Alias:
+  see, s
+
+Description:
+  Display the content of the current password item.
+
+Note:
+  You can use this command to see the id of entries.

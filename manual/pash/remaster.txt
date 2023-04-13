@@ -1,0 +1,6 @@
+  remaster
+
+--------------------------------------------------------------------------------
+
+Description:
+  Change master password interactively.

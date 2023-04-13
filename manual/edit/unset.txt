@@ -1,0 +1,10 @@
+  unset id
+
+--------------------------------------------------------------------------------
+
+Alias:
+  unset, ust
+
+Description:
+  Delete a entry with specified id.
+

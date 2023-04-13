@@ -1,0 +1,9 @@
+  version
+
+--------------------------------------------------------------------------------
+
+Alias:
+  version, ver
+
+Description:
+  Display current version of PassBash.

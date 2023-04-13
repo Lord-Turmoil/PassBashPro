@@ -1,0 +1,9 @@
+  save
+
+--------------------------------------------------------------------------------
+
+Alias:
+  save, s
+
+Description:
+  Save changes to passwords.
