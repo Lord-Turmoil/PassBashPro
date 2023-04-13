@@ -154,6 +154,11 @@ static int _remove_confirm(const char* prompt)
 
 	char buffer[4];
 
+	cnsl::InputOptions options(1, 1);
+	options.verifier = [](char x) -> bool {
+		return (tolower(x) == 'y' || (tolower(x) == 'n'));
+	};
+
 	cnsl::InsertText(ERROR_COLOR, prompt);
 	cnsl::GetString(buffer, cnsl::InputOptions(1, 1));
 	cnsl::InsertNewLine();

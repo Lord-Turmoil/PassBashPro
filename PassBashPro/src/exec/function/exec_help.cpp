@@ -23,6 +23,9 @@
 #include "../../../inc/exec/function/FuncHeader.h"
 #include "../../../inc/utility/FileUtil.h"
 
+#include <algorithm>
+
+
 static std::string target;
 static bool showAll;
 static char _help_buffer[PASH_BUFFER_SIZE];
@@ -47,6 +50,9 @@ int exec_help(int argc, char* argv[])
 		if (argc > 0 && argv[0][0] != '_')
 			_help_usage();
 	}
+
+	std::transform(target.begin(), target.end(), target.begin(),
+				   [](char c) { return tolower(c); });
 
 	if (showAll)
 		return _help_all();
@@ -78,7 +84,10 @@ static int _help_parse_args(int argc, char* argv[])
 		case '!':
 			arg_cnt++;
 			if (arg_cnt == 1)
+			{
+				// optarg might be a const char*!
 				target = optarg;
+			}
 			else if (arg_cnt == 2)
 			{
 				err = true;
@@ -135,7 +144,7 @@ static int _help_current(const char* root)	// help current faction (in brief)
 	FileUtil::GetFiles(path.c_str(), nullptr, &names);
 
 	if (names.empty())
-		cnsl::InsertText("No available help information.\n");
+		EXEC_PRINT_MSG("No available help information.\n");
 	else
 	{
 		for (auto name : names)
@@ -153,7 +162,7 @@ static int _help_all()		// help all factions (in brief)
 
 	FileUtil::GetDirectories(path.c_str(), &dirs, nullptr);
 	if (dirs.empty())
-		cnsl::InsertText("No available help information.\n");
+		EXEC_PRINT_MSG("No available help information.\n");
 	else
 	{
 		std::string faction;

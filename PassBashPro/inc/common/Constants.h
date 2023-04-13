@@ -36,6 +36,7 @@ const int PASSWORD_MIN_LENGTH = 6;
 const int PASSWORD_MAX_LENGTH = 16;
 
 const int USERNAME_BUFFER_SIZE = 32;
+const int USERNAME_MIN_LENGTH  = 3;
 const int USERNAME_MAX_LENGTH  = 24;
 
 const int EXEC_ARG_SIZE = 32;

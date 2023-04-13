@@ -3,17 +3,17 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : exec_order.cpp                            *
+ *                      File Name : exec_pash.cpp                             *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 12, 2023                            *
+ *                     Start Date : April 13, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   None                                                                     *
+ *   Easter egg to print Pash logo.                                           *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
@@ -22,59 +22,42 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 
-static int _order_parse_args(int argc, char* argv[], std::string& order);
+static const int COLOR_NUM = 12;
+static const WORD COLORS[] = {
+	FOREGROUND_RED,
+	FOREGROUND_YELLOW,
+	FOREGROUND_BLUE,
+	FOREGROUND_GREEN,
+	FOREGROUND_MAGENTA,
+	FOREGROUND_CYAN,
 
-int exec_order(int argc, char* argv[])
+	FOREGROUND_LIGHT(FOREGROUND_RED),
+	FOREGROUND_LIGHT(FOREGROUND_YELLOW),
+	FOREGROUND_LIGHT(FOREGROUND_BLUE),
+	FOREGROUND_LIGHT(FOREGROUND_GREEN),
+	FOREGROUND_LIGHT(FOREGROUND_MAGENTA),
+	FOREGROUND_LIGHT(FOREGROUND_CYAN)
+};
+
+static char BANNER[] {
+	"C O P Y R I G H T  (C)  T O N Y ' S  S T U D I O  2 0 2 0 - 2 0 2 3"
+};
+
+int exec_pash(int argc, char* argv[])
 {
-	std::string order;
-
-	if (_order_parse_args(argc, argv, order) != 0)
+	ExecHost::GetInstance()->execl(EXEC_GLOBAL, "version", "version", nullptr);
+	for (const char* p = LOGO; *p; p++)
 	{
-		// order doesn't have help info!
-		return 1;
-	}
-
-	if (order == "msg")
-		LOG_PRINT_MESSAGE();
-	else if (order == "cmsg")
-		LOG_CLEAR_MESSAGES();
-	else if (order == "err")
-		LOG_PRINT_ERROR();
-	else if (order == "cerr")
-		LOG_CLEAR_ERRORS();
-	else if (order == "66")
-	{
-		if (g_doc.DebugSave(g_env))
-			EXEC_PRINT_MSG("Password exported in plain text.\n");
+		if (*p == ':')
+			cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
 		else
-		{
-			EXEC_PRINT_ERR("Failed to export password.\n");
-			return 2;
-		}
+			cnsl::InsertText("%c", *p);
 	}
-	else if (order == "99")
-	{
-		if (g_doc.DebugLoad(g_env))
-		{
-			EXEC_PRINT_MSG("Plain text password imported.\n");
-			g_doc.Mark();
-		}
-		else
-		{
-			EXEC_PRINT_ERR("Failed to import password.\n");
-			return 3;
-		}
-	}
-	else
-	{
-		EXEC_PRINT_ERR("Invalid order.\n");
-		return 4;
-	}
+	cnsl::InsertNewLine();
+	cnsl::InsertChar(' ', (cnsl::GetConsoleWidth() - strlen(BANNER)) / 2);
+	for (const char* p = BANNER; *p; p++)
+		cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
+	cnsl::InsertNewLine();
 
 	return 0;
-}
-
-static int _order_parse_args(int argc, char* argv[], std::string& order)
-{
-	return _ParseArgs(argc, argv, order);
 }

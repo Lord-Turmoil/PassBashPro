@@ -47,8 +47,8 @@ public:
 	bool Save(EnvPtr env);
 
 	// For debug purpose, import and export plain text to debug.xml.
-	bool DebugLoad();
-	bool DebugSave();
+	bool DebugLoad(EnvPtr env);
+	bool DebugSave(EnvPtr env);
 
 	bool IsLoaded() const;
 

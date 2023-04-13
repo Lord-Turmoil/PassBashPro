@@ -72,4 +72,7 @@ extern const char TITLE[];
 extern const char COPYRIGHT[];
 extern const char AUTHOR[];
 
+// Logo
+extern const char LOGO[];
+
 #endif

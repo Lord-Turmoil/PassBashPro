@@ -72,6 +72,12 @@ static int _tree_parse_args(int argc, char* argv[], std::string& path)
 	bool err = false;
 	while (opt = getopt(argc, argv, "g"))
 	{
+		if (opterr != 0)
+		{
+			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
+			err = true;
+			break;
+		}
 		switch (opt)
 		{
 		case 'g':
