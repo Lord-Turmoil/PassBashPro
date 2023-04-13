@@ -45,20 +45,35 @@ int srv_profile(int argc, char* argv[])
 {
 	_profile_init();
 
+	if (argc == 0)	// internal call
+		return _profile_cli();
+
 	if (_profile_parse_arg(argc, argv) != 0)
 	{
 		_profile_usage();
 		return 1;
 	}
 
+	int ret;
+
 	// -i will be ignored if -d is set
 	if (isDelete)
-		return _profile_delete();
-
-	if (useCli)
-		return _profile_cli();
+		ret = _profile_delete();
 	else
-		return _profile_silent();
+	{
+		if (useCli)
+			ret = _profile_cli();
+		else
+			ret = _profile_silent();
+	}
+
+	if (ret == TERMINATION)
+	{
+		cnsl::InsertNewLine();
+		return 0;
+	}
+	
+	return ret;
 }
 
 static void _profile_init()

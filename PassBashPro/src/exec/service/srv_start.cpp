@@ -55,7 +55,7 @@ int srv_start(int argc, char* argv[])
 	{
 		// Use absolute zero to indicate internal call.
 		ret = ExecHost::GetInstance()
-			->execl(EXEC_SERVICE, "profile", "profile", "-i", nullptr);
+			->execl(EXEC_SERVICE, "profile", nullptr);
 		if (ret != 0)
 		{
 			if (ret == TERMINATION)
@@ -73,7 +73,7 @@ int srv_start(int argc, char* argv[])
 	while (ret == -1)	// To create new user.
 	{
 		ret = ExecHost::GetInstance()
-			->execl(EXEC_SERVICE, "profile", "profile", "-i", nullptr);
+			->execl(EXEC_SERVICE, "profile", nullptr);
 		if (ret != 0)
 		{
 			if (ret == TERMINATION)

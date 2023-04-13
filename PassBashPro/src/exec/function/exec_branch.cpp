@@ -40,12 +40,12 @@ int exec_branch(int argc, char* argv[])
 int _branch_list()
 {
 	ProfilePoolPtr pool = ProfilePool::GetInstance();
-	Profile* profile;
+	ProfilePtr profile;
 
 	EXEC_PRINT_MSG("Available users:\n");
 	for (int i = 0; i < pool->Size(); i++)
 	{
-		profile = &(*pool)[i];
+		profile = (*pool)[i];
 		cnsl::InsertText("\t");
 		if (profile->username == g_env->username)
 			cnsl::InsertText(HIGHLIGHT_COLOR, profile->username.c_str());

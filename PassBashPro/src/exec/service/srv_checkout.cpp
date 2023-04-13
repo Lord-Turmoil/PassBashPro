@@ -27,9 +27,13 @@ static std::string password;
 
 static int _checkout_usage();
 static int _checkout_parse_args(int argc, char* argv[]);
+static int _checkout_logout();
+static int _checkout_login(EnvPtr env, PashDoc& doc);
 
 int srv_checkout(int argc, char* argv[])
 {
+	PASH_PANIC_ON(g_env == nullptr);
+
 	username = "";
 	password = "";
 
@@ -44,13 +48,40 @@ int srv_checkout(int argc, char* argv[])
 	if (!VerifyPassword(password))
 		return 3;
 
-	EnvPtr env = CreateEnv(CreateProfile(username));
-	VerifyProfileInit(env);
+	ProfilePtr profile = ProfilePool::GetInstance()->Get(username);
+	if (!profile)
+	{
+		EXEC_PRINT_ERR("User does not exist!\n");
+		return 4;
+	}
 
+	EnvPtr env = CreateEnv(profile);
+	VerifyProfileInit(env);
 	if (!VerifyProfile(password.c_str()))
 	{
-		
+		EXEC_PRINT_ERR("The password is incorrect.\n");
+		return 5;
 	}
+
+	_FormatPassword(password.c_str(), env->password);
+	PashDoc doc;
+
+	if (_checkout_login(env, doc) != 0)
+	{
+		EXEC_PRINT_ERR("Failed to checkout.\n");
+		EXEC_PRINT_MSG("Stay on current user.\n");
+		return 6;
+	}
+	PASH_PANIC_ON(_checkout_logout());
+
+	// switch user
+	g_env = env;
+	g_doc = doc;
+
+	EXEC_PRINT_MSG("Successfully change profile to '%s'.\n", g_env->username.c_str());
+	UpdateCache();
+
+	return 0;
 }
 
 static int _checkout_usage()
@@ -114,6 +145,22 @@ static int _checkout_parse_args(int argc, char* argv[])
 		EXEC_PRINT_ERR(ERRMSG_ILLEGAL "\n");
 		return 1;
 	}
+
+	return 0;
+}
+
+static int _checkout_logout()
+{
+	PASH_TRY(SaveConfig(g_env, true));
+	PASH_TRY(SaveData(g_doc, g_env, true));
+
+	return 0;
+}
+
+static int _checkout_login(EnvPtr env, PashDoc& doc)
+{
+	if (!doc.Load(env))
+		return 1;
 
 	return 0;
 }
