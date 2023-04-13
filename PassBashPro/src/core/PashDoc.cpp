@@ -122,12 +122,12 @@ bool PashDoc::Save(EnvPtr env)
 	return true;
 }
 
-bool PashDoc::DebugLoad()
+bool PashDoc::DebugLoad(EnvPtr env)
 {
 #ifdef PASH_CHEAT
-	if (!g_env)
+	if (!env)
 		return false;
-	std::string filename(g_env->username);
+	std::string filename(env->username);
 	filename.append(".xml");
 	
 	// Protect current data.
@@ -151,12 +151,12 @@ bool PashDoc::DebugLoad()
 #endif
 }
 
-bool PashDoc::DebugSave()
+bool PashDoc::DebugSave(EnvPtr env)
 {
 #ifdef PASH_CHEAT
-	if (!g_env)
+	if (!env)
 		return false;
-	std::string filename(g_env->username);
+	std::string filename(env->username);
 	filename.append(".xml");
 	m_pFile->Save(filename.c_str());
 	return true;

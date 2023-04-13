@@ -95,4 +95,22 @@ int exec_unknown(int argc, char* argv[]);
 // Hand exit command.
 int exec_order(int argc, char* argv[]);
 
+
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Account related functions.
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+int exec_remaster(int argc, char* argv[]);
+int exec_branch(int argc, char* argv[]);
+int exec_checkout(int argc, char* argv[]);
+
+
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Easter egg.
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+int exec_pash(int argc, char* argv[]);
+
 #endif

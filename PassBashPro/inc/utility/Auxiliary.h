@@ -35,6 +35,8 @@
 
 // strip extra white spaces around
 char* strstrip(char* str);
+char* strtolower(char* str);
+char* strtoupper(char* str);
 
 bool begins_with(const char* str, const char* prefix);
 bool ends_with(const char* str, const char* suffix);
@@ -49,5 +51,10 @@ char* narrow(const wchar_t* src);
 
 // timestamp
 const char* GetCurrentTimestamp();
+
+// Random numbers
+void SetRandomSeed();
+int Random(int upper);
+int Random(int lower, int upper);
 
 #endif

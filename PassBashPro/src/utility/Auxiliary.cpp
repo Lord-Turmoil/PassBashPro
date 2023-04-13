@@ -27,6 +27,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+#include <ctime>
 
 #include <Windows.h>
 
@@ -54,6 +55,29 @@ char* strstrip(char* str)
 
 	return str;
 }
+
+char* strtolower(char* str)
+{
+	if (!str)
+		return nullptr;
+
+	for (char* p = str; *p; p++)
+		*p = tolower(*p);
+
+	return str;
+}
+
+char* strtoupper(char* str)
+{
+	if (!str)
+		return nullptr;
+
+	for (char* p = str; *p; p++)
+		*p = toupper(*p);
+
+	return str;
+}
+
 
 bool is_null_or_empty(const char* str)
 {
@@ -132,7 +156,7 @@ bool widen(wchar_t* dest, const char* src)
  *                                                                            *
  * INPUT:   src  -- The source char buffer.                                   *
  *                                                                            *
- * OUTPUT:  Return wchar_t string. nullptr if convertion failed.              *
+ * OUTPUT:  Return wchar_t string. nullptr if conversion failed.              *
  *                                                                            *
  * WARNINGS:  none                                                            *
  *                                                                            *
@@ -181,7 +205,7 @@ bool narrow(char* dest, const wchar_t* src)
  *                                                                            *
  * INPUT:   src  -- The source wchar_t buffer.                                *
  *                                                                            *
- * OUTPUT:  Return char string. nullptr if convertion failed.                 *
+ * OUTPUT:  Return char string. nullptr if conversion failed.                 *
  *                                                                            *
  * WARNINGS:  none                                                            *
  *                                                                            *
@@ -213,4 +237,51 @@ const char* GetCurrentTimestamp()
 			  sysTime.wHour, sysTime.wMinute, sysTime.wSecond);
 
 	return _time_buffer;
+}
+
+/******************************************************************************
+ * ResetRandomSeed -- Reset random seed.                                      *
+ *                                                                            *
+ *    Just the literal meaning.                                               *
+ *                                                                            *
+ * INPUT:   none                                                              *
+ *                                                                            *
+ * OUTPUT:  none                                                              *
+ *                                                                            *
+ * WARNINGS:  none                                                            *
+ *                                                                            *
+ * HISTORY:                                                                   *
+ *   2022/06/24 Tony : Created.                                               *
+ *============================================================================*/
+void SetRandomSeed()
+{
+	srand((unsigned)time(NULL));
+}
+
+/******************************************************************************
+ * Random -- Get a random number.                                             *
+ *                                                                            *
+ *    Get a random number in [lower, upper).                                  *
+ *                                                                            *
+ * INPUT:   lower -- If not assigned, the lower will be zero.                 *
+ *          upper -- The upper bound of the result. upper not included.       *
+ *                                                                            *
+ * OUTPUT:  none                                                              *
+ *                                                                            *
+ * WARNINGS:  none                                                            *
+ *                                                                            *
+ * HISTORY:                                                                   *
+ *   2022/06/24 Tony : Created.                                               *
+ *============================================================================*/
+int Random(int upper)
+{
+	return (upper == 0) ? (0) : (rand() % upper);
+}
+
+int Random(int lower, int upper)
+{
+	if (upper <= lower)
+		return lower;
+
+	return lower + rand() % (upper - lower);
 }

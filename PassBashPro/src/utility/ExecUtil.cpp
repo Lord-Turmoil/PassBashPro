@@ -60,6 +60,12 @@ int _ParseOptionalArgs(int argc, char* argv[], std::string& _1)
 	bool err = false;
 	while (opt = getopt(argc, argv, ""))
 	{
+		if (opterr != 0)
+		{
+			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
+			err = true;
+			break;
+		}
 		switch (opt)
 		{
 		case '!':
@@ -100,6 +106,12 @@ int _ParseArgs(int argc, char* argv[], std::string& _1)
 	bool err = false;
 	while (opt = getopt(argc, argv, ""))
 	{
+		if (opterr != 0)
+		{
+			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
+			err = true;
+			break;
+		}
 		switch (opt)
 		{
 		case '!':
@@ -147,6 +159,18 @@ int _ParseArgs(int argc, char* argv[], std::string& _1, std::string& _2)
 	bool err = false;
 	while (opt = getopt(argc, argv, ""))
 	{
+		if (opterr != 0)
+		{
+			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
+			err = true;
+			break;
+		}
+		if (opterr != 0)
+		{
+			EXEC_PRINT_ERR("Argument error: %s\n", optmsg);
+			err = true;
+			break;
+		}
 		switch (opt)
 		{
 		case '!':
