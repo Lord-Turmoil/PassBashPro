@@ -118,10 +118,10 @@ static int _ensure_env()
 {
 	if (!FileUtil::Exists(PASH_DIR))
 	{
-#if PASH_CHEAT
-		FileUtil::NewDirectory(PASH_DIR, false);
-#else
+#if PASH_HIDE_ROOT
 		FileUtil::NewDirectory(PASH_DIR, true);
+#else
+		FileUtil::NewDirectory(PASH_DIR, false);
 #endif
 	}
 
