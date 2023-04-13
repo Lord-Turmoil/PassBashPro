@@ -74,5 +74,7 @@ extern const char AUTHOR[];
 
 // Logo
 extern const char LOGO[];
+extern const char BANNER[];
+extern const char THANKS[];
 
 #endif
