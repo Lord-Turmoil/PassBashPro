@@ -64,7 +64,7 @@ int srv_host(int argc, char* argv[])
 
 		int ret = host->execv(MODE_TO_EXEC[g_mode], _cmd, _argv);
 		if (ret == -1)					// unknown
-			host->execl(MODE_TO_EXEC[g_mode], "unknown", "unknown", _cmd, nullptr);
+			host->execl(EXEC_HIDDEN, "unk", "unk", _cmd, nullptr);
 		else if (ret == TERMINATION)	// exit
 			break;
 		else if (ret != 0)

@@ -97,7 +97,6 @@ static void _InitGlobal()
 	HOOK(factory, "f",       exec_find);
 	HOOK(factory, "clear",   exec_clear);
 	HOOK(factory, "cls",     exec_clear);
-	HOOK(factory, "h",       exec_help);
 	HOOK(factory, "version", exec_version);
 	HOOK(factory, "ver",     exec_version);
 	HOOK(factory, "exit",    exec_exit);
@@ -105,6 +104,8 @@ static void _InitGlobal()
 	HOOK(factory, "q",       exec_exit);
 	HOOK(factory, "edit",    exec_edit);
 	HOOK(factory, "mod",     exec_edit);
+	HOOK(factory, "help",    exec_help);
+	HOOK(factory, "h",       exec_help);
 	// HOOK(factory, "tea",     exec_tea);
 #if PASH_CHEAT
 	HOOK(factory, "order",   exec_order);
