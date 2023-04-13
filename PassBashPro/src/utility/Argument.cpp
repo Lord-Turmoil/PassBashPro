@@ -22,8 +22,10 @@
 
 #include "../../inc/utility/Argument.h"
 
+#include <cstdio>
 #include <cstring>
 
+static char _opt_buffer[128];
 
 char* optarg;
 const char* optmsg;
@@ -72,7 +74,7 @@ int getopt(int argc, char* argv[], const char* pattern)
 		{
 			opt = '?';
 			opterr = ERRNO_INVALID_OPTION;
-			optmsg = "illegal argument";
+			sprintf_s(_opt_buffer, "Illegal argument %c", opt);
 		}
 		else
 		{
@@ -85,7 +87,9 @@ int getopt(int argc, char* argv[], const char* pattern)
 						(optind == argc - 1))
 					{
 						opterr = ERRNO_MISSING_ARGUMENT;
-						optmsg = "Missing argument";
+						sprintf_s(_opt_buffer,
+								  "Missing argument for parameter %c", opt);
+						optmsg = _opt_buffer;
 					}
 					else
 						optarg = argv[++optind];
@@ -93,6 +97,8 @@ int getopt(int argc, char* argv[], const char* pattern)
 			}
 		}
 	}
+
+	optmsg = _opt_buffer;
 
 	return opt;
 }
