@@ -78,6 +78,8 @@ public:
 		this->m_root = doc.m_root;
 		this->m_current = doc.m_current;
 		this->m_modified = doc.m_modified;
+
+		return *this;
 	};
 
 private:
