@@ -74,6 +74,8 @@ private:
 							   std::vector<std::string>* names,
 							   FileType type);
 
+	static void _DeleteDirectory(const char* path);
+
 	FileUtil() {}
 };
 

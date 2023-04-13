@@ -109,7 +109,9 @@ bool FileUtil::DeletePath(const char* path)
 	if (!Exists(path))
 		return true;
 
-	return remove(path) == 0;
+	_DeleteDirectory(path);
+	
+	return true;
 }
 
 bool FileUtil::GetFiles(const char* path,
@@ -199,4 +201,44 @@ void FileUtil::_GetContentAux(const char* path,
 				names->push_back(fileInfo.name);
 		}
 	} while (_findnext(hFile, &fileInfo) == 0);
+}
+
+void FileUtil::_DeleteDirectory(const char* path)
+{
+	long long hFile = 0;
+	struct _finddata_t fileInfo;
+
+	std::string base(path);
+	while (!base.empty() && (base.back() == '\\'))
+		base.pop_back();
+	std::string p = base + "\\*";
+
+	hFile = _findfirst(p.c_str(), &fileInfo);
+	if (hFile == -1)
+		return;
+
+	do
+	{
+		if (fileInfo.attrib & _A_SUBDIR)	// is a directory
+		{
+			if (_STR_SAME(fileInfo.name, "."))
+				continue;
+			if (_STR_SAME(fileInfo.name, ".."))
+				continue;
+
+			p.assign(base);
+			p.append("\\").append(fileInfo.name).append("\\");
+			
+			_DeleteDirectory(p.c_str());
+		}
+		else
+		{
+			p.assign(base);
+			p.append("\\");
+			p.append(fileInfo.name);
+			remove(p.c_str());
+		}
+	} while (_findnext(hFile, &fileInfo) == 0);
+
+	_rmdir(path);
 }
