@@ -221,10 +221,10 @@ int UpdateCache()
 static char _encoded_password[PASSWORD_BUFFER_SIZE];
 static char _decoded_password[PASSWORD_BUFFER_SIZE];
 
-bool VerifyProfileInit()
+bool VerifyProfileInit(EnvPtr env)
 {
 	FILE* input;
-	const char* configPath = g_env->configPath.c_str();
+	const char* configPath = env->configPath.c_str();
 	if (fopen_s(&input, configPath, "rb") != 0)
 	{
 		LOG_ERROR("Failed to open file \"%s\"", configPath);
@@ -251,4 +251,59 @@ bool VerifyProfile(const char* password)
 	delete writer;
 
 	return _STR_SAME(password, _decoded_password);
+}
+
+
+bool VerifyUsername(const std::string& username)
+{
+	if (username.length() < USERNAME_MIN_LENGTH)
+	{
+		EXEC_PRINT_ERR("Username too short! ");
+		EXEC_PRINT_MSG("%d ~ %d characters.\n", USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH);
+		return false;
+	}
+	if (username.length() > USERNAME_MAX_LENGTH)
+	{
+		EXEC_PRINT_ERR("Username too long! ");
+		EXEC_PRINT_MSG("%d ~ %d characters.\n", USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH);
+		return false;
+	}
+	for (auto c : username)
+	{
+		if (!UsernameVerifier(c))
+		{
+			EXEC_PRINT_ERR("Username contains illegal character!\n");
+			EXEC_PRINT_MSG("Only [_a-zA-Z0-9] are available.\n");
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool VerifyPassword(const std::string& password)
+{
+	if (password.length() < PASSWORD_MIN_LENGTH)
+	{
+		EXEC_PRINT_ERR("Password too short! ");
+		EXEC_PRINT_MSG("%d ~ %d characters.\n", PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
+		return false;
+	}
+	if (password.length() > PASSWORD_MAX_LENGTH)
+	{
+		EXEC_PRINT_ERR("Password too long! ");
+		EXEC_PRINT_MSG("%d ~ %d characters.\n", PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
+		return false;
+	}
+	for (auto c : password)
+	{
+		if (!PasswordVerifier(c))
+		{
+			EXEC_PRINT_ERR("Password contains illegal character!\n");
+			EXEC_PRINT_MSG("Only visible ASCIIs are available.\n");
+			return false;
+		}
+	}
+
+	return true;
 }

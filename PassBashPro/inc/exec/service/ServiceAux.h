@@ -54,8 +54,11 @@ bool YesNoVerifier(char ch);
 int UpdateCache();
 
 // Verify profile on login.
-bool VerifyProfileInit();
+bool VerifyProfileInit(EnvPtr env);
 bool VerifyProfile(const char* password);
 
+// Verify whole username and password.
+bool VerifyUsername(const std::string& username);
+bool VerifyPassword(const std::string& password);
 
 #endif

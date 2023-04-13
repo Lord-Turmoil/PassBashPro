@@ -69,7 +69,7 @@ int srv_login(int argc, char* argv[])
 
 		return 1;
 	}
-	VerifyProfileInit();
+	VerifyProfileInit(g_env);
 	ret = _login_receive_password();
 	if (ret != 0)
 		return TERMINATION;

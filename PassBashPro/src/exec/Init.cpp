@@ -76,6 +76,7 @@ static void _InitService()
 	HOOK(factory, "profile",  srv_profile);
 	HOOK(factory, "start",    srv_start);
 	HOOK(factory, "remaster", srv_remaster);
+	HOOK(factory, "checkout", srv_checkout);
 	HOOK(factory, "editor",   exec_edit_host);
 
 	ExecHost::GetInstance()->Register(EXEC_SERVICE, factory);
@@ -116,6 +117,7 @@ static void _InitGlobal()
 	HOOK(factory, "remaster", exec_remaster);
 	HOOK(factory, "profile",  exec_branch);
 	HOOK(factory, "branch",	  exec_branch);
+	HOOK(factory, "checkout", exec_checkout);
 	HOOK(factory, "pash",     exec_pash);
 	// HOOK(factory, "tea",     exec_tea);
 #if PASH_CHEAT

@@ -41,9 +41,6 @@ static int _profile_delete();
 static int _profile_receive_username();
 static int _profile_receive_password();
 
-static bool _profile_check_username();
-static bool _profile_check_password();
-
 int srv_profile(int argc, char* argv[])
 {
 	_profile_init();
@@ -168,9 +165,9 @@ static int _profile_silent()
 		return 10;
 	}
 	
-	if (!_profile_check_username())
+	if (!VerifyUsername(username))
 		return 11;
-	if (!_profile_check_password())
+	if (!VerifyPassword(password))
 		return 12;
 	
 	std::string path(PASH_DIR);
@@ -194,9 +191,9 @@ static int _profile_silent()
 
 static int _profile_delete()
 {
-	if (!_profile_check_username())
+	if (!VerifyUsername(username))
 		return 21;
-	if (!_profile_check_password())
+	if (!VerifyPassword(password))
 		return 22;
 
 	Profile* profile = ProfilePool::GetInstance()->Get(username);
@@ -303,58 +300,4 @@ static int _profile_receive_password()
 	password.assign(buffer);
 
 	return 0;
-}
-
-static bool _profile_check_username()
-{
-	if (username.length() < USERNAME_MIN_LENGTH)
-	{
-		EXEC_PRINT_ERR("Username too short! ");
-		EXEC_PRINT_MSG("%d ~ %d characters.\n", USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH);
-		return false;
-	}
-	if (username.length() > USERNAME_MAX_LENGTH)
-	{
-		EXEC_PRINT_ERR("Username too long! ");
-		EXEC_PRINT_MSG("%d ~ %d characters.\n", USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH);
-		return false;
-	}
-	for (auto c : username)
-	{
-		if (!UsernameVerifier(c))
-		{
-			EXEC_PRINT_ERR("Username contains illegal character!\n");
-			EXEC_PRINT_MSG("Only [_a-zA-Z0-9] are available.\n");
-			return false;
-		}
-	}
-	
-	return true;
-}
-
-static bool _profile_check_password()
-{
-	if (password.length() < PASSWORD_MIN_LENGTH)
-	{
-		EXEC_PRINT_ERR("Password too short! ");
-		EXEC_PRINT_MSG("%d ~ %d characters.\n", PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
-		return false;
-	}
-	if (password.length() > PASSWORD_MAX_LENGTH)
-	{
-		EXEC_PRINT_ERR("Password too long! ");
-		EXEC_PRINT_MSG("%d ~ %d characters.\n", PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
-		return false;
-	}
-	for (auto c : password)
-	{
-		if (!PasswordVerifier(c))
-		{
-			EXEC_PRINT_ERR("Password contains illegal character!\n");
-			EXEC_PRINT_MSG("Only visible ASCIIs are available.\n");
-			return false;
-		}
-	}
-
-	return true;
 }
