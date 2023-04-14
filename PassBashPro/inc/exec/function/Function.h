@@ -48,6 +48,9 @@ int exec_move(int argc, char* argv[]);
 int exec_rename(int argc, char* argv[]);
 // cat <item name>
 int exec_cat(int argc, char* argv[]);
+// more <item name> = cat -m <item name>
+int exec_more(int argc, char* argv[]);
+
 // save
 int exec_save(int argc, char* argv[]);
 // pwd
@@ -58,6 +61,8 @@ int exec_tree(int argc, char* argv[]);
 // find [-d] [-s] [-r root] <pattern>
 int exec_find(int argc, char* argv[]);
 
+// echo param
+int exec_echo(int argc, char* argv[]);
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -84,6 +89,9 @@ int exec_edit(int argc, char* argv[]);
 // tea [-u] <src> <dst> <password>
 // int exec_tea(int argc, char* argv[]);
 
+// import and export encrypted data.
+int exec_import(int argc, char* argv[]);
+int exec_export(int argc, char* argv[]);
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

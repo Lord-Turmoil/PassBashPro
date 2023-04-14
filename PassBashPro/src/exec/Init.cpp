@@ -97,6 +97,7 @@ static void _InitGlobal()
 	HOOK(factory, "rename",   exec_rename);
 	HOOK(factory, "rn",       exec_rename);
 	HOOK(factory, "cat",      exec_cat);
+	HOOK(factory, "more",     exec_more);
 	HOOK(factory, "save",     exec_save);
 	HOOK(factory, "s",        exec_save);
 	HOOK(factory, "pwd",      exec_pwd);
@@ -119,6 +120,8 @@ static void _InitGlobal()
 	HOOK(factory, "branch",	  exec_branch);
 	HOOK(factory, "checkout", exec_checkout);
 	HOOK(factory, "pash",     exec_pash);
+	HOOK(factory, "import",   exec_import);
+	HOOK(factory, "export",   exec_export);
 	// HOOK(factory, "tea",     exec_tea);
 #if PASH_CHEAT
 	HOOK(factory, "order",   exec_order);
@@ -134,10 +137,11 @@ static void _InitEditor()
 	HOOK(factory, "clear", exec_edit_clear);
 	HOOK(factory, "cls",   exec_edit_clear);
 	HOOK(factory, "c",     exec_edit_clear);
-	HOOK(factory, "help",  exec_help);
-	HOOK(factory, "h",     exec_help);
+	HOOK(factory, "help",  exec_edit_help);
+	HOOK(factory, "h",     exec_edit_help);
 	HOOK(factory, "see",   exec_edit_see);
 	HOOK(factory, "s",     exec_edit_see);
+	HOOK(factory, "more",  exec_edit_more);
 	HOOK(factory, "set",   exec_edit_set);
 	HOOK(factory, "st",    exec_edit_set);
 	HOOK(factory, "setk",  exec_edit_setk);

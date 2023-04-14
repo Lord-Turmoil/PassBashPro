@@ -113,7 +113,7 @@ int _set_key(const char* idStr, const char* newKey)
 	}
 	entry->SetAttribute("key", newKey);
 
-	_ShowItem(_edit_item, newKey, ENTRY_MODIFY_COLOR);
+	_ShowItem(_edit_item, false, newKey, ENTRY_MODIFY_COLOR);
 
 	return 0;
 }
@@ -143,7 +143,7 @@ int _set_value(const char* idStr, const char* value)
 	}
 	entry->SetAttribute("value", value);
 
-	_ShowItem(_edit_item, entry->Attribute("key"), ENTRY_MODIFY_COLOR);
+	_ShowItem(_edit_item, false, entry->Attribute("key"), ENTRY_MODIFY_COLOR);
 
 	return 0;
 }
@@ -179,7 +179,7 @@ int _set_weight(const char* idStr, const char* weightStr)
 	}
 	entry->SetAttribute("weight", weight);
 
-	_ShowItem(_edit_item, entry->Attribute("key"), ENTRY_MODIFY_COLOR);
+	_ShowItem(_edit_item, false, entry->Attribute("key"), ENTRY_MODIFY_COLOR);
 
 	return 0;
 }
@@ -246,7 +246,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 		entry->SetAttribute("weight", weight);
 	}
 
-	_ShowItem(_edit_item, key, ENTRY_MODIFY_COLOR);
+	_ShowItem(_edit_item, false, key, ENTRY_MODIFY_COLOR);
 
 	return 0;
 }

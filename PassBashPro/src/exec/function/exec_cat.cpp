@@ -46,12 +46,12 @@ int exec_cat(int argc, char* argv[])
 	}
 	if (!PashDocUtil::IsItem(node))
 	{
-		EXEC_PRINT_ERR("You can only cat a password item!\n");
+		EXEC_PRINT_ERR("You can only display a password item!\n");
 		_cat_usage();
 		return 3;
 	}
 
-	_ShowItem(node, nullptr);
+	_ShowItem(node, false);
 
 	return 0;
 }

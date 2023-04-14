@@ -3,11 +3,11 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : exec_edit_see.cpp                         *
+ *                      File Name : exec_import.cpp                           *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 11, 2023                            *
+ *                     Start Date : April 14, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
@@ -20,11 +20,11 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#include "../../../inc/exec/editor/EditorHeader.h"
+#include "../../../inc/exec/function/FuncHeader.h"
 
-int exec_edit_see(int argc, char* argv[])
+int exec_import(int argc, char* argv[])
 {
-	_ShowItem(_edit_item, false);
+	EXEC_PRINT_ERR("Not implemented!\n");
 
 	return 0;
 }

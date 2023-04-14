@@ -28,14 +28,18 @@
 
 static std::string target;
 static bool showAll;
+static bool showDetail;
 static char _help_buffer[PASH_BUFFER_SIZE];
 
 static int _help_usage();
 static int _help_parse_args(int argc, char* argv[]);
 
-static int _help_single(const std::string& item, bool brief = false);	// help single command (in detail)
-static int _help_current(const char* root = nullptr);	// help current faction (in brief)
-static int _help_all();		// help all factions (in brief)
+// help single command (in detail)
+static int _help_single(const std::string& item, bool brief = false);
+// help current faction (in brief)
+static int _help_current(const char* root = nullptr);
+// help all factions (in brief)
+static int _help_all();
 
 static int _print_help(const char* path, bool brief);
 
@@ -45,6 +49,7 @@ int exec_help(int argc, char* argv[])
 {
 	target = "";
 	showAll = false;
+	showDetail = false;
 
 	if (_help_parse_args(argc, argv) != 0)
 	{
@@ -61,7 +66,12 @@ int exec_help(int argc, char* argv[])
 	if (target == "")
 		return _help_current();
 	else
-		return _help_single(target);
+	{
+		PASH_TRY(_help_single(target, !showDetail));
+		if (!showDetail)
+			EXEC_PRINT_MSG("Use -d parameter to learn detailed information.\n");
+		return 0;
+	}
 }
 
 static int _help_usage()
@@ -76,7 +86,7 @@ static int _help_parse_args(int argc, char* argv[])
 	int arg_cnt = 0;
 	int opt_cnt = 0;
 	bool err = false;
-	while (opt = getopt(argc, argv, "a"))
+	while (opt = getopt(argc, argv, "ad"))
 	{
 		if (opterr != 0)
 		{
@@ -91,6 +101,9 @@ static int _help_parse_args(int argc, char* argv[])
 		case 'a':
 			// temporarily disable this feature
 			// showAll = true;
+			break;
+		case 'd':
+			showDetail = true;
 			break;
 		case '!':
 			arg_cnt++;
@@ -140,6 +153,9 @@ static int _help_single(const std::string& item, bool brief)	// help single comm
 		EXEC_PRINT_ERR("Help for '%s' is not available!\n", item.c_str());
 		return 1;
 	}
+
+	if (!brief)
+		cnsl::InsertNewLine();
 
 	return 0;
 }

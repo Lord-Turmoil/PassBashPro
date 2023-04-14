@@ -3,11 +3,11 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : exec_edit_see.cpp                         *
+ *                      File Name : exec_edit_help.cpp                        *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 11, 2023                            *
+ *                     Start Date : April 14, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
@@ -22,9 +22,34 @@
 
 #include "../../../inc/exec/editor/EditorHeader.h"
 
-int exec_edit_see(int argc, char* argv[])
-{
-	_ShowItem(_edit_item, false);
+#include <cstring>
 
-	return 0;
+static int _argc;
+static char* _argv[EXEC_ARG_SIZE];
+static char _buffer[EXEC_BUFFER_SIZE];
+static char _cmd[] = "help";
+
+int exec_edit_help(int argc, char* argv[])
+{
+	if (argc != 2)
+	{
+		EXEC_PRINT_ERR(ERRMSG_ILLEGAL "\n");
+		return 1;
+	}
+
+	char* context = nullptr;
+	char* token;
+	strcpy_s(_buffer, argv[1]);
+	_argc = 0;
+	_argv[_argc++] = _cmd;
+	token = strtok_s(_buffer, " ", &context);
+	while (token)
+	{
+		_argv[_argc++] = token;
+		token = strtok_s(nullptr, " ", &context);
+	}
+	_argv[_argc] = nullptr;
+
+	return ExecHost::GetInstance()->execv(EXEC_GLOBAL, _cmd, _argv);
 }
+

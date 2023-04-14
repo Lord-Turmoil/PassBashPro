@@ -48,7 +48,7 @@ int exec_edit_unset(int argc, char* argv[])
 		return 3;
 	}
 
-	_ShowItem(_edit_item, entry->Attribute("key"), ENTRY_DELETE_COLOR);
+	_ShowItem(_edit_item, false, entry->Attribute("key"), ENTRY_DELETE_COLOR);
 	PashDocUtil::DeleteNode(entry);
 
 	return 0;

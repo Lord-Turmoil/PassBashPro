@@ -54,8 +54,9 @@ int _ParseArgs(int argc, char* argv[], std::string& _1, std::string& _2);
 ** Common operations.
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-int _ShowItem(XMLElementPtr node, const char* key, WORD color = 0);
-
+int _ShowItem(XMLElementPtr node, bool detail, const char* key = nullptr, WORD color = 0);
+// check if is password entry.
+bool _IsSensitive(const char* descr);
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

@@ -43,5 +43,7 @@ int srv_remaster(int argc, char* argv[]);
 // receive and dispatch command
 int srv_host(int argc, char* argv[]);
 
+int srv_import(int argc, char* argv[]);
+int srv_export(int argc, char* argv[]);
 
 #endif

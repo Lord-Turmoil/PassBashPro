@@ -55,7 +55,8 @@ int exec_rm(int argc, char* argv[])
 		XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
 		if (!node)
 		{
-			EXEC_PRINT_ERR("%s doesn't exists.\n", node->Name());
+			EXEC_PRINT_ERR("%s doesn't exists.\n", path.c_str());
+			continue;
 		}
 		else if (node == g_doc.GetRoot())
 			return _remove_root();

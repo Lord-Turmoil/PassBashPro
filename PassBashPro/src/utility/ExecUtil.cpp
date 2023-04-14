@@ -23,6 +23,9 @@
 #include "../../inc/exec/ExecHeader.h"
 #include "../../inc/core/Env.h"
 
+#include <regex>
+
+
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Common utilities.
@@ -221,7 +224,7 @@ int _ParseArgs(int argc, char* argv[], std::string& _1, std::string& _2)
 ** Common operations.
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-int _ShowItem(XMLElementPtr node, const char* key, WORD color)
+int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
 {
 	EntryList list;
 	if (!PashDocUtil::GetEntries(node, list))
@@ -248,35 +251,55 @@ int _ShowItem(XMLElementPtr node, const char* key, WORD color)
 	maxKey = std::max(maxKey, 20);
 	maxValue = std::max(maxValue, 20);
 	maxWeight = std::min(total - maxKey - maxValue, 12);
-	cnsl::InsertText(MESSAGE_COLOR, "%4s | %*s | %*s | %*s\n",
+	cnsl::InsertText(MESSAGE_COLOR, "     %4s | %*s | %*s | %*s\n",
 					 "ID",
 					 maxKey, "Key",
 					 maxValue, "Value",
 					 maxWeight, "Weight");
 	int id = 0;
+	const char* hidden = "******";
+	const char* value;
 	for (auto& it : list)
 	{
+		value = (!detail && _IsSensitive(it.key)) ? hidden : it.value;
+		if (id < VAR_SIZE)
+			cnsl::InsertText(VAR_COLOR, " $%d) ", id);
+		else
+			cnsl::InsertText("     ");
+
 		if (key && _STR_SAME(it.key, key))
 		{
 			cnsl::InsertText(color, "%4d | %*s | %*s | %*d\n",
-							 id++,
+							 id,
 							 maxKey, it.key,
-							 maxValue, it.value,
+							 maxValue, value,
 							 maxWeight, it.weight);
 		}
 		else
 		{
 			cnsl::InsertText("%4d | %*s | %*s | %*d\n",
-							 id++,
+							 id,
 							 maxKey, it.key,
-							 maxValue, it.value,
+							 maxValue, value,
 							 maxWeight, it.weight);
 		}
+		
+		if (id < VAR_SIZE)
+			g_var[id] = value;
+		id++;
 	}
 
 	return 0;
 }
 
+bool _IsSensitive(const char* descr)
+{
+	std::regex pattern;
+
+	pattern.assign(".*password.*", std::regex::icase);
+
+	return std::regex_match(descr, pattern);
+}
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

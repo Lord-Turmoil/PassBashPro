@@ -3,11 +3,11 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : exec_edit_see.cpp                         *
+ *                      File Name : exec_edit_more.cpp                        *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 11, 2023                            *
+ *                     Start Date : April 14, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
@@ -22,9 +22,9 @@
 
 #include "../../../inc/exec/editor/EditorHeader.h"
 
-int exec_edit_see(int argc, char* argv[])
+int exec_edit_more(int argc, char* argv[])
 {
-	_ShowItem(_edit_item, false);
+	_ShowItem(_edit_item, true);
 
 	return 0;
 }

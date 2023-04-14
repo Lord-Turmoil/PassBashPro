@@ -29,11 +29,11 @@
 const int PASH_BUFFER_SIZE = 1024;
 
 const int LOGGER_BUFFER_SIZE = PASH_BUFFER_SIZE;
-const int EXEC_BUFFER_SIZE = PASH_BUFFER_SIZE;
+const int EXEC_BUFFER_SIZE   = PASH_BUFFER_SIZE;
 
 const int PASSWORD_BUFFER_SIZE = 32;
-const int PASSWORD_MIN_LENGTH = 6;
-const int PASSWORD_MAX_LENGTH = 16;
+const int PASSWORD_MIN_LENGTH  = 6;
+const int PASSWORD_MAX_LENGTH  = 16;
 
 const int USERNAME_BUFFER_SIZE = 32;
 const int USERNAME_MIN_LENGTH  = 3;
@@ -51,7 +51,7 @@ const char ENTRY_TAG[] = "Entry";
 // Special directory identifier.
 const char PARENT_DIR_NAME[] = "..";
 const char SELF_DIR_NAME[]   = ".";
-const char ROOT_DIR_NAME[]   = "./";
+const char ROOT_DIR_NAME[]   = "/";
 
 
 // Working mode.

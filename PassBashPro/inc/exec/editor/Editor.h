@@ -33,6 +33,7 @@ int exec_edit_host(int argc, char* argv[]);
 // int exec_edit_help(int argc, char* argv[]);
 int exec_edit_clear(int argc, char* argv[]);
 int exec_edit_see(int argc, char* argv[]);
+int exec_edit_more(int argc, char* argv[]);
 int exec_edit_set(int argc, char* argv[]);
 int exec_edit_setk(int argc, char* argv[]);
 int exec_edit_setv(int argc, char* argv[]);
@@ -40,5 +41,7 @@ int exec_edit_setw(int argc, char* argv[]);
 int exec_edit_unset(int argc, char* argv[]);
 int exec_edit_unknown(int argc, char* argv[]);
 int exec_edit_exit(int argc, char* argv[]);
+
+int exec_edit_help(int argc, char* argv[]);
 
 #endif

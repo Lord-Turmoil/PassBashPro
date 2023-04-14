@@ -63,7 +63,7 @@ int exec_find(int argc, char* argv[])
 		for (auto it : list)
 		{
 			if (i < VAR_SIZE)
-				cnsl::InsertText(FOREGROUND_GREEN | FOREGROUND_INTENSITY, " $%d) ", i);
+				cnsl::InsertText(VAR_COLOR, " $%d) ", i);
 			else
 				cnsl::InsertText("     ");
 			cnsl::InsertText(PashDocUtil::IsGroup(it) ? GROUP_COLOR : ITEM_COLOR,
