@@ -185,9 +185,6 @@
     <ClCompile Include="inc\utility\FileUtil.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\utility\FileUtil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\exec\editor\exec_edit_clear.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -278,6 +275,24 @@
     <ClCompile Include="src\exec\service\srv_checkout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\exec\function\exec_more.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_more.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\function\exec_import.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\function\exec_export.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\FileUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\editor\exec_edit_help.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />
@@ -288,7 +303,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="favicon.ico">
+    <Image Include="pash.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

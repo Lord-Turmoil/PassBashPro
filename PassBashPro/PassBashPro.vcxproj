@@ -180,7 +180,9 @@
     <ClCompile Include="src\core\Profile.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_clear.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_exit.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_help.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_host.cpp" />
+    <ClCompile Include="src\exec\editor\exec_edit_more.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_see.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_set.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_setk.cpp" />
@@ -192,6 +194,9 @@
     <ClCompile Include="src\exec\function\exec_branch.cpp" />
     <ClCompile Include="src\exec\function\exec_checkout.cpp" />
     <ClCompile Include="src\exec\function\exec_edit.cpp" />
+    <ClCompile Include="src\exec\function\exec_export.cpp" />
+    <ClCompile Include="src\exec\function\exec_import.cpp" />
+    <ClCompile Include="src\exec\function\exec_more.cpp" />
     <ClCompile Include="src\exec\function\exec_order.cpp" />
     <ClCompile Include="src\exec\function\exec_pash.cpp" />
     <ClCompile Include="src\exec\function\exec_remaster.cpp" />
@@ -239,7 +244,7 @@
     <ResourceCompile Include="PassBashPro.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="favicon.ico" />
+    <Image Include="pash.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
