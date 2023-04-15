@@ -59,7 +59,7 @@ int g_mode = MODE_IDLE;
 
 // Copyright info.
 const char TITLE[]     { "PassBash" };
-const char COPYRIGHT[] { "Tony's Studio (C) 2020 - 2023" };
+const char COPYRIGHT[] { "Tony's Studio 2020 - 2023" };
 const char AUTHOR[]    { "Tony Skywalker" };
 
 // Original Logo from: https://textkool.com/en/ascii-art-generator
