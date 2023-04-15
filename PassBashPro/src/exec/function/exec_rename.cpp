@@ -66,7 +66,7 @@ int exec_rename(int argc, char* argv[])
 	node->SetAttribute("name", destName.c_str());
 	PashDocUtil::GetNodeDirectory(node, newPath);
 
-	EXEC_PRINT_MSG("Rename \"%s\" to \"%s\".\n",
+	EXEC_PRINT_MSG("Renamed \"%s\" to \"%s\".\n",
 					 oldPath.c_str(), newPath.c_str());
 
 	g_doc.Mark();
