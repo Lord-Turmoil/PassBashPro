@@ -216,7 +216,10 @@ static int _host_peek_command()
 	options.history = &history;
 	options.completer = _get_completion;
 
-	cnsl::GetString(_buffer, options);
+	int ret = cnsl::GetString(_buffer, options);
+	if (ret == -1)	// abort
+		return 0;
+
 	_host_parse_command(_buffer);
 
 	char* context = nullptr;
