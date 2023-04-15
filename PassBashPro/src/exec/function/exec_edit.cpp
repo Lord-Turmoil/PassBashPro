@@ -66,7 +66,7 @@ int exec_edit(int argc, char* argv[])
 static int _edit_usage()
 {
 	return ExecHost::GetInstance()
-		->execl(MODE_TO_EXEC[g_mode], "help", "help", "edit");
+		->execl(MODE_TO_EXEC[g_mode], "help", "help", "edit", nullptr);
 }
 
 static int _edit_parse_args(int argc, char* argv[], std::string& path)
