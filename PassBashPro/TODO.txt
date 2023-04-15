@@ -1,8 +1,0 @@
-srv_profile:
-	add verification
-
-srv_checkout:
-	TBC
-
-TODO:
-	password evaluation
