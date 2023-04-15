@@ -23,6 +23,7 @@
 #include "../../../inc/exec/service/ServiceAux.h"
 #include "../../../inc/exec/ExecHeader.h"
 #include "../../../inc/utility/FileUtil.h"
+#include "../../../inc/utility/ExecUtil.h"
 
 #include <tea.h>
 
@@ -59,7 +60,6 @@ int DeleteProfile(ProfilePtr profile)
 	// shouldn't delete current.
 	if (g_env && (g_env->username == profile->username))
 		return 1;
-	
 
 	if (!FileUtil::DeletePath(profile->path.c_str()))
 		return 2;
