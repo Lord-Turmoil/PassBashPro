@@ -161,7 +161,7 @@ static int _remove_confirm(const char* prompt)
 	};
 
 	cnsl::InsertText(ERROR_COLOR, prompt);
-	cnsl::GetString(buffer, cnsl::InputOptions(1, 1));
+	cnsl::GetString(buffer, options);
 	cnsl::InsertNewLine();
 
 	return (tolower(buffer[0]) == 'y');
