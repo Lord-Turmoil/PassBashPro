@@ -43,7 +43,7 @@ static void _host_greet();
 
 // revert: delete how many input
 static const char* _get_completion(const char* input, int* revert);
-static void _get_candidates();
+static void _get_candidates(const std::string& path);
 
 // Parse command environment variables.
 static void _host_parse_command(char* cmd);
@@ -95,9 +95,6 @@ static void _host_greet()
 
 static const char* _get_completion(const char* input, int* revert)
 {
-	if (!_candidates[0])
-		return nullptr;
-
 	// skip command
 	while (*input && !isspace(*input))
 		input++;
@@ -117,6 +114,22 @@ static const char* _get_completion(const char* input, int* revert)
 		if (*last)
 			input = last;
 	}
+
+	std::string path(input);
+	std::string parentPath;
+	PashDocUtil::GetParentPath(path, parentPath);
+	if (parentPath == "")
+		parentPath = g_pwd;
+	else
+	{
+		auto pos = path.find_last_of('/');
+		if (pos != std::string::npos)
+			input += pos + 1;
+	}
+	_get_candidates(parentPath);
+
+	if (!_candidates[0])
+		return nullptr;
 
 	const char* completion = nullptr;
 	*revert = 0;
@@ -144,10 +157,17 @@ static const char* _get_completion(const char* input, int* revert)
 	return completion;
 }
 
-static void _get_candidates()
+static void _get_candidates(const std::string& path)
 {
+	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
+	if (!node)
+	{
+		*_candidates = nullptr;
+		return;
+	}
+
 	XMLElementPtrList list;
-	PashDocUtil::GetChildren(g_doc.GetCurrent(), list);
+	PashDocUtil::GetChildren(node, list);
 
 	const char** candidate = _candidates;
 	for (auto it : list)
@@ -186,8 +206,6 @@ static void _host_parse_command(char* cmd)
 
 static int _host_peek_command()
 {
-	_get_candidates();
-
 	_cmd = nullptr;
 
 	_PrintPrompt();
