@@ -296,11 +296,23 @@ int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
 
 bool _IsSensitive(const char* descr)
 {
+	static const char* const SENSITIVE_PATTERN[] = {
+		".*password.*",
+		".*pwd.*",
+		".*pin.*"
+	};
+	static const int SENSITIVE_CNT = 3;
+
 	std::regex pattern;
 
-	pattern.assign(".*password.*", std::regex::icase);
+	for (int i = 0; i < SENSITIVE_CNT; i++)
+	{
+		pattern.assign(SENSITIVE_PATTERN[i], std::regex::icase);
+		if (std::regex_match(descr, pattern))
+			return true;
+	}
 
-	return std::regex_match(descr, pattern);
+	return false;
 }
 
 /*
