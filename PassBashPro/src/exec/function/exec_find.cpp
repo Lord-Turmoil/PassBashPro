@@ -155,16 +155,23 @@ static void _search_item(XMLElementPtr root, XMLElementPtrList& list)
 	XMLElementPtr it = root->FirstChildElement();
 	while (it)
 	{
-		if (std::regex_match(PashDocUtil::GetNodeAttr(it, "key"), regex_pattern))
+		const char* key = PashDocUtil::GetNodeAttr(it, "key");
+		if (std::regex_match(key, regex_pattern))
 		{
 			list.push_back(root);
 			return;
 		}
-		else if (std::regex_match(PashDocUtil::GetNodeAttr(it, "value"), regex_pattern))
+
+		// no search for sensitive entry
+		if (!_IsSensitive(key))
 		{
-			list.push_back(root);
-			return;
+			if (std::regex_match(PashDocUtil::GetNodeAttr(it, "value"), regex_pattern))
+			{
+				list.push_back(root);
+				return;
+			}
 		}
+
 		it = it->NextSiblingElement();
 	}
 }
