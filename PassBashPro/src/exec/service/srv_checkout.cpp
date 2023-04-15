@@ -55,9 +55,11 @@ int srv_checkout(int argc, char* argv[])
 		return 4;
 	}
 
+	char buffer[PASSWORD_BUFFER_SIZE];
+	_FormatPassword(password.c_str(), buffer);
 	EnvPtr env = CreateEnv(profile);
 	VerifyProfileInit(env);
-	if (!VerifyProfile(password.c_str()))
+	if (!VerifyProfile(buffer))
 	{
 		EXEC_PRINT_ERR("The password is incorrect.\n");
 		return 5;
