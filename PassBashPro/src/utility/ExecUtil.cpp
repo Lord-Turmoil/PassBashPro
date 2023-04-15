@@ -256,9 +256,11 @@ int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
 					 maxKey, "Key",
 					 maxValue, "Value",
 					 maxWeight, "Weight");
+	
 	int id = 0;
 	const char* hidden = "******";
 	const char* value;
+	const WORD ENTRY_COLOR[2] = { FOREGROUND_WHITE, FOREGROUND_LIGHT(FOREGROUND_WHITE) };
 	for (auto& it : list)
 	{
 		value = (!detail && _IsSensitive(it.key)) ? hidden : it.value;
@@ -277,7 +279,7 @@ int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
 		}
 		else
 		{
-			cnsl::InsertText("%4d | %*s | %*s | %*d\n",
+			cnsl::InsertText(ENTRY_COLOR[id & 1], "%4d | %*s | %*s | %*d\n",
 							 id,
 							 maxKey, it.key,
 							 maxValue, value,
