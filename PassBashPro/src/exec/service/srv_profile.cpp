@@ -34,19 +34,19 @@ static bool isDelete;
 static void _profile_init();
 static int _profile_usage();
 static int _profile_parse_arg(int argc, char* argv[]);
-static int _profile_cli();
+static int _profile_cli(bool showHelp = false);
 static int _profile_silent();
 static int _profile_delete();
 
-static int _profile_receive_username();
-static int _profile_receive_password();
+static int _profile_receive_username(bool showHelp = false);
+static int _profile_receive_password(bool showHelp = false);
 
 int srv_profile(int argc, char* argv[])
 {
 	_profile_init();
 
 	if (argc == 0)	// internal call
-		return _profile_cli();
+		return _profile_cli(true);
 
 	if (_profile_parse_arg(argc, argv) != 0)
 	{
@@ -157,12 +157,12 @@ static int _profile_parse_arg(int argc, char* argv[])
 	return 0;
 }
 
-static int _profile_cli()
+static int _profile_cli(bool showHelp)
 {
-	int ret = _profile_receive_username();
+	int ret = _profile_receive_username(showHelp);
 	if (ret == 0)
 	{
-		ret = _profile_receive_password();
+		ret = _profile_receive_password(showHelp);
 		if (ret == 0)
 			return _profile_silent();
 	}
@@ -212,6 +212,21 @@ static int _profile_delete()
 		return 22;
 
 	ProfilePtr profile = ProfilePool::GetInstance()->Get(username);
+	if (!profile)
+	{
+		EXEC_PRINT_ERR("Profile doesn't exist!\n");
+		return 23;
+	}
+
+	char _buffer[PASSWORD_BUFFER_SIZE];
+	_FormatPassword(password.c_str(), _buffer);
+	VerifyProfileInit(CreateEnv(profile));
+	if (!VerifyProfile(_buffer))
+	{
+		EXEC_PRINT_ERR("Incorrect password for profile '%s'!\n", username.c_str());
+		return 24;
+	}
+
 	int ret = DeleteProfile(profile);
 	if (ret != 0)
 	{
@@ -229,10 +244,16 @@ static int _profile_delete()
 	return 0;
 }
 
-static int _profile_receive_username()
+static int _profile_receive_username(bool showHelp)
 {
 	char buffer[USERNAME_BUFFER_SIZE];
 	ProfilePoolPtr pool = ProfilePool::GetInstance();
+
+	if (showHelp)
+	{
+		cnsl::InsertText(FOREGROUND_LIGHT(MESSAGE_COLOR),
+						 "This is the identity of a profile, you can create more profiles later.\n");
+	}
 
 	cnsl::InsertText("Please enter the ");
 	cnsl::InsertText(HIGHLIGHT_COLOR, "username");
@@ -281,9 +302,18 @@ static int _profile_receive_username()
 	return 0;
 }
 
-static int _profile_receive_password()
+static int _profile_receive_password(bool showHelp)
 {
 	char buffer[PASSWORD_BUFFER_SIZE];
+
+	if (showHelp)
+	{
+		cnsl::InsertText(FOREGROUND_LIGHT(MESSAGE_COLOR),
+						 "This is your master password to access all the other passwords.\n");
+		cnsl::InsertText(FOREGROUND_LIGHT(MESSAGE_COLOR), "It will ");
+		cnsl::InsertText(FOREGROUND_LIGHT(FOREGROUND_RED), "NOT BE STORED");
+		cnsl::InsertText(FOREGROUND_LIGHT(MESSAGE_COLOR), ", so make sure to remember it.\n");
+	}
 
 	cnsl::InsertText("Please enter the ");
 	cnsl::InsertText(HIGHLIGHT_COLOR, "password");
@@ -292,6 +322,7 @@ static int _profile_receive_password()
 	cnsl::InsertText(MESSAGE_COLOR,
 					 "%d to %d characters, any ascii that is printable. (no space)\n",
 					 PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
+
 	cnsl::InsertText(PROMPT_COLOR, "$ ");
 
 	cnsl::InputOptions options;
