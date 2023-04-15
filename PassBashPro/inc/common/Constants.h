@@ -51,7 +51,7 @@ const char ENTRY_TAG[] = "Entry";
 // Special directory identifier.
 const char PARENT_DIR_NAME[] = "..";
 const char SELF_DIR_NAME[]   = ".";
-const char ROOT_DIR_NAME[]   = "/";
+const char ROOT_DIR_NAME[]   = "./";
 
 
 // Working mode.
