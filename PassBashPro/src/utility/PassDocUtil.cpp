@@ -280,7 +280,7 @@ void PashDocUtil::GetParentPath(const std::string& path, std::string& name)
 	
 	// root directory
 	if (name == ".")
-		name.append("./");
+		name.append("/");
 }
 
 
