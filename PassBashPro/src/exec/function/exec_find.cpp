@@ -31,12 +31,15 @@ static std::string root_path;
 static std::string pattern;
 static std::regex regex_pattern;
 
+typedef std::pair<XMLElementPtr, const char*> SearchResult;
+typedef std::vector<SearchResult> SearchResultList;
+
 static void _find_init();
 static int _find_usage();
 static int _find_parse_args(int argc, char* argv[]);
-static void _search_item(XMLElementPtr root, XMLElementPtrList& list);
-static void _search(XMLElementPtr root, XMLElementPtrList& list);
-static void _find(XMLElementPtrList& list);
+static void _search_item(XMLElementPtr root, SearchResultList& list);
+static void _search(XMLElementPtr root, SearchResultList& list);
+static void _find(SearchResultList& list);
 
 int exec_find(int argc, char* argv[])
 {
@@ -48,7 +51,7 @@ int exec_find(int argc, char* argv[])
 		return 1;
 	}
 
-	XMLElementPtrList list;
+	SearchResultList list;
 	_find(list);
 
 	if (list.empty())
@@ -66,8 +69,15 @@ int exec_find(int argc, char* argv[])
 				cnsl::InsertText(VAR_COLOR, " $%d) ", i);
 			else
 				cnsl::InsertText("     ");
-			cnsl::InsertText(PashDocUtil::IsGroup(it) ? GROUP_COLOR : ITEM_COLOR,
-							 "\t%s\n", PashDocUtil::GetNodeDirectory(it, path));
+
+			cnsl::InsertText(PashDocUtil::IsGroup(it.first) ? GROUP_COLOR : ITEM_COLOR,
+							 "\t%s", PashDocUtil::GetNodeDirectory(it.first, path));
+
+			if (it.second)
+				cnsl::InsertText(MESSAGE_COLOR, " [%s]\n", it.second);
+			else
+				cnsl::InsertNewLine();
+
 			if (i < VAR_SIZE)
 				g_var[i++] = path;
 		}
@@ -138,36 +148,39 @@ static int _find_parse_args(int argc, char* argv[])
 	return 0;
 }
 
-static void _search_item(XMLElementPtr root, XMLElementPtrList& list)
+static void _search_item(XMLElementPtr root, SearchResultList& list)
 {
 	if (!PashDocUtil::IsItem(root))
 		return;
 
 	if (std::regex_match(PashDocUtil::GetNodeName(root), regex_pattern))
 	{
-		list.push_back(root);
+		list.emplace_back(root, PashDocUtil::GetNodeName(root));
 		return;
 	}
 
 	if (!is_deep)
 		return;
 
+	const char* key;
+	const char* value;
 	XMLElementPtr it = root->FirstChildElement();
 	while (it)
 	{
-		const char* key = PashDocUtil::GetNodeAttr(it, "key");
+		key = PashDocUtil::GetNodeAttr(it, "key");
 		if (std::regex_match(key, regex_pattern))
 		{
-			list.push_back(root);
+			list.emplace_back(root, key);
 			return;
 		}
 
 		// no search for sensitive entry
 		if (!_IsSensitive(key))
 		{
-			if (std::regex_match(PashDocUtil::GetNodeAttr(it, "value"), regex_pattern))
+			value = PashDocUtil::GetNodeAttr(it, "value");
+			if (std::regex_match(value, regex_pattern))
 			{
-				list.push_back(root);
+				list.emplace_back(root, value);
 				return;
 			}
 		}
@@ -176,7 +189,7 @@ static void _search_item(XMLElementPtr root, XMLElementPtrList& list)
 	}
 }
 
-static void _search(XMLElementPtr root, XMLElementPtrList& list)
+static void _search(XMLElementPtr root, SearchResultList& list)
 {
 	XMLElementPtr it = root->FirstChildElement();
 	while (it)
@@ -184,7 +197,7 @@ static void _search(XMLElementPtr root, XMLElementPtrList& list)
 		if (PashDocUtil::IsGroup(it))
 		{
 			if (std::regex_match(PashDocUtil::GetNodeName(it), regex_pattern))
-				list.push_back(it);
+				list.emplace_back(it, PashDocUtil::GetNodeName(it));
 			_search(it, list);
 		}
 		else
@@ -194,7 +207,7 @@ static void _search(XMLElementPtr root, XMLElementPtrList& list)
 	}
 }
 
-static void _find(XMLElementPtrList& list)
+static void _find(SearchResultList& list)
 {
 	XMLElementPtr node = PashDocUtil::GetNodeByPath(root_path);
 	if (!node || !PashDocUtil::IsGroup(node))
