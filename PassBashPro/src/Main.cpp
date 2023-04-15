@@ -51,8 +51,8 @@ int main(int argc, char* argv[])
 	InitExecHost();
 	InitConsole();
 
-	PASH_PANIC_ON(
-		ExecHost::GetInstance()->execl(EXEC_SERVICE, "start", nullptr) != 0);
+	PASH_PANIC_ON(ExecHost::GetInstance()
+				  ->execl(EXEC_SERVICE, "start", nullptr) != 0);
 
 #ifdef PASH_DEBUG
 	LOG_PRINT_ERROR();
