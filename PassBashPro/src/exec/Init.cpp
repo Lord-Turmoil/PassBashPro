@@ -128,6 +128,8 @@ static void _InitGlobal()
 	HOOK(factory, "copy",     exec_copy);
 	HOOK(factory, "cp",       exec_copy);
 	HOOK(factory, "c",        exec_copy);
+	HOOK(factory, "flush",    exec_flush);
+	HOOK(factory, "fl",       exec_flush);
 
 	// HOOK(factory, "tea",     exec_tea);
 #if PASH_CHEAT

@@ -24,11 +24,16 @@
 #include "../../inc/core/PashDoc.h"
 #include "../../inc/exec/Exec.h"
 
+#include <cnsl.h>
+
+
 // Internal default password.
 const char DEFAULT_PASSWORD[] = "null";
 
 // Present working directory.
 std::string g_pwd;
+
+cnsl::InputHistory g_history;
 
 // Current user info.
 EnvPtr g_env;

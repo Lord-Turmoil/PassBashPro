@@ -3,82 +3,35 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Global.h                                  *
+ *                      File Name : exec_flush.cpp                            *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 16, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   For global variables.                                                    *
+ *   Flush command history and variables.                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#pragma once
+#include "../../../inc/exec/function/FuncHeader.h"
 
-#ifndef _GLOBAL_H_
-#define _GLOBAL_H_
-
-#include "Env.h"
-
-#include <string>
-#include <vector>
-
-#include <cnsl.h>
-
-// Internal default password.
-extern const char DEFAULT_PASSWORD[];
+#include <algorithm>
 
 
-// Present working directory.
-extern std::string g_pwd;
+int exec_flush(int argc, char* argv[])
+{
+	g_history.Clear();
+	EXEC_PRINT_MSG("Command history flushed.\n");
 
-
-// Input history.
-extern cnsl::InputHistory g_history;
-
-// Current user info.
-extern EnvPtr g_env;
-extern bool g_isOnline;
-
-
-// PashDoc
-class PashDoc;
-extern PashDoc g_doc;
-
-
-// Default data content.
-extern const char DEFAULT_DATA[];
-
-
-// Position variables.
-extern const int VAR_SIZE;
-extern std::vector<std::string> g_var;
-
-
-// Versions.
-extern const char PASH_HOST_VERSION[];
-extern const char PASH_EDITOR_VERSION[];
-
-
-// Working mode.
-extern int g_mode;
-
-
-// Copyright info.
-extern const char TITLE[];
-extern const char COPYRIGHT[];
-extern const char AUTHOR[];
-
-// Logo
-extern const char LOGO[];
-extern const char BANNER[];
-extern const char THANKS[];
-
-#endif
+	std::fill(g_var.begin(), g_var.end(), std::string());
+	EXEC_PRINT_MSG("Environment variables reseted.\n");
+	
+	return 0;
+}

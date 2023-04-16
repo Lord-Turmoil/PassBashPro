@@ -9,7 +9,7 @@
  *                                                                            *
  *                     Start Date : April 11, 2023                            *
  *                                                                            *
- *                    Last Update :                                           *
+ *                    Last Update : April 16, 2023                            *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
@@ -27,8 +27,6 @@
 
 static char HOST_IGNORE[] = " ";
 static char HOST_WAITING[] = R"(-\|/)";
-
-static cnsl::InputHistory history;
 
 static char _buffer[EXEC_BUFFER_SIZE + 4];
 
@@ -213,7 +211,7 @@ static int _host_peek_command()
 	cnsl::InputOptions options;
 	options.minLen = 0;
 	options.interruptible = true;
-	options.history = &history;
+	options.history = &g_history;
 	options.completer = _get_completion;
 
 	int ret = cnsl::GetString(_buffer, options);

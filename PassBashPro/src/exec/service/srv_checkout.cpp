@@ -148,6 +148,8 @@ static int _checkout_parse_args(int argc, char* argv[])
 		return 1;
 	}
 
+	ExecHost::GetInstance()->execl(EXEC_GLOBAL, "flush", "flush", nullptr);
+
 	return 0;
 }
 

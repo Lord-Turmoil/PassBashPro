@@ -77,7 +77,8 @@ int exec_help(int argc, char* argv[]);
 int exec_version(int argc, char* argv[]);
 // exit
 int exec_exit(int argc, char* argv[]);
-
+// flush
+int exec_flush(int argc, char* argv[]);
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
