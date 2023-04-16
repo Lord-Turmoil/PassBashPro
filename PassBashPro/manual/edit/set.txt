@@ -22,6 +22,8 @@ Note:
   In set related commands, '|' is used as a separator between parameters. In
   this way, key and value could contain white space.
 
+  If key already exists, it will report error, and make no change.
+
 Example:
   To create a Username entry, you can use the following command. weight is not
   important, since it will be generated automatically to sort entries by their
@@ -30,4 +32,3 @@ Example:
   $ set Username|your username
   or
   $ set Username|your username|3
-   

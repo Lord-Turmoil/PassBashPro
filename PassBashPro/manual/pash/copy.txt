@@ -1,0 +1,23 @@
+  copy [text ...]
+
+--------------------------------------------------------------------------------
+
+Alias:
+  copy, cp, c
+
+Description:
+  Copy parameters to clipboard.
+
+Note:
+  All parameters will be joined together, separated by single space.  
+
+Example:
+  To get string "Hello there!" copied to your clipboard, you can do this.
+
+  $ copy Hello there!
+
+  You can use environment variables to simplify the parameter. When you use
+  'find', 'cat' command or Pash Editor, certain contents will be stored to
+  environment variables. So just use $0-9 instead of long name as following.
+
+  $ copy $1
