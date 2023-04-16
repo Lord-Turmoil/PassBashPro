@@ -121,6 +121,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /e /y  "$(ProjectDir)Build\dist\Debug\PassBashPro.exe"  "$(SolutionDir)Work\PassBashPro.exe"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -239,9 +242,6 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\utility\Auxiliary.cpp" />
     <ClCompile Include="src\utility\xml.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PassBashPro.rc" />
