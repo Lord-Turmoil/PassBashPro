@@ -9,7 +9,7 @@
  *                                                                            *
  *                     Start Date : April 11, 2023                            *
  *                                                                            *
- *                    Last Update :                                           *
+ *                    Last Update : April 16, 2023                            *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
@@ -183,9 +183,11 @@ static int _load_cache()
 	{
 		if (!pool->IsEmpty())
 		{
-			fopen_s(&fp, path.c_str(), "w");
-			fprintf(fp, "%s\n", (*pool)[0]->username.c_str());
-			fclose(fp);
+			if (fopen_s(&fp, path.c_str(), "w") == 0)
+			{
+				fprintf(fp, "%s\n", (*pool)[0]->username.c_str());
+				fclose(fp);
+			}
 		}
 
 		if (fopen_s(&fp, path.c_str(), "r") != 0)
@@ -197,17 +199,21 @@ static int _load_cache()
 
 	// here, fp is open
 	fscanf_s(fp, "%s", _cached_user, (unsigned int)_countof(_cached_user));
+	
+	// Below will begin write!!! So close first!
+	fclose(fp);
 
 	if (!pool->Get(_cached_user))
 	{
 		if (!pool->IsEmpty())
 		{
-			fopen_s(&fp, path.c_str(), "w");
-			fprintf(fp, "%s\n", (*pool)[0]->username.c_str());
+			if (fopen_s(&fp, path.c_str(), "w") == 0)
+			{
+				fprintf(fp, "%s\n", (*pool)[0]->username.c_str());
+				fclose(fp);
+			}
 		}
 	}
-
-	fclose(fp);
 
 	return 0;
 }
