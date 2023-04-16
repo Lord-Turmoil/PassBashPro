@@ -36,6 +36,9 @@ static int _profile_usage();
 static int _profile_parse_arg(int argc, char* argv[]);
 static int _profile_cli(bool showHelp = false);
 static int _profile_silent();
+
+static int _profile_delete_confirm();
+static int _profile_delete_current();
 static int _profile_delete();
 
 static int _profile_receive_username(bool showHelp = false);
@@ -58,7 +61,7 @@ int srv_profile(int argc, char* argv[])
 
 	// -i will be ignored if -d is set
 	if (isDelete)
-		ret = _profile_delete();
+		return _profile_delete();
 	else
 	{
 		if (useCli)
@@ -204,6 +207,28 @@ static int _profile_silent()
 	return 0;
 }
 
+static int _profile_delete_confirm()
+{
+	EXEC_PRINT_MSG("Delete current profile? (Y/N) ");
+	cnsl::InsertText(PROMPT_COLOR, "$ ");
+
+	char buffer[4];
+
+	cnsl::InputOptions options;
+	options.minLen = 1;
+	options.maxLen = 1;
+	options.verifier = YesNoVerifier;
+
+	cnsl::GetString(buffer, options);
+
+	return tolower(buffer[0]) != 'y';
+}
+
+static int _profile_delete_current()
+{
+	return DeleteProfile(ProfilePool::GetInstance()->Get(username), true);
+}
+
 static int _profile_delete()
 {
 	if (!VerifyUsername(username))
@@ -228,10 +253,37 @@ static int _profile_delete()
 	}
 
 	int ret = DeleteProfile(profile);
+	bool isSelf = false;
 	if (ret != 0)
 	{
 		if (ret == 1)
-			EXEC_PRINT_ERR("Cannot delete current user profile!\n");
+		{
+			if (_profile_delete_confirm() == 0)
+			{
+				cnsl::InsertNewLine();
+
+				isSelf = true;
+				ret = _profile_delete_current();
+				if (ret != 0)
+				{
+					EXEC_PRINT_ERR("Failed to delete current profile.\n");
+					return ret;
+				}
+				else
+				{
+					EXEC_PRINT_MSG("Current profile '%s' deleted.\n", username.c_str());
+					EXEC_PRINT_MSG("Abort in 1 second.\n");
+					Sleep(1000);
+					return TERMINATION;
+				}
+			}
+			else
+			{
+				cnsl::InsertNewLine();
+				EXEC_PRINT_MSG("No profile affected.\n");
+				return 0;
+			}
+		}
 		else if (ret == 2)
 			EXEC_PRINT_ERR("Failed to delete profile!\n");
 

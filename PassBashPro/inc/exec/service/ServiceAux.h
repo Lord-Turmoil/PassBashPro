@@ -36,7 +36,7 @@ ProfilePtr CreateProfile(const std::string& username);
 EnvPtr CreateEnv(ProfilePtr profile);
 
 // Delete a profile physically.
-int DeleteProfile(ProfilePtr profile);
+int DeleteProfile(ProfilePtr profile, bool force = false);
 
 int InitConfig(EnvPtr env);
 int InitData(EnvPtr env);

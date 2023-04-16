@@ -52,13 +52,13 @@ EnvPtr CreateEnv(ProfilePtr profile)
 	return env;
 }
 
-int DeleteProfile(ProfilePtr profile)
+int DeleteProfile(ProfilePtr profile, bool force)
 {
 	if (!profile)
 		return 0;
 
 	// shouldn't delete current.
-	if (g_env && (g_env->username == profile->username))
+	if (!force && g_env && (g_env->username == profile->username))
 		return 1;
 
 	if (!FileUtil::DeletePath(profile->path.c_str()))
