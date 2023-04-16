@@ -65,7 +65,7 @@ int exec_edit_host(int argc, char* argv[])
 		cnsl::InsertNewLine();
 		if (ret > 0)
 		{
-			char* cmd = strstrip(buffer);
+			char* cmd = strtolower(strstrip(buffer));
 			char* type;
 			char* arg;
 			_edit_parse_cmd(cmd, &type, &arg);
