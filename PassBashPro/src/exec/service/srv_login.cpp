@@ -115,7 +115,7 @@ static int _login_list_users()
 		*candidate++ = profile->username.c_str();
 		cnsl::InsertNewLine();
 	}
-	cnsl::InsertSplitLine('_');
+	cnsl::InsertSplitLine('-');
 	*candidate = nullptr;
 
 	return 0;
