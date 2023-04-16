@@ -65,11 +65,12 @@ int exec_edit_host(int argc, char* argv[])
 		cnsl::InsertNewLine();
 		if (ret > 0)
 		{
-			char* cmd = strtolower(strstrip(buffer));
+			char* cmd = strstrip(buffer);
 			char* type;
 			char* arg;
 			_edit_parse_cmd(cmd, &type, &arg);
 
+			type = strtolower(type);
 			int ret = host->execl(EXEC_EDIT, type, type, arg, nullptr);
 			if (ret == -1)
 				host->execl(EXEC_HIDDEN, "edit_unk", "edit_unk", type, nullptr);
