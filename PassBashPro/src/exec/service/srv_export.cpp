@@ -58,7 +58,19 @@ int srv_export(int argc, char* argv[])
 		return 5;
 	}
 
-	EXEC_PRINT_MSG("Data exported to '%s'.\n", narrow(_buffer));
+	const char* path = narrow(_buffer);
+	if (path)
+	{
+		EXEC_PRINT_MSG("Data exported to '%s'.\n", path);
+		if (ExecHost::GetInstance()->execl(EXEC_GLOBAL, "copy", "copy", path, nullptr) == 0)
+		{
+			EXEC_PRINT_MSG("Output path copied to clipboard.\n");
+		}
+	}
+	else
+	{
+		EXEC_PRINT_ERR("Currently not support Unicode path name.\n");
+	}
 
 	return 0;
 }

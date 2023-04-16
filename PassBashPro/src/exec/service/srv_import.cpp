@@ -48,7 +48,19 @@ int srv_import(int argc, char* argv[])
 		EXEC_PRINT_MSG("Please ensure the data file name is the same as your profile name, and placed under ");
 		wchar_t _buffer[PASH_BUFFER_SIZE];
 		if (_wgetcwd(_buffer, PASH_BUFFER_SIZE - 1))
-			EXEC_PRINT_MSG("\n\t%s\n", narrow(_buffer));
+		{
+			const char* path = narrow(_buffer);
+			if (path)
+			{
+				EXEC_PRINT_MSG("\n\t%s\n", path);
+				if (ExecHost::GetInstance()->execl(EXEC_GLOBAL, "copy", "copy", path, nullptr) == 0)
+				{
+					EXEC_PRINT_MSG("Input path copied to clipboard, you can check it out.\n");
+				}
+			}
+			else
+				EXEC_PRINT_ERR("Currently not support Unicode path name.\n");
+		}
 		else
 			EXEC_PRINT_MSG("root directory of PassBash.\n");
 
