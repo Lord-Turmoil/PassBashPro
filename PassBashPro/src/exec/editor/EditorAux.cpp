@@ -192,6 +192,14 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 		return 1;
 	}
 
+	if (PashDocUtil::GetEntryNode(_edit_item, key))
+	{
+		cnsl::InsertText(ERROR_COLOR,
+						 "Entry with key \"%s\" already exists!\n",
+						 key);
+		return 2;
+	}
+
 	XMLElementPtr entry;
 	if (key && value && weightStr)	// can create
 		entry = PashDocUtil::GetOrCreateEntryNode(_edit_item, key);
@@ -200,7 +208,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 	if (!entry)
 	{
 		cnsl::InsertText(ERROR_COLOR, "Entry with key \"%s\" doesn't exist!\n", key);
-		return 2;
+		return 3;
 	}
 
 	if (key && (strlen(key) > EDIT_KEY_MAX_LENGTH))
@@ -208,7 +216,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 		cnsl::InsertText(ERROR_COLOR,
 						 "Key is too long! No longer than %d characters!\n",
 						 EDIT_KEY_MAX_LENGTH);
-		return 3;
+		return 4;
 	}
 	if (value)
 	{
@@ -217,7 +225,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 			cnsl::InsertText(ERROR_COLOR,
 							 "Value is too long! No longer than %d characters!\n",
 							 EDIT_VALUE_MAX_LENGTH);
-			return 4;
+			return 5;
 		}
 		entry->SetAttribute("value", value);
 	}
@@ -228,7 +236,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 			cnsl::InsertText(ERROR_COLOR,
 							 "Key is too long! No longer than %d characters!\n",
 							 EDIT_WEIGHT_MAX_LENGTH);
-			return 5;
+			return 6;
 		}
 		int weight = -1;
 		int w;
