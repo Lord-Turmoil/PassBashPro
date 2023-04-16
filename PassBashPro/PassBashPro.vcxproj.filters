@@ -305,6 +305,9 @@
     <ClCompile Include="src\exec\function\exec_copy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\exec\function\exec_flush.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PassBashPro.rc">

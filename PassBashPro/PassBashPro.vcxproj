@@ -201,6 +201,7 @@
     <ClCompile Include="src\exec\function\exec_echo.cpp" />
     <ClCompile Include="src\exec\function\exec_edit.cpp" />
     <ClCompile Include="src\exec\function\exec_export.cpp" />
+    <ClCompile Include="src\exec\function\exec_flush.cpp" />
     <ClCompile Include="src\exec\function\exec_import.cpp" />
     <ClCompile Include="src\exec\function\exec_more.cpp" />
     <ClCompile Include="src\exec\function\exec_order.cpp" />

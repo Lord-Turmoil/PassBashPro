@@ -286,8 +286,9 @@ int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
 							 maxWeight, it.weight);
 		}
 		
+		// always copy real value.
 		if (id < VAR_SIZE)
-			g_var[id] = value;
+			g_var[id] = it.value;
 		id++;
 	}
 
