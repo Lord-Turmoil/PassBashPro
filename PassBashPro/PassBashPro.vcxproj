@@ -216,6 +216,7 @@
     <ClCompile Include="src\exec\service\srv_login.cpp" />
     <ClCompile Include="src\exec\service\srv_profile.cpp" />
     <ClCompile Include="src\exec\service\srv_remaster.cpp" />
+    <ClCompile Include="src\exec\service\srv_save.cpp" />
     <ClCompile Include="src\exec\service\srv_start.cpp" />
     <ClCompile Include="src\utility\ExecUtil.cpp" />
     <ClCompile Include="src\core\PashDoc.cpp" />

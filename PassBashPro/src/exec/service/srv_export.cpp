@@ -40,10 +40,14 @@ int srv_export(int argc, char* argv[])
 		return 2;
 	}
 
+	int ret = ExecHost::GetInstance()->execl(EXEC_SERVICE, "save", "save", nullptr);
+	if (ret != 0)
+		return 3;
+
 	if (!FileUtil::CopyFileToNew(g_env->dataPath.c_str(), g_env->username.c_str()))
 	{
 		EXEC_PRINT_ERR("Failed to export data!\n");
-		return 3;
+		return 4;
 	}
 
 	wchar_t _buffer[PASH_BUFFER_SIZE];
@@ -51,7 +55,7 @@ int srv_export(int argc, char* argv[])
 	{
 		EXEC_PRINT_ERR("Failed to get export path!\n");
 		EXEC_PRINT_MSG("You can still find the exported data at root directory of PassBash.\n");
-		return 4;
+		return 5;
 	}
 
 	EXEC_PRINT_MSG("Data exported to '%s'.\n", narrow(_buffer));
