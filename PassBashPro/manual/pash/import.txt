@@ -1,0 +1,21 @@
+  import password
+
+--------------------------------------------------------------------------------
+
+Description:
+  Import encrypted password data of the current profile.
+
+Note:
+  You must type in your master password to confirm import.
+
+  The data shall be placed under the same directory of the main executable of
+  PassBash, and the filename must be the same as the current profile username.
+
+  You can get the data via 'export' command.
+
+  You should create a identical account on a new device first before import.
+
+WARNING:
+  The data to import must be the data from another device of this account. It
+  will be verified with your master password.
+

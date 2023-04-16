@@ -1,4 +1,4 @@
-  help [cmd]
+  help [-d] [cmd]
 
 --------------------------------------------------------------------------------
 
@@ -8,8 +8,11 @@ Alias:
 Description:
   Show help information for specified command.
 
+Hint:
+  -d  --  Only show syntax of the specified command.
+
 Note:
-  If no parameters assigned, help will show information of usable commands
-  in current state.
-  If -a is set, cmd will be ignored.
-  Detailed help is only displayed when cmd is specified.
+  If no parameters assigned, help will show brief information of all usable
+  commands in current state.
+
+  If -d is set, cmd must be specified.

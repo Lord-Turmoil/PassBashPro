@@ -10,8 +10,24 @@ Description:
 
 Hint:
   key     --  A string.
+
   value   --  A string.
+
   weight  --  A non-negative integer.
+
 Note:
   Entries are sorted ascending by weight. If weight is not specified or is
   negative, it will be generated automatically to the largest.
+
+  In set related commands, '|' is used as a separator between parameters. In
+  this way, key and value could contain white space.
+
+Example:
+  To create a Username entry, you can use the following command. weight is not
+  important, since it will be generated automatically to sort entries by their
+  creation time.
+
+  $ set Username|your username
+  or
+  $ set Username|your username|3
+   

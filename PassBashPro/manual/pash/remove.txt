@@ -11,6 +11,7 @@ Description:
 Hint:
   -r  --  Remove group recursively. If not set, non-empty group could not be
           deleted even if -f is set.
+
   -f  --  Force delete group or item. If set, there will not be a confirm prompt
           on each deletion.
 

@@ -1,0 +1,7 @@
+  echo text [text ...]
+
+--------------------------------------------------------------------------------
+
+Description:
+  Print your input to the screen.
+

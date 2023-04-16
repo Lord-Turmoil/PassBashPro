@@ -1,11 +1,13 @@
-  cat item
+  more item
 
 --------------------------------------------------------------------------------
 
 Description:
-  Show the content of a specified password item.
+  Show the detailed content of a specified password item.
 
 Note:
   Item name could be either a absolute path or a relative path.
 
-  Sensitive contents that include "password" will be hidden.
+  This command will display password in plain text.
+
+

@@ -1,0 +1,9 @@
+  more
+
+--------------------------------------------------------------------------------
+
+Description:
+  Display the detailed content of the current password item.
+
+Note:
+  This command will display password in plain text.

@@ -1,0 +1,19 @@
+  export password
+
+--------------------------------------------------------------------------------
+
+Description:
+  Export encrypted password data of the current profile.
+
+Note:
+  You must type in your master password to confirm export.
+
+  The data will be exported at the same directory of the main executable of
+  PassBash, and the filename is the same as the current profile username.
+
+  You can then transfer the data to another device safely by any means, and use
+  'import' command to import it.
+
+WARNING:
+  Previously exported data will be overwritten.
+

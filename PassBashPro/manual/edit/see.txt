@@ -6,7 +6,7 @@ Alias:
   see, s
 
 Description:
-  Display the content of the current password item.
+  Display the content of the current password item with sensitive entries hidden.
 
 Note:
   You can use this command to see the id of entries.

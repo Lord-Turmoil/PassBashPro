@@ -7,8 +7,13 @@ Description:
 
 Note:
   Group name could be either a absolute path or relative path.
-  "./" is for root group.
-  "." is for current group.
-  "../" or ".." is for parent group.
-  "-" is for the last group.
+
+Special Directories:
+  ./  --  root group
+
+  .   --  current group
+
+  ..  --  parent group
+
+  -   --  the last group
 

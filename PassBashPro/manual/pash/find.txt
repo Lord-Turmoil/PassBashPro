@@ -1,4 +1,4 @@
-  find [-s -d] [group] (regex)
+  find [-s -d] [group] regex
 
 --------------------------------------------------------------------------------
 
@@ -12,8 +12,9 @@ Hint:
   -s  --  Enable strict search. If not set, ".*" will be added between all
           characters for a wider search. Otherwise the expression will not
           be modified.
+
   -d  --  Enable deep search. If set, the result will also include password
-          items if its content matches the expression.
+          items if its content key matches the expression.
 
 Note:
   If group is not specified, find will be applied under current group. Both

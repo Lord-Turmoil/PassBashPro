@@ -11,12 +11,18 @@ Description:
 
 Hint:
   -i  --  Create new user interactively.
+
   -d  --  Delete existing profile. Could not delete current user.
+
   -u  --  Profile username.
+
   -p  --  Password of the specific user.
 
 Note:
   If -d is set, -i will be ignored.
+
   If -i is set, there will be no need to set -u and -p.
+
   Username is a 3 ~ 24 string, containning [_a-zA-Z0-9] only.
+
   Password is a 6 ~ 16 string, containning visible ASCIIs only.
