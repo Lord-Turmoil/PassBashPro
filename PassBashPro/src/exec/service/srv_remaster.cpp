@@ -77,6 +77,7 @@ static int _remaster_authorize()
 	options.maxLen = PASSWORD_MAX_LENGTH;
 	options.interruptible = true;
 	options.decoy = '*';
+	options.verifier = PasswordVerifier;
 
 	cnsl::InsertText(MESSAGE_COLOR, "Please enter your old master password.\n");
 	cnsl::InsertText(PROMPT_COLOR, "$ ");
@@ -127,6 +128,7 @@ static int _remaster_receive_password()
 	options.minLen = PASSWORD_MIN_LENGTH;
 	options.maxLen = PASSWORD_MAX_LENGTH;
 	options.interruptible = true;
+	options.verifier = PasswordVerifier;
 
 	EXEC_PRINT_MSG("Please enter new master password.\n");
 	EXEC_PRINT_MSG("%d to %d characters, any ascii that is printable.\n",
