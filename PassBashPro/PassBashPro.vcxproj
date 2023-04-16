@@ -197,6 +197,7 @@
     <ClCompile Include="src\exec\editor\EditorAux.cpp" />
     <ClCompile Include="src\exec\function\exec_branch.cpp" />
     <ClCompile Include="src\exec\function\exec_checkout.cpp" />
+    <ClCompile Include="src\exec\function\exec_copy.cpp" />
     <ClCompile Include="src\exec\function\exec_echo.cpp" />
     <ClCompile Include="src\exec\function\exec_edit.cpp" />
     <ClCompile Include="src\exec\function\exec_export.cpp" />

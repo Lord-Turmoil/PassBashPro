@@ -38,6 +38,7 @@ char* strstrip(char* str);
 char* strtolower(char* str);
 char* strtoupper(char* str);
 
+bool is_null_or_empty(const char* str);
 bool begins_with(const char* str, const char* prefix);
 bool ends_with(const char* str, const char* suffix);
 

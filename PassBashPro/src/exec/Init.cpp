@@ -125,6 +125,10 @@ static void _InitGlobal()
 	HOOK(factory, "import",   exec_import);
 	HOOK(factory, "export",   exec_export);
 	HOOK(factory, "echo",     exec_echo);
+	HOOK(factory, "copy",     exec_copy);
+	HOOK(factory, "cp",       exec_copy);
+	HOOK(factory, "c",        exec_copy);
+
 	// HOOK(factory, "tea",     exec_tea);
 #if PASH_CHEAT
 	HOOK(factory, "order",   exec_order);

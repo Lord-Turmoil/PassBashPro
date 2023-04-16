@@ -93,6 +93,8 @@ int exec_edit(int argc, char* argv[]);
 int exec_import(int argc, char* argv[]);
 int exec_export(int argc, char* argv[]);
 
+int exec_copy(int argc, char* argv[]);
+
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Hidden Functions
