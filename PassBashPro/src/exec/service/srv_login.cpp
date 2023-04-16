@@ -45,6 +45,8 @@ static int _login_receive_password();
 static bool _login_check_env(EnvPtr env);
 static bool _login_init_env(EnvPtr env);
 
+static bool _confirm_abort();
+
 static int _handle_user_not_exists(const char* username);
 
 int srv_login(int argc, char* argv[])
@@ -56,9 +58,25 @@ int srv_login(int argc, char* argv[])
 
 	PASH_TRY(_login_list_users());
 	
-	int ret = _login_receive_username();
-	if (ret != 0)
-		return ret;
+	int ret;
+
+RE_LOGIN:
+	ret = _login_receive_username();
+	while (ret != 0)
+	{
+		if (ret == TERMINATION)
+		{
+			cnsl::InsertNewLine();
+			if (_confirm_abort())
+				return TERMINATION;
+			cnsl::Clear(0);
+			cnsl::InsertReverseLineFeed();
+			cnsl::Clear(0);
+		}
+		else
+			return ret;
+		ret = _login_receive_username();
+	}
 
 	if (!_login_check_env(g_env))
 	{
@@ -70,9 +88,29 @@ int srv_login(int argc, char* argv[])
 		return 1;
 	}
 	VerifyProfileInit(g_env);
+
 	ret = _login_receive_password();
-	if (ret != 0)
-		return TERMINATION;
+	while (ret != 0)
+	{
+		if (ret == TERMINATION)
+		{
+			cnsl::InsertNewLine();
+			if (_confirm_abort())
+				return TERMINATION;
+			cnsl::Clear(0);
+			cnsl::InsertReverseLineFeed();
+			cnsl::Clear(0);
+			cnsl::InsertReverseLineFeed();
+			cnsl::Clear(0);
+
+			// Ahhh!!! A goto!!!
+			goto RE_LOGIN;
+		}
+		else
+			return ret;
+		ret = _login_receive_password();
+	}
+
 	if (!_login_init_env(g_env))
 	{
 		/*
@@ -234,6 +272,23 @@ static bool _login_check_env(EnvPtr env)
 static bool _login_init_env(EnvPtr env)
 {
 	return g_doc.Load(env);
+}
+
+static bool _confirm_abort()
+{
+	EXEC_PRINT_MSG("Abort login? (Y/N) ");
+	cnsl::InsertText(PROMPT_COLOR, "$ ");
+
+	char buffer[4];
+
+	cnsl::InputOptions options;
+	options.minLen = 1;
+	options.maxLen = 1;
+	options.verifier = YesNoVerifier;
+
+	cnsl::GetString(buffer, options);
+
+	return tolower(buffer[0]) == 'y';
 }
 
 static const char* _get_completion(const char* input, int* revert)

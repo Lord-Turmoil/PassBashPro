@@ -70,6 +70,7 @@ int srv_start(int argc, char* argv[])
 		cnsl::InsertSplitLine('_');
 	}
 
+RE_LOGIN:
 	ret = ExecHost::GetInstance()
 		->execl(EXEC_SERVICE, "login", "login", nullptr);
 	while (ret == -1)	// To create new user.
@@ -79,7 +80,10 @@ int srv_start(int argc, char* argv[])
 		if (ret != 0)
 		{
 			if (ret == TERMINATION)
-				return 0;
+			{
+				cnsl::InsertNewLine();
+				goto RE_LOGIN;
+			}
 			LOG_ERROR("Failed to create profile: %d", ret);
 			return 2;
 		}
