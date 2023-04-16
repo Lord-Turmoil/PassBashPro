@@ -81,6 +81,7 @@
     <OutDir>$(SolutionDir)Publish\</OutDir>
     <IncludePath>$(SolutionDir)Console\;$(SolutionDir)TinyXML2\;$(SolutionDir)TEA\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\;$(LibraryPath)</LibraryPath>
+    <TargetName>Pash</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
