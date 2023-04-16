@@ -53,6 +53,8 @@ int exec_copy(int argc, char* argv[])
         return 1;
     }
 
+    EXEC_PRINT_MSG("Successfully copied content to clipboard!\n");
+
     return 0;
 }
 
