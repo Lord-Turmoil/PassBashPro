@@ -3,11 +3,11 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : exec_export.cpp                           *
+ *                      File Name : srv_export.cpp                            *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 14, 2023                            *
+ *                     Start Date : April 16, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
@@ -20,11 +20,47 @@
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#include "../../../inc/exec/function/FuncHeader.h"
-#include "../../../inc/utility/FileUtil.h"
+#include "../../../inc/exec/service/ServiceHeader.h"
 
 
-int exec_export(int argc, char* argv[])
+int _export_usage();
+int srv_export(int argc, char* argv[])
 {
-	return ExecHost::GetInstance()->execv(EXEC_SERVICE, "export", argv);
+	if (argc != 2)
+	{
+		EXEC_PRINT_ERR(ERRMSG_ILLEGAL "\n");
+		_export_usage();
+		return 1;
+	}
+
+	if (!_STR_SAME(g_env->password, argv[1]))
+	{
+		EXEC_PRINT_ERR("Incorrect password for profile '%s'.\n",
+					   g_env->username.c_str());
+		return 2;
+	}
+
+	if (!FileUtil::CopyFileToNew(g_env->dataPath.c_str(), g_env->username.c_str()))
+	{
+		EXEC_PRINT_ERR("Failed to export data!\n");
+		return 3;
+	}
+
+	wchar_t _buffer[PASH_BUFFER_SIZE];
+	if (_wgetcwd(_buffer, PASH_BUFFER_SIZE - 1) == nullptr)
+	{
+		EXEC_PRINT_ERR("Failed to get export path!\n");
+		EXEC_PRINT_MSG("You can still find the exported data at root directory of PassBash.\n");
+		return 4;
+	}
+
+	EXEC_PRINT_MSG("Data exported to '%s'.\n", narrow(_buffer));
+
+	return 0;
+}
+
+int _export_usage()
+{
+	return ExecHost::GetInstance()
+		->execl(MODE_TO_EXEC[g_mode], "help", "help", "export", nullptr);
 }

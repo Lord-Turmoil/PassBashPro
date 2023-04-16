@@ -262,6 +262,33 @@ bool VerifyProfile(const char* password)
 }
 
 
+int VerifyData(EnvPtr env)
+{
+	char* data;
+
+	FILE* input;
+	if (fopen_s(&input, env->username.c_str(), "rb") != 0)
+		return 1;
+	fseek(input, 0, SEEK_END);
+	data = new char[ftell(input) + 128];
+	fseek(input, 0, SEEK_SET);
+
+	tea::TEAFileReader* reader = new tea::TEAFileReader(input);
+	tea::TEABufferWriter* writer = new tea::TEABufferWriter(data);
+	tea::decode(reader, writer, env->password);
+	delete reader;
+	delete writer;
+
+	bool ret = XMLFile().Parse(data);
+	delete[] data;
+
+	if (!ret)
+		return 2;
+	
+	return 0;
+}
+
+
 bool VerifyUsername(const std::string& username)
 {
 	if (username.length() < USERNAME_MIN_LENGTH)

@@ -29,6 +29,7 @@
 #include <io.h>     // for _access
 #include <direct.h>	// for _mkdir
 #include <string>
+#include <cstring>
 
 static char buffer[PASH_BUFFER_SIZE];
 
@@ -111,6 +112,25 @@ bool FileUtil::DeletePath(const char* path)
 
 	_DeleteDirectory(path);
 	
+	return true;
+}
+
+
+bool FileUtil::CopyFileToNew(const char* src, const char* dst, bool overwrite)
+{
+	if (!Exists(src))
+		return false;
+
+	wchar_t* w_src = new wchar_t[strlen(src) + 4];
+	wchar_t* w_dst = new wchar_t[strlen(dst) + 4];
+	
+	widen(w_src, src);
+	widen(w_dst, dst);
+
+	int ret = CopyFile(w_src, w_dst, !overwrite);
+	if (ret == 0)	// failed
+		return false;
+
 	return true;
 }
 

@@ -47,6 +47,8 @@ public:
 
 	static bool DeletePath(const char* path);
 
+	static bool CopyFileToNew(const char* src, const char* dst, bool overwrite = true);
+
 	static bool GetFiles(const char* path,
 						 std::vector<std::string>* files,
 						 std::vector<std::string>* names);

@@ -24,7 +24,5 @@
 
 int exec_import(int argc, char* argv[])
 {
-	EXEC_PRINT_ERR("Not implemented!\n");
-
-	return 0;
+	return ExecHost::GetInstance()->execv(EXEC_SERVICE, "import", argv);
 }

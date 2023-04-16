@@ -78,6 +78,8 @@ static void _InitService()
 	HOOK(factory, "remaster", srv_remaster);
 	HOOK(factory, "checkout", srv_checkout);
 	HOOK(factory, "editor",   exec_edit_host);
+	HOOK(factory, "import",   srv_import);
+	HOOK(factory, "export",   srv_export);
 
 	ExecHost::GetInstance()->Register(EXEC_SERVICE, factory);
 }

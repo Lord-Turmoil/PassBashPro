@@ -9,7 +9,7 @@
  *                                                                            *
  *                     Start Date : January 17, 2023                          *
  *                                                                            *
- *                    Last Update : April 9, 2023                             *
+ *                    Last Update : April 16, 2023                            *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
@@ -69,13 +69,14 @@ bool PashDoc::Load(EnvPtr env)
 	delete writer;
 
 	// Now xml file is in xml buffer!
-	if (!m_pFile->Parse(xml))
+	bool ret = m_pFile->Parse(xml);
+	delete[] xml;
+	if (!ret)
 	{
 		LOG_ERROR("\t|- Perhaps wrong password or file missing?");
 		LOG_ERROR("Failed to load data!");
 		return false;
 	}
-	delete[] xml;
 
 	m_current = m_root = m_pFile->GetRoot();
 

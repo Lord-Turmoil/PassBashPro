@@ -204,7 +204,9 @@
     <ClCompile Include="src\exec\function\exec_unknown.cpp" />
     <ClCompile Include="src\exec\service\ServiceAux.cpp" />
     <ClCompile Include="src\exec\service\srv_checkout.cpp" />
+    <ClCompile Include="src\exec\service\srv_export.cpp" />
     <ClCompile Include="src\exec\service\srv_host.cpp" />
+    <ClCompile Include="src\exec\service\srv_import.cpp" />
     <ClCompile Include="src\exec\service\srv_login.cpp" />
     <ClCompile Include="src\exec\service\srv_profile.cpp" />
     <ClCompile Include="src\exec\service\srv_remaster.cpp" />

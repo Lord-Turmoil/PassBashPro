@@ -62,6 +62,8 @@ int UpdateCache();
 bool VerifyProfileInit(EnvPtr env);
 bool VerifyProfile(const char* password);
 
+int VerifyData(EnvPtr env);
+
 // Verify whole username and password.
 bool VerifyUsername(const std::string& username);
 bool VerifyPassword(const std::string& password);
