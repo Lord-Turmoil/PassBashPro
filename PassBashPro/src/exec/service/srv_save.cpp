@@ -3,49 +3,39 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Service.h                                 *
+ *                      File Name : srv_save.cpp                              *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
- *                     Start Date : April 9, 2023                             *
+ *                     Start Date : April 16, 2023                            *
  *                                                                            *
  *                    Last Update :                                           *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   For service executables.                                                 *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#pragma once
+#include "../../../inc/exec/service/ServiceHeader.h"
 
-#ifndef _SERVICE_H_
-#define _SERVICE_H_
+int srv_save(int argc, char* argv[])
+{
+	if (g_doc.Save(g_env))
+	{
+		EXEC_PRINT_MSG("Password successfully saved!\n");
+		return 0;
+	}
+	else
+	{
+		LOG_ERROR("Failed to save password");
 
-// start up
-int srv_start(int argc, char* argv[]);
+		EXEC_PRINT_ERR("Failed to save password!\n");
+		// EXEC_PRINT_ERR("No possible solution!\n");
 
-// create a new local profile
-int srv_profile(int argc, char* argv[]);
-
-// switch user
-int srv_checkout(int argc, char* argv[]);
-
-// login
-int srv_login(int argc, char* argv[]);
-
-// change master password
-int srv_remaster(int argc, char* argv[]);
-
-// receive and dispatch command
-int srv_host(int argc, char* argv[]);
-
-int srv_save(int argc, char* argv[]);
-
-int srv_import(int argc, char* argv[]);
-int srv_export(int argc, char* argv[]);
-
-#endif
+		return 1;
+	}
+}

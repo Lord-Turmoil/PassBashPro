@@ -80,6 +80,7 @@ static void _InitService()
 	HOOK(factory, "editor",   exec_edit_host);
 	HOOK(factory, "import",   srv_import);
 	HOOK(factory, "export",   srv_export);
+	HOOK(factory, "save",     srv_save);
 
 	ExecHost::GetInstance()->Register(EXEC_SERVICE, factory);
 }
