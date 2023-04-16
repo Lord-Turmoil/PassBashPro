@@ -55,6 +55,8 @@ int _ParseArgs(int argc, char* argv[], std::string& _1, std::string& _2);
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
 int _ShowItem(XMLElementPtr node, bool detail, const char* key = nullptr, WORD color = 0);
+int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key = nullptr, WORD color = 0);
+
 // check if is password entry.
 bool _IsSensitive(const char* descr);
 

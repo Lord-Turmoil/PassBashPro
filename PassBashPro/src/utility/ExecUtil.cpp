@@ -295,6 +295,69 @@ int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
 	return 0;
 }
 
+
+int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color)
+{
+	EntryList list;
+	if (!PashDocUtil::GetEntries(node, list))
+	{
+		EXEC_PRINT_ERR("I... I can't see it!\n");	// :P
+		return 1;
+	}
+
+	if (list.empty())
+	{
+		cnsl::InsertHeaderLine("Nothing", ' ');
+		return 0;	// return to reduce following indent
+	}
+
+	int total = 100;
+	int maxKey = 0;
+	int maxValue = 0;
+	int maxWeight = 0;
+	for (auto& it : list)
+	{
+		maxKey = std::max(maxKey, (int)strlen(it.key));
+		maxValue = std::max(maxValue, (int)strlen(it.value));
+	}
+	maxKey = std::max(maxKey, 20);
+	maxValue = std::max(maxValue, 20);
+	maxWeight = std::min(total - maxKey - maxValue, 12);
+	cnsl::InsertText(MESSAGE_COLOR, "%4s | %*s | %*s | %*s\n",
+					 "ID",
+					 maxKey, "Key",
+					 maxValue, "Value",
+					 maxWeight, "Weight");
+
+	int id = 0;
+	const char* hidden = "******";
+	const char* value;
+	const WORD ENTRY_COLOR[2] = { FOREGROUND_WHITE, FOREGROUND_LIGHT(FOREGROUND_WHITE) };
+	for (auto& it : list)
+	{
+		value = (!detail && _IsSensitive(it.key)) ? hidden : it.value;
+		if (key && _STR_SAME(it.key, key))
+		{
+			cnsl::InsertText(color, "%4d | %*s | %*s | %*d\n",
+							 id,
+							 maxKey, it.key,
+							 maxValue, value,
+							 maxWeight, it.weight);
+		}
+		else
+		{
+			cnsl::InsertText(ENTRY_COLOR[id & 1], "%4d | %*s | %*s | %*d\n",
+							 id,
+							 maxKey, it.key,
+							 maxValue, value,
+							 maxWeight, it.weight);
+		}
+		id++;
+	}
+
+	return 0;
+}
+
 bool _IsSensitive(const char* descr)
 {
 	static const char* const SENSITIVE_PATTERN[] = {
