@@ -80,6 +80,8 @@ int srv_checkout(int argc, char* argv[])
 	g_env = env;
 	g_doc = doc;
 
+	ExecHost::GetInstance()->execl(EXEC_GLOBAL, "flush", "flush", nullptr);
+
 	EXEC_PRINT_MSG("Successfully change profile to '%s'.\n", g_env->username.c_str());
 	UpdateCache();
 
@@ -147,8 +149,6 @@ static int _checkout_parse_args(int argc, char* argv[])
 		EXEC_PRINT_ERR(ERRMSG_ILLEGAL "\n");
 		return 1;
 	}
-
-	ExecHost::GetInstance()->execl(EXEC_GLOBAL, "flush", "flush", nullptr);
 
 	return 0;
 }
