@@ -46,6 +46,8 @@ int exec_rm(int argc, char* argv[])
 		return 1;
 	}
 
+	g_doc.Mark();
+
 	for (int i = 1; i < argc; i++)
 	{
 		if (argv[i][0] == '-')
@@ -98,8 +100,6 @@ int exec_rm(int argc, char* argv[])
 		else
 			EXEC_PRINT_MSG("Nothing changed.\n");
 	}
-
-	g_doc.Mark();
 
 	return true;
 }
