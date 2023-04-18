@@ -24,6 +24,7 @@
 #include "../../inc/core/Env.h"
 
 #include <regex>
+#include <hash.h>
 
 
 /*
@@ -405,4 +406,24 @@ void _FormatPassword(const char* buffer, char* password)
 	while (q - password < PASSWORD_MAX_LENGTH)
 		*(q++) = '\0';
 	*q = '\0';
+}
+
+void _HashPassword(char* hashPass)
+{
+	hash::MD5 md5;
+
+	md5.Add(hashPass, strlen(hashPass));
+	md5.GetHash((unsigned char*)hashPass);
+
+	// hashPass[PASSWORD_MAX_LENGTH] = '\0';
+}
+
+void _HashPassword(const char* password, char* hashPass)
+{
+	hash::MD5 md5;
+
+	md5.Add(password, strlen(password));
+	md5.GetHash((unsigned char*)hashPass);
+
+	// hashPass[PASSWORD_MAX_LENGTH] = '\0';
 }

@@ -69,6 +69,9 @@ bool _IsSensitive(const char* descr);
 void _FormatPassword(char* password);
 void _FormatPassword(const char* buffer, char* password);
 
+void _HashPassword(char* hashPass);
+void _HashPassword(const char* password, char* hashPass);
+
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

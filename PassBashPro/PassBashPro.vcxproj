@@ -73,13 +73,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(SolutionDir)Build\dist-int\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Build\dist\$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)Console\;$(SolutionDir)TinyXML2\;$(SolutionDir)TEA\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Console\;$(SolutionDir)TinyXML2\;$(SolutionDir)TEA\;$(SolutionDir)Hash\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)Build\dist-int\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Publish\</OutDir>
-    <IncludePath>$(SolutionDir)Console\;$(SolutionDir)TinyXML2\;$(SolutionDir)TEA\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Console\;$(SolutionDir)TinyXML2\;$(SolutionDir)TEA\;$(SolutionDir)Hash\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\;$(LibraryPath)</LibraryPath>
     <TargetName>Pash</TargetName>
   </PropertyGroup>

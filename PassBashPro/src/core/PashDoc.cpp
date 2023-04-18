@@ -26,6 +26,8 @@
 #include "../../inc/common/Logger.h"
 #include "../../inc/utility/PashDocUtil.h"
 
+#include "../../inc/utility/ExecUtil.h"
+
 #include <tea.h>
 #include <algorithm>
 #include <stack>
@@ -62,9 +64,12 @@ bool PashDoc::Load(EnvPtr env)
 	char* xml = new char[ftell(input) + 128];
 	fseek(input, 0, SEEK_SET);
 
+	char hashPass[PASSWORD_BUFFER_SIZE];
+	_HashPassword(env->password, hashPass);
+
 	tea::TEAFileReader* reader = new tea::TEAFileReader(input);
 	tea::TEABufferWriter* writer = new tea::TEABufferWriter(xml);
-	tea::decode(reader, writer, env->password);
+	tea::decode(reader, writer, hashPass);
 	delete reader;
 	delete writer;
 
@@ -112,9 +117,12 @@ bool PashDoc::Save(EnvPtr env)
 		return false;
 	}
 
+	char hashPass[PASSWORD_BUFFER_SIZE];
+	_HashPassword(env->password, hashPass);
+
 	tea::TEABufferReader* reader = new tea::TEABufferReader(stream.CStr());
 	tea::TEAFileWriter* writer = new tea::TEAFileWriter(output);
-	tea::encode(reader, writer, env->password);
+	tea::encode(reader, writer, hashPass);
 	delete reader;
 	delete writer;
 

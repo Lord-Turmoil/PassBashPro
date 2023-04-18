@@ -33,6 +33,10 @@
 #define _STR_NSAME(STR1, STR2) (strncmp(STR1, STR2, strlen(STR2)) == 0)
 #define _STR_NDIFF(STR1, STR2) (strncmp(STR1, STR2, strlen(STR2)) != 0)
 
+#define _MEM_SAME(MEM1, MEM2, N) (memcmp(MEM1, MEM2, N) == 0)
+#define _MEM_DIFF(MEM1, MEM2, N) (memcmp(MEM1, MEM2, N) != 0)
+
+
 // strip extra white spaces around
 char* strstrip(char* str);
 char* strtolower(char* str);

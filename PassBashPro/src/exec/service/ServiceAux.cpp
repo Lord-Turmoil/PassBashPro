@@ -26,6 +26,8 @@
 #include "../../../inc/utility/ExecUtil.h"
 
 #include <tea.h>
+#include <hash.h>
+
 
 ProfilePtr CreateProfile(const std::string& username)
 {
@@ -86,9 +88,12 @@ int InitConfig(EnvPtr env)
 		return 2;
 	}
 
-	tea::TEABufferReader* reader = new tea::TEABufferReader(env->password);
+	char hashPass[PASSWORD_BUFFER_SIZE];
+	_HashPassword(env->password, hashPass);
+
+	tea::TEARawBufferReader* reader = new tea::TEARawBufferReader(hashPass, PASSWORD_MAX_LENGTH);
 	tea::TEAFileWriter* writer = new tea::TEAFileWriter(output);
-	tea::encode(reader, writer, env->password);
+	tea::encode(reader, writer, hashPass);
 	delete reader;
 	delete writer;
 
@@ -112,9 +117,12 @@ int InitData(EnvPtr env)
 		return 2;
 	}
 
+	char hashPass[PASSWORD_BUFFER_SIZE];
+	_HashPassword(env->password, hashPass);
+
 	tea::TEABufferReader* reader = new tea::TEABufferReader(DEFAULT_DATA);
 	tea::TEAFileWriter* writer = new tea::TEAFileWriter(output);
-	tea::encode(reader, writer, env->password);
+	tea::encode(reader, writer, hashPass);
 	delete reader;
 	delete writer;
 
@@ -139,9 +147,14 @@ int SaveConfig(EnvPtr env, bool overwrite)
 		return 2;
 	}
 
-	tea::TEABufferReader* reader = new tea::TEABufferReader(env->password);
+	char hashPass[PASSWORD_BUFFER_SIZE];
+	_HashPassword(env->password, hashPass);
+
+	// Prevent premature exit
+	tea::TEARawBufferReader* reader = 
+		new tea::TEARawBufferReader(hashPass, PASSWORD_MAX_LENGTH);
 	tea::TEAFileWriter* writer = new tea::TEAFileWriter(output);
-	tea::encode(reader, writer, env->password);
+	tea::encode(reader, writer, hashPass);
 	delete reader;
 	delete writer;
 
@@ -252,13 +265,18 @@ bool VerifyProfileInit(EnvPtr env)
 
 bool VerifyProfile(const char* password)
 {
-	tea::TEABufferReader* reader = new tea::TEABufferReader(_encoded_password);
+	char hashPass[PASSWORD_BUFFER_SIZE];
+	_HashPassword(password, hashPass);
+
+	// MD5 vaule may contain 0x0 within!!!
+	tea::TEARawBufferReader* reader =
+		new tea::TEARawBufferReader(_encoded_password, PASSWORD_MAX_LENGTH);
 	tea::TEABufferWriter* writer = new tea::TEABufferWriter(_decoded_password);
-	tea::decode(reader, writer, password);
+	tea::decode(reader, writer, hashPass);
 	delete reader;
 	delete writer;
 
-	return _STR_SAME(password, _decoded_password);
+	return _MEM_SAME(hashPass, _decoded_password, PASSWORD_MAX_LENGTH);
 }
 
 
@@ -273,9 +291,12 @@ int VerifyData(EnvPtr env)
 	data = new char[ftell(input) + 128];
 	fseek(input, 0, SEEK_SET);
 
+	char hashPass[PASSWORD_BUFFER_SIZE];
+	_HashPassword(env->password, hashPass);
+
 	tea::TEAFileReader* reader = new tea::TEAFileReader(input);
 	tea::TEABufferWriter* writer = new tea::TEABufferWriter(data);
-	tea::decode(reader, writer, env->password);
+	tea::decode(reader, writer, hashPass);
 	delete reader;
 	delete writer;
 

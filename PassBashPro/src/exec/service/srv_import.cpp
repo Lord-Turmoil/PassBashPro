@@ -82,9 +82,9 @@ int srv_import(int argc, char* argv[])
 		return 5;
 	}
 	
-	EXEC_PRINT_MSG("Data imported!\n");
-
 	PASH_PANIC_ON(_import_reload());
+	
+	EXEC_PRINT_MSG("Data imported!\n");
 
 	return 0;
 }
