@@ -24,6 +24,10 @@
 #include "../inc/tea_util.h"
 
 
+/********************************************************************
+** Here, a strengthened version of TEA called XTEA is implemented.
+*/
+
 _TEA_BEGIN
 
 static const DATA TEA_DELTA = 0x9E3779B9;
