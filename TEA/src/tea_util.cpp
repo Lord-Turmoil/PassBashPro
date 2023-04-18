@@ -25,6 +25,9 @@
 
 _TEA_BEGIN
 
+TEAReader::~TEAReader() {}
+TEAWriter::~TEAWriter() {}
+
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Readers
@@ -73,12 +76,34 @@ void TEABufferReader::Close()
 }
 
 
+TEARawBufferReader::TEARawBufferReader(const char* buffer, size_t nBytes)
+	: TEABufferReader(buffer), m_nBytes(nBytes)
+{
+}
+
+bool TEARawBufferReader::Read(char* buffer, size_t nBytes)
+{
+	if (m_nBytes == 0)
+		return false;
+
+	size_t bytes = 0;
+	while ((m_nBytes > 0) && (bytes < nBytes))
+	{
+		buffer[bytes++] = *(m_buffer.pc++);
+		m_nBytes--;
+	}
+	while (bytes < nBytes)
+		buffer[bytes++] = '\0';
+
+	return true;
+}
+
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Writers
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-bool TEAFileWriter::Write(char* buffer, size_t nBytes)
+bool TEAFileWriter::Write(const char* buffer, size_t nBytes)
 {
 	size_t bytes = fwrite(buffer, sizeof(char), nBytes, m_output);
 
@@ -95,7 +120,7 @@ void TEAFileWriter::Close()
 }
 
 
-bool TEABufferWriter::Write(char* buffer, size_t nBytes)
+bool TEABufferWriter::Write(const char* buffer, size_t nBytes)
 {
 	size_t bytes = 0;
 

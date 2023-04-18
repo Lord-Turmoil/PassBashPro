@@ -37,6 +37,9 @@ _TEA_BEGIN
 class TEAReader
 {
 public:
+	TEAReader() {}
+	virtual ~TEAReader() = 0;
+
 	virtual bool Read(char* buffer, size_t nBytes) = 0;
 	virtual void Close() = 0;
 };
@@ -44,7 +47,10 @@ public:
 class TEAWriter
 {
 public:
-	virtual bool Write(char* buffer, size_t nBytes) = 0;
+	TEAWriter() {}
+	virtual ~TEAWriter() = 0;
+
+	virtual bool Write(const char* buffer, size_t nBytes) = 0;
 	virtual void Close() = 0;
 };
 
@@ -82,12 +88,12 @@ class TEAFileReader : public TEAReader
 {
 public:
 	TEAFileReader(FILE* input) : m_input(input) {}
-	~TEAFileReader() { Close(); }
+	virtual ~TEAFileReader() { Close(); }
 
 	virtual bool Read(char* buffer, size_t nBytes);
 	virtual void Close();
 
-private:
+protected:
 	FILE* m_input;
 };
 
@@ -96,15 +102,29 @@ class TEABufferReader : public TEAReader
 {
 public:
 	TEABufferReader(const char* buffer) : m_buffer(buffer) {}
-	~TEABufferReader() { Close(); }
+	virtual ~TEABufferReader() { Close(); }
 
 	virtual bool Read(char* buffer, size_t nBytes);
 	virtual void Close();
 
-private:
+protected:
 	TEAReadBuffer m_buffer;
 };
 
+
+// Will not teminate at '\0', length must be specified instead.
+class TEARawBufferReader : public TEABufferReader
+{
+public:
+	TEARawBufferReader(const char* buffer, size_t nBytes);
+
+	virtual ~TEARawBufferReader() {}
+
+	virtual bool Read(char* buffer, size_t nBytes);
+
+protected:
+	size_t m_nBytes;
+};
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -117,10 +137,10 @@ public:
 	TEAFileWriter(FILE* output) : m_output(output) {}
 	~TEAFileWriter() { Close(); }
 
-	virtual bool Write(char* buffer, size_t nBytes);
+	virtual bool Write(const char* buffer, size_t nBytes);
 	virtual void Close();
 
-private:
+protected:
 	FILE* m_output;
 };
 
@@ -131,10 +151,10 @@ public:
 	TEABufferWriter(char* buffer) : m_buffer(buffer) {}
 	~TEABufferWriter() { Close(); }
 
-	virtual bool Write(char* buffer, size_t nBytes);
+	virtual bool Write(const char* buffer, size_t nBytes);
 	virtual void Close();
 
-private:
+protected:
 	TEAWriteBuffer m_buffer;
 };
 
