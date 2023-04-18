@@ -26,9 +26,9 @@
 #define _HASH_DEFINES_H_
 
 
-#define _HASH_BEGIN	namespace tea {
+#define _HASH_BEGIN	namespace hash {
 #define _HASH_END	}
-#define _HASH		::tea::
+#define _HASH		::hash::
 
 _HASH_BEGIN
 
