@@ -220,9 +220,9 @@ static void _insert_backspace(const InputOptions& opt, InputContext& ctx)
 
 static void _insert_ctrl_backspace(const InputOptions& opt, InputContext& ctx)
 {
-	while ((ctx.pos > 0) && !isgraph(ctx.buffer[ctx.pos - 1]))
+	while ((ctx.pos > 0) && !isalnum(ctx.buffer[ctx.pos - 1]))
 		_insert_backspace(opt, ctx);
-	while ((ctx.pos > 0) && isgraph(ctx.buffer[ctx.pos - 1]))
+	while ((ctx.pos > 0) && isalnum(ctx.buffer[ctx.pos - 1]))
 		_insert_backspace(opt, ctx);
 }
 
@@ -327,12 +327,12 @@ static void _special_arrow_down(const InputOptions& opt, InputContext& ctx)
 
 static void _special_arrow_ctrl_left(const InputOptions& opt, InputContext& ctx)
 {
-	while ((ctx.pos > 0) && !isgraph(ctx.buffer[ctx.pos - 1]))
+	while ((ctx.pos > 0) && !isalnum(ctx.buffer[ctx.pos - 1]))
 	{
 		InsertBackspace();
 		ctx.pos--;
 	}
-	while ((ctx.pos > 0) && isgraph(ctx.buffer[ctx.pos - 1]))
+	while ((ctx.pos > 0) && isalnum(ctx.buffer[ctx.pos - 1]))
 	{
 		InsertBackspace();
 		ctx.pos--;
@@ -341,12 +341,12 @@ static void _special_arrow_ctrl_left(const InputOptions& opt, InputContext& ctx)
 
 static void _special_arrow_ctrl_right(const InputOptions& opt, InputContext& ctx)
 {
-	while ((ctx.pos < ctx.length) && isgraph(ctx.buffer[ctx.pos]))
+	while ((ctx.pos < ctx.length) && isalnum(ctx.buffer[ctx.pos]))
 	{
 		InsertChar(opt.decoy ? opt.decoy : ctx.buffer[ctx.pos]);
 		ctx.pos++;
 	}
-	while ((ctx.pos < ctx.length) && !isgraph(ctx.buffer[ctx.pos]))
+	while ((ctx.pos < ctx.length) && !isalnum(ctx.buffer[ctx.pos]))
 	{
 		InsertChar(opt.decoy ? opt.decoy : ctx.buffer[ctx.pos]);
 		ctx.pos++;
@@ -371,12 +371,12 @@ static void _special_delete(const InputOptions& opt, InputContext& ctx)
 
 static void _special_ctrl_delete(const InputOptions& opt, InputContext& ctx)
 {
-	if (isgraph(ctx.buffer[ctx.pos]))
+	if (isalnum(ctx.buffer[ctx.pos]))
 	{
-		while ((ctx.pos < ctx.length) && isgraph(ctx.buffer[ctx.pos]))
+		while ((ctx.pos < ctx.length) && isalnum(ctx.buffer[ctx.pos]))
 			_special_delete(opt, ctx);
 	}
-	while ((ctx.pos < ctx.length) && !isgraph(ctx.buffer[ctx.pos]))
+	while ((ctx.pos < ctx.length) && !isalnum(ctx.buffer[ctx.pos]))
 		_special_delete(opt, ctx);
 }
 
