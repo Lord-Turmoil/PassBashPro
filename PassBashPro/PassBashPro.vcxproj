@@ -75,13 +75,14 @@
     <OutDir>$(SolutionDir)Build\dist\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)Console\;$(SolutionDir)TinyXML2\;$(SolutionDir)TEA\;$(SolutionDir)Hash\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)Debug</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)Build\dist-int\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Publish\</OutDir>
     <IncludePath>$(SolutionDir)Console\;$(SolutionDir)TinyXML2\;$(SolutionDir)TEA\;$(SolutionDir)Hash\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\;$(LibraryPath)</LibraryPath>
-    <TargetName>Pash</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -123,7 +124,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y  "$(SolutionDir)Build\dist\Debug\PassBashPro.exe"  "$(SolutionDir)Work\"</Command>
+      <Command>xcopy /y  "$(SolutionDir)Build\dist\Debug\PassBashProDebug.exe"  "$(SolutionDir)Work\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
