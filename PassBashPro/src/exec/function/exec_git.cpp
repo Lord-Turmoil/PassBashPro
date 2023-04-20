@@ -3,7 +3,7 @@
  ******************************************************************************
  *                   Project Name : PassBashPro                               *
  *                                                                            *
- *                      File Name : Service.h                                 *
+ *                      File Name : exec_git.cpp                              *
  *                                                                            *
  *                     Programmer : Tony Skywalker                            *
  *                                                                            *
@@ -13,41 +13,17 @@
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
- *   For service executables.                                                 *
+ *   None                                                                     *
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  ******************************************************************************/
 
-#pragma once
+#include "../../../inc/exec/function/FuncHeader.h"
 
-#ifndef _SERVICE_H_
-#define _SERVICE_H_
-
-// start up
-int srv_start(int argc, char* argv[]);
-
-// create a new local profile
-int srv_profile(int argc, char* argv[]);
-
-// switch user
-int srv_checkout(int argc, char* argv[]);
-
-// login
-int srv_login(int argc, char* argv[]);
-
-// change master password
-int srv_remaster(int argc, char* argv[]);
-
-// receive and dispatch command
-int srv_host(int argc, char* argv[]);
-
-int srv_save(int argc, char* argv[]);
-
-int srv_import(int argc, char* argv[]);
-int srv_export(int argc, char* argv[]);
-
-int srv_git(int argc, char* argv[]);
-
-#endif
+int exec_git(int argc, char* argv[])
+{
+	return ExecHost::GetInstance()
+		->execv(EXEC_SERVICE, "git", argv);
+}

@@ -203,6 +203,7 @@
     <ClCompile Include="src\exec\function\exec_edit.cpp" />
     <ClCompile Include="src\exec\function\exec_export.cpp" />
     <ClCompile Include="src\exec\function\exec_flush.cpp" />
+    <ClCompile Include="src\exec\function\exec_git.cpp" />
     <ClCompile Include="src\exec\function\exec_import.cpp" />
     <ClCompile Include="src\exec\function\exec_more.cpp" />
     <ClCompile Include="src\exec\function\exec_order.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="src\exec\service\ServiceAux.cpp" />
     <ClCompile Include="src\exec\service\srv_checkout.cpp" />
     <ClCompile Include="src\exec\service\srv_export.cpp" />
+    <ClCompile Include="src\exec\service\srv_git.cpp" />
     <ClCompile Include="src\exec\service\srv_host.cpp" />
     <ClCompile Include="src\exec\service\srv_import.cpp" />
     <ClCompile Include="src\exec\service\srv_login.cpp" />

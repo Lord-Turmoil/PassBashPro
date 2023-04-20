@@ -38,6 +38,7 @@ class FileUtil
 {
 public:
 	static bool Exists(const char* path);
+	static bool Exists(const wchar_t* path);
 	
 	static bool NewFile(const char* path);
 	static bool NewFile(const char* path, const char* filename);
@@ -46,6 +47,7 @@ public:
 	static bool NewDirectory(const char* path, const char* dirname, bool hidden = false);
 
 	static bool DeletePath(const char* path);
+	static bool DeletePath(const wchar_t* path);
 
 	static bool CopyFileToNew(const char* src, const char* dst, bool overwrite = true);
 
@@ -77,6 +79,7 @@ private:
 							   FileType type);
 
 	static void _DeleteDirectory(const char* path);
+	static void _DeleteDirectory(const wchar_t* path);
 
 	FileUtil() {}
 };

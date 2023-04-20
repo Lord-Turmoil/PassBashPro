@@ -38,6 +38,11 @@ bool FileUtil::Exists(const char* path)
 	return (_access(path, 0) == 0);
 }
 
+bool FileUtil::Exists(const wchar_t* path)
+{
+	return (_waccess(path, 0) == 0);
+}
+
 bool FileUtil::NewFile(const char* path)
 {
 	// To be continued...
@@ -115,6 +120,16 @@ bool FileUtil::DeletePath(const char* path)
 	return true;
 }
 
+
+bool FileUtil::DeletePath(const wchar_t* path)
+{
+	if (!Exists(path))
+		return true;
+
+	_DeleteDirectory(path);
+
+	return true;
+}
 
 bool FileUtil::CopyFileToNew(const char* src, const char* dst, bool overwrite)
 {
@@ -261,4 +276,44 @@ void FileUtil::_DeleteDirectory(const char* path)
 	} while (_findnext(hFile, &fileInfo) == 0);
 
 	_rmdir(path);
+}
+
+void FileUtil::_DeleteDirectory(const wchar_t* path)
+{
+	long long hFile = 0;
+	struct _wfinddata_t fileInfo;
+
+	std::wstring base(path);
+	while (!base.empty() && (base.back() == '\\'))
+		base.pop_back();
+	std::wstring p = base + L"\\*";
+
+	hFile = _wfindfirst(p.c_str(), &fileInfo);
+	if (hFile == -1)
+		return;
+
+	do
+	{
+		if (fileInfo.attrib & _A_SUBDIR)	// is a directory
+		{
+			if (_WSTR_SAME(fileInfo.name, L"."))
+				continue;
+			if (_WSTR_SAME(fileInfo.name, L".."))
+				continue;
+
+			p.assign(base);
+			p.append(L"\\").append(fileInfo.name).append(L"\\");
+
+			_DeleteDirectory(p.c_str());
+		}
+		else
+		{
+			p.assign(base);
+			p.append(L"\\");
+			p.append(fileInfo.name);
+			_wremove(p.c_str());
+		}
+	} while (_wfindnext(hFile, &fileInfo) == 0);
+
+	_wrmdir(path);
 }
