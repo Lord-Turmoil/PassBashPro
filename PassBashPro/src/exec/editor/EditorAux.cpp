@@ -9,7 +9,7 @@
  *                                                                            *
  *                     Start Date : April 11, 2023                            *
  *                                                                            *
- *                    Last Update :                                           *
+ *                    Last Update : May 3, 2023                               *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  * Over View:                                                                 *
@@ -216,6 +216,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 		cnsl::InsertText(ERROR_COLOR,
 						 "Key is too long! No longer than %d characters!\n",
 						 EDIT_KEY_MAX_LENGTH);
+		PashDocUtil::DeleteNode(entry);
 		return 4;
 	}
 	if (value)
@@ -225,6 +226,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 			cnsl::InsertText(ERROR_COLOR,
 							 "Value is too long! No longer than %d characters!\n",
 							 EDIT_VALUE_MAX_LENGTH);
+			PashDocUtil::DeleteNode(entry);
 			return 5;
 		}
 		entry->SetAttribute("value", value);
@@ -236,6 +238,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 			cnsl::InsertText(ERROR_COLOR,
 							 "Key is too long! No longer than %d characters!\n",
 							 EDIT_WEIGHT_MAX_LENGTH);
+			PashDocUtil::DeleteNode(entry);
 			return 6;
 		}
 		int weight = -1;
