@@ -19,7 +19,7 @@
  *   Windows 11 Pro                                                           *
  *   Visual Studio 2022 Community Preview                                     *
  * -------------------------------------------------------------------------- *
- * Comments:
+ * Comments:                                                                  *
  *   This is an upgraded version of the original PassBash, with extra account *
  * control features.                                                          *
  *   Initialize motivation came from Fengrubei of BUAA, which turned out to   *
