@@ -133,8 +133,9 @@ static void _InitGlobal()
 	HOOK(factory, "flush",    exec_flush);
 	HOOK(factory, "fl",       exec_flush);
 	HOOK(factory, "git",      exec_git);
+	HOOK(factory, "tea",      exec_tea);
+	HOOK(factory, "encrypt",  exec_tea);
 
-	// HOOK(factory, "tea",     exec_tea);
 #if PASH_CHEAT
 	HOOK(factory, "order",   exec_order);
 #endif
