@@ -26,6 +26,7 @@
 #include <memory>
 
 static char HOST_IGNORE[] = " ";
+static char HOST_QUOTE[] = R"('")";
 static char HOST_WAITING[] = R"(-\|/)";
 
 static char _buffer[EXEC_BUFFER_SIZE + 4];
@@ -46,6 +47,9 @@ static void _get_candidates(const std::string& path);
 // Parse command environment variables.
 static void _host_parse_command(char* cmd);
 static int _host_peek_command();
+
+static int _host_peeker_standard(char* buffer, char** cmd, int* argc, char* argv[]);
+static int _host_peeker_advanced(char* buffer, char** cmd, int* argc, char* argv[]);
 
 int srv_host(int argc, char* argv[])
 {
@@ -219,20 +223,96 @@ static int _host_peek_command()
 		return 0;
 
 	_host_parse_command(_buffer);
-
-	char* context = nullptr;
-	char* token = strtok_s(_buffer, HOST_IGNORE, &context);
-	if (!token)	// nothing.
-		return 0;
-
-	// first arg is command name
-	_argc = 0;
-	_cmd = strtolower(token);
-	_argv[_argc++] = _cmd;
-
-	while (token = strtok_s(nullptr, HOST_IGNORE, &context))
-		_argv[_argc++] = token;
-	_argv[_argc] = nullptr;
+	
+	// _host_peeker_standard(_buffer, &_cmd, &_argc, _argv);
+	_host_peeker_advanced(_buffer, &_cmd, &_argc, _argv);
 
 	return 0;
+}
+
+static int _host_peeker_standard(char* buffer, char** cmd, int* argc, char* argv[])
+{
+	*cmd = nullptr;
+	*argc = 0;
+	argv[0] = nullptr;
+
+	char* context = nullptr;
+	char* token = strtok_s(nullptr, HOST_IGNORE, &context);
+	if (!token)
+		return 1;
+
+	*cmd = strtolower(token);
+	argv[(*argc)++] = *cmd;
+	while (token = strtok_s(nullptr, HOST_IGNORE, &context))
+		argv[(*argc)++] = token;
+	argv[*argc] = nullptr;
+
+	return 0;
+}
+
+static bool _is_in(char ch, const char* ignore)
+{
+	for (const char* p = ignore; *p; p++)
+	{
+		if (ch == *p)
+			return true;
+	}
+	return false;
+}
+
+static int _host_peeker_advanced(char* buffer, char** cmd, int* argc, char* argv[])
+{
+	*cmd = nullptr;
+	*argc = 0;
+	argv[0] = nullptr;
+
+	char quote = 0;
+	char* p = buffer;
+	bool is_start = false;
+
+	while (*p)	// A shabby infinite machine... :(
+	{
+		if (quote == 0)
+		{
+			if (_is_in(*p, HOST_QUOTE))
+			{
+				quote = *p;
+				*p = '\0';
+				p++;
+				continue;
+			}
+			if (_is_in(*p, HOST_IGNORE))
+			{
+				*p = '\0';
+				if (argv[*argc])
+					argv[++(*argc)] = nullptr;
+			}
+			else
+			{
+				if (!argv[*argc])
+					argv[*argc] = p;
+			}
+			p++;
+		}
+		else
+		{
+			if (*p == quote)	// quote ends
+			{
+				quote = '\0';
+				*p = '\0';
+				if (argv[*argc])
+					argv[++(*argc)] = nullptr;
+				p++;
+				continue;
+			}
+			if (!argv[*argc])
+				argv[*argc] = p;
+			p++;
+		}
+	}
+	if (argv[*argc])
+		argv[++(*argc)] = nullptr;
+	*cmd = argv[0];
+	
+	return (*cmd) ? 0 : 1;
 }
