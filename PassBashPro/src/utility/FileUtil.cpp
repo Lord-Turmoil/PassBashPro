@@ -126,7 +126,11 @@ bool FileUtil::DeletePath(const wchar_t* path)
 	if (!Exists(path))
 		return true;
 
-	_DeleteDirectory(path);
+	wchar_t cmd[PASH_BUFFER_SIZE];
+	swprintf_s(cmd, L"rmdir /S /Q \"%s\"", path);
+	_wsystem(cmd);
+
+	// _DeleteDirectory(path);
 
 	return true;
 }

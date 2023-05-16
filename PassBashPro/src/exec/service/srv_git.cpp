@@ -29,6 +29,9 @@
 #include <tea.h>
 
 
+int _git_verify();
+int _git_reload();
+
 int srv_git(int argc, char* argv[])
 {
 	PASH_PANIC_ON(g_env == nullptr);
@@ -103,5 +106,31 @@ int srv_git(int argc, char* argv[])
 		// Not return.
 	}
 
+	g_doc.UnLoad();
+
+	// Verify config.
+	if (_git_verify() != 0)	// password change
+	{
+		int r = ExecHost::GetInstance()->execl(EXEC_SERVICE, "login", "login", nullptr);
+		if (r != 0)
+			return TERMINATION;
+		// g_doc will be loaded at the end of successful login.
+	}
+	else
+		g_doc.Load(g_env);
+	_git_reload();
+
 	return ret;
+}
+
+int _git_verify()
+{
+	VerifyProfileInit(g_env);
+	return VerifyProfile(g_env->password) ? 0 : 1;
+}
+
+int _git_reload()
+{
+	// nothing...
+	return 0;
 }
