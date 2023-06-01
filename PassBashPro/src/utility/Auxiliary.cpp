@@ -23,6 +23,8 @@
 #include "../../inc/common/Constants.h"
 #include "../../inc/utility/Auxiliary.h"
 
+#include "../../inc/utility/xml.h"
+
 #include <cctype>
 #include <cstring>
 #include <cstdlib>
@@ -283,5 +285,11 @@ int Random(int lower, int upper)
 	if (upper <= lower)
 		return lower;
 
-	return lower + rand() % (upper - lower);
+	return lower + Random(upper - lower);
+}
+
+
+int ParseValue(const char* str, int* val)
+{
+	return tinyxml2::XMLUtil::ToInt(str, val);
 }

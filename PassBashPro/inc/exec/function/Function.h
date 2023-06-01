@@ -98,6 +98,9 @@ int exec_copy(int argc, char* argv[]);
 
 int exec_git(int argc, char* argv[]);
 
+// generate password
+int exec_gen(int argc, char* argv[]);
+
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Hidden Functions

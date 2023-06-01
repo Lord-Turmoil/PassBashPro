@@ -1,0 +1,30 @@
+  generate [-n number] [-l length] [-a -d -c]
+
+--------------------------------------------------------------------------------
+
+Alias:
+  generate, gen
+
+Description:
+  Generate possible passwords based on given condition.
+
+Hint:
+  -n  --  Number of passwords to generate.
+
+  -l  --  Length of password.
+
+  -a  --  Use alphabet. (a-zA-Z)
+
+  -d  --  Use digit. (0-9)
+
+  -c  --  Use characters. ("~!@#$%^&*()[]{}-_=+")
+
+Note:
+  If none of -a, -d, -c is set, default schema will be used, which include
+  alphabet and digit.
+
+  If -n is not set, default number of password to generate is 3. Maximum number
+  is 10.
+
+  If -l is not set, password length will be in range [6, 12]. Maximum length is
+  32.

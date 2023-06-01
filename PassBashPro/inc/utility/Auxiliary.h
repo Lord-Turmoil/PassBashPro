@@ -65,4 +65,8 @@ void SetRandomSeed();
 int Random(int upper);
 int Random(int lower, int upper);
 
+
+// Parse value
+int ParseValue(const char* str, int* val);
+
 #endif

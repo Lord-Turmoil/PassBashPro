@@ -135,6 +135,8 @@ static void _InitGlobal()
 	HOOK(factory, "git",      exec_git);
 	HOOK(factory, "tea",      exec_tea);
 	HOOK(factory, "encrypt",  exec_tea);
+	HOOK(factory, "generate", exec_gen);
+	HOOK(factory, "gen",      exec_gen);
 
 #if PASH_CHEAT
 	HOOK(factory, "order",   exec_order);
@@ -168,6 +170,9 @@ static void _InitEditor()
 	HOOK(factory, "exit",  exec_edit_exit);
 	HOOK(factory, "quit",  exec_edit_exit);
 	HOOK(factory, "q",     exec_edit_exit);
+
+	HOOK(factory, "generate", exec_gen);
+	HOOK(factory, "gen",      exec_gen);
 
 	ExecHost::GetInstance()->Register(EXEC_EDIT, factory);
 }
