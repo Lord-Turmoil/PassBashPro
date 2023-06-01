@@ -1,0 +1,9 @@
+  flush
+
+--------------------------------------------------------------------------------
+
+Alias:
+  flush, fl
+
+Description:
+  Flush command history and environment variables.

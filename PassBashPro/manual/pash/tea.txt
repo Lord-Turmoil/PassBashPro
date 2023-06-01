@@ -1,0 +1,15 @@
+  tea [-d] src dst -p password
+
+--------------------------------------------------------------------------------
+
+Alias:
+  tea, encrypt
+
+Description:
+  Encrypt file using XTEA + MD5 algorithm.
+
+Hint:
+  -d  --  Decrypt file if this is set.
+
+Note:
+  If -d is not set, it will encrypt 'src' to 'dst'. Other wise, will decrypt 'src'

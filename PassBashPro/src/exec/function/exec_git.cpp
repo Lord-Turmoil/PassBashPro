@@ -24,6 +24,13 @@
 
 int exec_git(int argc, char* argv[])
 {
-	return ExecHost::GetInstance()
+	std::string pwd(g_pwd);
+
+	int ret = ExecHost::GetInstance()
 		->execv(EXEC_SERVICE, "git", argv);
+
+	ExecHost::GetInstance()
+		->execl(EXEC_GLOBAL, "cd", "cd", pwd.c_str(), nullptr);
+
+	return ret;
 }
