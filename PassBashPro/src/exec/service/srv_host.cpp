@@ -97,6 +97,9 @@ static void _host_greet()
 
 static const char* _get_completion(const char* input, int* revert)
 {
+	if (revert)
+		*revert = 0;
+
 	// skip command
 	while (*input && !isspace(*input))
 		input++;
@@ -119,8 +122,16 @@ static const char* _get_completion(const char* input, int* revert)
 
 	std::string path(input);
 	std::string parentPath;
-	PashDocUtil::GetParentPath(path, parentPath);
-	if (parentPath == "")
+	if (path.back() != '/')
+		PashDocUtil::GetParentPath(path, parentPath);
+	else
+	{
+		parentPath = path;
+		while (!parentPath.empty() && (parentPath.back() == '/'))
+			parentPath.pop_back();
+	}
+
+	if (parentPath.empty())
 		parentPath = g_pwd;
 	else
 	{
@@ -132,6 +143,8 @@ static const char* _get_completion(const char* input, int* revert)
 
 	if (!_candidates[0])
 		return nullptr;
+	if (*input == '\0')
+		return _candidates[0];
 
 	const char* completion = nullptr;
 	*revert = 0;
@@ -149,9 +162,12 @@ static const char* _get_completion(const char* input, int* revert)
 		if (pos != *candidate)	// partial match
 		{
 			if (!completion)
+			{
 				completion = pos;
-			else
-				return nullptr;	// ignore multiple possible match
+				break;
+			}
+
+			return nullptr;
 		}
 		candidate++;
 	}
@@ -162,7 +178,7 @@ static const char* _get_completion(const char* input, int* revert)
 static void _get_candidates(const std::string& path)
 {
 	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
-	if (!node)
+	if (!node || !PashDocUtil::IsGroup(node))
 	{
 		*_candidates = nullptr;
 		return;
