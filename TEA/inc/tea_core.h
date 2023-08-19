@@ -26,21 +26,20 @@
 #include "tea_defines.h"
 
 _TEA_BEGIN
+    // core algorithm
+    // v[2]: 8 characters to be encrypted =  8 Byte
+    // w[2]: save encrypted 8 characters  =  8 Byte
+    // k[4]: the key                      = 16 Byte
+    // it only encrypt/decrypt part of the data
+    void encipher(const DATA* v, DATA* w, const DATA* k);
+    void decipher(const DATA* v, DATA* w, const DATA* k);
 
-// core algorithm
-// v[2]: 8 characters to be encrypted =  8 Byte
-// w[2]: save encrypted 8 characters  =  8 Byte
-// k[4]: the key                      = 16 Byte
-// it only encrypt/decrypt part of the data
-void encipher(const DATA* const v, DATA* const w, const DATA* const k);
-void decipher(const DATA* const v, DATA* const w, const DATA* const k);
-
-// easy way to use
-class TEAReader;
-class TEAWriter;
-// key must not be longer than 16!
-void encode(TEAReader* input, TEAWriter* output, const char* key);
-void decode(TEAReader* input, TEAWriter* output, const char* key);
+    // easy way to use
+    class TEAReader;
+    class TEAWriter;
+    // key must not be longer than 16!
+    void encode(TEAReader* input, TEAWriter* output, const char* key);
+    void decode(TEAReader* input, TEAWriter* output, const char* key);
 
 _TEA_END
 

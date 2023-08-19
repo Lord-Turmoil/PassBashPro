@@ -26,30 +26,29 @@
 #include "Macros.h"
 
 _CNSL_BEGIN
+    constexpr char LINE_FEED = '\n';
+    constexpr char CHARRIGE = '\r';
+    constexpr char BACKSPACE = '\b';
+    constexpr char SPACE = ' ';
+    constexpr char ESCAPE = 27;
+    constexpr char TAB = '\t';
 
-const char LINE_FEED	= '\n';
-const char CHARRIGE		= '\r';
-const char BACKSPACE	= '\b';
-const char SPACE		= ' ';
-const char ESCAPE       = 27;
-const char TAB			= '\t';
+    constexpr char CTRL_BACKSPACE = 127;
 
-const char CTRL_BACKSPACE      = 127;
+    constexpr char SPECIAL_LEADING = static_cast<char>(224);
+    constexpr char SPECIAL_ARROW_UP = 72;
+    constexpr char SPECIAL_ARROW_DOWN = 80;
+    constexpr char SPECIAL_ARROW_LEFT = 75;
+    constexpr char SPECIAL_ARROW_RIGHT = 77;
+    constexpr char SPECIAL_DELETE = 83;
+    constexpr char SPECIAL_CTRL_DELETE = -109;
+    constexpr char SPECIAL_HOME = 71;
+    constexpr char SPECIAL_END = 79;
 
-const char SPECIAL_LEADING     = (char)224;
-const char SPECIAL_ARROW_UP    = 72;
-const char SPECIAL_ARROW_DOWN  = 80;
-const char SPECIAL_ARROW_LEFT  = 75;
-const char SPECIAL_ARROW_RIGHT = 77;
-const char SPECIAL_DELETE      = 83;
-const char SPECIAL_CTRL_DELETE = (char)-109;
-const char SPECIAL_HOME        = 71;
-const char SPECIAL_END         = 79;
-
-const char SPECIAL_ARROW_CTRL_UP    = (char)(-115);
-const char SPECIAL_ARROW_CTRL_DOWN  = (char)(-111);
-const char SPECIAL_ARROW_CTRL_LEFT  = 115;
-const char SPECIAL_ARROW_CTRL_RIGHT = 116;
+    constexpr char SPECIAL_ARROW_CTRL_UP = -115;
+    constexpr char SPECIAL_ARROW_CTRL_DOWN = -111;
+    constexpr char SPECIAL_ARROW_CTRL_LEFT = 115;
+    constexpr char SPECIAL_ARROW_CTRL_RIGHT = 116;
 
 _CNSL_END
 

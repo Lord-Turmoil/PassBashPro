@@ -31,7 +31,6 @@
 #define _HASH		::hash::
 
 _HASH_BEGIN
-
 _HASH_END
 
 #endif

@@ -28,21 +28,20 @@
 #define _TEA		::tea::
 
 _TEA_BEGIN
+    using DATA = unsigned long;
 
-typedef unsigned long DATA;
-
-/********************************************************************
-** If TEA_CRACK is defined, the encrypted file will include original
-** file content for debug purpose, or as weak encryption.
-*/
+    /********************************************************************
+    ** If TEA_CRACK is defined, the encrypted file will include original
+    ** file content for debug purpose, or as weak encryption.
+    */
 #ifdef TEA_CRACK
 #define TEA_K 2
 #else
 #define TEA_K 1
 #endif
 
-const size_t NCHAR = 2 * sizeof(long);	//  64 bit =  8 Byte =  8 char
-const size_t KCHAR = TEA_K * NCHAR;		// 128 bit = 16 Byte = 16 char
+    constexpr size_t NCHAR = 2 * sizeof(long); //  64 bit =  8 Byte =  8 char
+    constexpr size_t KCHAR = TEA_K * NCHAR; // 128 bit = 16 Byte = 16 char
 
 _TEA_END
 
