@@ -196,6 +196,7 @@
     <ClCompile Include="src\exec\editor\exec_edit_unknown.cpp" />
     <ClCompile Include="src\exec\editor\exec_edit_unset.cpp" />
     <ClCompile Include="src\exec\editor\EditorAux.cpp" />
+    <ClCompile Include="src\exec\function\exec_archive.cpp" />
     <ClCompile Include="src\exec\function\exec_branch.cpp" />
     <ClCompile Include="src\exec\function\exec_checkout.cpp" />
     <ClCompile Include="src\exec\function\exec_copy.cpp" />

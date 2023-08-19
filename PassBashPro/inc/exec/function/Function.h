@@ -17,7 +17,7 @@
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
- *   Visual Studio 2022 Community Preview                                     *
+ *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
 #pragma once
@@ -100,6 +100,9 @@ int exec_git(int argc, char* argv[]);
 
 // generate password
 int exec_gen(int argc, char* argv[]);
+
+// archive files to git repo
+int exec_archive(int argc, char* argv[]);
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

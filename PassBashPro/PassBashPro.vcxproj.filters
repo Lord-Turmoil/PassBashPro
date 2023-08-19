@@ -323,6 +323,9 @@
     <ClCompile Include="src\exec\function\exec_gen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\exec\function\exec_archive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PassBashPro.rc">

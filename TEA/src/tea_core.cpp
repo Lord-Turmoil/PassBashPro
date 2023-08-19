@@ -17,7 +17,7 @@
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
- *   Visual Studio 2022 Community Preview                                     *
+ *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
 #include "../inc/tea_core.h"

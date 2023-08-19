@@ -17,7 +17,7 @@
  * -------------------------------------------------------------------------- *
  * Build Environment:                                                         *
  *   Windows 11 Pro                                                           *
- *   Visual Studio 2022 Community Preview                                     *
+ *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
 #ifndef _TEA_UTIL_H_
