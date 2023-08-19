@@ -46,6 +46,9 @@ public:
     static bool NewDirectory(const char* path, bool hidden = false);
     static bool NewDirectory(const char* path, const char* dirname, bool hidden = false);
 
+    static bool DeleteFilePath(const char* path);
+    static bool DeleteFilePath(const wchar_t* path);
+
     static bool DeletePath(const char* path);
     static bool DeletePath(const wchar_t* path);
 

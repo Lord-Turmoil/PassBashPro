@@ -25,6 +25,7 @@
  // archive -o -r src
 static bool _remove;
 static bool _out;
+static bool _delete;
 static std::string _src;
 static std::string _dst;
 
@@ -34,7 +35,7 @@ static int _archive_parse_args(int argc, char* argv[]);
 
 static int _archive_archive(bool keepOriginal);
 static int _archive_output(bool keepOriginal);
-
+static int _archive_delete();
 static int _archive_move(const char* dst, const char* src, bool keepOriginal = false);
 static int _archive_list();
 
@@ -56,6 +57,21 @@ int srv_archive(int argc, char* argv[])
     }
 
     int ret;
+    if (_delete)
+    {
+        ret = _archive_delete();
+        if (ret == 0)
+        {
+            EXEC_PRINT_MSG("Successfully deleted archive \'%s\'.\n", _src.c_str());
+        }
+        else
+        {
+            EXEC_PRINT_ERR("Failed to delete \'%s\' - %d\n!", _src.c_str(), ret);
+            return ret;
+        }
+        return 0;
+    }
+
     if (_out)
     {
         ret = _archive_output(!_remove);
@@ -63,7 +79,7 @@ int srv_archive(int argc, char* argv[])
         {
             EXEC_PRINT_MSG("Successfully extracted \'%s\' to \'%s\'!\n", _src.c_str(), _dst.c_str());
         }
-        else
+        else if (ret != -1)
         {
             EXEC_PRINT_ERR("Failed to extract \'%s\' - %d\n!", _src.c_str(), ret);
             return ret;
@@ -76,7 +92,7 @@ int srv_archive(int argc, char* argv[])
         {
             EXEC_PRINT_MSG("Successfully archived \'%s\' to \'%s\'!\n", _src.c_str(), _dst.c_str());
         }
-        else
+        else if (ret != -1)
         {
             EXEC_PRINT_ERR("Failed to archive \'%s\' - %d!\n", _src.c_str(), ret);
             return ret;
@@ -137,6 +153,36 @@ static int _archive_output(bool keepOriginal)
     return _archive_move(_dst.c_str(), srcPath.c_str(), keepOriginal);
 }
 
+static int _archive_delete()
+{
+    if (_src == "config" || _src == "data" || _src[0] == '.')
+    {
+        EXEC_PRINT_ERR("Illegal target name\n");
+        return 32;
+    }
+
+    std::string root = g_env->rootPath;
+    std::string srcPath(root);
+    if (srcPath.back() != '\\')
+    {
+        srcPath.push_back('\\');
+    }
+    srcPath.append(_src);
+
+    if (!FileUtil::Exists(srcPath.c_str()))
+    {
+        EXEC_PRINT_ERR("Source file doesn't exists!\n");
+        return 31;
+    }
+
+    if (!FileUtil::DeleteFilePath(srcPath.c_str()))
+    {
+        return 33;
+    }
+
+    return 0;
+}
+
 // For now, just assume that the parent directory must exists.
 static int _archive_move(const char* dst, const char* src, bool keepOriginal)
 {
@@ -148,17 +194,19 @@ static int _archive_move(const char* dst, const char* src, bool keepOriginal)
         GetString(response, cnsl::InputOptions(1, 1));
         cnsl::InsertNewLine();
         if (tolower(response[0]) != 'y')
-            return 0; // abort
+        {
+            return -1; // abort
+        }
     }
     bool ret;
     if (keepOriginal)
     {
-        ret = FileUtil::MoveFileToNew(src, dst);
+        // default overwrite is true
+        ret = FileUtil::CopyFileToNew(src, dst);
     }
     else
     {
-        // default overwrite is true
-        ret = FileUtil::CopyFileToNew(src, dst);
+        ret = FileUtil::MoveFileToNew(src, dst);
     }
     return ret ? 0 : 31;
 }
@@ -207,6 +255,7 @@ static void _archive_init()
 {
     _out = false;
     _remove = false;
+    _delete = false;
 }
 
 static int _archive_usage()
@@ -220,7 +269,7 @@ static int _archive_parse_args(int argc, char* argv[])
     int opt;
     int arg_cnt = 0;
     bool err = false;
-    while (opt = getopt(argc, argv, "or"))
+    while (opt = getopt(argc, argv, "ord"))
     {
         if (opterr != 0)
         {
@@ -236,6 +285,9 @@ static int _archive_parse_args(int argc, char* argv[])
             break;
         case 'r':
             _remove = true;
+            break;
+        case 'd':
+            _delete = true;
             break;
         case '!':
             arg_cnt++;
@@ -262,13 +314,7 @@ static int _archive_parse_args(int argc, char* argv[])
         }
     }
 
-    if (_out && _remove)
-    {
-        // only one
-        err = true;
-        EXEC_PRINT_ERR("Cannot assign both -e and -o!");
-    }
-    if (arg_cnt < 2)
+    if ((_delete && arg_cnt < 1) || (!_delete && arg_cnt < 2))
     {
         err = true;
         EXEC_PRINT_ERR(ERRMSG_TOO_FEW "\n");

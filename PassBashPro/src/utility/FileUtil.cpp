@@ -108,6 +108,16 @@ bool FileUtil::NewDirectory(const char* path, const char* dirname, bool hidden)
     return NewDirectory(fullPath.c_str(), hidden);
 }
 
+bool FileUtil::DeleteFilePath(const char* path)
+{
+    return DeleteFilePath(widen(path));
+}
+
+bool FileUtil::DeleteFilePath(const wchar_t* path)
+{
+    return DeleteFile(path);
+}
+
 bool FileUtil::DeletePath(const char* path)
 {
     if (!Exists(path))
