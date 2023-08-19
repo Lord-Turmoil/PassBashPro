@@ -29,22 +29,22 @@
 
 void _panic(const char* filename, int line, const char* func, const char* format, ...)
 {
-	static char message[1024];
+    static char message[1024];
 
-	va_list va;
-	va_start(va, format);
-	vsprintf_s(message, format, va);
-	va_end(va);
+    va_list va;
+    va_start(va, format);
+    vsprintf_s(message, format, va);
+    va_end(va);
 
-	printf("File: '%s'\n", filename);
-	printf("Line: '%d'\n", line);
-	printf("Func: '%s'\n", func);
-	printf(message);
-	
-	printf("\n\nPash aborted.\n");
+    printf("File: '%s'\n", filename);
+    printf("Line: '%d'\n", line);
+    printf("Func: '%s'\n", func);
+    printf(message);
 
-	LOG_PRINT_MESSAGE();
-	LOG_PRINT_ERROR();
+    printf("\n\nPash aborted.\n");
 
-	exit(-1);
+    LOG_PRINT_MESSAGE();
+    LOG_PRINT_ERROR();
+
+    exit(-1);
 }

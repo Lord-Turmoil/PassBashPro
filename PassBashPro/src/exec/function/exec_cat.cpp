@@ -24,34 +24,34 @@
 
 static int _cat_usage()
 {
-	return ExecHost::GetInstance()
-		->execl(EXEC_GLOBAL, "help", "help", "cat", nullptr);
+    return ExecHost::GetInstance()
+        ->execl(EXEC_GLOBAL, "help", "help", "cat", nullptr);
 }
 
 int exec_cat(int argc, char* argv[])
 {
-	std::string path;
+    std::string path;
 
-	if (_ParseArgs(argc, argv, path) != 0)
-	{
-		_cat_usage();
-		return 1;
-	}
+    if (_ParseArgs(argc, argv, path) != 0)
+    {
+        _cat_usage();
+        return 1;
+    }
 
-	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
-	if (!node)
-	{
-		EXEC_PRINT_ERR("Password item doesn't exist!\n");
-		return 2;
-	}
-	if (!PashDocUtil::IsItem(node))
-	{
-		EXEC_PRINT_ERR("You can only display a password item!\n");
-		_cat_usage();
-		return 3;
-	}
+    XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
+    if (!node)
+    {
+        EXEC_PRINT_ERR("Password item doesn't exist!\n");
+        return 2;
+    }
+    if (!PashDocUtil::IsItem(node))
+    {
+        EXEC_PRINT_ERR("You can only display a password item!\n");
+        _cat_usage();
+        return 3;
+    }
 
-	_ShowItem(node, false);
+    _ShowItem(node, false);
 
-	return 0;
+    return 0;
 }

@@ -48,16 +48,16 @@
 
 int main(int argc, char* argv[])
 {
-	InitExecHost();
-	InitConsole();
+    InitExecHost();
+    InitConsole();
 
-	PASH_PANIC_ON(ExecHost::GetInstance()
-				  ->execl(EXEC_SERVICE, "start", nullptr) != 0);
+    PASH_PANIC_ON(ExecHost::GetInstance()
+        ->execl(EXEC_SERVICE, "start", nullptr) != 0);
 
 #ifdef PASH_DEBUG
 	LOG_PRINT_ERROR();
 	LOG_PRINT_MESSAGE();
 #endif
 
-	return 0;
+    return 0;
 }

@@ -26,20 +26,20 @@ static void _setk_usage();
 
 int exec_edit_setk(int argc, char* argv[])
 {
-	const char* params[2] = { nullptr, nullptr };
-	int ret = _edit_parse_params(argv[1], 2, params);
+    const char* params[2] = {nullptr, nullptr};
+    int ret = _edit_parse_params(argv[1], 2, params);
 
-	if (ret != 2)
-	{
-		_setk_usage();
-		return 1;
-	}
+    if (ret != 2)
+    {
+        _setk_usage();
+        return 1;
+    }
 
-	return _set_key(params[0], params[1]);
+    return _set_key(params[0], params[1]);
 }
 
 static void _setk_usage()
 {
-	ExecHost::GetInstance()
-		->execl(EXEC_EDIT, "help", "help", "setk", nullptr);
+    ExecHost::GetInstance()
+        ->execl(EXEC_EDIT, "help", "help", "setk", nullptr);
 }

@@ -22,50 +22,50 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 
-static const int COLOR_NUM = 12;
-static const WORD COLORS[] = {
-	FOREGROUND_RED,
-	FOREGROUND_YELLOW,
-	FOREGROUND_BLUE,
-	FOREGROUND_GREEN,
-	FOREGROUND_MAGENTA,
-	FOREGROUND_CYAN,
+static constexpr int COLOR_NUM = 12;
+static constexpr WORD COLORS[] = {
+    FOREGROUND_RED,
+    FOREGROUND_YELLOW,
+    FOREGROUND_BLUE,
+    FOREGROUND_GREEN,
+    FOREGROUND_MAGENTA,
+    FOREGROUND_CYAN,
 
-	FOREGROUND_LIGHT(FOREGROUND_RED),
-	FOREGROUND_LIGHT(FOREGROUND_YELLOW),
-	FOREGROUND_LIGHT(FOREGROUND_BLUE),
-	FOREGROUND_LIGHT(FOREGROUND_GREEN),
-	FOREGROUND_LIGHT(FOREGROUND_MAGENTA),
-	FOREGROUND_LIGHT(FOREGROUND_CYAN)
+    FOREGROUND_LIGHT(FOREGROUND_RED),
+    FOREGROUND_LIGHT(FOREGROUND_YELLOW),
+    FOREGROUND_LIGHT(FOREGROUND_BLUE),
+    FOREGROUND_LIGHT(FOREGROUND_GREEN),
+    FOREGROUND_LIGHT(FOREGROUND_MAGENTA),
+    FOREGROUND_LIGHT(FOREGROUND_CYAN)
 };
 
 int exec_pash(int argc, char* argv[])
 {
-	cnsl::Clear();
+    cnsl::Clear();
 
-	cnsl::InsertNewLine();
-	ExecHost::GetInstance()->execl(EXEC_GLOBAL, "version", "version", nullptr);
-	cnsl::InsertNewLine();
-	
-	cnsl::InsertChar(' ', (int)(cnsl::GetConsoleWidth() - strlen(BANNER)) / 2);
-	for (const char* p = BANNER; *p; p++)
-		cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
+    cnsl::InsertNewLine();
+    ExecHost::GetInstance()->execl(EXEC_GLOBAL, "version", "version", nullptr);
+    cnsl::InsertNewLine();
 
-	for (const char* p = LOGO; *p; p++)
-	{
-		if (*p == ':')
-			cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
-		else
-			cnsl::InsertText("%c", *p);
-	}
-	cnsl::InsertNewLine();
-	
-	cnsl::InsertChar(' ', (int)(cnsl::GetConsoleWidth() - strlen(THANKS)) / 2);
-	for (const char* p = THANKS; *p; p++)
-		cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
+    cnsl::InsertChar(' ', static_cast<int>(cnsl::GetConsoleWidth() - strlen(BANNER)) / 2);
+    for (const char* p = BANNER; *p; p++)
+        cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
 
-	cnsl::InsertNewLine();
-	cnsl::InsertNewLine();
+    for (const char* p = LOGO; *p; p++)
+    {
+        if (*p == ':')
+            cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
+        else
+            cnsl::InsertText("%c", *p);
+    }
+    cnsl::InsertNewLine();
 
-	return 0;
+    cnsl::InsertChar(' ', static_cast<int>(cnsl::GetConsoleWidth() - strlen(THANKS)) / 2);
+    for (const char* p = THANKS; *p; p++)
+        cnsl::InsertText(COLORS[Random(COLOR_NUM)], "%c", *p);
+
+    cnsl::InsertNewLine();
+    cnsl::InsertNewLine();
+
+    return 0;
 }

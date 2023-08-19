@@ -24,10 +24,10 @@
 
 int exec_echo(int argc, char* argv[])
 {
-	for (int i = 1; i < argc; i++)
-		cnsl::InsertText("%s ", argv[i]);
+    for (int i = 1; i < argc; i++)
+        cnsl::InsertText("%s ", argv[i]);
 
-	cnsl::InsertNewLine();
+    cnsl::InsertNewLine();
 
-	return 0;
+    return 0;
 }

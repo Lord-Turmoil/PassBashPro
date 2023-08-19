@@ -44,7 +44,7 @@ PashDoc g_doc;
 
 // Default data content.
 const char DEFAULT_DATA[]{
-R"(<?xml version="1.0" encoding="UTF-8"?>
+    R"(<?xml version="1.0" encoding="UTF-8"?>
 <Group name=".">
 </Group>
 )"
@@ -63,9 +63,9 @@ const char PASH_EDITOR_VERSION[] = "2.1.3";
 int g_mode = MODE_IDLE;
 
 // Copyright info.
-const char TITLE[]     { "PassBash Pro" };
-const char COPYRIGHT[] { "Tony's Studio 2020 - 2023" };
-const char AUTHOR[]    { "Tony Skywalker" };
+const char TITLE[]{"PassBash Pro"};
+const char COPYRIGHT[]{"Tony's Studio 2020 - 2023"};
+const char AUTHOR[]{"Tony Skywalker"};
 
 // Original Logo from: https://textkool.com/en/ascii-art-generator
 const char LOGO[] = R"(

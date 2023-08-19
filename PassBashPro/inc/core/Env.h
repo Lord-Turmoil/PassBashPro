@@ -36,22 +36,22 @@
 */
 struct Env
 {
-	// different user can have different local username
-	std::string username;
+    // different user can have different local username
+    std::string username;
 
-	// email is used as unique identifier for online service
-	std::string email;
+    // email is used as unique identifier for online service
+    std::string email;
 
-	std::string rootPath;
-	std::string configPath;
-	std::string dataPath;
-	std::string profilePath;
+    std::string rootPath;
+    std::string configPath;
+    std::string dataPath;
+    std::string profilePath;
 
-	char password[PASSWORD_BUFFER_SIZE];
+    char password[PASSWORD_BUFFER_SIZE];
 
-	bool online;
+    bool online;
 };
 
-typedef std::shared_ptr<Env> EnvPtr;
+using EnvPtr = std::shared_ptr<Env>;
 
 #endif

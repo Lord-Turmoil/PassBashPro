@@ -36,94 +36,94 @@
 
 char* strstrip(char* str)
 {
-	if (!str)
-		return nullptr;
+    if (!str)
+        return nullptr;
 
-	char* base = str;
-	char* left = base;
-	char* right = base + strlen(str) - 1;
+    char* base = str;
+    char* left = base;
+    char* right = base + strlen(str) - 1;
 
-	if (left <= right)
-	{
-		while ((left <= right) && isspace(*left))
-			left++;
-		while ((left <= right) && isspace(*right))
-			right--;
+    if (left <= right)
+    {
+        while ((left <= right) && isspace(*left))
+            left++;
+        while ((left <= right) && isspace(*right))
+            right--;
 
-		for (char* p = left; p <= right; p++)
-			*(base++) = *p;
-		*base = '\0';
-	}
+        for (char* p = left; p <= right; p++)
+            *(base++) = *p;
+        *base = '\0';
+    }
 
-	return str;
+    return str;
 }
 
 char* strtolower(char* str)
 {
-	if (!str)
-		return nullptr;
+    if (!str)
+        return nullptr;
 
-	for (char* p = str; *p; p++)
-		*p = tolower(*p);
+    for (char* p = str; *p; p++)
+        *p = tolower(*p);
 
-	return str;
+    return str;
 }
 
 char* strtoupper(char* str)
 {
-	if (!str)
-		return nullptr;
+    if (!str)
+        return nullptr;
 
-	for (char* p = str; *p; p++)
-		*p = toupper(*p);
+    for (char* p = str; *p; p++)
+        *p = toupper(*p);
 
-	return str;
+    return str;
 }
 
 
 bool is_null_or_empty(const char* str)
 {
-	return !str || !*str;
+    return !str || !*str;
 }
 
 bool begins_with(const char* str, const char* prefix)
 {
-	if (is_null_or_empty(prefix))
-		return true;
-	if (is_null_or_empty(str))
-		return false;
+    if (is_null_or_empty(prefix))
+        return true;
+    if (is_null_or_empty(str))
+        return false;
 
-	const char* original_str = str;
-	while (*prefix && *str)
-	{
-		if (*prefix != *str)
-			return false;
-		prefix++;
-		str++;
-	}
+    const char* original_str = str;
+    while (*prefix && *str)
+    {
+        if (*prefix != *str)
+            return false;
+        prefix++;
+        str++;
+    }
 
-	return !*prefix;
+    return !*prefix;
 }
 
 bool ends_with(const char* str, const char* suffix)
 {
-	if (is_null_or_empty(suffix))
-		return true;
-	if (is_null_or_empty(str))
-		return false;
+    if (is_null_or_empty(suffix))
+        return true;
+    if (is_null_or_empty(str))
+        return false;
 
-	const char* str_end = str + strlen(str);
-	const char* suffix_end = suffix + strlen(suffix);
+    const char* str_end = str + strlen(str);
+    const char* suffix_end = suffix + strlen(suffix);
 
-	while (str_end >= str && suffix_end >= suffix)
-	{
-		if (*str_end != *suffix_end)
-			return false;
-		str_end--;
-		suffix_end--;
-	}
+    while (str_end >= str && suffix_end >= suffix)
+    {
+        if (*str_end != *suffix_end)
+            return false;
+        str_end--;
+        suffix_end--;
+    }
 
-	return suffix_end < suffix;
+    return suffix_end < suffix;
 }
 
 
@@ -144,10 +144,10 @@ bool ends_with(const char* str, const char* suffix)
  *============================================================================*/
 bool widen(wchar_t* dest, const char* src)
 {
-	size_t ret;
-	errno_t err = mbstowcs_s(&ret, dest, strlen(src) + 1, src, PASH_BUFFER_SIZE);
+    size_t ret;
+    errno_t err = mbstowcs_s(&ret, dest, strlen(src) + 1, src, PASH_BUFFER_SIZE);
 
-	return err ? false : true;
+    return err ? false : true;
 }
 
 
@@ -167,12 +167,12 @@ bool widen(wchar_t* dest, const char* src)
  *============================================================================*/
 wchar_t* widen(const char* src)
 {
-	static wchar_t dest[PASH_BUFFER_SIZE];
+    static wchar_t dest[PASH_BUFFER_SIZE];
 
-	size_t ret;
-	errno_t err = mbstowcs_s(&ret, dest, strlen(src) + 1, src, PASH_BUFFER_SIZE);
+    size_t ret;
+    errno_t err = mbstowcs_s(&ret, dest, strlen(src) + 1, src, PASH_BUFFER_SIZE);
 
-	return err ? nullptr : dest;
+    return err ? nullptr : dest;
 }
 
 
@@ -193,10 +193,10 @@ wchar_t* widen(const char* src)
  *============================================================================*/
 bool narrow(char* dest, const wchar_t* src)
 {
-	size_t ret;
-	errno_t err = wcstombs_s(&ret, dest, wcslen(src) + 1, src, PASH_BUFFER_SIZE);
+    size_t ret;
+    errno_t err = wcstombs_s(&ret, dest, wcslen(src) + 1, src, PASH_BUFFER_SIZE);
 
-	return err ? false : true;
+    return err ? false : true;
 }
 
 
@@ -216,29 +216,29 @@ bool narrow(char* dest, const wchar_t* src)
  *============================================================================*/
 char* narrow(const wchar_t* src)
 {
-	static char dest[PASH_BUFFER_SIZE];
+    static char dest[PASH_BUFFER_SIZE];
 
-	size_t ret;
-	errno_t err = wcstombs_s(&ret, dest, wcslen(src) + 1, src, PASH_BUFFER_SIZE);
+    size_t ret;
+    errno_t err = wcstombs_s(&ret, dest, wcslen(src) + 1, src, PASH_BUFFER_SIZE);
 
-	return err ? nullptr : dest;
+    return err ? nullptr : dest;
 }
 
 
 const char* GetCurrentTimestamp()
 {
-	static char _time_buffer[64];
+    static char _time_buffer[64];
 
-	SYSTEMTIME sysTime;
+    SYSTEMTIME sysTime;
 
-	GetLocalTime(&sysTime);
+    GetLocalTime(&sysTime);
 
-	//YYYY-MM-DD HH-MM-SS
-	sprintf_s(_time_buffer, "%4hu-%02hu-%02hu %02hu-%02hu-%02hu",
-			  sysTime.wYear, sysTime.wMonth, sysTime.wDay,
-			  sysTime.wHour, sysTime.wMinute, sysTime.wSecond);
+    //YYYY-MM-DD HH-MM-SS
+    sprintf_s(_time_buffer, "%4hu-%02hu-%02hu %02hu-%02hu-%02hu",
+              sysTime.wYear, sysTime.wMonth, sysTime.wDay,
+              sysTime.wHour, sysTime.wMinute, sysTime.wSecond);
 
-	return _time_buffer;
+    return _time_buffer;
 }
 
 /******************************************************************************
@@ -257,7 +257,7 @@ const char* GetCurrentTimestamp()
  *============================================================================*/
 void SetRandomSeed()
 {
-	srand((unsigned)time(NULL));
+    srand(static_cast<unsigned>(time(NULL)));
 }
 
 /******************************************************************************
@@ -277,19 +277,19 @@ void SetRandomSeed()
  *============================================================================*/
 int Random(int upper)
 {
-	return (upper == 0) ? (0) : (rand() % upper);
+    return (upper == 0) ? (0) : (rand() % upper);
 }
 
 int Random(int lower, int upper)
 {
-	if (upper <= lower)
-		return lower;
+    if (upper <= lower)
+        return lower;
 
-	return lower + Random(upper - lower);
+    return lower + Random(upper - lower);
 }
 
 
 int ParseValue(const char* str, int* val)
 {
-	return tinyxml2::XMLUtil::ToInt(str, val);
+    return tinyxml2::XMLUtil::ToInt(str, val);
 }

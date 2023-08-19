@@ -27,49 +27,49 @@ static int _edit_parse_args(int argc, char* argv[], std::string& path);
 
 int exec_edit(int argc, char* argv[])
 {
-	std::string path;
+    std::string path;
 
-	if (_edit_parse_args(argc, argv, path) != 0)
-	{
-		_edit_usage();
-		return 1;
-	}
+    if (_edit_parse_args(argc, argv, path) != 0)
+    {
+        _edit_usage();
+        return 1;
+    }
 
-	XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
-	if (!node)
-	{
-		EXEC_PRINT_ERR("Password item doesn't exist!\n");
-		node = PashDocUtil::CreateItemNodeByPath(path);
-		cnsl::InsertText(MESSAGE_COLOR, "Password item \"%s\" created.\n",
-						 PashDocUtil::GetNodeDirectory(node, path));
-	}
-	else if (!PashDocUtil::IsItem(node))
-	{
-		EXEC_PRINT_ERR("You can only edit a password item!\n");
-		_edit_usage();
-		return 2;
-	}
+    XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
+    if (!node)
+    {
+        EXEC_PRINT_ERR("Password item doesn't exist!\n");
+        node = PashDocUtil::CreateItemNodeByPath(path);
+        cnsl::InsertText(MESSAGE_COLOR, "Password item \"%s\" created.\n",
+                         PashDocUtil::GetNodeDirectory(node, path));
+    }
+    else if (!PashDocUtil::IsItem(node))
+    {
+        EXEC_PRINT_ERR("You can only edit a password item!\n");
+        _edit_usage();
+        return 2;
+    }
 
-	int ret = ExecHost::GetInstance()
-		->execl(EXEC_SERVICE, "editor", "editor", path.c_str(), nullptr);
-	if (ret != 0)
-	{
-		EXEC_PRINT_ERR("Failed to launch password editor!\n");
-		return 3;
-	}
+    int ret = ExecHost::GetInstance()
+        ->execl(EXEC_SERVICE, "editor", "editor", path.c_str(), nullptr);
+    if (ret != 0)
+    {
+        EXEC_PRINT_ERR("Failed to launch password editor!\n");
+        return 3;
+    }
 
-	g_doc.Mark();
+    g_doc.Mark();
 
-	return 0;
+    return 0;
 }
 
 static int _edit_usage()
 {
-	return ExecHost::GetInstance()
-		->execl(MODE_TO_EXEC[g_mode], "help", "help", "edit", nullptr);
+    return ExecHost::GetInstance()
+        ->execl(MODE_TO_EXEC[g_mode], "help", "help", "edit", nullptr);
 }
 
 static int _edit_parse_args(int argc, char* argv[], std::string& path)
 {
-	return _ParseArgs(argc, argv, path);
+    return _ParseArgs(argc, argv, path);
 }

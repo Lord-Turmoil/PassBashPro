@@ -27,6 +27,7 @@
 
 
 int _copy(const std::string& data);
+
 int exec_copy(int argc, char* argv[])
 {
     std::string data;
@@ -61,17 +62,17 @@ int exec_copy(int argc, char* argv[])
 int _copy(const std::string& data)
 {
     HWND hWnd = nullptr;
-    
+
     OpenClipboard(hWnd);
     EmptyClipboard();
-    
+
     size_t size = data.length() + 4;
 
     HANDLE hHandle = GlobalAlloc(GMEM_FIXED, data.length() + 4);
     if (!hHandle)
         return 1;
-    
-    char* pData = (char*)GlobalLock(hHandle);//锁定内存，返回申请内存的首地址
+
+    auto pData = static_cast<char*>(GlobalLock(hHandle)); //锁定内存，返回申请内存的首地址
     if (!pData)
         return 2;
     strcpy_s(pData, size, data.c_str());

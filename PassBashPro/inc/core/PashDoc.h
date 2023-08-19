@@ -31,7 +31,7 @@
 
 
 struct Env;
-typedef std::shared_ptr<Env> EnvPtr;
+using EnvPtr = std::shared_ptr<Env>;
 
 /********************************************************************
 ** Core data structure to store runtime passwords.
@@ -39,60 +39,60 @@ typedef std::shared_ptr<Env> EnvPtr;
 class PashDoc
 {
 public:
-	PashDoc();
-	~PashDoc();
+    PashDoc();
+    ~PashDoc();
 
-	bool Load(EnvPtr env);
-	void UnLoad();
-	bool Save(EnvPtr env);
+    bool Load(EnvPtr env);
+    void UnLoad();
+    bool Save(EnvPtr env);
 
-	// For debug purpose, import and export plain text to debug.xml.
-	bool DebugLoad(EnvPtr env);
-	bool DebugSave(EnvPtr env);
+    // For debug purpose, import and export plain text to debug.xml.
+    bool DebugLoad(EnvPtr env);
+    bool DebugSave(EnvPtr env);
 
-	bool IsLoaded() const;
+    bool IsLoaded() const;
 
-	XMLElementPtr GetRoot()    { return m_root; }
-	XMLElementPtr GetCurrent() { return m_current; }
+    XMLElementPtr GetRoot() { return m_root; }
+    XMLElementPtr GetCurrent() { return m_current; }
 
-	/*
-	** Only group can be set to current, and it returns last current.
-	** If not, it returns nullptr, and do nothing.
-	*/
-	XMLElementPtr SetCurrent(XMLElementPtr current);
+    /*
+    ** Only group can be set to current, and it returns last current.
+    ** If not, it returns nullptr, and do nothing.
+    */
+    XMLElementPtr SetCurrent(XMLElementPtr current);
 
-	XMLElementPtr NewElement(const char* name);
-	void DeleteElement(XMLElementPtr node);
+    XMLElementPtr NewElement(const char* name);
+    void DeleteElement(XMLElementPtr node);
 
-	// Mark modified.
-	void Mark();
-	bool IsMarked() const;
+    // Mark modified.
+    void Mark();
+    bool IsMarked() const;
 
 public:
-	// Be careful!!!
-	PashDoc& operator=(PashDoc& doc)
-	{
-		// Old file will be deleted automatically.
-		this->m_pFile = std::move(doc.m_pFile);
+    // Be careful!!!
+    PashDoc& operator=(PashDoc& doc)
+    {
+        // Old file will be deleted automatically.
+        this->m_pFile = std::move(doc.m_pFile);
 
-		this->m_root = doc.m_root;
-		this->m_current = doc.m_current;
-		this->m_modified = doc.m_modified;
+        this->m_root = doc.m_root;
+        this->m_current = doc.m_current;
+        this->m_modified = doc.m_modified;
 
-		return *this;
-	};
-
-private:
-	// Generate default data.
-	bool _GenerateData(EnvPtr env);
+        return *this;
+    };
 
 private:
-	XMLFilePtr m_pFile;
+    // Generate default data.
+    bool _GenerateData(EnvPtr env);
 
-	XMLElementPtr m_root;
-	XMLElementPtr m_current;
+private:
+    XMLFilePtr m_pFile;
 
-	bool m_modified;
+    XMLElementPtr m_root;
+    XMLElementPtr m_current;
+
+    bool m_modified;
 };
 
 

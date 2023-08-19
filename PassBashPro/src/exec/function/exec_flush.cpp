@@ -27,11 +27,11 @@
 
 int exec_flush(int argc, char* argv[])
 {
-	g_history.Clear();
-	EXEC_PRINT_MSG("Command history flushed.\n");
+    g_history.Clear();
+    EXEC_PRINT_MSG("Command history flushed.\n");
 
-	std::fill(g_var.begin(), g_var.end(), std::string());
-	EXEC_PRINT_MSG("Environment variables reset.\n");
-	
-	return 0;
+    std::fill(g_var.begin(), g_var.end(), std::string());
+    EXEC_PRINT_MSG("Environment variables reset.\n");
+
+    return 0;
 }

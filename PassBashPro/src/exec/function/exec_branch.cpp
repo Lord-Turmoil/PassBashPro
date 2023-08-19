@@ -29,35 +29,34 @@ int _branch_create(int argc, char* argv[]);
 
 int exec_branch(int argc, char* argv[])
 {
-	PASH_PANIC_ON(g_env == nullptr);
+    PASH_PANIC_ON(g_env == nullptr);
 
-	if (argc == 1)
-		return _branch_list();
-	else
-		return _branch_create(argc, argv);
+    if (argc == 1)
+        return _branch_list();
+    return _branch_create(argc, argv);
 }
 
 int _branch_list()
 {
-	ProfilePoolPtr pool = ProfilePool::GetInstance();
-	ProfilePtr profile;
+    ProfilePoolPtr pool = ProfilePool::GetInstance();
+    ProfilePtr profile;
 
-	EXEC_PRINT_MSG("Available users:\n");
-	for (int i = 0; i < pool->Size(); i++)
-	{
-		profile = (*pool)[i];
-		cnsl::InsertText("\t");
-		if (profile->username == g_env->username)
-			cnsl::InsertText(HIGHLIGHT_COLOR, profile->username.c_str());
-		else
-			cnsl::InsertText(profile->username.c_str());
-		cnsl::InsertNewLine();
-	}
+    EXEC_PRINT_MSG("Available users:\n");
+    for (int i = 0; i < pool->Size(); i++)
+    {
+        profile = (*pool)[i];
+        cnsl::InsertText("\t");
+        if (profile->username == g_env->username)
+            cnsl::InsertText(HIGHLIGHT_COLOR, profile->username.c_str());
+        else
+            cnsl::InsertText(profile->username.c_str());
+        cnsl::InsertNewLine();
+    }
 
-	return 0;
+    return 0;
 }
 
 int _branch_create(int argc, char* argv[])
 {
-	return ExecHost::GetInstance()->execv(EXEC_SERVICE, "profile", argv);
+    return ExecHost::GetInstance()->execv(EXEC_SERVICE, "profile", argv);
 }

@@ -24,8 +24,7 @@
 
 int exec_pwd(int argc, char* argv[])
 {
-	cnsl::InsertText("\t%s\n", g_pwd.c_str());
+    cnsl::InsertText("\t%s\n", g_pwd.c_str());
 
-	return 0;
+    return 0;
 }
-

@@ -24,7 +24,7 @@
 
 int exec_version(int argc, char* argv[])
 {
-	cnsl::InsertText(FOREGROUND_LIGHT(FOREGROUND_CYAN),
-					 "# Pash Host Version: %s\n", PASH_HOST_VERSION);
-	return 0;
+    cnsl::InsertText(FOREGROUND_LIGHT(FOREGROUND_CYAN),
+                     "# Pash Host Version: %s\n", PASH_HOST_VERSION);
+    return 0;
 }

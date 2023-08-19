@@ -26,51 +26,51 @@
 #define _CONSTANTS_H_
 
 // Size.
-const int PASH_BUFFER_SIZE = 1024;
+constexpr int PASH_BUFFER_SIZE = 1024;
 
-const int LOGGER_BUFFER_SIZE = PASH_BUFFER_SIZE;
-const int EXEC_BUFFER_SIZE   = PASH_BUFFER_SIZE;
+constexpr int LOGGER_BUFFER_SIZE = PASH_BUFFER_SIZE;
+constexpr int EXEC_BUFFER_SIZE = PASH_BUFFER_SIZE;
 
-const int PASSWORD_BUFFER_SIZE = 32;
-const int PASSWORD_MIN_LENGTH  = 6;
-const int PASSWORD_MAX_LENGTH  = 16;
+constexpr int PASSWORD_BUFFER_SIZE = 32;
+constexpr int PASSWORD_MIN_LENGTH = 6;
+constexpr int PASSWORD_MAX_LENGTH = 16;
 
-const int USERNAME_BUFFER_SIZE = 32;
-const int USERNAME_MIN_LENGTH  = 3;
-const int USERNAME_MAX_LENGTH  = 24;
+constexpr int USERNAME_BUFFER_SIZE = 32;
+constexpr int USERNAME_MIN_LENGTH = 3;
+constexpr int USERNAME_MAX_LENGTH = 24;
 
-const int EXEC_ARG_SIZE = 32;
+constexpr int EXEC_ARG_SIZE = 32;
 
 
 // XML tag identifier.
-const char GROUP_TAG[] = "Group";
-const char ITEM_TAG[]  = "Item";
-const char ENTRY_TAG[] = "Entry";
+constexpr char GROUP_TAG[] = "Group";
+constexpr char ITEM_TAG[] = "Item";
+constexpr char ENTRY_TAG[] = "Entry";
 
 
 // Special directory identifier.
-const char PARENT_DIR_NAME[] = "..";
-const char SELF_DIR_NAME[]   = ".";
-const char ROOT_DIR_NAME[]   = "./";
+constexpr char PARENT_DIR_NAME[] = "..";
+constexpr char SELF_DIR_NAME[] = ".";
+constexpr char ROOT_DIR_NAME[] = "./";
 
 
 // Working mode.
-const int MODE_IDLE = 0;	// not logged in
-const int MODE_PASH = 1;
-const int MODE_EDIT = 2;
+constexpr int MODE_IDLE = 0; // not logged in
+constexpr int MODE_PASH = 1;
+constexpr int MODE_EDIT = 2;
 
 // Local path.
-const char PASH_DIR[]        = R"(.pash\)";
-const char HELP_ROOT_DIR[]   = R"(manual\)";
+constexpr char PASH_DIR[] = R"(.pash\)";
+constexpr char HELP_ROOT_DIR[] = R"(manual\)";
 
-const char* const HELP_DIR[] = { R"(idle\)", R"(pash\)", R"(edit\)" };
+constexpr char* const HELP_DIR[] = {R"(idle\)", R"(pash\)", R"(edit\)"};
 
-const char CACHE_FILE[]   = "cache";
-const char CONFIG_FILE[]  = "config";
-const char DATA_FILE[]    = "data";
-const char PROFILE_FILE[] = ".profile";
+constexpr char CACHE_FILE[] = "cache";
+constexpr char CONFIG_FILE[] = "config";
+constexpr char DATA_FILE[] = "data";
+constexpr char PROFILE_FILE[] = ".profile";
 
 
-const int TERMINATION = 66;
+constexpr int TERMINATION = 66;
 
 #endif

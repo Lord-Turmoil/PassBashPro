@@ -24,7 +24,7 @@
 
 int exec_edit_more(int argc, char* argv[])
 {
-	_ShowItemSimple(_edit_item, true);
+    _ShowItemSimple(_edit_item, true);
 
-	return 0;
+    return 0;
 }

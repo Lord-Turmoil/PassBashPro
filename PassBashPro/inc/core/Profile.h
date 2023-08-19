@@ -33,40 +33,40 @@
 
 struct Profile
 {
-	std::string username;
-	
-	std::string path;	// root path of a user
+    std::string username;
 
-	Profile(const std::string& _username, const std::string& _path)
-		: username(_username), path(_path)
-	{
-	}
+    std::string path; // root path of a user
+
+    Profile(const std::string& _username, const std::string& _path)
+        : username(_username), path(_path)
+    {
+    }
 };
 
-typedef std::shared_ptr<Profile> ProfilePtr;
+using ProfilePtr = std::shared_ptr<Profile>;
 
 class ProfilePool : public Singleton<ProfilePool>
 {
-	friend class Singleton<ProfilePool>;
+    friend class Singleton<ProfilePool>;
 
 public:
-	bool Add(ProfilePtr profile);
-	bool Remove(const std::string& username);
-	void Clear();
-	bool IsEmpty();
-	int Size();
+    bool Add(ProfilePtr profile);
+    bool Remove(const std::string& username);
+    void Clear();
+    bool IsEmpty();
+    int Size();
 
-	ProfilePtr Get(const std::string& username);
+    ProfilePtr Get(const std::string& username);
 
-	ProfilePtr operator[](size_t id)
-	{
-		return m_profiles[id];
-	}
+    ProfilePtr operator[](size_t id)
+    {
+        return m_profiles[id];
+    }
 
 private:
-	std::vector<ProfilePtr> m_profiles;
+    std::vector<ProfilePtr> m_profiles;
 };
 
-typedef ProfilePool* ProfilePoolPtr;
+using ProfilePoolPtr = ProfilePool*;
 
 #endif

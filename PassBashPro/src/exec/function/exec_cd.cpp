@@ -26,45 +26,45 @@ static XMLElementPtr last_dir = nullptr;
 
 static int _cd_usage()
 {
-	return ExecHost::GetInstance()
-		->execl(EXEC_GLOBAL, "help", "help", "cd", nullptr);
+    return ExecHost::GetInstance()
+        ->execl(EXEC_GLOBAL, "help", "help", "cd", nullptr);
 }
 
 static int _cd_parse_arg(int argc, char* argv[], std::string& path)
 {
-	return _ParseArgs(argc, argv, path);
+    return _ParseArgs(argc, argv, path);
 }
 
 int exec_cd(int argc, char* argv[])
 {
-	std::string path(SELF_DIR_NAME);
+    std::string path(SELF_DIR_NAME);
 
-	if (_cd_parse_arg(argc, argv, path) != 0)
-	{
-		_cd_usage();
-		return 1;
-	}
+    if (_cd_parse_arg(argc, argv, path) != 0)
+    {
+        _cd_usage();
+        return 1;
+    }
 
-	XMLElementPtr node;
-	if (path == "-")
-		node = last_dir;
-	else
-		node = PashDocUtil::GetNodeByPath(path);
+    XMLElementPtr node;
+    if (path == "-")
+        node = last_dir;
+    else
+        node = PashDocUtil::GetNodeByPath(path);
 
-	if (!node)
-	{
-		EXEC_PRINT_ERR("Group doesn't exist!\n");
-		return false;
-	}
-	if (!PashDocUtil::IsGroup(node))
-	{
-		EXEC_PRINT_ERR("You can only enter a group!\n");
-		_cd_usage();
-		return false;
-	}
+    if (!node)
+    {
+        EXEC_PRINT_ERR("Group doesn't exist!\n");
+        return false;
+    }
+    if (!PashDocUtil::IsGroup(node))
+    {
+        EXEC_PRINT_ERR("You can only enter a group!\n");
+        _cd_usage();
+        return false;
+    }
 
-	last_dir = g_doc.SetCurrent(node);
-	PashDocUtil::GetPresentWorkingDirectory(g_pwd);
+    last_dir = g_doc.SetCurrent(node);
+    PashDocUtil::GetPresentWorkingDirectory(g_pwd);
 
-	return 0;
+    return 0;
 }

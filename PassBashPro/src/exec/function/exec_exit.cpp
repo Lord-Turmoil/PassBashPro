@@ -24,5 +24,5 @@
 
 int exec_exit(int argc, char* argv[])
 {
-	return TERMINATION;
+    return TERMINATION;
 }

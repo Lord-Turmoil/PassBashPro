@@ -24,12 +24,12 @@
 
 int exec_unknown(int argc, char* argv[])
 {
-	if (argc == 2)
-		EXEC_PRINT_ERR("\"%s\" is not a command.\n", argv[1]);
-	else
-		EXEC_PRINT_ERR("Command not recognized.\n");
+    if (argc == 2)
+        EXEC_PRINT_ERR("\"%s\" is not a command.\n", argv[1]);
+    else
+        EXEC_PRINT_ERR("Command not recognized.\n");
 
-	EXEC_PRINT_MSG("Use \"help\" for more information.\n");
+    EXEC_PRINT_MSG("Use \"help\" for more information.\n");
 
-	return 0;
+    return 0;
 }

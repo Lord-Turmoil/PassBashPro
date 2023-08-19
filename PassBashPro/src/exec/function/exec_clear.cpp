@@ -24,6 +24,6 @@
 
 int exec_clear(int argc, char* argv[])
 {
-	cnsl::Clear();
-	return 0;
+    cnsl::Clear();
+    return 0;
 }

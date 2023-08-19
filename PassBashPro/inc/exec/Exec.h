@@ -26,16 +26,16 @@
 #define _EXEC_H_
 
 
-typedef int (*Exec)(int, char* []);
+using Exec = int(*)(int, char*[]);
 
 
 // Identifiers for different executable factories.
-const char EXEC_IDLE[]   = "offline";
-const char EXEC_GLOBAL[] = "global";
-const char EXEC_EDIT[]   = "editor";
-const char EXEC_HIDDEN[] = "hidden";
-const char EXEC_SERVICE[] = "service";
+constexpr char EXEC_IDLE[] = "offline";
+constexpr char EXEC_GLOBAL[] = "global";
+constexpr char EXEC_EDIT[] = "editor";
+constexpr char EXEC_HIDDEN[] = "hidden";
+constexpr char EXEC_SERVICE[] = "service";
 
-const char* const MODE_TO_EXEC[] = { EXEC_IDLE, EXEC_GLOBAL, EXEC_EDIT };
+constexpr char* const MODE_TO_EXEC[] = {EXEC_IDLE, EXEC_GLOBAL, EXEC_EDIT};
 
 #endif

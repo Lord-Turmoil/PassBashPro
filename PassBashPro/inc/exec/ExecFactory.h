@@ -38,16 +38,16 @@
 class ExecFactory
 {
 public:
-	int Hook(const char* descr, Exec exec);
-	int UnHook(const char* descr, Exec exec);
+    int Hook(const char* descr, Exec exec);
+    int UnHook(const char* descr, Exec exec);
 
-	Exec Get(const char* descr);
+    Exec Get(const char* descr);
 
 private:
-	std::unordered_map<std::string, Exec> m_records;
+    std::unordered_map<std::string, Exec> m_records;
 };
 
-typedef std::shared_ptr<ExecFactory> ExecFactoryPtr;
+using ExecFactoryPtr = std::shared_ptr<ExecFactory>;
 
 
 #endif

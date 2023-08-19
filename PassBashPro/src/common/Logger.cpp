@@ -38,74 +38,74 @@ static LoggerStatus status = LoggerStatus::GOOD;
 
 void Logger::LogError(const char* func, const char* format, ...)
 {
-	va_list args;
-	va_start(args, format);
-	if (func)
-	{
-		sprintf_s(_format, "In %s: %s", func, format);
-		vsprintf_s(m_buffer, _format, args);
-	}
-	else
-		vsprintf_s(m_buffer, format, args);
+    va_list args;
+    va_start(args, format);
+    if (func)
+    {
+        sprintf_s(_format, "In %s: %s", func, format);
+        vsprintf_s(m_buffer, _format, args);
+    }
+    else
+        vsprintf_s(m_buffer, format, args);
 
-	va_end(args);
+    va_end(args);
 
-	m_logs.push_back(m_buffer);
-	status = LoggerStatus::BAD;
+    m_logs.push_back(m_buffer);
+    status = LoggerStatus::BAD;
 }
 
 void Logger::ClearErrors()
 {
-	m_logs.clear();
-	status = LoggerStatus::GOOD;
+    m_logs.clear();
+    status = LoggerStatus::GOOD;
 }
 
 void Logger::PrintErrors()
 {
-	WORD old = cnsl::SetTextForeground(FOREGROUND_RED);
+    WORD old = cnsl::SetTextForeground(FOREGROUND_RED);
 
-	cnsl::InsertHeaderLine("Error Log", '_');
-	for (auto it = m_logs.rbegin(); it != m_logs.rend(); it++)
-		cnsl::InsertText("\t%s\n", it->c_str());
-	cnsl::InsertSplitLine('_');
+    cnsl::InsertHeaderLine("Error Log", '_');
+    for (auto it = m_logs.rbegin(); it != m_logs.rend(); ++it)
+        cnsl::InsertText("\t%s\n", it->c_str());
+    cnsl::InsertSplitLine('_');
 
-	cnsl::SetTextForeground(old);
+    cnsl::SetTextForeground(old);
 }
 
 void Logger::LogMessage(const char* func, const char* format, ...)
 {
-	va_list args;
-	va_start(args, format);
-	if (func)
-	{
-		sprintf_s(_format, "In %s: %s", func, format);
-		vsprintf_s(m_buffer, _format, args);
-	}
-	else
-		vsprintf_s(m_buffer, format, args);
-	va_end(args);
+    va_list args;
+    va_start(args, format);
+    if (func)
+    {
+        sprintf_s(_format, "In %s: %s", func, format);
+        vsprintf_s(m_buffer, _format, args);
+    }
+    else
+        vsprintf_s(m_buffer, format, args);
+    va_end(args);
 
-	m_msgs.push_back(m_buffer);
+    m_msgs.push_back(m_buffer);
 }
 
 void Logger::ClearMessages()
 {
-	m_msgs.clear();
+    m_msgs.clear();
 }
 
 void Logger::PrintMessages()
 {
-	WORD old = cnsl::SetTextForeground(FOREGROUND_LIGHT(FOREGROUND_MAGENTA));
+    WORD old = cnsl::SetTextForeground(FOREGROUND_LIGHT(FOREGROUND_MAGENTA));
 
-	cnsl::InsertHeaderLine("Message Log", '_');
-	for (auto it = m_msgs.rbegin(); it != m_msgs.rend(); it++)
-		cnsl::InsertText("\t%s\n", it->c_str());
-	cnsl::InsertSplitLine('_');
+    cnsl::InsertHeaderLine("Message Log", '_');
+    for (auto it = m_msgs.rbegin(); it != m_msgs.rend(); ++it)
+        cnsl::InsertText("\t%s\n", it->c_str());
+    cnsl::InsertSplitLine('_');
 
-	cnsl::SetTextForeground(old);
+    cnsl::SetTextForeground(old);
 }
 
 bool Logger::Good()
 {
-	return status == LoggerStatus::GOOD;
+    return status == LoggerStatus::GOOD;
 }

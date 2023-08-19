@@ -31,25 +31,30 @@
 
 class ExecHost : public Singleton<ExecHost>
 {
-	friend class Singleton<ExecHost>;
+    friend class Singleton<ExecHost>;
 
 public:
-	int Register(const char* descr, ExecFactoryPtr factory);
-	int UnRegister(const char* descr);
+    int Register(const char* descr, ExecFactoryPtr factory);
+    int UnRegister(const char* descr);
 
-	ExecFactoryPtr GetFactory(const char* descr);
+    ExecFactoryPtr GetFactory(const char* descr);
 
-	// ends with nullptr
-	int execl(const char* descr, const char* cmd, ...);
+    // ends with nullptr
+    int execl(const char* descr, const char* cmd, ...);
 
-	// ends with nullptr
-	int execv(const char* descr, const char* cmd, char* argv[]);
+    // ends with nullptr
+    int execv(const char* descr, const char* cmd, char* argv[]);
 
 private:
-	ExecHost() {}
-	~ExecHost() {}
+    ExecHost()
+    {
+    }
 
-	std::unordered_map<std::string, ExecFactoryPtr> m_pool;
+    ~ExecHost() override
+    {
+    }
+
+    std::unordered_map<std::string, ExecFactoryPtr> m_pool;
 };
 
 #endif

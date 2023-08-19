@@ -26,20 +26,20 @@ static int _set_usage();
 
 int exec_edit_set(int argc, char* argv[])
 {
-	const char* params[3] = { nullptr, nullptr, "-1" };
-	int ret = _edit_parse_params(argv[1], 3, params);
+    const char* params[3] = {nullptr, nullptr, "-1"};
+    int ret = _edit_parse_params(argv[1], 3, params);
 
-	if (ret < 2 || ret > 3)
-	{
-		_set_usage();
-		return 1;
-	}
+    if (ret < 2 || ret > 3)
+    {
+        _set_usage();
+        return 1;
+    }
 
-	return _set_entry(params[0], params[1], params[2]);
+    return _set_entry(params[0], params[1], params[2]);
 }
 
 static int _set_usage()
 {
-	return ExecHost::GetInstance()
-		->execl(EXEC_EDIT, "help", "help", "set", nullptr);
+    return ExecHost::GetInstance()
+        ->execl(EXEC_EDIT, "help", "help", "set", nullptr);
 }

@@ -23,9 +23,9 @@
 #include "../../../inc/exec/editor/EditorHeader.h"
 
 const char EDIT_IGNORE[] = "|";
-const int  EDIT_KEY_MAX_LENGTH = 30;
-const int  EDIT_VALUE_MAX_LENGTH = 45;
-const int  EDIT_WEIGHT_MAX_LENGTH = 9;
+const int EDIT_KEY_MAX_LENGTH = 30;
+const int EDIT_VALUE_MAX_LENGTH = 45;
+const int EDIT_WEIGHT_MAX_LENGTH = 9;
 
 XMLElementPtr _edit_item;
 std::string _edit_item_path;
@@ -35,78 +35,78 @@ static int _edit_host_parse_arg(int argc, char* argv[]);
 
 int exec_edit_host(int argc, char* argv[])
 {
-	// Get Item to edit.
-	if (_edit_host_parse_arg(argc, argv) != 0)
-	{
-		EXEC_PRINT_ERR("Pash Editor parameter error!\n");
-		return 1;
-	}
+    // Get Item to edit.
+    if (_edit_host_parse_arg(argc, argv) != 0)
+    {
+        EXEC_PRINT_ERR("Pash Editor parameter error!\n");
+        return 1;
+    }
 
-	// clear previous history
-	_edit_history.Clear();
-	
-	int old_mode = g_mode;
-	g_mode = MODE_EDIT;
+    // clear previous history
+    _edit_history.Clear();
 
-	_edit_print_header(true);
+    int old_mode = g_mode;
+    g_mode = MODE_EDIT;
 
-	// main loop
-	ExecHost* host = ExecHost::GetInstance();
-	char buffer[PASH_BUFFER_SIZE + 4];
-	int ret;
-	PashDocUtil::GetNodeDirectory(_edit_item, _edit_item_path);
+    _edit_print_header(true);
 
-	cnsl::InputOptions options(0, PASH_BUFFER_SIZE, 0, true);
-	options.history = &_edit_history;
+    // main loop
+    ExecHost* host = ExecHost::GetInstance();
+    char buffer[PASH_BUFFER_SIZE + 4];
+    int ret;
+    PashDocUtil::GetNodeDirectory(_edit_item, _edit_item_path);
 
-	_edit_print_prompt();
-	while ((ret = cnsl::GetString(buffer, options)) != -1)
-	{
-		cnsl::InsertNewLine();
-		if (ret > 0)
-		{
-			char* cmd = strstrip(buffer);
-			char* type;
-			char* arg;
-			_edit_parse_cmd(cmd, &type, &arg);
+    cnsl::InputOptions options(0, PASH_BUFFER_SIZE, 0, true);
+    options.history = &_edit_history;
 
-			type = strtolower(type);
-			int ret = host->execl(EXEC_EDIT, type, type, arg, nullptr);
-			if (ret == -1)
-				host->execl(EXEC_HIDDEN, "edit_unk", "edit_unk", type, nullptr);
-			else if (ret == TERMINATION)
-				break;
-			else if (ret != 0)
-			{
-				LOG_ERROR("Editor \"%s\" -- Error Code: %d", type, ret);
-				if (ret == -TERMINATION)
-				{
-					EXEC_PRINT_ERR("Pash Editor encountered critical error!\n");
-					break;
-				}
-			}
-		}
+    _edit_print_prompt();
+    while ((ret = GetString(buffer, options)) != -1)
+    {
+        cnsl::InsertNewLine();
+        if (ret > 0)
+        {
+            char* cmd = strstrip(buffer);
+            char* type;
+            char* arg;
+            _edit_parse_cmd(cmd, &type, &arg);
 
-		_edit_print_prompt();
-	}
+            type = strtolower(type);
+            int ret = host->execl(EXEC_EDIT, type, type, arg, nullptr);
+            if (ret == -1)
+                host->execl(EXEC_HIDDEN, "edit_unk", "edit_unk", type, nullptr);
+            else if (ret == TERMINATION)
+                break;
+            else if (ret != 0)
+            {
+                LOG_ERROR("Editor \"%s\" -- Error Code: %d", type, ret);
+                if (ret == -TERMINATION)
+                {
+                    EXEC_PRINT_ERR("Pash Editor encountered critical error!\n");
+                    break;
+                }
+            }
+        }
 
-	_edit_print_footer();
+        _edit_print_prompt();
+    }
 
-	g_mode = old_mode;
+    _edit_print_footer();
 
-	return 0;
+    g_mode = old_mode;
+
+    return 0;
 }
 
 static int _edit_host_parse_arg(int argc, char* argv[])
 {
-	if (argc != 2)
-		return 1;
+    if (argc != 2)
+        return 1;
 
-	_edit_item_path = argv[1];
-	_edit_item = PashDocUtil::GetNodeByPath(_edit_item_path);
+    _edit_item_path = argv[1];
+    _edit_item = PashDocUtil::GetNodeByPath(_edit_item_path);
 
-	if (!_edit_item)
-		return 2;
+    if (!_edit_item)
+        return 2;
 
-	return 0;
+    return 0;
 }

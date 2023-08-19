@@ -24,18 +24,15 @@
 
 int srv_save(int argc, char* argv[])
 {
-	if (g_doc.Save(g_env))
-	{
-		EXEC_PRINT_MSG("Password successfully saved!\n");
-		return 0;
-	}
-	else
-	{
-		LOG_ERROR("Failed to save password");
+    if (g_doc.Save(g_env))
+    {
+        EXEC_PRINT_MSG("Password successfully saved!\n");
+        return 0;
+    }
+    LOG_ERROR("Failed to save password");
 
-		EXEC_PRINT_ERR("Failed to save password!\n");
-		// EXEC_PRINT_ERR("No possible solution!\n");
+    EXEC_PRINT_ERR("Failed to save password!\n");
+    // EXEC_PRINT_ERR("No possible solution!\n");
 
-		return 1;
-	}
+    return 1;
 }

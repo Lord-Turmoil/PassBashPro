@@ -34,30 +34,32 @@
 
 enum class LoggerStatus
 {
-	GOOD,
-	BAD
+    GOOD,
+    BAD
 };
 
 
 class Logger
 {
 public:
-	static void LogError(const char* func, const char* format, ...);
-	static void ClearErrors();
-	static void PrintErrors();
+    static void LogError(const char* func, const char* format, ...);
+    static void ClearErrors();
+    static void PrintErrors();
 
-	static void LogMessage(const char* func, const char* format, ...);
-	static void ClearMessages();
-	static void PrintMessages();
+    static void LogMessage(const char* func, const char* format, ...);
+    static void ClearMessages();
+    static void PrintMessages();
 
-	static bool Good();
+    static bool Good();
 
 private:
-	Logger() {}
+    Logger()
+    {
+    }
 
-	static std::vector<std::string> m_logs;
-	static std::vector<std::string> m_msgs;
-	static char m_buffer[LOGGER_BUFFER_SIZE];
+    static std::vector<std::string> m_logs;
+    static std::vector<std::string> m_msgs;
+    static char m_buffer[LOGGER_BUFFER_SIZE];
 };
 
 

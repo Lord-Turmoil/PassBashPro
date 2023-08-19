@@ -31,25 +31,24 @@ static char _cmd[] = "help";
 
 int exec_edit_help(int argc, char* argv[])
 {
-	if (argc != 2)
-	{
-		EXEC_PRINT_ERR(ERRMSG_ILLEGAL "\n");
-		return 1;
-	}
+    if (argc != 2)
+    {
+        EXEC_PRINT_ERR(ERRMSG_ILLEGAL "\n");
+        return 1;
+    }
 
-	char* context = nullptr;
-	char* token;
-	strcpy_s(_buffer, argv[1]);
-	_argc = 0;
-	_argv[_argc++] = _cmd;
-	token = strtok_s(_buffer, " ", &context);
-	while (token)
-	{
-		_argv[_argc++] = token;
-		token = strtok_s(nullptr, " ", &context);
-	}
-	_argv[_argc] = nullptr;
+    char* context = nullptr;
+    char* token;
+    strcpy_s(_buffer, argv[1]);
+    _argc = 0;
+    _argv[_argc++] = _cmd;
+    token = strtok_s(_buffer, " ", &context);
+    while (token)
+    {
+        _argv[_argc++] = token;
+        token = strtok_s(nullptr, " ", &context);
+    }
+    _argv[_argc] = nullptr;
 
-	return ExecHost::GetInstance()->execv(EXEC_GLOBAL, _cmd, _argv);
+    return ExecHost::GetInstance()->execv(EXEC_GLOBAL, _cmd, _argv);
 }
-

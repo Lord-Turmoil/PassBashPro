@@ -26,20 +26,20 @@ static void _setw_usage();
 
 int exec_edit_setw(int argc, char* argv[])
 {
-	const char* params[2] = { nullptr, nullptr };
-	int ret = _edit_parse_params(argv[1], 2, params);
+    const char* params[2] = {nullptr, nullptr};
+    int ret = _edit_parse_params(argv[1], 2, params);
 
-	if (ret != 2)
-	{
-		_setw_usage();
-		return 1;
-	}
+    if (ret != 2)
+    {
+        _setw_usage();
+        return 1;
+    }
 
-	return _set_weight(params[0], params[1]);
+    return _set_weight(params[0], params[1]);
 }
 
 static void _setw_usage()
 {
-	ExecHost::GetInstance()
-		->execl(EXEC_EDIT, "help", "help", "setw", nullptr);
+    ExecHost::GetInstance()
+        ->execl(EXEC_EDIT, "help", "help", "setw", nullptr);
 }

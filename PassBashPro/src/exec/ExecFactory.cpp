@@ -25,40 +25,39 @@
 
 int ExecFactory::Hook(const char* descr, Exec exec)
 {
-	if (!descr)
-		return -1;
+    if (!descr)
+        return -1;
 
-	auto ret = m_records.emplace(descr, exec);
-	if (ret.second)
-		return 0;
-	else
-		return 1;	// already exists
+    auto ret = m_records.emplace(descr, exec);
+    if (ret.second)
+        return 0;
+    return 1;
+    // already exists
 }
 
 // If descr is nullptr, all contents will be cleared.
 int ExecFactory::UnHook(const char* descr, Exec exec)
 {
-	if (!descr)
-	{
-		m_records.clear();
-		return 0;
-	}
+    if (!descr)
+    {
+        m_records.clear();
+        return 0;
+    }
 
-	// returns number of elements removed
-	if (m_records.erase(descr))
-		return 0;
-	else
-		return -1;
+    // returns number of elements removed
+    if (m_records.erase(descr))
+        return 0;
+    return -1;
 }
 
 Exec ExecFactory::Get(const char* descr)
 {
-	if (!descr)
-		return nullptr;
+    if (!descr)
+        return nullptr;
 
-	auto ret = m_records.find(descr);
-	if (ret == m_records.end())	// no such executable.
-		return nullptr;
+    auto ret = m_records.find(descr);
+    if (ret == m_records.end()) // no such executable.
+        return nullptr;
 
-	return ret->second;
+    return ret->second;
 }

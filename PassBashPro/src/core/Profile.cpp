@@ -25,52 +25,52 @@
 
 bool ProfilePool::Add(ProfilePtr profile)
 {
-	for (auto& it : m_profiles)
-	{
-		if (it->username == profile->username)
-			return false;
-	}
-	m_profiles.emplace_back(profile);
+    for (auto& it : m_profiles)
+    {
+        if (it->username == profile->username)
+            return false;
+    }
+    m_profiles.emplace_back(profile);
 
-	return true;
+    return true;
 }
 
 bool ProfilePool::Remove(const std::string& username)
 {
-	for (auto it = m_profiles.begin(); it != m_profiles.end(); it++)
-	{
-		if ((*it)->username == username)
-		{
-			m_profiles.erase(it);
-			return true;
-		}
-	}
+    for (auto it = m_profiles.begin(); it != m_profiles.end(); ++it)
+    {
+        if ((*it)->username == username)
+        {
+            m_profiles.erase(it);
+            return true;
+        }
+    }
 
-	return false;
+    return false;
 }
 
 void ProfilePool::Clear()
 {
-	m_profiles.clear();
+    m_profiles.clear();
 }
 
 bool ProfilePool::IsEmpty()
 {
-	return m_profiles.empty();
+    return m_profiles.empty();
 }
 
 int ProfilePool::Size()
 {
-	return (int)m_profiles.size();
+    return static_cast<int>(m_profiles.size());
 }
 
 ProfilePtr ProfilePool::Get(const std::string& username)
 {
-	for (auto it : m_profiles)
-	{
-		if (it->username == username)
-			return it;
-	}
+    for (auto it : m_profiles)
+    {
+        if (it->username == username)
+            return it;
+    }
 
-	return nullptr;
+    return nullptr;
 }
