@@ -56,7 +56,7 @@ const int VAR_SIZE = 10;
 std::vector<std::string> g_var(VAR_SIZE, "");
 
 // Versions.
-const char PASH_HOST_VERSION[] = "3.6.1";
+const char PASH_HOST_VERSION[] = "3.6.2";
 const char PASH_EDITOR_VERSION[] = "2.1.3";
 
 // Working mode.
