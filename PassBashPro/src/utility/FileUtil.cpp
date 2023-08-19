@@ -145,10 +145,30 @@ bool FileUtil::CopyFileToNew(const char* src, const char* dst, bool overwrite)
     widen(w_dst, dst);
 
     int ret = CopyFile(w_src, w_dst, !overwrite);
-    if (ret == 0) // failed
+
+    delete[] w_src;
+    delete[] w_dst;
+
+    return ret;
+}
+
+bool FileUtil::MoveFileToNew(const char* src, const char* dst)
+{
+    if (!Exists(src))
         return false;
 
-    return true;
+    auto w_src = new wchar_t[strlen(src) + 4];
+    auto w_dst = new wchar_t[strlen(dst) + 4];
+
+    widen(w_src, src);
+    widen(w_dst, dst);
+
+    int ret = MoveFile(w_src, w_dst);
+
+    delete[] w_src;
+    delete[] w_dst;
+
+    return ret;
 }
 
 bool FileUtil::GetFiles(const char* path,

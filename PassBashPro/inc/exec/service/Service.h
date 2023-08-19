@@ -50,4 +50,6 @@ int srv_export(int argc, char* argv[]);
 
 int srv_git(int argc, char* argv[]);
 
+int srv_archive(int argc, char* argv[]);
+
 #endif

@@ -82,6 +82,7 @@ static void _InitService()
     HOOK(factory, "export", srv_export);
     HOOK(factory, "save", srv_save);
     HOOK(factory, "git", srv_git);
+    HOOK(factory, "archive", srv_archive);
 
     ExecHost::GetInstance()->Register(EXEC_SERVICE, factory);
 }
@@ -137,6 +138,8 @@ static void _InitGlobal()
     HOOK(factory, "encrypt", exec_tea);
     HOOK(factory, "generate", exec_gen);
     HOOK(factory, "gen", exec_gen);
+    HOOK(factory, "archive", exec_archive);
+    HOOK(factory, "arv", exec_archive);
 
 #if PASH_CHEAT
     HOOK(factory, "order", exec_order);

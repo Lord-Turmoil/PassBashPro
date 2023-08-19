@@ -99,6 +99,9 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\utility\FileUtil.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -180,9 +183,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\utility\ExecUtil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="inc\utility\FileUtil.h">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\exec\editor\exec_edit_clear.cpp">
@@ -324,6 +324,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\exec\function\exec_archive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exec\service\srv_archive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

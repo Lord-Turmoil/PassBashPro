@@ -50,6 +50,7 @@ public:
     static bool DeletePath(const wchar_t* path);
 
     static bool CopyFileToNew(const char* src, const char* dst, bool overwrite = true);
+    static bool MoveFileToNew(const char* src, const char* dst);
 
     static bool GetFiles(const char* path,
                          std::vector<std::string>* files,

@@ -361,7 +361,7 @@ int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color
 
 bool _IsSensitive(const char* descr)
 {
-    static constexpr char* const SENSITIVE_PATTERN[] = {
+    static const char* const SENSITIVE_PATTERN[] = {
         ".*password.*",
         ".*pwd.*",
         ".*pin.*"

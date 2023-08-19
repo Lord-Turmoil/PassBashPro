@@ -179,7 +179,7 @@
   <ItemGroup>
     <ClCompile Include="inc\exec\editor\EditorHeader.h" />
     <ClCompile Include="inc\exec\service\ServiceHeader.h" />
-    <ClCompile Include="inc\utility\FileUtil.h" />
+    <ClInclude Include="inc\utility\FileUtil.h" />
     <ClCompile Include="src\common\Error.cpp" />
     <ClCompile Include="src\core\Global.cpp" />
     <ClCompile Include="src\core\Profile.cpp" />
@@ -214,6 +214,7 @@
     <ClCompile Include="src\exec\function\exec_tea.cpp" />
     <ClCompile Include="src\exec\function\exec_unknown.cpp" />
     <ClCompile Include="src\exec\service\ServiceAux.cpp" />
+    <ClCompile Include="src\exec\service\srv_archive.cpp" />
     <ClCompile Include="src\exec\service\srv_checkout.cpp" />
     <ClCompile Include="src\exec\service\srv_export.cpp" />
     <ClCompile Include="src\exec\service\srv_git.cpp" />

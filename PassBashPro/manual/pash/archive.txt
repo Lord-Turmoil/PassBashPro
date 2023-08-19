@@ -1,0 +1,19 @@
+  archive [-o -r] src dst
+
+--------------------------------------------------------------------------------
+
+Alias:
+  archive, arv
+
+Description:
+  Archive files to git repository.
+
+Hint:
+  -o  --  Extract archive file out from git repository.
+  
+  -r  --  Remove original file after archive or extract.
+
+Note:
+  If no parameters given, it will list all archived files.
+
+  If -o is not assigned, then it will archive file into git repository.
