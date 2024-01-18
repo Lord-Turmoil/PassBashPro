@@ -87,8 +87,20 @@ int srv_git(int argc, char* argv[])
     tea::TEABufferWriter writer(cmd);
     for (int i = 0; i < argc; i++)
     {
-        writer.Write(argv[i], strlen(argv[i]));
-        writer.Write(" ", 1);
+        if (i != 0)
+        {
+            writer.Write(" ", 1);
+        }
+        if (strchr(argv[i], ' ') != nullptr)
+        {
+            writer.Write("\"", 1);
+            writer.Write(argv[i], strlen(argv[i]));
+            writer.Write("\"", 1);
+        }
+        else
+        {
+            writer.Write(argv[i], strlen(argv[i]));
+        }
     }
     writer.Close();
 
