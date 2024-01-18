@@ -33,25 +33,30 @@ bool PashDocUtil::IsGroup(XMLElementPtr node)
     return _STR_SAME(node->Name(), GROUP_TAG);
 }
 
+
 bool PashDocUtil::IsItem(XMLElementPtr node)
 {
     return _STR_SAME(node->Name(), ITEM_TAG);
 }
+
 
 const char* PashDocUtil::GetNodeAttr(XMLElementPtr node, const char* attr)
 {
     return node->Attribute(attr);
 }
 
+
 const char* PashDocUtil::GetNodeName(XMLElementPtr node)
 {
     return GetNodeAttr(node, "name");
 }
 
+
 XMLElementPtr PashDocUtil::GetParentNode(XMLElementPtr node)
 {
     return node->Parent()->ToElement();
 }
+
 
 bool PashDocUtil::IsLegalNodeName(const std::string& name)
 {
@@ -66,16 +71,19 @@ XMLElementPtr PashDocUtil::CreateNode(const char* tag)
     return g_doc.NewElement(tag);
 }
 
+
 void PashDocUtil::DeleteNode(XMLElementPtr node)
 {
     g_doc.DeleteElement(node);
 }
+
 
 XMLElementPtr PashDocUtil::AddChildNode(XMLElementPtr node, XMLElementPtr child)
 {
     node->InsertEndChild(child);
     return child;
 }
+
 
 const char* PashDocUtil::GetNodeDirectory(XMLElementPtr node, std::string& path)
 {
@@ -101,6 +109,7 @@ const char* PashDocUtil::GetNodeDirectory(XMLElementPtr node, std::string& path)
 
     return path.c_str();
 }
+
 
 const char* PashDocUtil::GetPresentWorkingDirectory(std::string& path)
 {
@@ -131,6 +140,7 @@ XMLElementPtr PashDocUtil::GetDirectChildNode(XMLElementPtr node, const char* na
     return nullptr;
 }
 
+
 bool PashDocUtil::GetChildren(XMLElementPtr node, XMLElementPtrList& nodes)
 {
     nodes.clear();
@@ -149,6 +159,7 @@ bool PashDocUtil::GetChildren(XMLElementPtr node, XMLElementPtrList& nodes)
 
     return true;
 }
+
 
 XMLElementPtr PashDocUtil::GetNodeByPath(const std::string& path)
 {
@@ -190,6 +201,7 @@ XMLElementPtr PashDocUtil::GetNodeByPath(const std::string& path)
     return node;
 }
 
+
 XMLElementPtr PashDocUtil::GetChildNodeByPath(const std::string& path)
 {
     XMLElementPtr current = g_doc.GetCurrent();
@@ -199,6 +211,7 @@ XMLElementPtr PashDocUtil::GetChildNodeByPath(const std::string& path)
         return child;
     return nullptr;
 }
+
 
 XMLElementPtr PashDocUtil::GetOrCreateChildNode(XMLElementPtr node, const char* tag, const char* name)
 {
@@ -213,6 +226,7 @@ XMLElementPtr PashDocUtil::GetOrCreateChildNode(XMLElementPtr node, const char* 
     return child;
 }
 
+
 void PashDocUtil::DeleteChildNode(XMLElementPtr node, const char* name)
 {
     XMLElementPtr child = GetDirectChildNode(node, name);
@@ -220,10 +234,12 @@ void PashDocUtil::DeleteChildNode(XMLElementPtr node, const char* name)
         DeleteNode(child);
 }
 
+
 void PashDocUtil::DeleteChildren(XMLElementPtr node)
 {
     node->DeleteChildren();
 }
+
 
 bool PashDocUtil::IsParent(XMLElementPtr parent, XMLElementPtr child)
 {
@@ -241,6 +257,7 @@ bool PashDocUtil::IsParent(XMLElementPtr parent, XMLElementPtr child)
 
     return false;
 }
+
 
 void PashDocUtil::GetBaseName(const std::string& path, std::string& name)
 {
@@ -265,6 +282,7 @@ void PashDocUtil::GetBaseName(const std::string& path, std::string& name)
         }
     }
 }
+
 
 void PashDocUtil::GetParentPath(const std::string& path, std::string& name)
 {
@@ -322,6 +340,7 @@ XMLElementPtr PashDocUtil::CreateGroupNodeByPath(const std::string& path)
 
     return node;
 }
+
 
 bool PashDocUtil::GetGroupChildren(XMLElementPtr node, XMLElementPtrList& nodes)
 {
@@ -427,6 +446,7 @@ bool PashDocUtil::GetEntry(XMLElementPtr node, const char* key, Entry* entry)
     return false;
 }
 
+
 bool PashDocUtil::GetEntries(XMLElementPtr node, EntryList& entries)
 {
     if (!IsItem(node))
@@ -453,6 +473,7 @@ bool PashDocUtil::GetEntries(XMLElementPtr node, EntryList& entries)
     return true;
 }
 
+
 XMLElementPtr PashDocUtil::GetEntryNode(XMLElementPtr node, const char* key)
 {
     if (!IsItem(node))
@@ -469,6 +490,7 @@ XMLElementPtr PashDocUtil::GetEntryNode(XMLElementPtr node, const char* key)
     return p;
 }
 
+
 XMLElementPtr PashDocUtil::GetEntryNode(XMLElementPtr node, int id)
 {
     if (!IsItem(node))
@@ -482,6 +504,7 @@ XMLElementPtr PashDocUtil::GetEntryNode(XMLElementPtr node, int id)
         return GetEntryNode(node, list[id].key);
     return nullptr;
 }
+
 
 XMLElementPtr PashDocUtil::GetOrCreateEntryNode(XMLElementPtr node, const char* key)
 {
@@ -498,6 +521,7 @@ XMLElementPtr PashDocUtil::GetOrCreateEntryNode(XMLElementPtr node, const char* 
 
     return p;
 }
+
 
 // If exists, it will override current one.
 bool PashDocUtil::SetEntry(XMLElementPtr node, const Entry& entry)

@@ -103,6 +103,7 @@ int _ParseOptionalArgs(int argc, char* argv[], std::string& _1)
     return 0;
 }
 
+
 int _ParseArgs(int argc, char* argv[], std::string& _1)
 {
     int opt;
@@ -261,7 +262,7 @@ int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
     int id = 0;
     auto hidden = "******";
     const char* value;
-    constexpr WORD ENTRY_COLOR[2] = {FOREGROUND_WHITE, FOREGROUND_LIGHT(FOREGROUND_WHITE)};
+    constexpr WORD ENTRY_COLOR[2] = { FOREGROUND_WHITE, FOREGROUND_LIGHT(FOREGROUND_WHITE) };
     for (auto& it : list)
     {
         value = (!detail && _IsSensitive(it.key)) ? hidden : it.value;
@@ -333,7 +334,7 @@ int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color
     int id = 0;
     auto hidden = "******";
     const char* value;
-    constexpr WORD ENTRY_COLOR[2] = {FOREGROUND_WHITE, FOREGROUND_LIGHT(FOREGROUND_WHITE)};
+    constexpr WORD ENTRY_COLOR[2] = { FOREGROUND_WHITE, FOREGROUND_LIGHT(FOREGROUND_WHITE) };
     for (auto& it : list)
     {
         value = (!detail && _IsSensitive(it.key)) ? hidden : it.value;
@@ -359,6 +360,7 @@ int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color
     return 0;
 }
 
+
 bool _IsSensitive(const char* descr)
 {
     static const char* const SENSITIVE_PATTERN[] = {
@@ -380,6 +382,7 @@ bool _IsSensitive(const char* descr)
     return false;
 }
 
+
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Password operations.
@@ -396,6 +399,7 @@ void _FormatPassword(char* password)
     *p = '\0';
 }
 
+
 void _FormatPassword(const char* buffer, char* password)
 {
     memset(password, 0, sizeof(char) * PASSWORD_MAX_LENGTH);
@@ -408,6 +412,7 @@ void _FormatPassword(const char* buffer, char* password)
     *q = '\0';
 }
 
+
 void _HashPassword(char* hashPass)
 {
     hash::MD5 md5;
@@ -417,6 +422,7 @@ void _HashPassword(char* hashPass)
 
     // hashPass[PASSWORD_MAX_LENGTH] = '\0';
 }
+
 
 void _HashPassword(const char* password, char* hashPass)
 {

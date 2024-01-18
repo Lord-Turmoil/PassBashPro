@@ -34,48 +34,52 @@
 #include <cstdint>
 
 _HASH_BEGIN
-    class MD5 //: public Hash
-    {
-    public:
-        /// split into 64 byte blocks (=> 512 bits), hash is 16 bytes long
-        enum { BlockSize = 512 / 8, HashBytes = 16 };
+class MD5 //: public Hash
+{
+public:
+    /// split into 64 byte blocks (=> 512 bits), hash is 16 bytes long
+    enum { BlockSize = 512 / 8, HashBytes = 16 };
 
-        /// same as reset()
-        MD5();
 
-        /// compute MD5 of a memory block
-        std::string operator()(const void* data, size_t numBytes);
-        /// compute MD5 of a string, excluding final zero
-        std::string operator()(const std::string& text);
+    /// same as reset()
+    MD5();
 
-        /// add arbitrary number of bytes
-        void Add(const void* data, size_t numBytes);
+    /// compute MD5 of a memory block
+    std::string operator()(const void* data, size_t numBytes);
+    /// compute MD5 of a string, excluding final zero
+    std::string operator()(const std::string& text);
 
-        /// return latest hash as 32 hex characters
-        std::string GetHash();
-        /// return latest hash as bytes
-        void GetHash(unsigned char buffer[HashBytes]);
+    /// add arbitrary number of bytes
+    void Add(const void* data, size_t numBytes);
 
-        /// restart
-        void Reset();
+    /// return latest hash as 32 hex characters
+    std::string GetHash();
+    /// return latest hash as bytes
+    void GetHash(unsigned char buffer[HashBytes]);
 
-    private:
-        /// process 64 bytes
-        void _ProcessBlock(const void* data);
-        /// process everything left in the internal buffer
-        void _ProcessBuffer();
+    /// restart
+    void Reset();
 
-        /// size of processed data in bytes
-        uint64_t m_numBytes;
-        /// valid bytes in m_buffer
-        size_t m_bufferSize;
-        /// bytes not processed yet
-        uint8_t m_buffer[BlockSize];
+private:
+    /// process 64 bytes
+    void _ProcessBlock(const void* data);
+    /// process everything left in the internal buffer
+    void _ProcessBuffer();
 
-        enum { HashValues = HashBytes / 4 };
+    /// size of processed data in bytes
+    uint64_t m_numBytes;
+    /// valid bytes in m_buffer
+    size_t m_bufferSize;
+    /// bytes not processed yet
+    uint8_t m_buffer[BlockSize];
 
-        /// hash, stored as integers
-        uint32_t m_hash[HashValues];
-    };
+
+    enum { HashValues = HashBytes / 4 };
+
+
+    /// hash, stored as integers
+    uint32_t m_hash[HashValues];
+};
+
 
 _HASH_END

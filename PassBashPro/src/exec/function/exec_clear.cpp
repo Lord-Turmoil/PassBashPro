@@ -22,6 +22,7 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 
+
 int exec_clear(int argc, char* argv[])
 {
     cnsl::Clear();

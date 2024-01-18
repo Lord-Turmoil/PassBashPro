@@ -25,6 +25,7 @@
 static int _touch_usage();
 static int _touch_parse_arg(int argc, char* argv[], std::string& path);
 
+
 int exec_touch(int argc, char* argv[])
 {
     std::string path("");
@@ -66,11 +67,13 @@ int exec_touch(int argc, char* argv[])
     return 0;
 }
 
+
 static int _touch_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "touch", nullptr);
+            ->execl(EXEC_GLOBAL, "help", "help", "touch", nullptr);
 }
+
 
 static int _touch_parse_arg(int argc, char* argv[], std::string& path)
 {

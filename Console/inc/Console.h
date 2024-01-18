@@ -29,45 +29,50 @@
 
 
 _CNSL_BEGIN
-    struct TextAttribute
-    {
-        WORD foreground;
-        WORD background;
-    };
+struct TextAttribute
+{
+    WORD foreground;
+    WORD background;
+};
 
-    constexpr int CNSL_BUFFER_SIZE = 32;
 
-    struct ConsoleInfo
+constexpr int CNSL_BUFFER_SIZE = 32;
+
+
+struct ConsoleInfo
+{
+    union
     {
-        union
+        COORD size;
+
+
+        struct
         {
-            COORD size;
-
-            struct
-            {
-                SHORT width;
-                SHORT height;
-            };
+            SHORT width;
+            SHORT height;
         };
-
-        COORD pos;
-
-        char* title;
-        char* copyright;
-        char* author;
-
-        void (*headerPrinter)(void);
-
-        bool overflowReprint;
-        bool headerReprint;
-
-        TextAttribute attr;
-
-        ConsoleInfo();
-        ~ConsoleInfo();
     };
 
-    // Additional colors
+
+    COORD pos;
+
+    char* title;
+    char* copyright;
+    char* author;
+
+    void (*headerPrinter)(void);
+
+    bool overflowReprint;
+    bool headerReprint;
+
+    TextAttribute attr;
+
+    ConsoleInfo();
+    ~ConsoleInfo();
+};
+
+
+// Additional colors
 #define FOREGROUND_BLACK    0
 #define FOREGROUND_WHITE   (FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLUE )
 #define FOREGROUND_YELLOW  (FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLACK)
@@ -82,77 +87,77 @@ _CNSL_BEGIN
 #define BACKGROUND_CYAN    (BACKGROUND_BLACK | BACKGROUND_GREEN | BACKGROUND_BLUE )
 #define BACKGROUND_LIGHT(COLOR) ((COLOR) | BACKGROUND_INTENSITY)
 
-    /*
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ** Cursor Control
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    */
-    constexpr SHORT DFL_CNSL_WIDTH = 120;
-    constexpr SHORT DFL_CNSL_HEIGHT = 30;
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Cursor Control
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+constexpr SHORT DFL_CNSL_WIDTH = 120;
+constexpr SHORT DFL_CNSL_HEIGHT = 30;
 
-    constexpr COORD ORIGIN = {0, 0};
+constexpr COORD ORIGIN = { 0, 0 };
 
-    const ConsoleInfo* GetConsoleInfo();
+const ConsoleInfo* GetConsoleInfo();
 
-    // for command prompt, Terminal won't be affected.
-    void InitConsoleSize(SHORT width, SHORT height);
-    void InitConsole(SHORT width = DFL_CNSL_WIDTH, SHORT height = DFL_CNSL_HEIGHT);
-    void SetConsoleSize(SHORT width, SHORT height);
-    SHORT GetConsoleWidth();
-    SHORT GetConsoleHeight();
+// for command prompt, Terminal won't be affected.
+void InitConsoleSize(SHORT width, SHORT height);
+void InitConsole(SHORT width = DFL_CNSL_WIDTH, SHORT height = DFL_CNSL_HEIGHT);
+void SetConsoleSize(SHORT width, SHORT height);
+SHORT GetConsoleWidth();
+SHORT GetConsoleHeight();
 
-    COORD GetCursorPosition();
-    COORD SetCursorPosition(const COORD& coord); // Return old coordinate.
-    bool SetCursorPosition(const COORD& coord, COORD* old);
+COORD GetCursorPosition();
+COORD SetCursorPosition(const COORD& coord); // Return old coordinate.
+bool SetCursorPosition(const COORD& coord, COORD* old);
 
-    void HideCursor();
-    void ShowCursor();
+void HideCursor();
+void ShowCursor();
 
-    /*
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ** Basic Control
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    */
-    void Clear();
-    void Clear(SHORT left); // Clear left to end of current line.
-    void Clear(SHORT left, SHORT right); // Clear left to right of current line.
-    void Clear(const COORD& upperLeft, const COORD& bottomRight); // Clear an area.
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Basic Control
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+void Clear();
+void Clear(SHORT left); // Clear left to end of current line.
+void Clear(SHORT left, SHORT right); // Clear left to right of current line.
+void Clear(const COORD& upperLeft, const COORD& bottomRight); // Clear an area.
 
-    /*
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ** Text Attribute
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    */
-    void SetTextAttribute(const TextAttribute& attr, TextAttribute* old);
-    WORD SetTextForeground(WORD foreground);
-    WORD SetTextBackground(WORD background);
-    void RestoreTextAttribute();
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Text Attribute
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+void SetTextAttribute(const TextAttribute& attr, TextAttribute* old);
+WORD SetTextForeground(WORD foreground);
+WORD SetTextBackground(WORD background);
+void RestoreTextAttribute();
 
-    /*
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ** Header
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    */
-    void SetHeader(
-        const char* title,
-        const char* copyright,
-        const char* author);
-    void SetTitle(const char* title);
-    void SetCopyright(const char* copyright);
-    void SetAuthor(const char* author);
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Header
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+void SetHeader(
+    const char* title,
+    const char* copyright,
+    const char* author);
+void SetTitle(const char* title);
+void SetCopyright(const char* copyright);
+void SetAuthor(const char* author);
 
-    void OverflowReprint(bool reprint);
-    void HeaderReprint(bool reprint);
+void OverflowReprint(bool reprint);
+void HeaderReprint(bool reprint);
 
-    /*
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ** Advanced Print
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    */
-    void SetHeaderPrinter(void (*printer)(void));
-    void DefaultHeaderPrinter();
-    void Print();
-    void Reprint();
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Advanced Print
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+void SetHeaderPrinter(void (*printer)(void));
+void DefaultHeaderPrinter();
+void Print();
+void Reprint();
 
 _CNSL_END
 

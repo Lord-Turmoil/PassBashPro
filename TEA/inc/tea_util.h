@@ -28,154 +28,171 @@
 #include <cstdio>
 
 _TEA_BEGIN
-    /********************************************************************
-    ** Reader and Writer hides file details. read and write are not
-    ** recommended to call by your self. You'd better remember to close
-    ** them, but it's OK to leave it alone.
-    */
-    class TEAReader
+/********************************************************************
+** Reader and Writer hides file details. read and write are not
+** recommended to call by your self. You'd better remember to close
+** them, but it's OK to leave it alone.
+*/
+class TEAReader
+{
+public:
+    TEAReader()
     {
-    public:
-        TEAReader()
-        {
-        }
+    }
 
-        virtual ~TEAReader() = 0;
 
-        virtual bool Read(char* buffer, size_t nBytes) = 0;
-        virtual void Close() = 0;
-    };
+    virtual ~TEAReader() = 0;
 
-    class TEAWriter
+    virtual bool Read(char* buffer, size_t nBytes) = 0;
+    virtual void Close() = 0;
+};
+
+
+class TEAWriter
+{
+public:
+    TEAWriter()
     {
-    public:
-        TEAWriter()
-        {
-        }
+    }
 
-        virtual ~TEAWriter() = 0;
 
-        virtual bool Write(const char* buffer, size_t nBytes) = 0;
-        virtual void Close() = 0;
-    };
+    virtual ~TEAWriter() = 0;
 
-    struct TEAReadBuffer
+    virtual bool Write(const char* buffer, size_t nBytes) = 0;
+    virtual void Close() = 0;
+};
+
+
+struct TEAReadBuffer
+{
+    const char* base;
+    const char* pc;
+
+
+    TEAReadBuffer(const char* _base)
     {
-        const char* base;
-        const char* pc;
+        base = _base;
+        pc = base;
+    }
+};
 
-        TEAReadBuffer(const char* _base)
-        {
-            base = _base;
-            pc = base;
-        }
-    };
 
-    struct TEAWriteBuffer
+struct TEAWriteBuffer
+{
+    char* base;
+    char* pc;
+
+
+    TEAWriteBuffer(char* _base)
     {
-        char* base;
-        char* pc;
-
-        TEAWriteBuffer(char* _base)
-        {
-            base = _base;
-            pc = base;
-        }
-    };
+        base = _base;
+        pc = base;
+    }
+};
 
 
-    /*
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ** Readers
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    */
-    class TEAFileReader : public TEAReader
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Readers
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+class TEAFileReader : public TEAReader
+{
+public:
+    TEAFileReader(FILE* input) : m_input(input)
     {
-    public:
-        TEAFileReader(FILE* input) : m_input(input)
-        {
-        }
+    }
 
-        ~TEAFileReader() override { Close(); }
 
-        bool Read(char* buffer, size_t nBytes) override;
-        void Close() override;
+    ~TEAFileReader() override { Close(); }
 
-    protected:
-        FILE* m_input;
-    };
+    bool Read(char* buffer, size_t nBytes) override;
+    void Close() override;
 
-    // No overflow check! Must terminate with '\0'
-    class TEABufferReader : public TEAReader
+protected:
+    FILE* m_input;
+};
+
+
+// No overflow check! Must terminate with '\0'
+class TEABufferReader : public TEAReader
+{
+public:
+    TEABufferReader(const char* buffer) : m_buffer(buffer)
     {
-    public:
-        TEABufferReader(const char* buffer) : m_buffer(buffer)
-        {
-        }
-
-        ~TEABufferReader() override { Close(); }
-
-        bool Read(char* buffer, size_t nBytes) override;
-        void Close() override;
-
-    protected:
-        TEAReadBuffer m_buffer;
-    };
+    }
 
 
-    // Will not teminate at '\0', length must be specified instead.
-    class TEARawBufferReader : public TEABufferReader
+    ~TEABufferReader() override { Close(); }
+
+    bool Read(char* buffer, size_t nBytes) override;
+    void Close() override;
+
+protected:
+    TEAReadBuffer m_buffer;
+};
+
+
+// Will not teminate at '\0', length must be specified instead.
+class TEARawBufferReader : public TEABufferReader
+{
+public:
+    TEARawBufferReader(const char* buffer, size_t nBytes);
+
+
+    ~TEARawBufferReader() override
     {
-    public:
-        TEARawBufferReader(const char* buffer, size_t nBytes);
+    }
 
-        ~TEARawBufferReader() override
-        {
-        }
 
-        bool Read(char* buffer, size_t nBytes) override;
+    bool Read(char* buffer, size_t nBytes) override;
 
-    protected:
-        size_t m_nBytes;
-    };
+protected:
+    size_t m_nBytes;
+};
 
-    /*
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ** Writers
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    */
-    class TEAFileWriter : public TEAWriter
+
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Writers
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+class TEAFileWriter : public TEAWriter
+{
+public:
+    TEAFileWriter(FILE* output) : m_output(output)
     {
-    public:
-        TEAFileWriter(FILE* output) : m_output(output)
-        {
-        }
+    }
 
-        ~TEAFileWriter() override { Close(); }
 
-        bool Write(const char* buffer, size_t nBytes) override;
-        void Close() override;
+    ~TEAFileWriter() override { Close(); }
 
-    protected:
-        FILE* m_output;
-    };
+    bool Write(const char* buffer, size_t nBytes) override;
+    void Close() override;
 
-    // No overflow check!
-    class TEABufferWriter : public TEAWriter
+protected:
+    FILE* m_output;
+};
+
+
+// No overflow check!
+class TEABufferWriter : public TEAWriter
+{
+public:
+    TEABufferWriter(char* buffer) : m_buffer(buffer)
     {
-    public:
-        TEABufferWriter(char* buffer) : m_buffer(buffer)
-        {
-        }
+    }
 
-        ~TEABufferWriter() override { Close(); }
 
-        bool Write(const char* buffer, size_t nBytes) override;
-        void Close() override;
+    ~TEABufferWriter() override { Close(); }
 
-    protected:
-        TEAWriteBuffer m_buffer;
-    };
+    bool Write(const char* buffer, size_t nBytes) override;
+    void Close() override;
+
+protected:
+    TEAWriteBuffer m_buffer;
+};
+
 
 _TEA_END
 

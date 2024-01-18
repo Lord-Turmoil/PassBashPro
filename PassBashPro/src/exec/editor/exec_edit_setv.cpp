@@ -24,9 +24,10 @@
 
 static void _setv_usage();
 
+
 int exec_edit_setv(int argc, char* argv[])
 {
-    const char* params[2] = {nullptr, nullptr};
+    const char* params[2] = { nullptr, nullptr };
     int ret = _edit_parse_params(argv[1], 2, params);
 
     if (ret != 2)
@@ -38,8 +39,9 @@ int exec_edit_setv(int argc, char* argv[])
     return _set_value(params[0], params[1]);
 }
 
+
 static void _setv_usage()
 {
     ExecHost::GetInstance()
-        ->execl(EXEC_EDIT, "help", "help", "setv", nullptr);
+            ->execl(EXEC_EDIT, "help", "help", "setv", nullptr);
 }

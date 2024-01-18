@@ -24,9 +24,10 @@
 
 static void _unset_usage();
 
+
 int exec_edit_unset(int argc, char* argv[])
 {
-    const char* params[1] = {nullptr};
+    const char* params[1] = { nullptr };
     int ret = _edit_parse_params(argv[1], 1, params);
 
     if (ret != 1)
@@ -54,8 +55,9 @@ int exec_edit_unset(int argc, char* argv[])
     return 0;
 }
 
+
 static void _unset_usage()
 {
     ExecHost::GetInstance()
-        ->execl(EXEC_EDIT, "help", "help", "unset", nullptr);
+            ->execl(EXEC_EDIT, "help", "help", "unset", nullptr);
 }

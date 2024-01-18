@@ -83,6 +83,7 @@ bool XMLFile::Parse(const char* xml)
     return true;
 }
 
+
 /******************************************************************************
  * XMLFile::Load -- Load XML file from memory.                                *
  *                                                                            *
@@ -114,6 +115,7 @@ bool XMLFile::Load(const char* filename)
     return true;
 }
 
+
 bool XMLFile::Save()
 {
     if (m_filename == "")
@@ -125,6 +127,7 @@ bool XMLFile::Save()
 
     return Save(m_filename.c_str());
 }
+
 
 bool XMLFile::Save(const char* filename)
 {
@@ -291,6 +294,7 @@ std::vector<XMLElement*> XMLFile::GetElementsByTagName(const char* tag)
     return XMLUtil::GetElementsByTagName(GetRoot(), tag);
 }
 
+
 std::vector<XMLElement*> XMLFile::GetElementsByAttrName(const char* attr, const char* name)
 {
     return XMLUtil::GetElementsByAttrName(GetRoot(), attr, name);
@@ -324,6 +328,7 @@ XMLElement* XMLUtil::GetElementByTagName(XMLElement* node, const char* tag)
     return nullptr;
 }
 
+
 XMLElement* XMLUtil::GetElementByAttrName(XMLElement* node, const char* attr, const char* name)
 {
     if (!node)
@@ -349,6 +354,7 @@ XMLElement* XMLUtil::GetElementByAttrName(XMLElement* node, const char* attr, co
     return nullptr;
 }
 
+
 std::vector<XMLElement*> XMLUtil::GetElementsByTagName(XMLElement* node, const char* tag)
 {
     std::vector<XMLElement*> results;
@@ -358,6 +364,7 @@ std::vector<XMLElement*> XMLUtil::GetElementsByTagName(XMLElement* node, const c
     return results;
 }
 
+
 std::vector<XMLElement*> XMLUtil::GetElementsByAttrName(XMLElement* node, const char* attr, const char* name)
 {
     std::vector<XMLElement*> results;
@@ -366,6 +373,7 @@ std::vector<XMLElement*> XMLUtil::GetElementsByAttrName(XMLElement* node, const 
 
     return results;
 }
+
 
 void XMLUtil::_GetElementsByTagName(XMLElement* node, const char* tag, std::vector<XMLElement*>& results)
 {
@@ -383,6 +391,7 @@ void XMLUtil::_GetElementsByTagName(XMLElement* node, const char* tag, std::vect
         elem = elem->NextSiblingElement();
     }
 }
+
 
 void XMLUtil::_GetElementsByAttrName(XMLElement* node, const char* attr, const char* name,
                                      std::vector<XMLElement*>& results)

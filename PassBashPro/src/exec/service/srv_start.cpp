@@ -35,6 +35,7 @@ static int _login_init_env();
 
 static char _cached_user[USERNAME_BUFFER_SIZE];
 
+
 int srv_start(int argc, char* argv[])
 {
     if (ExecHost::GetInstance()
@@ -55,7 +56,7 @@ int srv_start(int argc, char* argv[])
     {
         // Use absolute zero to indicate internal call.
         ret = ExecHost::GetInstance()
-            ->execl(EXEC_SERVICE, "profile", nullptr);
+                ->execl(EXEC_SERVICE, "profile", nullptr);
         if (ret != 0)
         {
             if (ret == TERMINATION)
@@ -72,11 +73,11 @@ int srv_start(int argc, char* argv[])
 
 RE_LOGIN:
     ret = ExecHost::GetInstance()
-        ->execl(EXEC_SERVICE, "login", "login", nullptr);
+            ->execl(EXEC_SERVICE, "login", "login", nullptr);
     while (ret == -1) // To create new user.
     {
         ret = ExecHost::GetInstance()
-            ->execl(EXEC_SERVICE, "profile", nullptr);
+                ->execl(EXEC_SERVICE, "profile", nullptr);
         if (ret != 0)
         {
             if (ret == TERMINATION)
@@ -95,7 +96,7 @@ RE_LOGIN:
 
         // re-login
         ret = ExecHost::GetInstance()
-            ->execl(EXEC_SERVICE, "login", "login", nullptr);
+                ->execl(EXEC_SERVICE, "login", "login", nullptr);
     }
 
     if (ret != 0)
@@ -107,7 +108,7 @@ RE_LOGIN:
     }
 
     ret = ExecHost::GetInstance()
-        ->execl(EXEC_SERVICE, "host", "host", nullptr);
+            ->execl(EXEC_SERVICE, "host", "host", nullptr);
     if (ret != 0)
     {
         if (ret == TERMINATION)
@@ -121,6 +122,7 @@ RE_LOGIN:
 
     return 0;
 }
+
 
 static int _ensure_env()
 {
@@ -136,6 +138,7 @@ static int _ensure_env()
     return 0;
 }
 
+
 static int _load_env()
 {
     _ensure_env();
@@ -147,6 +150,7 @@ static int _load_env()
 
     return 0;
 }
+
 
 static int _load_profile()
 {
@@ -169,6 +173,7 @@ static int _load_profile()
 
     return 0;
 }
+
 
 static int _load_cache()
 {
@@ -217,6 +222,7 @@ static int _load_cache()
 
     return 0;
 }
+
 
 static int _login_init_env()
 {

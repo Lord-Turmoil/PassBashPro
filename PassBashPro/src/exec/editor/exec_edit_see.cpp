@@ -22,6 +22,7 @@
 
 #include "../../../inc/exec/editor/EditorHeader.h"
 
+
 int exec_edit_see(int argc, char* argv[])
 {
     _ShowItemSimple(_edit_item, false);

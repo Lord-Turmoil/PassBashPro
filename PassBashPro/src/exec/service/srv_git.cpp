@@ -32,6 +32,7 @@
 int _git_verify();
 int _git_reload();
 
+
 int srv_git(int argc, char* argv[])
 {
     PASH_PANIC_ON(g_env == nullptr);
@@ -135,11 +136,13 @@ int srv_git(int argc, char* argv[])
     return ret;
 }
 
+
 int _git_verify()
 {
     VerifyProfileInit(g_env);
     return VerifyProfile(g_env->password) ? 0 : 1;
 }
+
 
 int _git_reload()
 {

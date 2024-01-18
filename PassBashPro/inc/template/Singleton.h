@@ -30,7 +30,7 @@
 /********************************************************************
 ** Lazy singleton.
 */
-template <typename T>
+template<typename T>
 class Singleton
 {
 public:
@@ -42,6 +42,7 @@ public:
             m_instance = new T();
         return m_instance;
     }
+
 
     Singleton(const Singleton&) = delete;
     Singleton& operator=(const Singleton&) = delete;
@@ -60,25 +61,29 @@ protected:
         }
     };
 
+
     Singleton()
     {
     }
+
 
     virtual ~Singleton()
     {
     }
 
+
     static T* m_instance;
 };
 
-template <typename T>
+
+template<typename T>
 T* Singleton<T>::m_instance = nullptr;
 
 
 /********************************************************************
 ** Hungry singleton.
 */
-template <typename T>
+template<typename T>
 class SingletonHungry
 {
 public:
@@ -89,6 +94,7 @@ public:
         // This instance will always be available.
         return m_instance;
     }
+
 
     SingletonHungry(const SingletonHungry&) = delete;
     SingletonHungry& operator=(const SingletonHungry&) = delete;
@@ -107,13 +113,15 @@ protected:
         }
     };
 
+
     SingletonHungry() = default;
     virtual ~SingletonHungry() = default;
 
     static T* m_instance;
 };
 
-template <typename T>
+
+template<typename T>
 T* SingletonHungry<T>::m_instance = new T();
 
 #endif

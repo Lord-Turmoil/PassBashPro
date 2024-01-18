@@ -39,6 +39,7 @@ int ExecHost::Register(const char* descr, ExecFactoryPtr factory)
     return 1;
 }
 
+
 // if descr is nullptr, all factories will be cleared
 int ExecHost::UnRegister(const char* descr)
 {
@@ -53,6 +54,7 @@ int ExecHost::UnRegister(const char* descr)
     return -1;
 }
 
+
 ExecFactoryPtr ExecHost::GetFactory(const char* descr)
 {
     if (!descr)
@@ -64,6 +66,7 @@ ExecFactoryPtr ExecHost::GetFactory(const char* descr)
 
     return ret->second;
 }
+
 
 int ExecHost::execl(const char* descr, const char* cmd, ...)
 {
@@ -98,6 +101,7 @@ int ExecHost::execl(const char* descr, const char* cmd, ...)
 
     return exec(argc, argv);
 }
+
 
 int ExecHost::execv(const char* descr, const char* cmd, char* argv[])
 {

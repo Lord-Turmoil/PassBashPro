@@ -44,6 +44,7 @@ static int _profile_delete();
 static int _profile_receive_username(bool showHelp = false);
 static int _profile_receive_password(bool showHelp = false);
 
+
 int srv_profile(int argc, char* argv[])
 {
     _profile_init();
@@ -76,6 +77,7 @@ int srv_profile(int argc, char* argv[])
     return ret;
 }
 
+
 static void _profile_init()
 {
     username = "";
@@ -86,11 +88,13 @@ static void _profile_init()
     isDelete = false;
 }
 
+
 static int _profile_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "profile", nullptr);
+            ->execl(EXEC_GLOBAL, "help", "help", "profile", nullptr);
 }
+
 
 static int _profile_parse_arg(int argc, char* argv[])
 {
@@ -157,6 +161,7 @@ static int _profile_parse_arg(int argc, char* argv[])
     return 0;
 }
 
+
 static int _profile_cli(bool showHelp)
 {
     int ret = _profile_receive_username(showHelp);
@@ -169,6 +174,7 @@ static int _profile_cli(bool showHelp)
 
     return ret;
 }
+
 
 static int _profile_silent()
 {
@@ -204,6 +210,7 @@ static int _profile_silent()
     return 0;
 }
 
+
 static int _profile_delete_confirm()
 {
     EXEC_PRINT_MSG("Delete current profile? (Y/N) ");
@@ -221,10 +228,12 @@ static int _profile_delete_confirm()
     return tolower(buffer[0]) != 'y';
 }
 
+
 static int _profile_delete_current()
 {
     return DeleteProfile(ProfilePool::GetInstance()->Get(username), true);
 }
+
 
 static int _profile_delete()
 {
@@ -287,6 +296,7 @@ static int _profile_delete()
     return 0;
 }
 
+
 static int _profile_receive_username(bool showHelp)
 {
     char buffer[USERNAME_BUFFER_SIZE];
@@ -344,6 +354,7 @@ static int _profile_receive_username(bool showHelp)
 
     return 0;
 }
+
 
 static int _profile_receive_password(bool showHelp)
 {

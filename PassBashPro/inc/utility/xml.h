@@ -53,6 +53,7 @@ public:
     {
     }
 
+
     ~XMLFile();
 
     /*
@@ -116,6 +117,7 @@ private:
     XMLUtil()
     {
     }
+
 
     static void _GetElementsByTagName(XMLElement* node, const char* tag, std::vector<XMLElement*>& results);
     static void _GetElementsByAttrName(XMLElement* node, const char* attr, const char* name,

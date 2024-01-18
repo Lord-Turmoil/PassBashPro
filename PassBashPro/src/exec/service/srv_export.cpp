@@ -25,6 +25,7 @@
 
 int _export_usage();
 
+
 int srv_export(int argc, char* argv[])
 {
     if (argc != 2)
@@ -76,8 +77,9 @@ int srv_export(int argc, char* argv[])
     return 0;
 }
 
+
 int _export_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(MODE_TO_EXEC[g_mode], "help", "help", "export", nullptr);
+            ->execl(MODE_TO_EXEC[g_mode], "help", "help", "export", nullptr);
 }

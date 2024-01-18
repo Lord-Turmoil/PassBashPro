@@ -58,6 +58,7 @@ char* strstrip(char* str)
     return str;
 }
 
+
 char* strtolower(char* str)
 {
     if (!str)
@@ -68,6 +69,7 @@ char* strtolower(char* str)
 
     return str;
 }
+
 
 char* strtoupper(char* str)
 {
@@ -85,6 +87,7 @@ bool is_null_or_empty(const char* str)
 {
     return !str || !*str;
 }
+
 
 bool begins_with(const char* str, const char* prefix)
 {
@@ -104,6 +107,7 @@ bool begins_with(const char* str, const char* prefix)
 
     return !*prefix;
 }
+
 
 bool ends_with(const char* str, const char* suffix)
 {
@@ -241,6 +245,7 @@ const char* GetCurrentTimestamp()
     return _time_buffer;
 }
 
+
 /******************************************************************************
  * ResetRandomSeed -- Reset random seed.                                      *
  *                                                                            *
@@ -257,8 +262,9 @@ const char* GetCurrentTimestamp()
  *============================================================================*/
 void SetRandomSeed()
 {
-    srand(static_cast<unsigned>(time(NULL)));
+    srand(static_cast<unsigned>(time(nullptr)));
 }
+
 
 /******************************************************************************
  * Random -- Get a random number.                                             *
@@ -279,6 +285,7 @@ int Random(int upper)
 {
     return (upper == 0) ? (0) : (rand() % upper);
 }
+
 
 int Random(int lower, int upper)
 {

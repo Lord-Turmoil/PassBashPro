@@ -25,6 +25,7 @@
 static int _mkdir_usage();
 static int _mkdir_parse_arg(int argc, char* argv[], std::string& path);
 
+
 int exec_mkdir(int argc, char* argv[])
 {
     std::string path;
@@ -58,13 +59,15 @@ int exec_mkdir(int argc, char* argv[])
     return 0;
 }
 
+
 static int _mkdir_parse_arg(int argc, char* argv[], std::string& path)
 {
     return _ParseArgs(argc, argv, path);
 }
 
+
 static int _mkdir_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "mkdir", nullptr);
+            ->execl(EXEC_GLOBAL, "help", "help", "mkdir", nullptr);
 }

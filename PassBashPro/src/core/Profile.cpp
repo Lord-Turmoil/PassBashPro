@@ -35,6 +35,7 @@ bool ProfilePool::Add(ProfilePtr profile)
     return true;
 }
 
+
 bool ProfilePool::Remove(const std::string& username)
 {
     for (auto it = m_profiles.begin(); it != m_profiles.end(); ++it)
@@ -49,20 +50,24 @@ bool ProfilePool::Remove(const std::string& username)
     return false;
 }
 
+
 void ProfilePool::Clear()
 {
     m_profiles.clear();
 }
+
 
 bool ProfilePool::IsEmpty()
 {
     return m_profiles.empty();
 }
 
+
 int ProfilePool::Size()
 {
     return static_cast<int>(m_profiles.size());
 }
+
 
 ProfilePtr ProfilePool::Get(const std::string& username)
 {

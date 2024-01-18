@@ -43,15 +43,18 @@ struct Entry
     const char* value;
     int weight;
 
+
     Entry() : key(nullptr), value(nullptr), weight(0)
     {
     }
+
 
     Entry(const char* _k, const char* _v, int _w) :
         key(_k), value(_v), weight(_w)
     {
     }
 };
+
 
 struct EntryCompare
 {
@@ -62,6 +65,7 @@ struct EntryCompare
         return lhs.weight < rhs.weight;
     };
 };
+
 
 using EntryList = std::vector<Entry>;
 

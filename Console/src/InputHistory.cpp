@@ -24,31 +24,35 @@
 #include "../inc/Input.h"
 
 _CNSL_BEGIN
-    InputHistory::InputHistory()
-    {
-        _record.push_back(_strdup(""));
-    }
+InputHistory::InputHistory()
+{
+    _record.push_back(_strdup(""));
+}
 
-    InputHistory::~InputHistory()
-    {
-        // Perhaps
-        for (auto it : _record)
-            free(it);
-    }
 
-    void InputHistory::Push(const char* history)
-    {
-        if (!((_record.size() > 1) && (strcmp(*(_record.end() - 2), history) == 0)))
-            _record.insert(_record.end() - 1, _strdup(history));
-    }
+InputHistory::~InputHistory()
+{
+    // Perhaps
+    for (auto it : _record)
+        free(it);
+}
 
-    void InputHistory::Clear()
-    {
-        for (auto it : _record)
-            free(it);
-        _record.clear();
 
-        _record.push_back(_strdup(""));
-    }
+void InputHistory::Push(const char* history)
+{
+    if (!((_record.size() > 1) && (strcmp(*(_record.end() - 2), history) == 0)))
+        _record.insert(_record.end() - 1, _strdup(history));
+}
+
+
+void InputHistory::Clear()
+{
+    for (auto it : _record)
+        free(it);
+    _record.clear();
+
+    _record.push_back(_strdup(""));
+}
+
 
 _CNSL_END

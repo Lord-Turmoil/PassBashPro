@@ -37,6 +37,7 @@ ProfilePtr CreateProfile(const std::string& username)
     return std::make_shared<Profile>(username, path);
 }
 
+
 EnvPtr CreateEnv(ProfilePtr profile)
 {
     if (!profile)
@@ -54,6 +55,7 @@ EnvPtr CreateEnv(ProfilePtr profile)
     return env;
 }
 
+
 int DeleteProfile(ProfilePtr profile, bool force)
 {
     if (!profile)
@@ -70,6 +72,7 @@ int DeleteProfile(ProfilePtr profile, bool force)
 
     return 0;
 }
+
 
 int InitConfig(EnvPtr env)
 {
@@ -99,6 +102,7 @@ int InitConfig(EnvPtr env)
 
     return 0;
 }
+
 
 int InitData(EnvPtr env)
 {
@@ -152,7 +156,7 @@ int SaveConfig(EnvPtr env, bool overwrite)
 
     // Prevent premature exit
     auto reader =
-        new tea::TEARawBufferReader(hashPass, PASSWORD_MAX_LENGTH);
+            new tea::TEARawBufferReader(hashPass, PASSWORD_MAX_LENGTH);
     auto writer = new tea::TEAFileWriter(output);
     encode(reader, writer, hashPass);
     delete reader;
@@ -160,6 +164,7 @@ int SaveConfig(EnvPtr env, bool overwrite)
 
     return 0;
 }
+
 
 int SaveData(PashDoc& doc, EnvPtr env, bool overwrite)
 {
@@ -179,6 +184,7 @@ int SaveData(PashDoc& doc, EnvPtr env, bool overwrite)
 
     return 0;
 }
+
 
 int InitEnvFiles(EnvPtr env)
 {
@@ -208,16 +214,19 @@ bool UsernameVerifier(char ch)
     return isalnum(ch) || (ch == '_');
 }
 
+
 bool PasswordVerifier(char ch)
 {
     return isgraph(ch);
 }
+
 
 bool YesNoVerifier(char ch)
 {
     char lower = tolower(ch);
     return (lower == 'y') || (lower == 'n');
 }
+
 
 int UpdateCache()
 {
@@ -242,6 +251,7 @@ int UpdateCache()
 static char _encoded_password[PASSWORD_BUFFER_SIZE];
 static char _decoded_password[PASSWORD_BUFFER_SIZE];
 
+
 bool VerifyProfileInit(EnvPtr env)
 {
     FILE* input;
@@ -263,6 +273,7 @@ bool VerifyProfileInit(EnvPtr env)
     return true;
 }
 
+
 bool VerifyProfile(const char* password)
 {
     char hashPass[PASSWORD_BUFFER_SIZE];
@@ -270,7 +281,7 @@ bool VerifyProfile(const char* password)
 
     // MD5 vaule may contain 0x0 within!!!
     auto reader =
-        new tea::TEARawBufferReader(_encoded_password, PASSWORD_MAX_LENGTH);
+            new tea::TEARawBufferReader(_encoded_password, PASSWORD_MAX_LENGTH);
     auto writer = new tea::TEABufferWriter(_decoded_password);
     decode(reader, writer, hashPass);
     delete reader;
@@ -336,6 +347,7 @@ bool VerifyUsername(const std::string& username)
 
     return true;
 }
+
 
 bool VerifyPassword(const std::string& password)
 {

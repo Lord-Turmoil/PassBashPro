@@ -25,6 +25,7 @@
 static int _move_usage();
 static int _move_parse_args(int argc, char* argv[], std::string& src, std::string& dest);
 
+
 int exec_move(int argc, char* argv[])
 {
     std::string srcPath;
@@ -93,11 +94,13 @@ int exec_move(int argc, char* argv[])
     return 0;
 }
 
+
 static int _move_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "move", nullptr);
+            ->execl(EXEC_GLOBAL, "help", "help", "move", nullptr);
 }
+
 
 static int _move_parse_args(int argc, char* argv[], std::string& src, std::string& dest)
 {

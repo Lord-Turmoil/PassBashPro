@@ -39,6 +39,7 @@ static constexpr WORD COLORS[] = {
     FOREGROUND_LIGHT(FOREGROUND_CYAN)
 };
 
+
 int exec_pash(int argc, char* argv[])
 {
     cnsl::Clear();

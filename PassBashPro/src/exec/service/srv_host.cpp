@@ -51,6 +51,7 @@ static int _host_peek_command();
 static int _host_peeker_standard(char* buffer, char** cmd, int* argc, char* argv[]);
 static int _host_peeker_advanced(char* buffer, char** cmd, int* argc, char* argv[]);
 
+
 int srv_host(int argc, char* argv[])
 {
     ExecHost* host = ExecHost::GetInstance();
@@ -86,6 +87,7 @@ int srv_host(int argc, char* argv[])
     return 0;
 }
 
+
 static void _host_greet()
 {
     cnsl::InsertText(GREETING_COLOR, "Pash Host fully operational!\n");
@@ -94,6 +96,7 @@ static void _host_greet()
 
     cnsl::FlushInput();
 }
+
 
 static const char* _get_completion(const char* input, int* revert)
 {
@@ -175,6 +178,7 @@ static const char* _get_completion(const char* input, int* revert)
     return completion;
 }
 
+
 static void _get_candidates(const std::string& path)
 {
     XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
@@ -192,6 +196,7 @@ static void _get_candidates(const std::string& path)
         *candidate++ = PashDocUtil::GetNodeAttr(it, "name");
     *candidate = nullptr;
 }
+
 
 static void _host_parse_command(char* cmd)
 {
@@ -222,6 +227,7 @@ static void _host_parse_command(char* cmd)
     strcpy_s(cmd, EXEC_BUFFER_SIZE, temp.c_str());
 }
 
+
 static int _host_peek_command()
 {
     _cmd = nullptr;
@@ -246,6 +252,7 @@ static int _host_peek_command()
     return 0;
 }
 
+
 static int _host_peeker_standard(char* buffer, char** cmd, int* argc, char* argv[])
 {
     *cmd = nullptr;
@@ -266,6 +273,7 @@ static int _host_peeker_standard(char* buffer, char** cmd, int* argc, char* argv
     return 0;
 }
 
+
 static bool _is_in(char ch, const char* ignore)
 {
     for (const char* p = ignore; *p; p++)
@@ -275,6 +283,7 @@ static bool _is_in(char ch, const char* ignore)
     }
     return false;
 }
+
 
 static int _host_peeker_advanced(char* buffer, char** cmd, int* argc, char* argv[])
 {

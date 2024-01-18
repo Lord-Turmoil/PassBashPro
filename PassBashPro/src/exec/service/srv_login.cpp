@@ -49,6 +49,7 @@ static bool _confirm_abort();
 
 static int _handle_user_not_exists(const char* username);
 
+
 int srv_login(int argc, char* argv[])
 {
     // There must be at least one possible user!
@@ -123,15 +124,18 @@ RE_LOGIN:
     return 0;
 }
 
+
 static void _login_header()
 {
     cnsl::InsertText(GREETING_COLOR, "Logging in to PassBash...\n\n");
 }
 
+
 static void _login_footer()
 {
     cnsl::InsertText(GREETING_COLOR, "\nCredential confirmed!\n\n");
 }
+
 
 static int _login_list_users()
 {
@@ -157,6 +161,7 @@ static int _login_list_users()
 
     return 0;
 }
+
 
 /********************************************************************
 ** Receive username to login, and set g_env to the selected user.
@@ -211,6 +216,7 @@ static int _login_receive_username()
     return 0;
 }
 
+
 /********************************************************************
 ** Receive password and make validation. Set g_env->password to the
 ** correct password after validation.
@@ -264,16 +270,19 @@ static int _login_receive_password()
     return 0;
 }
 
+
 static bool _login_check_env(EnvPtr env)
 {
     return (FileUtil::Exists(env->configPath.c_str()) &&
         FileUtil::Exists(env->dataPath.c_str()));
 }
 
+
 static bool _login_init_env(EnvPtr env)
 {
     return g_doc.Load(env);
 }
+
 
 static bool _confirm_abort()
 {
@@ -291,6 +300,7 @@ static bool _confirm_abort()
 
     return tolower(buffer[0]) == 'y';
 }
+
 
 static const char* _get_completion(const char* input, int* revert)
 {
@@ -323,6 +333,7 @@ static const char* _get_completion(const char* input, int* revert)
 
     return completion;
 }
+
 
 static int _handle_user_not_exists(const char* username)
 {

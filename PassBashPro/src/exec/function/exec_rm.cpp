@@ -33,6 +33,7 @@ static int _remove_confirm(const char* prompt);
 static int _remove_root();
 static int _remove_current();
 
+
 int exec_rm(int argc, char* argv[])
 {
     std::string prompt;
@@ -104,17 +105,20 @@ int exec_rm(int argc, char* argv[])
     return true;
 }
 
+
 static void _remove_init()
 {
     recursive = false;
     force = false;
 }
 
+
 static int _remove_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "rm");
+            ->execl(EXEC_GLOBAL, "help", "help", "rm");
 }
+
 
 static int _remove_parse_args(int argc, char* argv[])
 {
@@ -148,6 +152,7 @@ static int _remove_parse_args(int argc, char* argv[])
     return 0;
 }
 
+
 static int _remove_confirm(const char* prompt)
 {
     if (force)
@@ -156,8 +161,7 @@ static int _remove_confirm(const char* prompt)
     char buffer[4];
 
     cnsl::InputOptions options(1, 1);
-    options.verifier = [](char x) -> bool
-    {
+    options.verifier = [](char x) -> bool {
         return (tolower(x) == 'y' || (tolower(x) == 'n'));
     };
 
@@ -167,6 +171,7 @@ static int _remove_confirm(const char* prompt)
 
     return (tolower(buffer[0]) == 'y');
 }
+
 
 static int _remove_root()
 {
@@ -187,6 +192,7 @@ static int _remove_root()
 
     return 0;
 }
+
 
 static int _remove_current()
 {

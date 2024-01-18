@@ -36,6 +36,6 @@ constexpr char EXEC_EDIT[] = "editor";
 constexpr char EXEC_HIDDEN[] = "hidden";
 constexpr char EXEC_SERVICE[] = "service";
 
-const char* const MODE_TO_EXEC[] = {EXEC_IDLE, EXEC_GLOBAL, EXEC_EDIT};
+const char* const MODE_TO_EXEC[] = { EXEC_IDLE, EXEC_GLOBAL, EXEC_EDIT };
 
 #endif

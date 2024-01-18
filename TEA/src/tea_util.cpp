@@ -24,122 +24,131 @@
 
 
 _TEA_BEGIN
-    TEAReader::~TEAReader()
+TEAReader::~TEAReader()
+{
+}
+
+
+TEAWriter::~TEAWriter()
+{
+}
+
+
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Readers
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+bool TEAFileReader::Read(char* buffer, size_t nBytes)
+{
+    size_t bytes = fread(buffer, sizeof(char), nBytes, m_input);
+
+    if (bytes == 0)
+        return false;
+
+    while (bytes < nBytes)
+        buffer[bytes++] = '\0';
+
+    return true;
+}
+
+
+void TEAFileReader::Close()
+{
+    if (m_input)
     {
+        fclose(m_input);
+        m_input = nullptr;
     }
+}
 
-    TEAWriter::~TEAWriter()
+
+bool TEABufferReader::Read(char* buffer, size_t nBytes)
+{
+    if (*m_buffer.pc == '\0')
+        return false;
+
+    size_t bytes = 0;
+    while ((*m_buffer.pc != '\0') && (bytes < nBytes))
+        buffer[bytes++] = *(m_buffer.pc++);
+    while (bytes < nBytes)
+        buffer[bytes++] = '\0';
+
+    return true;
+}
+
+
+void TEABufferReader::Close()
+{
+    m_buffer.base = m_buffer.pc = nullptr;
+}
+
+
+TEARawBufferReader::TEARawBufferReader(const char* buffer, size_t nBytes)
+    : TEABufferReader(buffer), m_nBytes(nBytes)
+{
+}
+
+
+bool TEARawBufferReader::Read(char* buffer, size_t nBytes)
+{
+    if (m_nBytes == 0)
+        return false;
+
+    size_t bytes = 0;
+    while ((m_nBytes > 0) && (bytes < nBytes))
     {
+        buffer[bytes++] = *(m_buffer.pc++);
+        m_nBytes--;
     }
+    while (bytes < nBytes)
+        buffer[bytes++] = '\0';
 
-    /*
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ** Readers
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    */
-    bool TEAFileReader::Read(char* buffer, size_t nBytes)
+    return true;
+}
+
+
+/*
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+** Writers
+**+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+bool TEAFileWriter::Write(const char* buffer, size_t nBytes)
+{
+    size_t bytes = fwrite(buffer, sizeof(char), nBytes, m_output);
+
+    return (bytes == nBytes);
+}
+
+
+void TEAFileWriter::Close()
+{
+    if (m_output)
     {
-        size_t bytes = fread(buffer, sizeof(char), nBytes, m_input);
-
-        if (bytes == 0)
-            return false;
-
-        while (bytes < nBytes)
-            buffer[bytes++] = '\0';
-
-        return true;
+        fclose(m_output);
+        m_output = nullptr;
     }
-
-    void TEAFileReader::Close()
-    {
-        if (m_input)
-        {
-            fclose(m_input);
-            m_input = nullptr;
-        }
-    }
+}
 
 
-    bool TEABufferReader::Read(char* buffer, size_t nBytes)
-    {
-        if (*m_buffer.pc == '\0')
-            return false;
+bool TEABufferWriter::Write(const char* buffer, size_t nBytes)
+{
+    size_t bytes = 0;
 
-        size_t bytes = 0;
-        while ((*m_buffer.pc != '\0') && (bytes < nBytes))
-            buffer[bytes++] = *(m_buffer.pc++);
-        while (bytes < nBytes)
-            buffer[bytes++] = '\0';
+    while (bytes < nBytes)
+        *(m_buffer.pc++) = buffer[bytes++];
 
-        return true;
-    }
+    // Always mark the end of the buffer.
+    *m_buffer.pc = '\0';
 
-    void TEABufferReader::Close()
-    {
-        m_buffer.base = m_buffer.pc = nullptr;
-    }
+    return true;
+}
 
 
-    TEARawBufferReader::TEARawBufferReader(const char* buffer, size_t nBytes)
-        : TEABufferReader(buffer), m_nBytes(nBytes)
-    {
-    }
+void TEABufferWriter::Close()
+{
+    m_buffer.base = m_buffer.pc = nullptr;
+}
 
-    bool TEARawBufferReader::Read(char* buffer, size_t nBytes)
-    {
-        if (m_nBytes == 0)
-            return false;
-
-        size_t bytes = 0;
-        while ((m_nBytes > 0) && (bytes < nBytes))
-        {
-            buffer[bytes++] = *(m_buffer.pc++);
-            m_nBytes--;
-        }
-        while (bytes < nBytes)
-            buffer[bytes++] = '\0';
-
-        return true;
-    }
-
-    /*
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ** Writers
-    **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    */
-    bool TEAFileWriter::Write(const char* buffer, size_t nBytes)
-    {
-        size_t bytes = fwrite(buffer, sizeof(char), nBytes, m_output);
-
-        return (bytes == nBytes);
-    }
-
-    void TEAFileWriter::Close()
-    {
-        if (m_output)
-        {
-            fclose(m_output);
-            m_output = nullptr;
-        }
-    }
-
-
-    bool TEABufferWriter::Write(const char* buffer, size_t nBytes)
-    {
-        size_t bytes = 0;
-
-        while (bytes < nBytes)
-            *(m_buffer.pc++) = buffer[bytes++];
-
-        // Always mark the end of the buffer.
-        *m_buffer.pc = '\0';
-
-        return true;
-    }
-
-    void TEABufferWriter::Close()
-    {
-        m_buffer.base = m_buffer.pc = nullptr;
-    }
 
 _TEA_END

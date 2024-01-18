@@ -22,11 +22,13 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 
+
 static int _cat_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "cat", nullptr);
+            ->execl(EXEC_GLOBAL, "help", "help", "cat", nullptr);
 }
+
 
 int exec_cat(int argc, char* argv[])
 {

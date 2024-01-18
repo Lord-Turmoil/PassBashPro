@@ -26,6 +26,7 @@
 static int _ls_usage();
 static int _ls_parse_arg(int argc, char* argv[], std::string& path);
 
+
 int exec_ls(int argc, char* argv[])
 {
     std::string path;
@@ -76,13 +77,15 @@ int exec_ls(int argc, char* argv[])
     return 0;
 }
 
+
 static int _ls_parse_arg(int argc, char* argv[], std::string& path)
 {
     return _ParseOptionalArgs(argc, argv, path);
 }
 
+
 static int _ls_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "ls", nullptr);
+            ->execl(EXEC_GLOBAL, "help", "help", "ls", nullptr);
 }

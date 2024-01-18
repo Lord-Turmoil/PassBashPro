@@ -41,6 +41,7 @@ static void _search_item(XMLElementPtr root, SearchResultList& list);
 static void _search(XMLElementPtr root, SearchResultList& list);
 static void _find(SearchResultList& list);
 
+
 int exec_find(int argc, char* argv[])
 {
     _find_init();
@@ -86,6 +87,7 @@ int exec_find(int argc, char* argv[])
     return 0;
 }
 
+
 static void _find_init()
 {
     is_deep = false;
@@ -94,11 +96,13 @@ static void _find_init()
     pattern = "";
 }
 
+
 static int _find_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "find", nullptr);
+            ->execl(EXEC_GLOBAL, "help", "help", "find", nullptr);
 }
+
 
 static int _find_parse_args(int argc, char* argv[])
 {
@@ -148,6 +152,7 @@ static int _find_parse_args(int argc, char* argv[])
     return 0;
 }
 
+
 static void _search_item(XMLElementPtr root, SearchResultList& list)
 {
     if (!PashDocUtil::IsItem(root))
@@ -189,6 +194,7 @@ static void _search_item(XMLElementPtr root, SearchResultList& list)
     }
 }
 
+
 static void _search(XMLElementPtr root, SearchResultList& list)
 {
     XMLElementPtr it = root->FirstChildElement();
@@ -206,6 +212,7 @@ static void _search(XMLElementPtr root, SearchResultList& list)
         it = it->NextSiblingElement();
     }
 }
+
 
 static void _find(SearchResultList& list)
 {

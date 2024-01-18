@@ -34,6 +34,7 @@ int optopt;
 
 static int optind;
 
+
 void resetopt()
 {
     optind = 0;
@@ -42,6 +43,7 @@ void resetopt()
     optmsg = nullptr;
 }
 
+
 static int _parseopt(const char* arg);
 
 // parse arg in opt. e.g. pthread from -lpthread
@@ -49,6 +51,7 @@ static int _parseopt(const char* arg);
 static char* _parsearg(char* arg);
 
 static void _initopt();
+
 
 int getopt(int argc, char* argv[], const char* pattern)
 {
@@ -103,12 +106,14 @@ int getopt(int argc, char* argv[], const char* pattern)
     return opt;
 }
 
+
 static int _parseopt(const char* arg)
 {
     if (arg[0] == '-' && arg[1] != '\0')
         return arg[1];
     return 0;
 }
+
 
 // parse arg in opt. e.g. pthread from -lpthread
 // Must checked by _parseopt first. 
@@ -118,6 +123,7 @@ static char* _parsearg(char* arg)
         return &arg[2];
     return nullptr;
 }
+
 
 static void _initopt()
 {

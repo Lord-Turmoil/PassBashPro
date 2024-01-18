@@ -35,6 +35,7 @@ int ExecFactory::Hook(const char* descr, Exec exec)
     // already exists
 }
 
+
 // If descr is nullptr, all contents will be cleared.
 int ExecFactory::UnHook(const char* descr, Exec exec)
 {
@@ -49,6 +50,7 @@ int ExecFactory::UnHook(const char* descr, Exec exec)
         return 0;
     return -1;
 }
+
 
 Exec ExecFactory::Get(const char* descr)
 {

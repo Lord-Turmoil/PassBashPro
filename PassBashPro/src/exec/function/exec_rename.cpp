@@ -25,6 +25,7 @@
 static int _rename_usage();
 static int _rename_parse_args(int argc, char* argv[], std::string& src, std::string& dest);
 
+
 int exec_rename(int argc, char* argv[])
 {
     std::string srcPath;
@@ -74,11 +75,13 @@ int exec_rename(int argc, char* argv[])
     return 0;
 }
 
+
 static int _rename_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "rename", nullptr);
+            ->execl(EXEC_GLOBAL, "help", "help", "rename", nullptr);
 }
+
 
 static int _rename_parse_args(int argc, char* argv[], std::string& src, std::string& dest)
 {

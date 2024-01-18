@@ -57,6 +57,7 @@ private:
     {
     }
 
+
     static std::vector<std::string> m_logs;
     static std::vector<std::string> m_msgs;
     static char m_buffer[LOGGER_BUFFER_SIZE];

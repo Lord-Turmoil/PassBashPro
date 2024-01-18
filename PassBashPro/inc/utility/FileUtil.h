@@ -73,6 +73,7 @@ private:
         _ALL = _FILE | _DIR
     };
 
+
     static bool _GetContent(const char* path,
                             std::vector<std::string>* paths,
                             std::vector<std::string>* names,
@@ -84,6 +85,7 @@ private:
 
     static void _DeleteDirectory(const char* path);
     static void _DeleteDirectory(const wchar_t* path);
+
 
     FileUtil()
     {

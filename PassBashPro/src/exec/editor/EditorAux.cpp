@@ -22,6 +22,7 @@
 
 #include "../../../inc/exec/editor/EditorHeader.h"
 
+
 void _edit_print_header(bool showPrompt)
 {
     static char buffer[128];
@@ -33,11 +34,13 @@ void _edit_print_header(bool showPrompt)
         cnsl::InsertText(MESSAGE_COLOR, "Use \"help\" for more information.\n");
 }
 
+
 void _edit_print_footer()
 {
     cnsl::InsertNewLine();
     cnsl::InsertHeaderLine("Pash Editor End", '-');
 }
+
 
 void _edit_print_prompt()
 {
@@ -47,6 +50,7 @@ void _edit_print_prompt()
     cnsl::InsertText(PWD_COLOR, "%s", _edit_item_path.c_str());
     cnsl::InsertText(PROMPT_COLOR, "> ");
 }
+
 
 int _edit_parse_cmd(char* cmd, char** type, char** arg)
 {
@@ -69,6 +73,7 @@ int _edit_parse_cmd(char* cmd, char** type, char** arg)
     return 0;
 }
 
+
 int _edit_parse_params(char* arg, int argc, const char* params[])
 {
     if (arg == nullptr)
@@ -87,6 +92,7 @@ int _edit_parse_params(char* arg, int argc, const char* params[])
 
     return cnt;
 }
+
 
 int _set_key(const char* idStr, const char* newKey)
 {
@@ -118,6 +124,7 @@ int _set_key(const char* idStr, const char* newKey)
     return 0;
 }
 
+
 int _set_value(const char* idStr, const char* value)
 {
     int id;
@@ -147,6 +154,7 @@ int _set_value(const char* idStr, const char* value)
 
     return 0;
 }
+
 
 int _set_weight(const char* idStr, const char* weightStr)
 {
@@ -183,6 +191,7 @@ int _set_weight(const char* idStr, const char* weightStr)
 
     return 0;
 }
+
 
 int _set_entry(const char* key, const char* value, const char* weightStr)
 {

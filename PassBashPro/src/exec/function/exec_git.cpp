@@ -22,15 +22,16 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 
+
 int exec_git(int argc, char* argv[])
 {
     std::string pwd(g_pwd);
 
     int ret = ExecHost::GetInstance()
-        ->execv(EXEC_SERVICE, "git", argv);
+            ->execv(EXEC_SERVICE, "git", argv);
 
     ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "cd", "cd", pwd.c_str(), nullptr);
+            ->execl(EXEC_GLOBAL, "cd", "cd", pwd.c_str(), nullptr);
 
     return ret;
 }

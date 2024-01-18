@@ -63,7 +63,7 @@ constexpr int MODE_EDIT = 2;
 constexpr char PASH_DIR[] = R"(.pash\)";
 constexpr char HELP_ROOT_DIR[] = R"(manual\)";
 
-constexpr const char* const HELP_DIR[] = {R"(idle\)", R"(pash\)", R"(edit\)"};
+constexpr const char* const HELP_DIR[] = { R"(idle\)", R"(pash\)", R"(edit\)" };
 
 constexpr char CACHE_FILE[] = "cache";
 constexpr char CONFIG_FILE[] = "config";

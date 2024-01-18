@@ -25,6 +25,7 @@
 static int _edit_usage();
 static int _edit_parse_args(int argc, char* argv[], std::string& path);
 
+
 int exec_edit(int argc, char* argv[])
 {
     std::string path;
@@ -51,7 +52,7 @@ int exec_edit(int argc, char* argv[])
     }
 
     int ret = ExecHost::GetInstance()
-        ->execl(EXEC_SERVICE, "editor", "editor", path.c_str(), nullptr);
+            ->execl(EXEC_SERVICE, "editor", "editor", path.c_str(), nullptr);
     if (ret != 0)
     {
         EXEC_PRINT_ERR("Failed to launch password editor!\n");
@@ -63,11 +64,13 @@ int exec_edit(int argc, char* argv[])
     return 0;
 }
 
+
 static int _edit_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(MODE_TO_EXEC[g_mode], "help", "help", "edit", nullptr);
+            ->execl(MODE_TO_EXEC[g_mode], "help", "help", "edit", nullptr);
 }
+
 
 static int _edit_parse_args(int argc, char* argv[], std::string& path)
 {

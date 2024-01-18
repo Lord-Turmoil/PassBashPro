@@ -29,73 +29,77 @@
 */
 
 _TEA_BEGIN
-    static constexpr DATA TEA_DELTA = 0x9E3779B9;
-    static constexpr DATA TEA_SUM = 0xC6EF3720;
+static constexpr DATA TEA_DELTA = 0x9E3779B9;
+static constexpr DATA TEA_SUM = 0xC6EF3720;
 
-    void encipher(const DATA* const v, DATA* const w, const DATA* const k)
+
+void encipher(const DATA* const v, DATA* const w, const DATA* const k)
+{
+    static_assert(sizeof(DATA) == 4, "Size of DATA wrong for TEA");
+
+    DATA y = v[0];
+    DATA z = v[1];
+    DATA sum = 0;
+
+    for (DATA n = 32; n > 0; n--)
     {
-        static_assert(sizeof(DATA) == 4, "Size of DATA wrong for TEA");
-
-        DATA y = v[0];
-        DATA z = v[1];
-        DATA sum = 0;
-
-        for (DATA n = 32; n > 0; n--)
-        {
-            y += ((z << 4) ^ (z >> 5)) + z ^ sum + k[sum & 3];
-            sum += TEA_DELTA;
-            z += ((y << 4) ^ (y >> 5)) + y ^ sum + k[(sum >> 11) & 3];
-        }
-        w[0] = y;
-        w[1] = z;
+        y += ((z << 4) ^ (z >> 5)) + z ^ sum + k[sum & 3];
+        sum += TEA_DELTA;
+        z += ((y << 4) ^ (y >> 5)) + y ^ sum + k[(sum >> 11) & 3];
     }
+    w[0] = y;
+    w[1] = z;
+}
 
-    void decipher(const DATA* const v, DATA* const w, const DATA* const k)
+
+void decipher(const DATA* const v, DATA* const w, const DATA* const k)
+{
+    static_assert(sizeof(DATA) == 4, "Size of DATA wrong for TEA");
+
+    DATA y = v[0];
+    DATA z = v[1];
+    DATA sum = TEA_SUM;
+
+    for (DATA n = 32; n > 0; n--)
     {
-        static_assert(sizeof(DATA) == 4, "Size of DATA wrong for TEA");
-
-        DATA y = v[0];
-        DATA z = v[1];
-        DATA sum = TEA_SUM;
-
-        for (DATA n = 32; n > 0; n--)
-        {
-            z -= ((y << 4) ^ (y >> 5)) + y ^ sum + k[(sum >> 11) & 3];
-            sum -= TEA_DELTA;
-            y -= ((z << 4) ^ (z >> 5)) + z ^ sum + k[sum & 3];
-        }
-        w[0] = y;
-        w[1] = z;
+        z -= ((y << 4) ^ (y >> 5)) + y ^ sum + k[(sum >> 11) & 3];
+        sum -= TEA_DELTA;
+        y -= ((z << 4) ^ (z >> 5)) + z ^ sum + k[sum & 3];
     }
+    w[0] = y;
+    w[1] = z;
+}
 
 
-    void encode(TEAReader* input, TEAWriter* output, const char* key)
+void encode(TEAReader* input, TEAWriter* output, const char* key)
+{
+    DATA outptr[2];
+    char inbuf[NCHAR];
+    auto inptr = reinterpret_cast<DATA*>(inbuf);
+    auto k = reinterpret_cast<const DATA*>(key);
+
+    while (input->Read(inbuf, NCHAR))
     {
-        DATA outptr[2];
-        char inbuf[NCHAR];
-        auto inptr = reinterpret_cast<DATA*>(inbuf);
-        auto k = reinterpret_cast<const DATA*>(key);
-
-        while (input->Read(inbuf, NCHAR))
-        {
-            encipher(inptr, outptr, k);
-            output->Write((char*)outptr, KCHAR);
-        }
+        encipher(inptr, outptr, k);
+        output->Write((char*)outptr, KCHAR);
     }
+}
 
-    void decode(TEAReader* input, TEAWriter* output, const char* key)
+
+void decode(TEAReader* input, TEAWriter* output, const char* key)
+{
+    DATA inptr[2];
+    char outbuf[NCHAR + 1];
+    auto outptr = reinterpret_cast<DATA*>(outbuf);
+    auto k = reinterpret_cast<const DATA*>(key);
+
+    outbuf[NCHAR] = '\0';
+    while (input->Read((char*)inptr, KCHAR))
     {
-        DATA inptr[2];
-        char outbuf[NCHAR + 1];
-        auto outptr = reinterpret_cast<DATA*>(outbuf);
-        auto k = reinterpret_cast<const DATA*>(key);
-
-        outbuf[NCHAR] = '\0';
-        while (input->Read((char*)inptr, KCHAR))
-        {
-            decipher(inptr, outptr, k);
-            output->Write((char*)outptr, NCHAR);
-        }
+        decipher(inptr, outptr, k);
+        output->Write((char*)outptr, NCHAR);
     }
+}
+
 
 _TEA_END

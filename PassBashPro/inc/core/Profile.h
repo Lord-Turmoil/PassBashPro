@@ -31,6 +31,7 @@
 #include <vector>
 #include <memory>
 
+
 struct Profile
 {
     std::string username;
@@ -43,7 +44,9 @@ struct Profile
     }
 };
 
+
 using ProfilePtr = std::shared_ptr<Profile>;
+
 
 class ProfilePool : public Singleton<ProfilePool>
 {
@@ -58,6 +61,7 @@ public:
 
     ProfilePtr Get(const std::string& username);
 
+
     ProfilePtr operator[](size_t id)
     {
         return m_profiles[id];
@@ -66,6 +70,7 @@ public:
 private:
     std::vector<ProfilePtr> m_profiles;
 };
+
 
 using ProfilePoolPtr = ProfilePool*;
 

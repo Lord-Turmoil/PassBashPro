@@ -42,6 +42,7 @@ static void _InitGlobal();
 static void _InitEditor();
 static void _InitHidden();
 
+
 void InitExecHost()
 {
     _InitService();
@@ -49,6 +50,7 @@ void InitExecHost()
     _InitEditor();
     _InitHidden();
 }
+
 
 void InitConsole()
 {
@@ -62,10 +64,12 @@ void InitConsole()
     cnsl::OverflowReprint(false);
 }
 
+
 void InitAddons()
 {
     SetRandomSeed();
 }
+
 
 static void _InitService()
 {
@@ -86,6 +90,7 @@ static void _InitService()
 
     ExecHost::GetInstance()->Register(EXEC_SERVICE, factory);
 }
+
 
 static void _InitGlobal()
 {
@@ -148,6 +153,7 @@ static void _InitGlobal()
     ExecHost::GetInstance()->Register(EXEC_GLOBAL, factory);
 }
 
+
 static void _InitEditor()
 {
     ExecFactoryPtr factory(new ExecFactory());
@@ -179,6 +185,7 @@ static void _InitEditor()
 
     ExecHost::GetInstance()->Register(EXEC_EDIT, factory);
 }
+
 
 static void _InitHidden()
 {

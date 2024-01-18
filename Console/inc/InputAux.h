@@ -27,41 +27,43 @@
 #include <Windows.h>
 
 _CNSL_BEGIN
-    struct InputContext
+struct InputContext
+{
+    char* buffer;
+    char** history_end;
+    char** history_begin;
+    char** history;
+    int pos;
+    int length;
+    COORD origin;
+
+    char ch;
+
+
+    InputContext() :
+        buffer(nullptr),
+        history_end(nullptr),
+        history_begin(nullptr),
+        history(nullptr),
+        pos(0),
+        length(0),
+        origin({ 0, 0 }),
+        ch(0)
     {
-        char* buffer;
-        char** history_end;
-        char** history_begin;
-        char** history;
-        int pos;
-        int length;
-        COORD origin;
+    }
+};
 
-        char ch;
 
-        InputContext() :
-            buffer(nullptr),
-            history_end(nullptr),
-            history_begin(nullptr),
-            history(nullptr),
-            pos(0),
-            length(0),
-            origin({0, 0}),
-            ch(0)
-        {
-        }
-    };
+bool IsTerminator(char ch);
 
-    bool IsTerminator(char ch);
+bool IsNullOrEmpty(const char* str);
+bool IsEqual(const char* str1, const char* str2);
 
-    bool IsNullOrEmpty(const char* str);
-    bool IsEqual(const char* str1, const char* str2);
+const char* BeginsWith(const char* str, const char* prefix);
+const char* EndsWidth(const char* str, const char* suffix);
 
-    const char* BeginsWith(const char* str, const char* prefix);
-    const char* EndsWidth(const char* str, const char* suffix);
+void FlushInput();
 
-    void FlushInput();
-
-    void WaitForKey(const char* prompt, char key);
+void WaitForKey(const char* prompt, char key);
 
 _CNSL_END

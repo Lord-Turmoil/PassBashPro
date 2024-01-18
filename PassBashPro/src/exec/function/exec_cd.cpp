@@ -24,16 +24,19 @@
 
 static XMLElementPtr last_dir = nullptr;
 
+
 static int _cd_usage()
 {
     return ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "help", "help", "cd", nullptr);
+            ->execl(EXEC_GLOBAL, "help", "help", "cd", nullptr);
 }
+
 
 static int _cd_parse_arg(int argc, char* argv[], std::string& path)
 {
     return _ParseArgs(argc, argv, path);
 }
+
 
 int exec_cd(int argc, char* argv[])
 {

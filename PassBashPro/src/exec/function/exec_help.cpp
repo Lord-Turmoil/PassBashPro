@@ -45,6 +45,7 @@ static int _print_help(const char* path, bool brief);
 
 static bool _is_empty_line(const char* line);
 
+
 int exec_help(int argc, char* argv[])
 {
     target = "";
@@ -71,11 +72,13 @@ int exec_help(int argc, char* argv[])
     return 0;
 }
 
+
 static int _help_usage()
 {
     // Use '_help' to differentiate internal and external call.
     return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "_help", "help", nullptr);
 }
+
 
 static int _help_parse_args(int argc, char* argv[])
 {
@@ -157,6 +160,7 @@ static int _help_single(const std::string& item, bool brief) // help single comm
     return 0;
 }
 
+
 static int _help_current(const char* root) // help current faction (in brief)
 {
     std::string path;
@@ -186,6 +190,7 @@ static int _help_current(const char* root) // help current faction (in brief)
     return 0;
 }
 
+
 static int _help_all() // help all factions (in brief)
 {
     std::string path(HELP_ROOT_DIR);
@@ -208,6 +213,7 @@ static int _help_all() // help all factions (in brief)
     return ret;
 }
 
+
 static bool _is_empty_line(const char* line)
 {
     for (const char* p = line; *p; p++)
@@ -218,6 +224,7 @@ static bool _is_empty_line(const char* line)
 
     return true;
 }
+
 
 static int _print_help(const char* path, bool brief)
 {

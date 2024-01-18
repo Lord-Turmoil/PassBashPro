@@ -28,6 +28,7 @@ static int _remaster_receive_password();
 static int _remaster_reencrypt_data();
 static void _remaster_abort();
 
+
 int srv_remaster(int argc, char* argv[])
 {
     PASH_PANIC_ON(g_env == nullptr);
@@ -61,11 +62,13 @@ int srv_remaster(int argc, char* argv[])
     return 0;
 }
 
+
 static void _remaster_greeting()
 {
     cnsl::InsertText(MESSAGE_COLOR, "You are now changing your master password.\n");
     cnsl::InsertText(MESSAGE_COLOR, "Press ESC to abort.\n");
 }
+
 
 static int _remaster_authorize()
 {
@@ -121,6 +124,7 @@ static int _remaster_authorize()
     return 0;
 }
 
+
 static int _remaster_receive_password()
 {
     char buffer[PASSWORD_BUFFER_SIZE];
@@ -161,6 +165,7 @@ static int _remaster_receive_password()
     return 0;
 }
 
+
 static int _remaster_reencrypt_data()
 {
     PASH_PANIC_ON(SaveConfig(g_env, true));
@@ -168,6 +173,7 @@ static int _remaster_reencrypt_data()
 
     return 0;
 }
+
 
 static void _remaster_abort()
 {

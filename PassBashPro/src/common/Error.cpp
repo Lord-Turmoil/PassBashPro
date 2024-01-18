@@ -27,6 +27,7 @@
 #include <cstdarg>
 #include <cnsl.h>
 
+
 void _panic(const char* filename, int line, const char* func, const char* format, ...)
 {
     static char message[1024];
