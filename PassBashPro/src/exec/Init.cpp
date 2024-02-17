@@ -54,8 +54,16 @@ void InitExecHost()
 
 void InitConsole()
 {
-    cnsl::InitConsoleSize(120, 30);
-    cnsl::InitConsole(118);
+    // Get available console size.
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    const int columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    const int rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+    // Set for Windows Console Host.
+    cnsl::InitConsoleSize(columns, rows);
+    cnsl::InitConsole(columns);
 
     cnsl::SetHeader(TITLE, COPYRIGHT, AUTHOR);
     cnsl::SetTextForeground(FOREGROUND_WHITE);
