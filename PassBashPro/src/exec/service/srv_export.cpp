@@ -21,7 +21,7 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/service/ServiceHeader.h"
-
+#include "../../../inc/utility/Auxiliary.h"
 
 int _export_usage();
 

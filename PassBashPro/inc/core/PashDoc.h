@@ -25,8 +25,6 @@
 #ifndef _PASH_DOC_H_
 #define _PASH_DOC_H_
 
-#include "../common/Constants.h"
-#include "../utility/Auxiliary.h"
 #include "../utility/xml.h"
 
 

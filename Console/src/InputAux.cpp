@@ -24,6 +24,7 @@
 #include "../inc/Input.h"
 #include "../inc/InputAux.h"
 
+#include <conio.h>
 #include <cstring>
 
 _CNSL_BEGIN

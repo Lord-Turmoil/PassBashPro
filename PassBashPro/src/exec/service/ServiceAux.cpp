@@ -21,6 +21,8 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/service/ServiceAux.h"
+#include "../../../inc/utility/Auxiliary.h"
+#include "../../../inc/core/PashDoc.h"
 #include "../../../inc/exec/ExecHeader.h"
 #include "../../../inc/utility/FileUtil.h"
 #include "../../../inc/utility/ExecUtil.h"

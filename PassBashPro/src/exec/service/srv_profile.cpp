@@ -22,7 +22,7 @@
 
 #include "../../../inc/exec/service/ServiceHeader.h"
 #include "../../../inc/core/Profile.h"
-
+#include "../../../inc/utility/Auxiliary.h"
 
 std::string username;
 std::string email;

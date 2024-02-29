@@ -21,9 +21,10 @@
  ******************************************************************************/
 
 #include "../inc/tea_util.h"
-
+#include "../inc/tea_defines.h"
 
 _TEA_BEGIN
+
 TEAReader::~TEAReader()
 {
 }

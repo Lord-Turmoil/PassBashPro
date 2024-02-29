@@ -21,7 +21,7 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/service/ServiceHeader.h"
-
+#include "../../../inc/utility/Auxiliary.h"
 #include <direct.h>
 #include <string>
 #include <cstdlib>

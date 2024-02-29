@@ -22,6 +22,7 @@
 
 #include "../../inc/exec/ExecHeader.h"
 #include "../../inc/core/Env.h"
+#include "../../inc/utility/Auxiliary.h"
 
 #include <regex>
 #include <hash.h>

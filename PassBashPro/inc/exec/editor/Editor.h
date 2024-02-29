@@ -25,10 +25,6 @@
 #ifndef _EDITOR_FUNCTIONS_H_
 #define _EDITOR_FUNCTIONS_H_
 
-#include <tinyxml.h>
-#include <string>
-#include <cnsl.h>
-
 int exec_edit_host(int argc, char* argv[]);
 // int exec_edit_help(int argc, char* argv[]);
 int exec_edit_clear(int argc, char* argv[]);

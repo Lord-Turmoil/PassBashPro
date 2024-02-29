@@ -22,6 +22,7 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 #include "../../../inc/utility/FileUtil.h"
+#include "../../../inc/utility/Auxiliary.h"
 
 #include <algorithm>
 

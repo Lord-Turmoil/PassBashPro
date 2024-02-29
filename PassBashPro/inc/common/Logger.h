@@ -25,7 +25,6 @@
 #ifndef _LOGGER_H_
 #define _LOGGER_H_
 
-#include "Macros.h"
 #include "Constants.h"
 
 #include <vector>

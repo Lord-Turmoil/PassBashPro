@@ -22,7 +22,6 @@
 
 #include "../../inc/core/Global.h"
 #include "../../inc/core/PashDoc.h"
-#include "../../inc/exec/Exec.h"
 
 #include <cnsl.h>
 

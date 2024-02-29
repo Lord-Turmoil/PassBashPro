@@ -21,6 +21,7 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/editor/EditorHeader.h"
+#include "../../../inc/utility/Auxiliary.h"
 
 const char EDIT_IGNORE[] = "|";
 const int EDIT_KEY_MAX_LENGTH = 30;
