@@ -21,7 +21,6 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/function/FuncHeader.h"
-#include "../../../inc/utility/FileUtil.h"
 
 
 int exec_export(int argc, char* argv[])

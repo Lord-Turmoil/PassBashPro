@@ -28,7 +28,7 @@
 #include "../../core/Env.h"
 #include "../../core/Profile.h"
 
-
+class PashDoc;
 // Create a profile from username.
 ProfilePtr CreateProfile(const std::string& username);
 

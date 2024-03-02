@@ -21,9 +21,8 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/service/ServiceHeader.h"
-
+#include "../../../inc/utility/Auxiliary.h"
 #include <vector>
-#include <memory>
 
 static char HOST_IGNORE[] = " ";
 static char HOST_QUOTE[] = R"('")";

@@ -25,10 +25,8 @@
 #ifndef _PASS_DOC_UTIL_H_
 #define _PASS_DOC_UTIL_H_
 
-#include "../common/Constants.h"
 #include "../common/Macros.h"
 
-#include "Auxiliary.h"
 #include "xml.h"
 
 #include <string>

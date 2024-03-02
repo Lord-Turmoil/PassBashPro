@@ -21,6 +21,7 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/service/ServiceHeader.h"
+#include "../../../inc/utility/Auxiliary.h"
 
 int _import_usage();
 int _import_reload();

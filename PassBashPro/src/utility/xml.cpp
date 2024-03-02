@@ -25,7 +25,6 @@
 
 #include <string.h>
 
-#include "../../inc/common/Error.h"
 #include "../../inc/common/Logger.h"
 #include "../../inc/utility/xml.h"
 #include "../../inc/utility/Auxiliary.h"

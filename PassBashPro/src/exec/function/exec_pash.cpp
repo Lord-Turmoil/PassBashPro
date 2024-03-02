@@ -21,6 +21,7 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/function/FuncHeader.h"
+#include "../../../inc/utility/Auxiliary.h"
 
 static constexpr int COLOR_NUM = 12;
 static constexpr WORD COLORS[] = {

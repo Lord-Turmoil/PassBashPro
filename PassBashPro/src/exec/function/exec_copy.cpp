@@ -23,8 +23,6 @@
 #include "../../../inc/exec/function/FuncHeader.h"
 #include "../../../inc/utility/Auxiliary.h"
 
-#include <cstring>
-
 
 int _copy(const std::string& data);
 
@@ -74,7 +72,7 @@ int _copy(const std::string& data)
     if (!hHandle)
         return 1;
 
-    auto pData = static_cast<char*>(GlobalLock(hHandle)); //Ëø¶¨ÄÚ´æ£¬·µ»ØÉêÇëÄÚ´æµÄÊ×µØÖ·
+    auto pData = static_cast<char*>(GlobalLock(hHandle)); //ï¿½ï¿½ï¿½ï¿½ï¿½Ú´æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½×µï¿½Ö·
     if (!pData)
         return 2;
     strcpy_s(pData, size, data.c_str());

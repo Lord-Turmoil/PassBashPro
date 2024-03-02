@@ -26,11 +26,10 @@
 
 #pragma warning(disable: 4996)
 
-#include <ctime>
 #include <cctype>
 #include <cstring>
 #include <vector>
-#include <string>
+#include <conio.h>
 
 #ifdef max
 #undef max

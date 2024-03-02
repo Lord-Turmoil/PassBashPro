@@ -23,11 +23,11 @@
 #ifndef _TEA_UTIL_H_
 #define _TEA_UTIL_H_
 
-#include "tea_core.h"
-
+#include "tea_defines.h"
 #include <cstdio>
 
 _TEA_BEGIN
+
 /********************************************************************
 ** Reader and Writer hides file details. read and write are not
 ** recommended to call by your self. You'd better remember to close

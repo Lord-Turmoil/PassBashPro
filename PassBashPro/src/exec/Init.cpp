@@ -63,7 +63,8 @@ void InitConsole()
 
     // Set for Windows Console Host.
     cnsl::InitConsoleSize(columns, rows);
-    cnsl::InitConsole(columns);
+    // Set for Windows Terminal.
+    cnsl::InitConsole(columns - 1, rows);
 
     cnsl::SetHeader(TITLE, COPYRIGHT, AUTHOR);
     cnsl::SetTextForeground(FOREGROUND_WHITE);

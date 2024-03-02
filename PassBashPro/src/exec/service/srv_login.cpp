@@ -22,6 +22,7 @@
 
 #include "../../../inc/exec/service/ServiceHeader.h"
 #include "../../../inc/core/Profile.h"
+#include "../../../inc/utility/Auxiliary.h"
 
 #include <tea.h>
 

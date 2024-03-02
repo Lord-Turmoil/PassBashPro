@@ -21,6 +21,7 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/service/ServiceHeader.h"
+#include "../../../inc/utility/Auxiliary.h"
 
 static void _remaster_greeting();
 static int _remaster_authorize();

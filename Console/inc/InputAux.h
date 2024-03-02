@@ -21,9 +21,7 @@
  ******************************************************************************/
 
 #include "Macros.h"
-#include "Input.h"
 
-#include <cstring>
 #include <Windows.h>
 
 _CNSL_BEGIN

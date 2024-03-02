@@ -21,6 +21,7 @@
  ******************************************************************************/
 
 #include "../../inc/utility/PashDocUtil.h"
+#include "../../inc/utility/Auxiliary.h"
 #include "../../inc/core/Global.h"
 #include "../../inc/core/PashDoc.h"
 

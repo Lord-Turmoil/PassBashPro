@@ -22,8 +22,6 @@
 
 #include "../../../inc/exec/editor/EditorHeader.h"
 
-#include <cstring>
-
 static int _argc;
 static char* _argv[EXEC_ARG_SIZE];
 static char _buffer[EXEC_BUFFER_SIZE];
