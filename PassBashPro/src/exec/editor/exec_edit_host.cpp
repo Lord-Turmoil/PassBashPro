@@ -25,7 +25,7 @@
 
 const char EDIT_IGNORE[] = "|";
 const int EDIT_KEY_MAX_LENGTH = 30;
-const int EDIT_VALUE_MAX_LENGTH = 45;
+const int EDIT_VALUE_MAX_LENGTH = 64;
 const int EDIT_WEIGHT_MAX_LENGTH = 9;
 
 XMLElementPtr _edit_item;

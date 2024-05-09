@@ -314,7 +314,7 @@ int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color
         return 0; // return to reduce following indent
     }
 
-    int total = 100;
+    int total = cnsl::GetConsoleWidth();
     int maxKey = 0;
     int maxValue = 0;
     int maxWeight = 0;
@@ -367,7 +367,10 @@ bool _IsSensitive(const char* descr)
     static const char* const SENSITIVE_PATTERN[] = {
         ".*password.*",
         ".*pwd.*",
-        ".*pin.*"
+        ".*pin.*",
+        ".*token.*",
+        ".*secret.*",
+        ".key.*"
     };
     static constexpr int SENSITIVE_CNT = 3;
 
