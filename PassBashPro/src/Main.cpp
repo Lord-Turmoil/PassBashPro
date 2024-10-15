@@ -44,9 +44,12 @@
 #include "../inc/exec/ExecHost.h"
 #include "../inc/exec/Init.h"
 
+#include <ctime>
 
 int main(int argc, char* argv[])
 {
+    srand(static_cast<unsigned>(time(nullptr)));
+
     InitExecHost();
     InitConsole();
 
@@ -54,8 +57,8 @@ int main(int argc, char* argv[])
         ->execl(EXEC_SERVICE, "start", nullptr) != 0);
 
 #ifdef PASH_DEBUG
-	LOG_PRINT_ERROR();
-	LOG_PRINT_MESSAGE();
+    LOG_PRINT_ERROR();
+    LOG_PRINT_MESSAGE();
 #endif
 
     return 0;
