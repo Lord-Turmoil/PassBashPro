@@ -21,11 +21,10 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
-#include "../../../inc/exec/service/ServiceHeader.h"
 #include "../../../inc/core/Profile.h"
+#include "../../../inc/exec/service/ServiceHeader.h"
 
 #include <cstring>
-
 
 static int _ensure_env();
 static int _load_env();
@@ -35,11 +34,9 @@ static int _login_init_env();
 
 static char _cached_user[USERNAME_BUFFER_SIZE];
 
-
 int srv_start(int argc, char* argv[])
 {
-    if (ExecHost::GetInstance()
-        ->execl(EXEC_GLOBAL, "version", "version", nullptr) == 0)
+    if (ExecHost::GetInstance()->execl(EXEC_GLOBAL, "version", "version", nullptr) == 0)
     {
         cnsl::InsertNewLine();
     }
@@ -55,8 +52,7 @@ int srv_start(int argc, char* argv[])
     if (!g_env)
     {
         // Use absolute zero to indicate internal call.
-        ret = ExecHost::GetInstance()
-                ->execl(EXEC_SERVICE, "profile", nullptr);
+        ret = ExecHost::GetInstance()->execl(EXEC_SERVICE, "profile", nullptr);
         if (ret != 0)
         {
             if (ret == TERMINATION)
@@ -72,12 +68,10 @@ int srv_start(int argc, char* argv[])
     }
 
 RE_LOGIN:
-    ret = ExecHost::GetInstance()
-            ->execl(EXEC_SERVICE, "login", "login", nullptr);
+    ret = ExecHost::GetInstance()->execl(EXEC_SERVICE, "login", "login", nullptr);
     while (ret == -1) // To create new user.
     {
-        ret = ExecHost::GetInstance()
-                ->execl(EXEC_SERVICE, "profile", nullptr);
+        ret = ExecHost::GetInstance()->execl(EXEC_SERVICE, "profile", nullptr);
         if (ret != 0)
         {
             if (ret == TERMINATION)
@@ -95,8 +89,7 @@ RE_LOGIN:
         cnsl::InsertSplitLine('_');
 
         // re-login
-        ret = ExecHost::GetInstance()
-                ->execl(EXEC_SERVICE, "login", "login", nullptr);
+        ret = ExecHost::GetInstance()->execl(EXEC_SERVICE, "login", "login", nullptr);
     }
 
     if (ret != 0)
@@ -107,8 +100,7 @@ RE_LOGIN:
         return 4;
     }
 
-    ret = ExecHost::GetInstance()
-            ->execl(EXEC_SERVICE, "host", "host", nullptr);
+    ret = ExecHost::GetInstance()->execl(EXEC_SERVICE, "host", "host", nullptr);
     if (ret != 0)
     {
         if (ret == TERMINATION)
@@ -123,7 +115,6 @@ RE_LOGIN:
     return 0;
 }
 
-
 static int _ensure_env()
 {
     if (!FileUtil::Exists(PASH_DIR))
@@ -131,13 +122,12 @@ static int _ensure_env()
 #if PASH_HIDE_ROOT
         FileUtil::NewDirectory(PASH_DIR, true);
 #else
-		FileUtil::NewDirectory(PASH_DIR, false);
+        FileUtil::NewDirectory(PASH_DIR, false);
 #endif
     }
 
     return 0;
 }
-
 
 static int _load_env()
 {
@@ -150,7 +140,6 @@ static int _load_env()
 
     return 0;
 }
-
 
 static int _load_profile()
 {
@@ -173,7 +162,6 @@ static int _load_profile()
 
     return 0;
 }
-
 
 static int _load_cache()
 {
@@ -222,7 +210,6 @@ static int _load_cache()
 
     return 0;
 }
-
 
 static int _login_init_env()
 {

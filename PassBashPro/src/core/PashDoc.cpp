@@ -21,32 +21,25 @@
  ******************************************************************************/
 
 #include "../../inc/core/PashDoc.h"
-#include "../../inc/core/Global.h"
-#include "../../inc/core/Env.h"
 #include "../../inc/common/Logger.h"
+#include "../../inc/core/Env.h"
+#include "../../inc/core/Global.h"
 #include "../../inc/utility/PashDocUtil.h"
 
 #include "../../inc/utility/ExecUtil.h"
 
-#include <tea.h>
 #include <algorithm>
 #include <stack>
+#include <tea.h>
 
-
-PashDoc::PashDoc() :
-    m_pFile(nullptr),
-    m_root(nullptr),
-    m_current(nullptr),
-    m_modified(false)
+PashDoc::PashDoc() : m_pFile(nullptr), m_root(nullptr), m_current(nullptr), m_modified(false)
 {
 }
-
 
 PashDoc::~PashDoc()
 {
     UnLoad();
 }
-
 
 bool PashDoc::Load(EnvPtr env)
 {
@@ -92,7 +85,6 @@ bool PashDoc::Load(EnvPtr env)
     return true;
 }
 
-
 void PashDoc::UnLoad()
 {
     if (IsLoaded())
@@ -101,7 +93,6 @@ void PashDoc::UnLoad()
         m_modified = true;
     }
 }
-
 
 bool PashDoc::Save(EnvPtr env)
 {
@@ -136,7 +127,6 @@ bool PashDoc::Save(EnvPtr env)
     return true;
 }
 
-
 bool PashDoc::DebugLoad(EnvPtr env)
 {
 #ifdef PASH_CHEAT
@@ -161,11 +151,10 @@ bool PashDoc::DebugLoad(EnvPtr env)
 
     return true;
 #else
-	LOG_ERROR("A pathetic attempt.");
-	return false;
+    LOG_ERROR("A pathetic attempt.");
+    return false;
 #endif
 }
-
 
 bool PashDoc::DebugSave(EnvPtr env)
 {
@@ -177,17 +166,15 @@ bool PashDoc::DebugSave(EnvPtr env)
     m_pFile->Save(filename.c_str());
     return true;
 #else
-	LOG_ERROR("A pathetic attempt.");
-	return false;
+    LOG_ERROR("A pathetic attempt.");
+    return false;
 #endif
 }
-
 
 bool PashDoc::IsLoaded() const
 {
     return m_pFile && (m_pFile->IsLoaded());
 }
-
 
 XMLElementPtr PashDoc::SetCurrent(XMLElementPtr current)
 {
@@ -203,7 +190,6 @@ XMLElementPtr PashDoc::SetCurrent(XMLElementPtr current)
     return ret;
 }
 
-
 XMLElementPtr PashDoc::NewElement(const char* name)
 {
     if (!IsLoaded())
@@ -212,24 +198,20 @@ XMLElementPtr PashDoc::NewElement(const char* name)
     return m_pFile->Doc().NewElement(name);
 }
 
-
 void PashDoc::DeleteElement(XMLElementPtr node)
 {
     m_pFile->Doc().DeleteNode(node);
 }
-
 
 void PashDoc::Mark()
 {
     m_modified = true;
 }
 
-
 bool PashDoc::IsMarked() const
 {
     return m_modified;
 }
-
 
 bool PashDoc::_GenerateData(EnvPtr env)
 {

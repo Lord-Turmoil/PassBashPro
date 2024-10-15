@@ -54,7 +54,6 @@ bool UsernameVerifier(char ch);
 bool PasswordVerifier(char ch);
 bool YesNoVerifier(char ch);
 
-
 // Update login cache
 int UpdateCache();
 

@@ -24,7 +24,6 @@
 
 static void _setk_usage();
 
-
 int exec_edit_setk(int argc, char* argv[])
 {
     const char* params[2] = { nullptr, nullptr };
@@ -39,9 +38,7 @@ int exec_edit_setk(int argc, char* argv[])
     return _set_key(params[0], params[1]);
 }
 
-
 static void _setk_usage()
 {
-    ExecHost::GetInstance()
-            ->execl(EXEC_EDIT, "help", "help", "setk", nullptr);
+    ExecHost::GetInstance()->execl(EXEC_EDIT, "help", "help", "setk", nullptr);
 }

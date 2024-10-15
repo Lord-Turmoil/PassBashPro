@@ -24,7 +24,6 @@
 
 static int _set_usage();
 
-
 int exec_edit_set(int argc, char* argv[])
 {
     const char* params[3] = { nullptr, nullptr, "-1" };
@@ -39,9 +38,7 @@ int exec_edit_set(int argc, char* argv[])
     return _set_entry(params[0], params[1], params[2]);
 }
 
-
 static int _set_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_EDIT, "help", "help", "set", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_EDIT, "help", "help", "set", nullptr);
 }

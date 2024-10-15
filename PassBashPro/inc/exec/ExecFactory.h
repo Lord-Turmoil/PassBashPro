@@ -27,10 +27,9 @@
 
 #include "Exec.h"
 
-#include <unordered_map>
-#include <string>
 #include <memory>
-
+#include <string>
+#include <unordered_map>
 
 /********************************************************************
 ** ExecFactory only stores executables.
@@ -47,8 +46,6 @@ private:
     std::unordered_map<std::string, Exec> m_records;
 };
 
-
 using ExecFactoryPtr = std::shared_ptr<ExecFactory>;
-
 
 #endif

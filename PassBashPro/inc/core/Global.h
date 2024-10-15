@@ -35,10 +35,8 @@
 // Internal default password.
 extern const char DEFAULT_PASSWORD[];
 
-
 // Present working directory.
 extern std::string g_pwd;
-
 
 // Input history.
 extern cnsl::InputHistory g_history;
@@ -47,29 +45,23 @@ extern cnsl::InputHistory g_history;
 extern EnvPtr g_env;
 extern bool g_isOnline;
 
-
 // PashDoc
 class PashDoc;
 extern PashDoc g_doc;
 
-
 // Default data content.
 extern const char DEFAULT_DATA[];
-
 
 // Position variables.
 extern const int VAR_SIZE;
 extern std::vector<std::string> g_var;
 
-
 // Versions.
 extern const char PASH_HOST_VERSION[];
 extern const char PASH_EDITOR_VERSION[];
 
-
 // Working mode.
 extern int g_mode;
-
 
 // Copyright info.
 extern const char TITLE[];

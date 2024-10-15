@@ -26,7 +26,6 @@
 int _import_usage();
 int _import_reload();
 
-
 int srv_import(int argc, char* argv[])
 {
     if (argc != 2)
@@ -38,8 +37,7 @@ int srv_import(int argc, char* argv[])
 
     if (!_STR_SAME(g_env->password, argv[1]))
     {
-        EXEC_PRINT_ERR("Incorrect password for profile '%s'.\n",
-                       g_env->username.c_str());
+        EXEC_PRINT_ERR("Incorrect password for profile '%s'.\n", g_env->username.c_str());
         return 2;
     }
 
@@ -47,7 +45,8 @@ int srv_import(int argc, char* argv[])
     if (ret == 1)
     {
         EXEC_PRINT_ERR("Cannot find data to import!\n");
-        EXEC_PRINT_MSG("Please ensure the data file name is the same as your profile name, and placed under ");
+        EXEC_PRINT_MSG("Please ensure the data file name is the same as your "
+                       "profile name, and placed under ");
         wchar_t _buffer[PASH_BUFFER_SIZE];
         if (_wgetcwd(_buffer, PASH_BUFFER_SIZE - 1))
         {
@@ -91,13 +90,10 @@ int srv_import(int argc, char* argv[])
     return 0;
 }
 
-
 int _import_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(MODE_TO_EXEC[g_mode], "help", "help", "import", nullptr);
+    return ExecHost::GetInstance()->execl(MODE_TO_EXEC[g_mode], "help", "help", "import", nullptr);
 }
-
 
 int _import_reload()
 {

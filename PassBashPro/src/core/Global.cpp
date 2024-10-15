@@ -25,7 +25,6 @@
 
 #include <cnsl.h>
 
-
 // Internal default password.
 const char DEFAULT_PASSWORD[] = "null";
 
@@ -42,13 +41,12 @@ bool g_isOnline;
 PashDoc g_doc;
 
 // Default data content.
-const char DEFAULT_DATA[] {
+const char DEFAULT_DATA[]{
     R"(<?xml version="1.0" encoding="UTF-8"?>
 <Group name=".">
 </Group>
 )"
 };
-
 
 // Position variables.
 const int VAR_SIZE = 10;
@@ -62,9 +60,9 @@ const char PASH_EDITOR_VERSION[] = "2.1.4";
 int g_mode = MODE_IDLE;
 
 // Copyright info.
-const char TITLE[] { "PassBash Pro" };
-const char COPYRIGHT[] { "Tony's Studio 2020 - 2024" };
-const char AUTHOR[] { "Tony Skywalker" };
+const char TITLE[]{ "PassBash Pro" };
+const char COPYRIGHT[]{ "Tony's Studio 2020 - 2024" };
+const char AUTHOR[]{ "Tony Skywalker" };
 
 // Original Logo from: https://textkool.com/en/ascii-art-generator
 const char LOGO[] = R"(

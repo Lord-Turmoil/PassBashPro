@@ -23,9 +23,7 @@
 #include "../../../inc/exec/function/FuncHeader.h"
 #include "../../../inc/utility/Auxiliary.h"
 
-
 int _copy(const std::string& data);
-
 
 int exec_copy(int argc, char* argv[])
 {
@@ -58,7 +56,6 @@ int exec_copy(int argc, char* argv[])
     return 0;
 }
 
-
 int _copy(const std::string& data)
 {
     HWND hWnd = nullptr;
@@ -72,14 +69,15 @@ int _copy(const std::string& data)
     if (!hHandle)
         return 1;
 
-    auto pData = static_cast<char*>(GlobalLock(hHandle)); //�����ڴ棬���������ڴ���׵�ַ
+    auto pData =
+        static_cast<char*>(GlobalLock(hHandle)); // �����ڴ棬���������ڴ���׵�ַ
     if (!pData)
         return 2;
     strcpy_s(pData, size, data.c_str());
 
     SetClipboardData(CF_TEXT, hHandle);
     GlobalUnlock(hHandle);
-    CloseClipboard();
+  CloseClipboard();
 
     return 0;
 }

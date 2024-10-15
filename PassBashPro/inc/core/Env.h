@@ -27,8 +27,8 @@
 
 #include "../common/Constants.h"
 
-#include <string>
 #include <memory>
+#include <string>
 
 /********************************************************************
 ** All info needed for a user.
@@ -50,7 +50,6 @@ struct Env
 
     bool online;
 };
-
 
 using EnvPtr = std::shared_ptr<Env>;
 

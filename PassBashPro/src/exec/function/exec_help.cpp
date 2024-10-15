@@ -21,11 +21,10 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/function/FuncHeader.h"
-#include "../../../inc/utility/FileUtil.h"
 #include "../../../inc/utility/Auxiliary.h"
+#include "../../../inc/utility/FileUtil.h"
 
 #include <algorithm>
-
 
 static std::string target;
 static bool showAll;
@@ -46,7 +45,6 @@ static int _print_help(const char* path, bool brief);
 
 static bool _is_empty_line(const char* line);
 
-
 int exec_help(int argc, char* argv[])
 {
     target = "";
@@ -60,8 +58,7 @@ int exec_help(int argc, char* argv[])
             _help_usage();
     }
 
-    std::transform(target.begin(), target.end(), target.begin(),
-                   [](char c) { return tolower(c); });
+    std::transform(target.begin(), target.end(), target.begin(), [](char c) { return tolower(c); });
 
     if (showAll)
         return _help_all();
@@ -73,13 +70,11 @@ int exec_help(int argc, char* argv[])
     return 0;
 }
 
-
 static int _help_usage()
 {
     // Use '_help' to differentiate internal and external call.
     return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "_help", "help", nullptr);
 }
-
 
 static int _help_parse_args(int argc, char* argv[])
 {
@@ -139,8 +134,8 @@ static int _help_parse_args(int argc, char* argv[])
     return 0;
 }
 
-
-static int _help_single(const std::string& item, bool brief) // help single command (in detail)
+static int _help_single(const std::string& item,
+                        bool brief) // help single command (in detail)
 {
     std::string path(HELP_ROOT_DIR);
     path.append(HELP_DIR[g_mode]);
@@ -160,7 +155,6 @@ static int _help_single(const std::string& item, bool brief) // help single comm
 
     return 0;
 }
-
 
 static int _help_current(const char* root) // help current faction (in brief)
 {
@@ -191,7 +185,6 @@ static int _help_current(const char* root) // help current faction (in brief)
     return 0;
 }
 
-
 static int _help_all() // help all factions (in brief)
 {
     std::string path(HELP_ROOT_DIR);
@@ -214,7 +207,6 @@ static int _help_all() // help all factions (in brief)
     return ret;
 }
 
-
 static bool _is_empty_line(const char* line)
 {
     for (const char* p = line; *p; p++)
@@ -225,7 +217,6 @@ static bool _is_empty_line(const char* line)
 
     return true;
 }
-
 
 static int _print_help(const char* path, bool brief)
 {

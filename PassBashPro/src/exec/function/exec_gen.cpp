@@ -38,7 +38,7 @@ static const int DEFAULT_TOP = std::min(VAR_SIZE, 3);
 
 static bool hasLength;
 static int length; // length of password
-static int top; // generate how many results
+static int top;    // generate how many results
 
 static bool useDefault;
 static bool hasAlpha;
@@ -61,7 +61,6 @@ static std::string _generate_password();
 
 static int _print_result();
 
-
 int exec_gen(int argc, char* argv[])
 {
     _gen_init();
@@ -79,7 +78,6 @@ int exec_gen(int argc, char* argv[])
     return 0;
 }
 
-
 static void _gen_init()
 {
     length = 0;
@@ -96,13 +94,10 @@ static void _gen_init()
     candidates.clear();
 }
 
-
 static int _gen_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "generate", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "generate", nullptr);
 }
-
 
 // gen [-l 8] [-n 5] [-a -d -c]
 static int _gen_parse_args(int argc, char* argv[])
@@ -180,7 +175,6 @@ static int _gen_parse_args(int argc, char* argv[])
     return 0;
 }
 
-
 static int _init_generation()
 {
     if (useDefault)
@@ -204,7 +198,6 @@ static int _init_generation()
     return 0;
 }
 
-
 static std::string _generate_password()
 {
     std::string password;
@@ -217,7 +210,6 @@ static std::string _generate_password()
 
     return password;
 }
-
 
 static int _print_result()
 {

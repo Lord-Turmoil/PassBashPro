@@ -21,15 +21,14 @@
  ******************************************************************************/
 
 #include "../../../inc/exec/service/ServiceAux.h"
-#include "../../../inc/utility/Auxiliary.h"
 #include "../../../inc/core/PashDoc.h"
 #include "../../../inc/exec/ExecHeader.h"
-#include "../../../inc/utility/FileUtil.h"
+#include "../../../inc/utility/Auxiliary.h"
 #include "../../../inc/utility/ExecUtil.h"
+#include "../../../inc/utility/FileUtil.h"
 
-#include <tea.h>
 #include <hash.h>
-
+#include <tea.h>
 
 ProfilePtr CreateProfile(const std::string& username)
 {
@@ -38,7 +37,6 @@ ProfilePtr CreateProfile(const std::string& username)
 
     return std::make_shared<Profile>(username, path);
 }
-
 
 EnvPtr CreateEnv(ProfilePtr profile)
 {
@@ -57,7 +55,6 @@ EnvPtr CreateEnv(ProfilePtr profile)
     return env;
 }
 
-
 int DeleteProfile(ProfilePtr profile, bool force)
 {
     if (!profile)
@@ -74,7 +71,6 @@ int DeleteProfile(ProfilePtr profile, bool force)
 
     return 0;
 }
-
 
 int InitConfig(EnvPtr env)
 {
@@ -105,7 +101,6 @@ int InitConfig(EnvPtr env)
     return 0;
 }
 
-
 int InitData(EnvPtr env)
 {
     const char* dataPath = env->dataPath.c_str();
@@ -135,7 +130,6 @@ int InitData(EnvPtr env)
     return 0;
 }
 
-
 int SaveConfig(EnvPtr env, bool overwrite)
 {
     if (!FileUtil::NewDirectory(env->rootPath.c_str()))
@@ -157,8 +151,7 @@ int SaveConfig(EnvPtr env, bool overwrite)
     _HashPassword(env->password, hashPass);
 
     // Prevent premature exit
-    auto reader =
-            new tea::TEARawBufferReader(hashPass, PASSWORD_MAX_LENGTH);
+    auto reader = new tea::TEARawBufferReader(hashPass, PASSWORD_MAX_LENGTH);
     auto writer = new tea::TEAFileWriter(output);
     encode(reader, writer, hashPass);
     delete reader;
@@ -166,7 +159,6 @@ int SaveConfig(EnvPtr env, bool overwrite)
 
     return 0;
 }
-
 
 int SaveData(PashDoc& doc, EnvPtr env, bool overwrite)
 {
@@ -186,7 +178,6 @@ int SaveData(PashDoc& doc, EnvPtr env, bool overwrite)
 
     return 0;
 }
-
 
 int InitEnvFiles(EnvPtr env)
 {
@@ -210,25 +201,21 @@ int InitEnvFiles(EnvPtr env)
     return 0;
 }
 
-
 bool UsernameVerifier(char ch)
 {
     return isalnum(ch) || (ch == '_');
 }
-
 
 bool PasswordVerifier(char ch)
 {
     return isgraph(ch);
 }
 
-
 bool YesNoVerifier(char ch)
 {
     char lower = tolower(ch);
     return (lower == 'y') || (lower == 'n');
 }
-
 
 int UpdateCache()
 {
@@ -249,10 +236,8 @@ int UpdateCache()
     return 0;
 }
 
-
 static char _encoded_password[PASSWORD_BUFFER_SIZE];
 static char _decoded_password[PASSWORD_BUFFER_SIZE];
-
 
 bool VerifyProfileInit(EnvPtr env)
 {
@@ -275,15 +260,13 @@ bool VerifyProfileInit(EnvPtr env)
     return true;
 }
 
-
 bool VerifyProfile(const char* password)
 {
     char hashPass[PASSWORD_BUFFER_SIZE];
     _HashPassword(password, hashPass);
 
     // MD5 vaule may contain 0x0 within!!!
-    auto reader =
-            new tea::TEARawBufferReader(_encoded_password, PASSWORD_MAX_LENGTH);
+    auto reader = new tea::TEARawBufferReader(_encoded_password, PASSWORD_MAX_LENGTH);
     auto writer = new tea::TEABufferWriter(_decoded_password);
     decode(reader, writer, hashPass);
     delete reader;
@@ -291,7 +274,6 @@ bool VerifyProfile(const char* password)
 
     return _MEM_SAME(hashPass, _decoded_password, PASSWORD_MAX_LENGTH);
 }
-
 
 int VerifyData(EnvPtr env)
 {
@@ -322,7 +304,6 @@ int VerifyData(EnvPtr env)
     return 0;
 }
 
-
 bool VerifyUsername(const std::string& username)
 {
     if (username.length() < USERNAME_MIN_LENGTH)
@@ -349,7 +330,6 @@ bool VerifyUsername(const std::string& username)
 
     return true;
 }
-
 
 bool VerifyPassword(const std::string& password)
 {

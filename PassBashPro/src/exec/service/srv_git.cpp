@@ -20,18 +20,16 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
-#include "../../../inc/exec/service/ServiceHeader.h"
-#include "../../../inc/utility/Auxiliary.h"
+#include <cstdlib>
 #include <direct.h>
 #include <string>
-#include <cstdlib>
+#include "../../../inc/exec/service/ServiceHeader.h"
+#include "../../../inc/utility/Auxiliary.h"
 
 #include <tea.h>
 
-
 int _git_verify();
 int _git_reload();
-
 
 int srv_git(int argc, char* argv[])
 {
@@ -136,13 +134,11 @@ int srv_git(int argc, char* argv[])
     return ret;
 }
 
-
 int _git_verify()
 {
     VerifyProfileInit(g_env);
     return VerifyProfile(g_env->password) ? 0 : 1;
 }
-
 
 int _git_reload()
 {

@@ -25,9 +25,9 @@
 #ifndef _EXEC_HEADER_H_
 #define _EXEC_HEADER_H_
 
-#include "../common/Error.h"
 #include "../common/Colors.h"
 #include "../common/Constants.h"
+#include "../common/Error.h"
 #include "../common/Logger.h"
 #include "../common/Macros.h"
 

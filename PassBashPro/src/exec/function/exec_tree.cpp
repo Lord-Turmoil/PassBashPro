@@ -29,7 +29,6 @@ static int _tree_usage();
 static int _tree_parse_args(int argc, char* argv[], std::string& path);
 static void _tree(XMLElementPtr node, const std::string& leading);
 
-
 int exec_tree(int argc, char* argv[])
 {
     std::string path;
@@ -55,19 +54,15 @@ int exec_tree(int argc, char* argv[])
     return 0;
 }
 
-
 static void _tree_init()
 {
     group_only = false;
 }
 
-
 static int _tree_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "tree", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "tree", nullptr);
 }
-
 
 static int _tree_parse_args(int argc, char* argv[], std::string& path)
 {
@@ -115,7 +110,6 @@ static int _tree_parse_args(int argc, char* argv[], std::string& path)
 
     return 0;
 }
-
 
 /********************************************************************
 ** This is a little tricky.

@@ -34,7 +34,6 @@ int optopt;
 
 static int optind;
 
-
 void resetopt()
 {
     optind = 0;
@@ -43,15 +42,13 @@ void resetopt()
     optmsg = nullptr;
 }
 
-
 static int _parseopt(const char* arg);
 
 // parse arg in opt. e.g. pthread from -lpthread
-// Must checked by _parseopt first. 
+// Must checked by _parseopt first.
 static char* _parsearg(char* arg);
 
 static void _initopt();
-
 
 int getopt(int argc, char* argv[], const char* pattern)
 {
@@ -86,12 +83,10 @@ int getopt(int argc, char* argv[], const char* pattern)
                 optarg = _parsearg(argv[optind]);
                 if (!optarg) // argument not compact
                 {
-                    if (((optind < argc - 1) && _parseopt(argv[optind + 1])) ||
-                        (optind == argc - 1))
+                    if (((optind < argc - 1) && _parseopt(argv[optind + 1])) || (optind == argc - 1))
                     {
                         opterr = ERRNO_MISSING_ARGUMENT;
-                        sprintf_s(_opt_buffer,
-                                  "Missing argument for parameter %c", opt);
+                        sprintf_s(_opt_buffer, "Missing argument for parameter %c", opt);
                         optmsg = _opt_buffer;
                     }
                     else
@@ -106,7 +101,6 @@ int getopt(int argc, char* argv[], const char* pattern)
     return opt;
 }
 
-
 static int _parseopt(const char* arg)
 {
     if (arg[0] == '-' && arg[1] != '\0')
@@ -114,16 +108,14 @@ static int _parseopt(const char* arg)
     return 0;
 }
 
-
 // parse arg in opt. e.g. pthread from -lpthread
-// Must checked by _parseopt first. 
+// Must checked by _parseopt first.
 static char* _parsearg(char* arg)
 {
     if (arg[2] != '\0')
         return &arg[2];
     return nullptr;
 }
-
 
 static void _initopt()
 {

@@ -20,15 +20,14 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
-#include "../inc/Macros.h"
 #include "../inc/Input.h"
+#include "../inc/Macros.h"
 
 _CNSL_BEGIN
 InputHistory::InputHistory()
 {
     _record.push_back(_strdup(""));
 }
-
 
 InputHistory::~InputHistory()
 {
@@ -37,13 +36,11 @@ InputHistory::~InputHistory()
         free(it);
 }
 
-
 void InputHistory::Push(const char* history)
 {
     if (!((_record.size() > 1) && (strcmp(*(_record.end() - 2), history) == 0)))
         _record.insert(_record.end() - 1, _strdup(history));
 }
-
 
 void InputHistory::Clear()
 {
@@ -53,6 +50,5 @@ void InputHistory::Clear()
 
     _record.push_back(_strdup(""));
 }
-
 
 _CNSL_END

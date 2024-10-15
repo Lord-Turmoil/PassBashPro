@@ -23,8 +23,8 @@
 #ifndef _TEA_UTIL_H_
 #define _TEA_UTIL_H_
 
-#include "tea_defines.h"
 #include <cstdio>
+#include "tea_defines.h"
 
 _TEA_BEGIN
 
@@ -40,13 +40,11 @@ public:
     {
     }
 
-
     virtual ~TEAReader() = 0;
 
     virtual bool Read(char* buffer, size_t nBytes) = 0;
     virtual void Close() = 0;
 };
-
 
 class TEAWriter
 {
@@ -55,19 +53,16 @@ public:
     {
     }
 
-
     virtual ~TEAWriter() = 0;
 
     virtual bool Write(const char* buffer, size_t nBytes) = 0;
     virtual void Close() = 0;
 };
 
-
 struct TEAReadBuffer
 {
     const char* base;
     const char* pc;
-
 
     TEAReadBuffer(const char* _base)
     {
@@ -76,12 +71,10 @@ struct TEAReadBuffer
     }
 };
 
-
 struct TEAWriteBuffer
 {
     char* base;
     char* pc;
-
 
     TEAWriteBuffer(char* _base)
     {
@@ -89,7 +82,6 @@ struct TEAWriteBuffer
         pc = base;
     }
 };
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -103,8 +95,10 @@ public:
     {
     }
 
-
-    ~TEAFileReader() override { Close(); }
+    ~TEAFileReader() override
+    {
+        Close();
+    }
 
     bool Read(char* buffer, size_t nBytes) override;
     void Close() override;
@@ -112,7 +106,6 @@ public:
 protected:
     FILE* m_input;
 };
-
 
 // No overflow check! Must terminate with '\0'
 class TEABufferReader : public TEAReader
@@ -122,8 +115,10 @@ public:
     {
     }
 
-
-    ~TEABufferReader() override { Close(); }
+    ~TEABufferReader() override
+    {
+        Close();
+    }
 
     bool Read(char* buffer, size_t nBytes) override;
     void Close() override;
@@ -132,25 +127,21 @@ protected:
     TEAReadBuffer m_buffer;
 };
 
-
 // Will not teminate at '\0', length must be specified instead.
 class TEARawBufferReader : public TEABufferReader
 {
 public:
     TEARawBufferReader(const char* buffer, size_t nBytes);
 
-
     ~TEARawBufferReader() override
     {
     }
-
 
     bool Read(char* buffer, size_t nBytes) override;
 
 protected:
     size_t m_nBytes;
 };
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -164,8 +155,10 @@ public:
     {
     }
 
-
-    ~TEAFileWriter() override { Close(); }
+    ~TEAFileWriter() override
+    {
+        Close();
+    }
 
     bool Write(const char* buffer, size_t nBytes) override;
     void Close() override;
@@ -173,7 +166,6 @@ public:
 protected:
     FILE* m_output;
 };
-
 
 // No overflow check!
 class TEABufferWriter : public TEAWriter
@@ -183,8 +175,10 @@ public:
     {
     }
 
-
-    ~TEABufferWriter() override { Close(); }
+    ~TEABufferWriter() override
+    {
+        Close();
+    }
 
     bool Write(const char* buffer, size_t nBytes) override;
     void Close() override;
@@ -192,7 +186,6 @@ public:
 protected:
     TEAWriteBuffer m_buffer;
 };
-
 
 _TEA_END
 

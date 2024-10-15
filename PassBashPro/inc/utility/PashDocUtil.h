@@ -31,7 +31,6 @@
 
 #include <string>
 
-
 /********************************************************************
 ** Entry in Item.
 */
@@ -41,18 +40,14 @@ struct Entry
     const char* value;
     int weight;
 
-
     Entry() : key(nullptr), value(nullptr), weight(0)
     {
     }
 
-
-    Entry(const char* _k, const char* _v, int _w) :
-        key(_k), value(_v), weight(_w)
+    Entry(const char* _k, const char* _v, int _w) : key(_k), value(_v), weight(_w)
     {
     }
 };
-
 
 struct EntryCompare
 {
@@ -64,9 +59,7 @@ struct EntryCompare
     };
 };
 
-
 using EntryList = std::vector<Entry>;
-
 
 /********************************************************************
 ** Utility functions for PashDoc.
@@ -84,7 +77,6 @@ public:
 
     static bool IsLegalNodeName(const std::string& name);
 
-
     // Group, Item, Entry
     static XMLElementPtr CreateNode(const char* tag);
     static void DeleteNode(XMLElementPtr node);
@@ -93,7 +85,6 @@ public:
 
     static const char* GetNodeDirectory(XMLElementPtr node, std::string& path);
     static const char* GetPresentWorkingDirectory(std::string& path);
-
 
     // Group, Item
     static XMLElementPtr GetDirectChildNode(XMLElementPtr node, const char* name);
@@ -118,7 +109,6 @@ public:
     static XMLElementPtr CreateGroupNodeByPath(const std::string& path);
     static bool GetGroupChildren(XMLElementPtr node, XMLElementPtrList& nodes);
 
-
     // Item
     static XMLElementPtr CreateItemNodeByPath(const std::string& path);
 
@@ -138,7 +128,6 @@ private:
     {
     }
 };
-
 
 struct XMLElementPtrCompare
 {
@@ -164,6 +153,5 @@ struct XMLElementPtrCompare
         return lhsGroup;
     };
 };
-
 
 #endif

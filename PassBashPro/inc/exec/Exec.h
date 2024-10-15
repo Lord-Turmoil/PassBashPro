@@ -25,9 +25,7 @@
 #ifndef _EXEC_H_
 #define _EXEC_H_
 
-
-using Exec = int(*)(int, char*[]);
-
+using Exec = int (*)(int, char*[]);
 
 // Identifiers for different executable factories.
 constexpr char EXEC_IDLE[] = "offline";

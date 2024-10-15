@@ -21,11 +21,11 @@
  ******************************************************************************/
 
 #include "../../inc/exec/Init.h"
-#include "../../inc/exec/ExecHost.h"
 #include "../../inc/exec/Exec.h"
+#include "../../inc/exec/ExecHost.h"
 
-#include "../../inc/exec/function/Function.h"
 #include "../../inc/exec/editor/Editor.h"
+#include "../../inc/exec/function/Function.h"
 #include "../../inc/exec/service/Service.h"
 
 #include "../../inc/common/Macros.h"
@@ -34,14 +34,12 @@
 
 #include "../../inc/utility/Auxiliary.h"
 
-
 #define HOOK(FACTORY, DESCR, CMD) FACTORY->Hook(DESCR, CMD)
 
 static void _InitService();
 static void _InitGlobal();
 static void _InitEditor();
 static void _InitHidden();
-
 
 void InitExecHost()
 {
@@ -50,7 +48,6 @@ void InitExecHost()
     _InitEditor();
     _InitHidden();
 }
-
 
 void InitConsole()
 {
@@ -73,12 +70,10 @@ void InitConsole()
     cnsl::OverflowReprint(false);
 }
 
-
 void InitAddons()
 {
     SetRandomSeed();
 }
-
 
 static void _InitService()
 {
@@ -99,7 +94,6 @@ static void _InitService()
 
     ExecHost::GetInstance()->Register(EXEC_SERVICE, factory);
 }
-
 
 static void _InitGlobal()
 {
@@ -162,7 +156,6 @@ static void _InitGlobal()
     ExecHost::GetInstance()->Register(EXEC_GLOBAL, factory);
 }
 
-
 static void _InitEditor()
 {
     ExecFactoryPtr factory(new ExecFactory());
@@ -194,7 +187,6 @@ static void _InitEditor()
 
     ExecHost::GetInstance()->Register(EXEC_EDIT, factory);
 }
-
 
 static void _InitHidden()
 {

@@ -30,7 +30,6 @@ static int _checkout_parse_args(int argc, char* argv[]);
 static int _checkout_logout();
 static int _checkout_login(EnvPtr env, PashDoc& doc);
 
-
 int srv_checkout(int argc, char* argv[])
 {
     PASH_PANIC_ON(g_env == nullptr);
@@ -89,13 +88,10 @@ int srv_checkout(int argc, char* argv[])
     return 0;
 }
 
-
 static int _checkout_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "checkout", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "checkout", nullptr);
 }
-
 
 static int _checkout_parse_args(int argc, char* argv[])
 {
@@ -156,7 +152,6 @@ static int _checkout_parse_args(int argc, char* argv[])
     return 0;
 }
 
-
 static int _checkout_logout()
 {
     PASH_TRY(SaveConfig(g_env, true));
@@ -164,7 +159,6 @@ static int _checkout_logout()
 
     return 0;
 }
-
 
 static int _checkout_login(EnvPtr env, PashDoc& doc)
 {

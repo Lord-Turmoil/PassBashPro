@@ -24,7 +24,6 @@
 
 static void _unset_usage();
 
-
 int exec_edit_unset(int argc, char* argv[])
 {
     const char* params[1] = { nullptr };
@@ -55,9 +54,7 @@ int exec_edit_unset(int argc, char* argv[])
     return 0;
 }
 
-
 static void _unset_usage()
 {
-    ExecHost::GetInstance()
-            ->execl(EXEC_EDIT, "help", "help", "unset", nullptr);
+    ExecHost::GetInstance()->execl(EXEC_EDIT, "help", "help", "unset", nullptr);
 }

@@ -24,7 +24,6 @@
 
 static int _order_parse_args(int argc, char* argv[], std::string& order);
 
-
 int exec_order(int argc, char* argv[])
 {
     std::string order;
@@ -74,7 +73,6 @@ int exec_order(int argc, char* argv[])
 
     return 0;
 }
-
 
 static int _order_parse_args(int argc, char* argv[], std::string& order)
 {

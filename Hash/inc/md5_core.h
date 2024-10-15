@@ -30,16 +30,20 @@
 
 #include "hash_defines.h"
 
-#include <string>
 #include <cstdint>
+#include <string>
 
 _HASH_BEGIN
+
 class MD5 //: public Hash
 {
 public:
     /// split into 64 byte blocks (=> 512 bits), hash is 16 bytes long
-    enum { BlockSize = 512 / 8, HashBytes = 16 };
-
+    enum
+    {
+        BlockSize = 512 / 8,
+        HashBytes = 16
+    };
 
     /// same as reset()
     MD5();
@@ -73,13 +77,13 @@ private:
     /// bytes not processed yet
     uint8_t m_buffer[BlockSize];
 
-
-    enum { HashValues = HashBytes / 4 };
-
+    enum
+    {
+        HashValues = HashBytes / 4
+    };
 
     /// hash, stored as integers
     uint32_t m_hash[HashValues];
 };
-
 
 _HASH_END

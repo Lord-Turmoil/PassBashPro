@@ -29,7 +29,6 @@ static int _remaster_receive_password();
 static int _remaster_reencrypt_data();
 static void _remaster_abort();
 
-
 int srv_remaster(int argc, char* argv[])
 {
     PASH_PANIC_ON(g_env == nullptr);
@@ -63,13 +62,11 @@ int srv_remaster(int argc, char* argv[])
     return 0;
 }
 
-
 static void _remaster_greeting()
 {
     cnsl::InsertText(MESSAGE_COLOR, "You are now changing your master password.\n");
     cnsl::InsertText(MESSAGE_COLOR, "Press ESC to abort.\n");
 }
-
 
 static int _remaster_authorize()
 {
@@ -93,8 +90,7 @@ static int _remaster_authorize()
             cnsl::InsertNewLine();
             return TERMINATION;
         }
-    }
-    while (ret == 0);
+    } while (ret == 0);
     _FormatPassword(buffer);
     while (_STR_DIFF(g_env->password, buffer))
     {
@@ -114,8 +110,7 @@ static int _remaster_authorize()
                 cnsl::InsertNewLine();
                 return TERMINATION;
             }
-        }
-        while (ret == 0);
+        } while (ret == 0);
         _FormatPassword(buffer);
     }
 
@@ -124,7 +119,6 @@ static int _remaster_authorize()
 
     return 0;
 }
-
 
 static int _remaster_receive_password()
 {
@@ -138,9 +132,7 @@ static int _remaster_receive_password()
     options.verifier = PasswordVerifier;
 
     EXEC_PRINT_MSG("Please enter new master password.\n");
-    EXEC_PRINT_MSG("%d to %d characters, any ascii that is printable.\n",
-                   PASSWORD_MIN_LENGTH,
-                   PASSWORD_MAX_LENGTH);
+    EXEC_PRINT_MSG("%d to %d characters, any ascii that is printable.\n", PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
     do
     {
         cnsl::Clear(0);
@@ -151,8 +143,7 @@ static int _remaster_receive_password()
             cnsl::InsertNewLine();
             return TERMINATION;
         }
-    }
-    while (ret < 6);
+    } while (ret < 6);
 
     _FormatPassword(buffer, g_env->password);
 
@@ -166,7 +157,6 @@ static int _remaster_receive_password()
     return 0;
 }
 
-
 static int _remaster_reencrypt_data()
 {
     PASH_PANIC_ON(SaveConfig(g_env, true));
@@ -174,7 +164,6 @@ static int _remaster_reencrypt_data()
 
     return 0;
 }
-
 
 static void _remaster_abort()
 {

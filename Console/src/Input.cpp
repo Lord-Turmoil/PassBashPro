@@ -24,12 +24,12 @@
 #include "../inc/Common.h"
 #include "../inc/InputAux.h"
 
-#pragma warning(disable: 4996)
+#pragma warning(disable : 4996)
 
 #include <cctype>
+#include <conio.h>
 #include <cstring>
 #include <vector>
-#include <conio.h>
 
 #ifdef max
 #undef max
@@ -68,12 +68,10 @@ static _input_action_t _special_ctrl_delete;
 static _input_action_t _special_home;
 static _input_action_t _special_end;
 
-
 int GetString(char* buffer)
 {
     return GetString(buffer, InputOptions());
 }
-
 
 int GetString(char* buffer, const InputOptions& options)
 {
@@ -98,7 +96,7 @@ int GetString(char* buffer, const InputOptions& options)
     InputPlaceholder(opt, ctx);
 
     char ch;
-    for (; ;)
+    for (;;)
     {
         ch = _getch();
         if (IsTerminator(ch))
@@ -143,7 +141,6 @@ int GetString(char* buffer, const InputOptions& options)
     return ctx.length;
 }
 
-
 static void ResetInput(SHORT beginX, int maxLen, int& pos, int& length, char* input, char* history)
 {
     if (!history)
@@ -158,7 +155,6 @@ static void ResetInput(SHORT beginX, int maxLen, int& pos, int& length, char* in
     input[length] = '\0';
 }
 
-
 static void InputPlaceholder(const InputOptions& opt, InputContext& ctx)
 {
     if (!opt.placeholder)
@@ -169,7 +165,6 @@ static void InputPlaceholder(const InputOptions& opt, InputContext& ctx)
         _insert_char(opt, ctx);
     }
 }
-
 
 static void _reset_input(const InputOptions& opt, InputContext& ctx)
 {
@@ -184,7 +179,6 @@ static void _reset_input(const InputOptions& opt, InputContext& ctx)
     strncpy(ctx.buffer, *ctx.history, ctx.length);
     ctx.buffer[ctx.length] = '\0';
 }
-
 
 static void _insert_char(const InputOptions& opt, InputContext& ctx)
 {
@@ -205,7 +199,6 @@ static void _insert_char(const InputOptions& opt, InputContext& ctx)
     }
 }
 
-
 static void _insert_backspace(const InputOptions& opt, InputContext& ctx)
 {
     if (ctx.pos > 0)
@@ -224,7 +217,6 @@ static void _insert_backspace(const InputOptions& opt, InputContext& ctx)
     }
 }
 
-
 static void _insert_ctrl_backspace(const InputOptions& opt, InputContext& ctx)
 {
     while ((ctx.pos > 0) && !isalnum(ctx.buffer[ctx.pos - 1]))
@@ -232,7 +224,6 @@ static void _insert_ctrl_backspace(const InputOptions& opt, InputContext& ctx)
     while ((ctx.pos > 0) && isalnum(ctx.buffer[ctx.pos - 1]))
         _insert_backspace(opt, ctx);
 }
-
 
 static void _insert_completion(const InputOptions& opt, InputContext& ctx)
 {
@@ -255,7 +246,6 @@ static void _insert_completion(const InputOptions& opt, InputContext& ctx)
         completion++;
     }
 }
-
 
 static void _special_input_handler(char ch, const InputOptions& opt, InputContext& ctx)
 {
@@ -296,7 +286,6 @@ static void _special_input_handler(char ch, const InputOptions& opt, InputContex
     }
 }
 
-
 static void _special_arrow_left(const InputOptions& opt, InputContext& ctx)
 {
     if (ctx.pos > 0)
@@ -306,7 +295,6 @@ static void _special_arrow_left(const InputOptions& opt, InputContext& ctx)
     }
 }
 
-
 static void _special_arrow_right(const InputOptions& opt, InputContext& ctx)
 {
     if (ctx.pos < ctx.length)
@@ -315,7 +303,6 @@ static void _special_arrow_right(const InputOptions& opt, InputContext& ctx)
         ctx.pos++;
     }
 }
-
 
 static void _special_arrow_up(const InputOptions& opt, InputContext& ctx)
 {
@@ -327,7 +314,6 @@ static void _special_arrow_up(const InputOptions& opt, InputContext& ctx)
     }
 }
 
-
 static void _special_arrow_down(const InputOptions& opt, InputContext& ctx)
 {
     if (ctx.history)
@@ -337,7 +323,6 @@ static void _special_arrow_down(const InputOptions& opt, InputContext& ctx)
         _reset_input(opt, ctx);
     }
 }
-
 
 static void _special_arrow_ctrl_left(const InputOptions& opt, InputContext& ctx)
 {
@@ -353,7 +338,6 @@ static void _special_arrow_ctrl_left(const InputOptions& opt, InputContext& ctx)
     }
 }
 
-
 static void _special_arrow_ctrl_right(const InputOptions& opt, InputContext& ctx)
 {
     while ((ctx.pos < ctx.length) && isalnum(ctx.buffer[ctx.pos]))
@@ -367,7 +351,6 @@ static void _special_arrow_ctrl_right(const InputOptions& opt, InputContext& ctx
         ctx.pos++;
     }
 }
-
 
 static void _special_delete(const InputOptions& opt, InputContext& ctx)
 {
@@ -385,7 +368,6 @@ static void _special_delete(const InputOptions& opt, InputContext& ctx)
     }
 }
 
-
 static void _special_ctrl_delete(const InputOptions& opt, InputContext& ctx)
 {
     if (isalnum(ctx.buffer[ctx.pos]))
@@ -397,13 +379,11 @@ static void _special_ctrl_delete(const InputOptions& opt, InputContext& ctx)
         _special_delete(opt, ctx);
 }
 
-
 static void _special_home(const InputOptions& opt, InputContext& ctx)
 {
     InsertBackspace(ctx.pos);
     ctx.pos = 0;
 }
-
 
 static void _special_end(const InputOptions& opt, InputContext& ctx)
 {
@@ -411,6 +391,5 @@ static void _special_end(const InputOptions& opt, InputContext& ctx)
         InsertChar(opt.decoy ? opt.decoy : ctx.buffer[i]);
     ctx.pos = ctx.length;
 }
-
 
 _CNSL_END

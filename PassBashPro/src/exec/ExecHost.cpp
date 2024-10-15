@@ -21,12 +21,11 @@
  ******************************************************************************/
 
 #include "../../inc/exec/ExecHost.h"
-#include "../../inc/common/Error.h"
 #include "../../inc/common/Constants.h"
+#include "../../inc/common/Error.h"
 #include "../../inc/common/Logger.h"
 
 #include <stdarg.h>
-
 
 int ExecHost::Register(const char* descr, ExecFactoryPtr factory)
 {
@@ -38,7 +37,6 @@ int ExecHost::Register(const char* descr, ExecFactoryPtr factory)
         return 0;
     return 1;
 }
-
 
 // if descr is nullptr, all factories will be cleared
 int ExecHost::UnRegister(const char* descr)
@@ -54,7 +52,6 @@ int ExecHost::UnRegister(const char* descr)
     return -1;
 }
 
-
 ExecFactoryPtr ExecHost::GetFactory(const char* descr)
 {
     if (!descr)
@@ -66,7 +63,6 @@ ExecFactoryPtr ExecHost::GetFactory(const char* descr)
 
     return ret->second;
 }
-
 
 int ExecHost::execl(const char* descr, const char* cmd, ...)
 {
@@ -85,7 +81,6 @@ int ExecHost::execl(const char* descr, const char* cmd, ...)
         return ERRNO_EXEC_NOT_FOUND;
     }
 
-
     int argc = 0;
     char* arg;
     va_list args;
@@ -101,7 +96,6 @@ int ExecHost::execl(const char* descr, const char* cmd, ...)
 
     return exec(argc, argv);
 }
-
 
 int ExecHost::execv(const char* descr, const char* cmd, char* argv[])
 {

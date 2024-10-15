@@ -24,7 +24,6 @@
 
 #include <regex>
 
-
 static bool is_deep;
 static bool is_strict;
 static std::string root_path;
@@ -40,7 +39,6 @@ static int _find_parse_args(int argc, char* argv[]);
 static void _search_item(XMLElementPtr root, SearchResultList& list);
 static void _search(XMLElementPtr root, SearchResultList& list);
 static void _find(SearchResultList& list);
-
 
 int exec_find(int argc, char* argv[])
 {
@@ -71,8 +69,8 @@ int exec_find(int argc, char* argv[])
             else
                 cnsl::InsertText("     ");
 
-            cnsl::InsertText(PashDocUtil::IsGroup(it.first) ? GROUP_COLOR : ITEM_COLOR,
-                             "\t%s", PashDocUtil::GetNodeDirectory(it.first, path));
+            cnsl::InsertText(PashDocUtil::IsGroup(it.first) ? GROUP_COLOR : ITEM_COLOR, "\t%s",
+                             PashDocUtil::GetNodeDirectory(it.first, path));
 
             if (it.second)
                 cnsl::InsertText(MESSAGE_COLOR, " [%s]\n", it.second);
@@ -87,7 +85,6 @@ int exec_find(int argc, char* argv[])
     return 0;
 }
 
-
 static void _find_init()
 {
     is_deep = false;
@@ -96,13 +93,10 @@ static void _find_init()
     pattern = "";
 }
 
-
 static int _find_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "find", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "find", nullptr);
 }
-
 
 static int _find_parse_args(int argc, char* argv[])
 {
@@ -152,7 +146,6 @@ static int _find_parse_args(int argc, char* argv[])
     return 0;
 }
 
-
 static void _search_item(XMLElementPtr root, SearchResultList& list)
 {
     if (!PashDocUtil::IsItem(root))
@@ -194,7 +187,6 @@ static void _search_item(XMLElementPtr root, SearchResultList& list)
     }
 }
 
-
 static void _search(XMLElementPtr root, SearchResultList& list)
 {
     XMLElementPtr it = root->FirstChildElement();
@@ -212,7 +204,6 @@ static void _search(XMLElementPtr root, SearchResultList& list)
         it = it->NextSiblingElement();
     }
 }
-
 
 static void _find(SearchResultList& list)
 {

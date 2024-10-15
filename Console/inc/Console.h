@@ -27,17 +27,15 @@
 
 #include <Windows.h>
 
-
 _CNSL_BEGIN
+
 struct TextAttribute
 {
     WORD foreground;
     WORD background;
 };
 
-
 constexpr int CNSL_BUFFER_SIZE = 32;
-
 
 struct ConsoleInfo
 {
@@ -45,14 +43,12 @@ struct ConsoleInfo
     {
         COORD size;
 
-
         struct
         {
             SHORT width;
             SHORT height;
         };
     };
-
 
     COORD pos;
 
@@ -71,20 +67,19 @@ struct ConsoleInfo
     ~ConsoleInfo();
 };
 
-
 // Additional colors
-#define FOREGROUND_BLACK    0
-#define FOREGROUND_WHITE   (FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLUE )
-#define FOREGROUND_YELLOW  (FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLACK)
-#define FOREGROUND_MAGENTA (FOREGROUND_RED   | FOREGROUND_BLACK | FOREGROUND_BLUE )
-#define FOREGROUND_CYAN    (FOREGROUND_BLACK | FOREGROUND_GREEN | FOREGROUND_BLUE )
+#define FOREGROUND_BLACK        0
+#define FOREGROUND_WHITE        (FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
+#define FOREGROUND_YELLOW       (FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLACK)
+#define FOREGROUND_MAGENTA      (FOREGROUND_RED | FOREGROUND_BLACK | FOREGROUND_BLUE)
+#define FOREGROUND_CYAN         (FOREGROUND_BLACK | FOREGROUND_GREEN | FOREGROUND_BLUE)
 #define FOREGROUND_LIGHT(COLOR) ((COLOR) | FOREGROUND_INTENSITY)
 
-#define BACKGROUND_BLACK    0
-#define BACKGROUND_WHITE   (BACKGROUND_RED   | BACKGROUND_GREEN | BACKGROUND_BLUE )
-#define BACKGROUND_YELLOW  (BACKGROUND_RED   | BACKGROUND_GREEN | BACKGROUND_BLACK)
-#define BACKGROUND_MAGENTA (BACKGROUND_RED   | BACKGROUND_BLACK | BACKGROUND_BLUE )
-#define BACKGROUND_CYAN    (BACKGROUND_BLACK | BACKGROUND_GREEN | BACKGROUND_BLUE )
+#define BACKGROUND_BLACK        0
+#define BACKGROUND_WHITE        (BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE)
+#define BACKGROUND_YELLOW       (BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLACK)
+#define BACKGROUND_MAGENTA      (BACKGROUND_RED | BACKGROUND_BLACK | BACKGROUND_BLUE)
+#define BACKGROUND_CYAN         (BACKGROUND_BLACK | BACKGROUND_GREEN | BACKGROUND_BLUE)
 #define BACKGROUND_LIGHT(COLOR) ((COLOR) | BACKGROUND_INTENSITY)
 
 /*
@@ -119,8 +114,8 @@ void ShowCursor();
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
 void Clear();
-void Clear(SHORT left); // Clear left to end of current line.
-void Clear(SHORT left, SHORT right); // Clear left to right of current line.
+void Clear(SHORT left);                                       // Clear left to end of current line.
+void Clear(SHORT left, SHORT right);                          // Clear left to right of current line.
 void Clear(const COORD& upperLeft, const COORD& bottomRight); // Clear an area.
 
 /*
@@ -138,10 +133,7 @@ void RestoreTextAttribute();
 ** Header
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-void SetHeader(
-    const char* title,
-    const char* copyright,
-    const char* author);
+void SetHeader(const char* title, const char* copyright, const char* author);
 void SetTitle(const char* title);
 void SetCopyright(const char* copyright);
 void SetAuthor(const char* author);

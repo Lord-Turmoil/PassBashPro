@@ -20,8 +20,8 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
-#include "../../../inc/exec/service/ServiceHeader.h"
 #include "../../../inc/core/Profile.h"
+#include "../../../inc/exec/service/ServiceHeader.h"
 #include "../../../inc/utility/Auxiliary.h"
 
 std::string username;
@@ -43,7 +43,6 @@ static int _profile_delete();
 
 static int _profile_receive_username(bool showHelp = false);
 static int _profile_receive_password(bool showHelp = false);
-
 
 int srv_profile(int argc, char* argv[])
 {
@@ -77,7 +76,6 @@ int srv_profile(int argc, char* argv[])
     return ret;
 }
 
-
 static void _profile_init()
 {
     username = "";
@@ -88,13 +86,10 @@ static void _profile_init()
     isDelete = false;
 }
 
-
 static int _profile_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "profile", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "profile", nullptr);
 }
-
 
 static int _profile_parse_arg(int argc, char* argv[])
 {
@@ -161,7 +156,6 @@ static int _profile_parse_arg(int argc, char* argv[])
     return 0;
 }
 
-
 static int _profile_cli(bool showHelp)
 {
     int ret = _profile_receive_username(showHelp);
@@ -174,7 +168,6 @@ static int _profile_cli(bool showHelp)
 
     return ret;
 }
-
 
 static int _profile_silent()
 {
@@ -210,7 +203,6 @@ static int _profile_silent()
     return 0;
 }
 
-
 static int _profile_delete_confirm()
 {
     EXEC_PRINT_MSG("Delete current profile? (Y/N) ");
@@ -228,12 +220,10 @@ static int _profile_delete_confirm()
     return tolower(buffer[0]) != 'y';
 }
 
-
 static int _profile_delete_current()
 {
     return DeleteProfile(ProfilePool::GetInstance()->Get(username), true);
 }
-
 
 static int _profile_delete()
 {
@@ -296,7 +286,6 @@ static int _profile_delete()
     return 0;
 }
 
-
 static int _profile_receive_username(bool showHelp)
 {
     char buffer[USERNAME_BUFFER_SIZE];
@@ -304,17 +293,16 @@ static int _profile_receive_username(bool showHelp)
 
     if (showHelp)
     {
-        cnsl::InsertText(FOREGROUND_LIGHT(MESSAGE_COLOR),
-                         "This is the identity of a profile, you can create more profiles later.\n");
+        cnsl::InsertText(FOREGROUND_LIGHT(MESSAGE_COLOR), "This is the identity of a profile, you can create more "
+                                                          "profiles later.\n");
     }
 
     cnsl::InsertText("Please enter the ");
     cnsl::InsertText(HIGHLIGHT_COLOR, "username");
     cnsl::InsertText(" for this profile:\n");
 
-    cnsl::InsertText(MESSAGE_COLOR,
-                     "%d to %d characters, only [_a-zA-Z0-9] is allowed.\n",
-                     USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH);
+    cnsl::InsertText(MESSAGE_COLOR, "%d to %d characters, only [_a-zA-Z0-9] is allowed.\n", USERNAME_MIN_LENGTH,
+                     USERNAME_MAX_LENGTH);
     cnsl::InsertText(PROMPT_COLOR, "$ ");
 
     cnsl::InputOptions options;
@@ -323,7 +311,7 @@ static int _profile_receive_username(bool showHelp)
     options.interruptible = true;
     options.verifier = UsernameVerifier;
 
-    for (; ;)
+    for (;;)
     {
         int ret = GetString(buffer, options);
         while (ret < options.minLen)
@@ -355,7 +343,6 @@ static int _profile_receive_username(bool showHelp)
     return 0;
 }
 
-
 static int _profile_receive_password(bool showHelp)
 {
     char buffer[PASSWORD_BUFFER_SIZE];
@@ -373,8 +360,7 @@ static int _profile_receive_password(bool showHelp)
     cnsl::InsertText(HIGHLIGHT_COLOR, "password");
     cnsl::InsertText(" for this profile:\n");
 
-    cnsl::InsertText(MESSAGE_COLOR,
-                     "%d to %d characters, any ascii that is printable. (no space)\n",
+    cnsl::InsertText(MESSAGE_COLOR, "%d to %d characters, any ascii that is printable. (no space)\n",
                      PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
 
     cnsl::InsertText(PROMPT_COLOR, "$ ");

@@ -24,9 +24,8 @@
 
 #include <cnsl.h>
 
-#include <cstdio>
 #include <cstdarg>
-
+#include <cstdio>
 
 std::vector<std::string> Logger::m_logs;
 std::vector<std::string> Logger::m_msgs;
@@ -35,7 +34,6 @@ char Logger::m_buffer[LOGGER_BUFFER_SIZE];
 static char _format[LOGGER_BUFFER_SIZE];
 
 static LoggerStatus status = LoggerStatus::GOOD;
-
 
 void Logger::LogError(const char* func, const char* format, ...)
 {
@@ -55,13 +53,11 @@ void Logger::LogError(const char* func, const char* format, ...)
     status = LoggerStatus::BAD;
 }
 
-
 void Logger::ClearErrors()
 {
     m_logs.clear();
     status = LoggerStatus::GOOD;
 }
-
 
 void Logger::PrintErrors()
 {
@@ -74,7 +70,6 @@ void Logger::PrintErrors()
 
     cnsl::SetTextForeground(old);
 }
-
 
 void Logger::LogMessage(const char* func, const char* format, ...)
 {
@@ -92,12 +87,10 @@ void Logger::LogMessage(const char* func, const char* format, ...)
     m_msgs.push_back(m_buffer);
 }
 
-
 void Logger::ClearMessages()
 {
     m_msgs.clear();
 }
-
 
 void Logger::PrintMessages()
 {
@@ -110,7 +103,6 @@ void Logger::PrintMessages()
 
     cnsl::SetTextForeground(old);
 }
-
 
 bool Logger::Good()
 {

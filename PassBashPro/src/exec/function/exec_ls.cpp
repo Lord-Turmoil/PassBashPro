@@ -22,10 +22,8 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 
-
 static int _ls_usage();
 static int _ls_parse_arg(int argc, char* argv[], std::string& path);
-
 
 int exec_ls(int argc, char* argv[])
 {
@@ -63,13 +61,11 @@ int exec_ls(int argc, char* argv[])
         {
             if (PashDocUtil::IsGroup(it))
             {
-                cnsl::InsertText(GROUP_COLOR, "\t%s/\n",
-                                 PashDocUtil::GetNodeAttr(it, "name"));
+                cnsl::InsertText(GROUP_COLOR, "\t%s/\n", PashDocUtil::GetNodeAttr(it, "name"));
             }
             else
             {
-                cnsl::InsertText(ITEM_COLOR, "\t%s\n",
-                                 PashDocUtil::GetNodeAttr(it, "name"));
+                cnsl::InsertText(ITEM_COLOR, "\t%s\n", PashDocUtil::GetNodeAttr(it, "name"));
             }
         }
     }
@@ -77,15 +73,12 @@ int exec_ls(int argc, char* argv[])
     return 0;
 }
 
-
 static int _ls_parse_arg(int argc, char* argv[], std::string& path)
 {
     return _ParseOptionalArgs(argc, argv, path);
 }
 
-
 static int _ls_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "ls", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "ls", nullptr);
 }

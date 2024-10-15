@@ -37,7 +37,6 @@
 #define _MEM_SAME(MEM1, MEM2, N) (memcmp(MEM1, MEM2, N) == 0)
 #define _MEM_DIFF(MEM1, MEM2, N) (memcmp(MEM1, MEM2, N) != 0)
 
-
 // strip extra white spaces around
 char* strstrip(char* str);
 char* strtolower(char* str);
@@ -47,13 +46,11 @@ bool is_null_or_empty(const char* str);
 bool begins_with(const char* str, const char* prefix);
 bool ends_with(const char* str, const char* suffix);
 
-
 // char and wchar_t
 bool widen(wchar_t* dest, const char* src);
 wchar_t* widen(const char* src);
 bool narrow(char* dest, const wchar_t* src);
 char* narrow(const wchar_t* src);
-
 
 // timestamp
 const char* GetCurrentTimestamp();
@@ -62,7 +59,6 @@ const char* GetCurrentTimestamp();
 void SetRandomSeed();
 int Random(int upper);
 int Random(int lower, int upper);
-
 
 // Parse value
 int ParseValue(const char* str, int* val);

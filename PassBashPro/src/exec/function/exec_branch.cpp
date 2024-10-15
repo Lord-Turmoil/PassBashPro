@@ -27,7 +27,6 @@
 int _branch_list();
 int _branch_create(int argc, char* argv[]);
 
-
 int exec_branch(int argc, char* argv[])
 {
     PASH_PANIC_ON(g_env == nullptr);
@@ -36,7 +35,6 @@ int exec_branch(int argc, char* argv[])
         return _branch_list();
     return _branch_create(argc, argv);
 }
-
 
 int _branch_list()
 {
@@ -57,7 +55,6 @@ int _branch_list()
 
     return 0;
 }
-
 
 int _branch_create(int argc, char* argv[])
 {

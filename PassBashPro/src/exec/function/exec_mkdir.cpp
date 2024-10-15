@@ -25,7 +25,6 @@
 static int _mkdir_usage();
 static int _mkdir_parse_arg(int argc, char* argv[], std::string& path);
 
-
 int exec_mkdir(int argc, char* argv[])
 {
     std::string path;
@@ -39,8 +38,7 @@ int exec_mkdir(int argc, char* argv[])
     XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
     if (node)
     {
-        EXEC_PRINT_ERR("%s with name \"%s\" already exists!\n",
-                       PashDocUtil::IsGroup(node) ? "Group" : "Password item",
+        EXEC_PRINT_ERR("%s with name \"%s\" already exists!\n", PashDocUtil::IsGroup(node) ? "Group" : "Password item",
                        path.c_str());
         return 2;
     }
@@ -59,15 +57,12 @@ int exec_mkdir(int argc, char* argv[])
     return 0;
 }
 
-
 static int _mkdir_parse_arg(int argc, char* argv[], std::string& path)
 {
     return _ParseArgs(argc, argv, path);
 }
 
-
 static int _mkdir_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "mkdir", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "mkdir", nullptr);
 }

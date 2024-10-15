@@ -23,7 +23,6 @@
 #include "../inc/tea_core.h"
 #include "../inc/tea_util.h"
 
-
 /********************************************************************
 ** Here, a strengthened version of TEA called XTEA is implemented.
 */
@@ -31,7 +30,6 @@
 _TEA_BEGIN
 static constexpr DATA TEA_DELTA = 0x9E3779B9;
 static constexpr DATA TEA_SUM = 0xC6EF3720;
-
 
 void encipher(const DATA* const v, DATA* const w, const DATA* const k)
 {
@@ -51,7 +49,6 @@ void encipher(const DATA* const v, DATA* const w, const DATA* const k)
     w[1] = z;
 }
 
-
 void decipher(const DATA* const v, DATA* const w, const DATA* const k)
 {
     static_assert(sizeof(DATA) == 4, "Size of DATA wrong for TEA");
@@ -70,7 +67,6 @@ void decipher(const DATA* const v, DATA* const w, const DATA* const k)
     w[1] = z;
 }
 
-
 void encode(TEAReader* input, TEAWriter* output, const char* key)
 {
     DATA outptr[2];
@@ -84,7 +80,6 @@ void encode(TEAReader* input, TEAWriter* output, const char* key)
         output->Write((char*)outptr, KCHAR);
     }
 }
-
 
 void decode(TEAReader* input, TEAWriter* output, const char* key)
 {
@@ -100,6 +95,5 @@ void decode(TEAReader* input, TEAWriter* output, const char* key)
         output->Write((char*)outptr, NCHAR);
     }
 }
-
 
 _TEA_END

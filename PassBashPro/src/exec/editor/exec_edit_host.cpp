@@ -34,7 +34,6 @@ cnsl::InputHistory _edit_history;
 
 static int _edit_host_parse_arg(int argc, char* argv[]);
 
-
 int exec_edit_host(int argc, char* argv[])
 {
     // Get Item to edit.
@@ -98,7 +97,6 @@ int exec_edit_host(int argc, char* argv[])
 
     return 0;
 }
-
 
 static int _edit_host_parse_arg(int argc, char* argv[])
 {

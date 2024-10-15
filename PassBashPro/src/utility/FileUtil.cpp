@@ -20,31 +20,28 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
-#include "../../inc/utility/Auxiliary.h"
 #include "../../inc/utility/FileUtil.h"
 #include "../../inc/common/Constants.h"
 #include "../../inc/common/Logger.h"
+#include "../../inc/utility/Auxiliary.h"
 
 #include <Windows.h>
-#include <io.h>     // for _access
-#include <direct.h>	// for _mkdir
-#include <string>
 #include <cstring>
+#include <direct.h> // for _mkdir
+#include <io.h>     // for _access
+#include <string>
 
 static char buffer[PASH_BUFFER_SIZE];
-
 
 bool FileUtil::Exists(const char* path)
 {
     return (_access(path, 0) == 0);
 }
 
-
 bool FileUtil::Exists(const wchar_t* path)
 {
     return (_waccess(path, 0) == 0);
 }
-
 
 bool FileUtil::NewFile(const char* path)
 {
@@ -52,7 +49,6 @@ bool FileUtil::NewFile(const char* path)
 
     return true;
 }
-
 
 bool FileUtil::NewFile(const char* path, const char* filename)
 {
@@ -63,7 +59,6 @@ bool FileUtil::NewFile(const char* path, const char* filename)
 
     return NewFile(fullPath.c_str());
 }
-
 
 bool FileUtil::NewDirectory(const char* path, bool hidden)
 {
@@ -103,7 +98,6 @@ bool FileUtil::NewDirectory(const char* path, bool hidden)
     return true;
 }
 
-
 bool FileUtil::NewDirectory(const char* path, const char* dirname, bool hidden)
 {
     std::string fullPath = path;
@@ -114,18 +108,15 @@ bool FileUtil::NewDirectory(const char* path, const char* dirname, bool hidden)
     return NewDirectory(fullPath.c_str(), hidden);
 }
 
-
 bool FileUtil::DeleteFilePath(const char* path)
 {
     return DeleteFilePath(widen(path));
 }
 
-
 bool FileUtil::DeleteFilePath(const wchar_t* path)
 {
     return DeleteFile(path);
 }
-
 
 bool FileUtil::DeletePath(const char* path)
 {
@@ -136,7 +127,6 @@ bool FileUtil::DeletePath(const char* path)
 
     return true;
 }
-
 
 bool FileUtil::DeletePath(const wchar_t* path)
 {
@@ -151,7 +141,6 @@ bool FileUtil::DeletePath(const wchar_t* path)
 
     return true;
 }
-
 
 bool FileUtil::CopyFileToNew(const char* src, const char* dst, bool overwrite)
 {
@@ -172,7 +161,6 @@ bool FileUtil::CopyFileToNew(const char* src, const char* dst, bool overwrite)
     return ret;
 }
 
-
 bool FileUtil::MoveFileToNew(const char* src, const char* dst)
 {
     if (!Exists(src))
@@ -192,34 +180,22 @@ bool FileUtil::MoveFileToNew(const char* src, const char* dst)
     return ret;
 }
 
-
-bool FileUtil::GetFiles(const char* path,
-                        std::vector<std::string>* files,
-                        std::vector<std::string>* names)
+bool FileUtil::GetFiles(const char* path, std::vector<std::string>* files, std::vector<std::string>* names)
 {
     return _GetContent(path, files, names, _FILE);
 }
 
-
-bool FileUtil::GetDirectories(const char* path,
-                              std::vector<std::string>* dirs,
-                              std::vector<std::string>* names)
+bool FileUtil::GetDirectories(const char* path, std::vector<std::string>* dirs, std::vector<std::string>* names)
 {
     return _GetContent(path, dirs, names, _DIR);
 }
 
-
-bool FileUtil::GetContent(const char* path,
-                          std::vector<std::string>* paths,
-                          std::vector<std::string>* names)
+bool FileUtil::GetContent(const char* path, std::vector<std::string>* paths, std::vector<std::string>* names)
 {
     return _GetContent(path, paths, names, _ALL);
 }
 
-
-bool FileUtil::_GetContent(const char* path,
-                           std::vector<std::string>* paths,
-                           std::vector<std::string>* names,
+bool FileUtil::_GetContent(const char* path, std::vector<std::string>* paths, std::vector<std::string>* names,
                            FileType type)
 {
     if (!Exists(path))
@@ -235,10 +211,7 @@ bool FileUtil::_GetContent(const char* path,
     return true;
 }
 
-
-void FileUtil::_GetContentAux(const char* path,
-                              std::vector<std::string>* paths,
-                              std::vector<std::string>* names,
+void FileUtil::_GetContentAux(const char* path, std::vector<std::string>* paths, std::vector<std::string>* names,
                               FileType type)
 {
     long long hFile = 0;
@@ -283,10 +256,8 @@ void FileUtil::_GetContentAux(const char* path,
             if (names)
                 names->push_back(fileInfo.name);
         }
-    }
-    while (_findnext(hFile, &fileInfo) == 0);
+    } while (_findnext(hFile, &fileInfo) == 0);
 }
-
 
 void FileUtil::_DeleteDirectory(const char* path)
 {
@@ -323,12 +294,10 @@ void FileUtil::_DeleteDirectory(const char* path)
             p.append(fileInfo.name);
             remove(p.c_str());
         }
-    }
-    while (_findnext(hFile, &fileInfo) == 0);
+    } while (_findnext(hFile, &fileInfo) == 0);
 
     _rmdir(path);
 }
-
 
 void FileUtil::_DeleteDirectory(const wchar_t* path)
 {
@@ -365,8 +334,7 @@ void FileUtil::_DeleteDirectory(const wchar_t* path)
             p.append(fileInfo.name);
             _wremove(p.c_str());
         }
-    }
-    while (_wfindnext(hFile, &fileInfo) == 0);
+    } while (_wfindnext(hFile, &fileInfo) == 0);
 
     _wrmdir(path);
 }

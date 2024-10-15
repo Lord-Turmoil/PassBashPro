@@ -20,19 +20,18 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
-#include "../../inc/common/Constants.h"
 #include "../../inc/utility/Auxiliary.h"
+#include "../../inc/common/Constants.h"
 
 #include "../../inc/utility/xml.h"
 
 #include <cctype>
-#include <cstring>
-#include <cstdlib>
 #include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <ctime>
 
 #include <Windows.h>
-
 
 char* strstrip(char* str)
 {
@@ -58,7 +57,6 @@ char* strstrip(char* str)
     return str;
 }
 
-
 char* strtolower(char* str)
 {
     if (!str)
@@ -69,7 +67,6 @@ char* strtolower(char* str)
 
     return str;
 }
-
 
 char* strtoupper(char* str)
 {
@@ -82,12 +79,10 @@ char* strtoupper(char* str)
     return str;
 }
 
-
 bool is_null_or_empty(const char* str)
 {
     return !str || !*str;
 }
-
 
 bool begins_with(const char* str, const char* prefix)
 {
@@ -107,7 +102,6 @@ bool begins_with(const char* str, const char* prefix)
 
     return !*prefix;
 }
-
 
 bool ends_with(const char* str, const char* suffix)
 {
@@ -129,7 +123,6 @@ bool ends_with(const char* str, const char* suffix)
 
     return suffix_end < suffix;
 }
-
 
 /******************************************************************************
  * widen -- Widen char to wchar_t.                                            *
@@ -153,7 +146,6 @@ bool widen(wchar_t* dest, const char* src)
 
     return err ? false : true;
 }
-
 
 /******************************************************************************
  * widen -- Widen char to wchar_t.                                            *
@@ -179,7 +171,6 @@ wchar_t* widen(const char* src)
     return err ? nullptr : dest;
 }
 
-
 /******************************************************************************
  * narrow -- Narrow wchar_t to char.                                          *
  *                                                                            *
@@ -202,7 +193,6 @@ bool narrow(char* dest, const wchar_t* src)
 
     return err ? false : true;
 }
-
 
 /******************************************************************************
  * narrow -- Narrow wchar_t to char.                                          *
@@ -228,7 +218,6 @@ char* narrow(const wchar_t* src)
     return err ? nullptr : dest;
 }
 
-
 const char* GetCurrentTimestamp()
 {
     static char _time_buffer[64];
@@ -237,14 +226,12 @@ const char* GetCurrentTimestamp()
 
     GetLocalTime(&sysTime);
 
-    //YYYY-MM-DD HH-MM-SS
-    sprintf_s(_time_buffer, "%4hu-%02hu-%02hu %02hu-%02hu-%02hu",
-              sysTime.wYear, sysTime.wMonth, sysTime.wDay,
+    // YYYY-MM-DD HH-MM-SS
+    sprintf_s(_time_buffer, "%4hu-%02hu-%02hu %02hu-%02hu-%02hu", sysTime.wYear, sysTime.wMonth, sysTime.wDay,
               sysTime.wHour, sysTime.wMinute, sysTime.wSecond);
 
     return _time_buffer;
 }
-
 
 /******************************************************************************
  * ResetRandomSeed -- Reset random seed.                                      *
@@ -264,7 +251,6 @@ void SetRandomSeed()
 {
     srand(static_cast<unsigned>(time(nullptr)));
 }
-
 
 /******************************************************************************
  * Random -- Get a random number.                                             *
@@ -286,7 +272,6 @@ int Random(int upper)
     return (upper == 0) ? (0) : (rand() % upper);
 }
 
-
 int Random(int lower, int upper)
 {
     if (upper <= lower)
@@ -294,7 +279,6 @@ int Random(int lower, int upper)
 
     return lower + Random(upper - lower);
 }
-
 
 int ParseValue(const char* str, int* val)
 {

@@ -29,11 +29,9 @@ TEAReader::~TEAReader()
 {
 }
 
-
 TEAWriter::~TEAWriter()
 {
 }
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -53,7 +51,6 @@ bool TEAFileReader::Read(char* buffer, size_t nBytes)
     return true;
 }
 
-
 void TEAFileReader::Close()
 {
     if (m_input)
@@ -62,7 +59,6 @@ void TEAFileReader::Close()
         m_input = nullptr;
     }
 }
-
 
 bool TEABufferReader::Read(char* buffer, size_t nBytes)
 {
@@ -78,18 +74,14 @@ bool TEABufferReader::Read(char* buffer, size_t nBytes)
     return true;
 }
 
-
 void TEABufferReader::Close()
 {
     m_buffer.base = m_buffer.pc = nullptr;
 }
 
-
-TEARawBufferReader::TEARawBufferReader(const char* buffer, size_t nBytes)
-    : TEABufferReader(buffer), m_nBytes(nBytes)
+TEARawBufferReader::TEARawBufferReader(const char* buffer, size_t nBytes) : TEABufferReader(buffer), m_nBytes(nBytes)
 {
 }
-
 
 bool TEARawBufferReader::Read(char* buffer, size_t nBytes)
 {
@@ -108,7 +100,6 @@ bool TEARawBufferReader::Read(char* buffer, size_t nBytes)
     return true;
 }
 
-
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Writers
@@ -121,7 +112,6 @@ bool TEAFileWriter::Write(const char* buffer, size_t nBytes)
     return (bytes == nBytes);
 }
 
-
 void TEAFileWriter::Close()
 {
     if (m_output)
@@ -130,7 +120,6 @@ void TEAFileWriter::Close()
         m_output = nullptr;
     }
 }
-
 
 bool TEABufferWriter::Write(const char* buffer, size_t nBytes)
 {
@@ -145,11 +134,9 @@ bool TEABufferWriter::Write(const char* buffer, size_t nBytes)
     return true;
 }
 
-
 void TEABufferWriter::Close()
 {
     m_buffer.base = m_buffer.pc = nullptr;
 }
-
 
 _TEA_END

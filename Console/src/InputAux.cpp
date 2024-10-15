@@ -20,16 +20,15 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
-#include "../inc/Macros.h"
-#include "../inc/Input.h"
 #include "../inc/InputAux.h"
+#include "../inc/Input.h"
+#include "../inc/Macros.h"
 
 #include <conio.h>
 #include <cstring>
 
 _CNSL_BEGIN
 static constexpr char INPUT_TERMINATOR[] = "\n\r";
-
 
 bool IsTerminator(char ch)
 {
@@ -42,18 +41,15 @@ bool IsTerminator(char ch)
     return false;
 }
 
-
 bool IsNullOrEmpty(const char* str)
 {
     return !str || !*str;
 }
 
-
 bool IsEqual(const char* str1, const char* str2)
 {
     return strcmp(str1, str2) == 0;
 }
-
 
 /*
  * return the position after the end of the same part.
@@ -77,7 +73,6 @@ const char* BeginsWith(const char* str, const char* prefix)
 
     return str;
 }
-
 
 /*
  * return the position after the end of the same part.
@@ -104,7 +99,6 @@ const char* EndsWidth(const char* str, const char* suffix)
     return str_end;
 }
 
-
 void FlushInput()
 {
     static HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
@@ -112,14 +106,13 @@ void FlushInput()
     FlushConsoleInputBuffer(hInput);
 }
 
-
 void WaitForKey(const char* prompt, char key)
 {
     InsertText(prompt);
 
     FlushInput();
 
-    for (int i = 0; ; i++)
+    for (int i = 0;; i++)
     {
         char ch = _getch();
         if (ch == key)
@@ -128,6 +121,5 @@ void WaitForKey(const char* prompt, char key)
             break;
     }
 }
-
 
 _CNSL_END

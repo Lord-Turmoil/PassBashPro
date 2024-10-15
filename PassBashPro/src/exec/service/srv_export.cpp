@@ -25,7 +25,6 @@
 
 int _export_usage();
 
-
 int srv_export(int argc, char* argv[])
 {
     if (argc != 2)
@@ -37,8 +36,7 @@ int srv_export(int argc, char* argv[])
 
     if (!_STR_SAME(g_env->password, argv[1]))
     {
-        EXEC_PRINT_ERR("Incorrect password for profile '%s'.\n",
-                       g_env->username.c_str());
+        EXEC_PRINT_ERR("Incorrect password for profile '%s'.\n", g_env->username.c_str());
         return 2;
     }
 
@@ -56,7 +54,8 @@ int srv_export(int argc, char* argv[])
     if (_wgetcwd(_buffer, PASH_BUFFER_SIZE - 1) == nullptr)
     {
         EXEC_PRINT_ERR("Failed to get export path!\n");
-        EXEC_PRINT_MSG("You can still find the exported data at root directory of PassBash.\n");
+        EXEC_PRINT_MSG("You can still find the exported data at root directory of "
+                       "PassBash.\n");
         return 5;
     }
 
@@ -77,9 +76,7 @@ int srv_export(int argc, char* argv[])
     return 0;
 }
 
-
 int _export_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(MODE_TO_EXEC[g_mode], "help", "help", "export", nullptr);
+    return ExecHost::GetInstance()->execl(MODE_TO_EXEC[g_mode], "help", "help", "export", nullptr);
 }

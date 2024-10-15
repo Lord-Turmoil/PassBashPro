@@ -22,7 +22,6 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 
-
 int exec_pwd(int argc, char* argv[])
 {
     cnsl::InsertText("\t%s\n", g_pwd.c_str());

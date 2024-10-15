@@ -25,7 +25,6 @@
 #ifndef _FUNCTIONS_H_
 #define _FUNCTIONS_H_
 
-
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Basic Functions
@@ -114,7 +113,6 @@ int exec_unknown(int argc, char* argv[]);
 // Hand exit command.
 int exec_order(int argc, char* argv[]);
 
-
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Account related functions.
@@ -123,7 +121,6 @@ int exec_order(int argc, char* argv[]);
 int exec_remaster(int argc, char* argv[]);
 int exec_branch(int argc, char* argv[]);
 int exec_checkout(int argc, char* argv[]);
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

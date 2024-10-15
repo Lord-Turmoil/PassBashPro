@@ -24,22 +24,19 @@
 #include "../../../inc/utility/Auxiliary.h"
 
 static constexpr int COLOR_NUM = 12;
-static constexpr WORD COLORS[] = {
-    FOREGROUND_RED,
-    FOREGROUND_YELLOW,
-    FOREGROUND_BLUE,
-    FOREGROUND_GREEN,
-    FOREGROUND_MAGENTA,
-    FOREGROUND_CYAN,
+static constexpr WORD COLORS[] = { FOREGROUND_RED,
+                                   FOREGROUND_YELLOW,
+                                   FOREGROUND_BLUE,
+                                   FOREGROUND_GREEN,
+                                   FOREGROUND_MAGENTA,
+                                   FOREGROUND_CYAN,
 
-    FOREGROUND_LIGHT(FOREGROUND_RED),
-    FOREGROUND_LIGHT(FOREGROUND_YELLOW),
-    FOREGROUND_LIGHT(FOREGROUND_BLUE),
-    FOREGROUND_LIGHT(FOREGROUND_GREEN),
-    FOREGROUND_LIGHT(FOREGROUND_MAGENTA),
-    FOREGROUND_LIGHT(FOREGROUND_CYAN)
-};
-
+                                   FOREGROUND_LIGHT(FOREGROUND_RED),
+                                   FOREGROUND_LIGHT(FOREGROUND_YELLOW),
+                                   FOREGROUND_LIGHT(FOREGROUND_BLUE),
+                                   FOREGROUND_LIGHT(FOREGROUND_GREEN),
+                                   FOREGROUND_LIGHT(FOREGROUND_MAGENTA),
+                                   FOREGROUND_LIGHT(FOREGROUND_CYAN) };
 
 int exec_pash(int argc, char* argv[])
 {

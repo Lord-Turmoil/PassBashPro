@@ -22,7 +22,6 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 
-
 static bool recursive;
 static bool force;
 
@@ -32,7 +31,6 @@ static int _remove_parse_args(int argc, char* argv[]);
 static int _remove_confirm(const char* prompt);
 static int _remove_root();
 static int _remove_current();
-
 
 int exec_rm(int argc, char* argv[])
 {
@@ -88,13 +86,11 @@ int exec_rm(int argc, char* argv[])
         {
             if (PashDocUtil::IsGroup(node))
             {
-                EXEC_PRINT_MSG("Group \"%s\" and its contents deleted permanently!\n",
-                               path.c_str());
+                EXEC_PRINT_MSG("Group \"%s\" and its contents deleted permanently!\n", path.c_str());
             }
             else
             {
-                EXEC_PRINT_MSG("Password item \"%s\" deleted permanently!\n",
-                               path.c_str());
+                EXEC_PRINT_MSG("Password item \"%s\" deleted permanently!\n", path.c_str());
             }
             PashDocUtil::DeleteNode(node);
         }
@@ -105,20 +101,16 @@ int exec_rm(int argc, char* argv[])
     return true;
 }
 
-
 static void _remove_init()
 {
     recursive = false;
     force = false;
 }
 
-
 static int _remove_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "rm");
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "rm");
 }
-
 
 static int _remove_parse_args(int argc, char* argv[])
 {
@@ -152,7 +144,6 @@ static int _remove_parse_args(int argc, char* argv[])
     return 0;
 }
 
-
 static int _remove_confirm(const char* prompt)
 {
     if (force)
@@ -161,9 +152,7 @@ static int _remove_confirm(const char* prompt)
     char buffer[4];
 
     cnsl::InputOptions options(1, 1);
-    options.verifier = [](char x) -> bool {
-        return (tolower(x) == 'y' || (tolower(x) == 'n'));
-    };
+    options.verifier = [](char x) -> bool { return (tolower(x) == 'y' || (tolower(x) == 'n')); };
 
     cnsl::InsertText(ERROR_COLOR, prompt);
     GetString(buffer, options);
@@ -171,7 +160,6 @@ static int _remove_confirm(const char* prompt)
 
     return (tolower(buffer[0]) == 'y');
 }
-
 
 static int _remove_root()
 {
@@ -192,7 +180,6 @@ static int _remove_root()
 
     return 0;
 }
-
 
 static int _remove_current()
 {

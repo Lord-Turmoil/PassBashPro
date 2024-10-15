@@ -25,7 +25,6 @@
 static int _touch_usage();
 static int _touch_parse_arg(int argc, char* argv[], std::string& path);
 
-
 int exec_touch(int argc, char* argv[])
 {
     std::string path("");
@@ -47,8 +46,7 @@ int exec_touch(int argc, char* argv[])
     XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
     if (node)
     {
-        EXEC_PRINT_ERR("%s with name \"%s\" already exists!\n",
-                       PashDocUtil::IsGroup(node) ? "Group" : "Password item",
+        EXEC_PRINT_ERR("%s with name \"%s\" already exists!\n", PashDocUtil::IsGroup(node) ? "Group" : "Password item",
                        path.c_str());
         return 3;
     }
@@ -67,13 +65,10 @@ int exec_touch(int argc, char* argv[])
     return 0;
 }
 
-
 static int _touch_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "touch", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "touch", nullptr);
 }
-
 
 static int _touch_parse_arg(int argc, char* argv[], std::string& path)
 {

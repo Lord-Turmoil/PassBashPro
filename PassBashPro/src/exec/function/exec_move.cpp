@@ -25,7 +25,6 @@
 static int _move_usage();
 static int _move_parse_args(int argc, char* argv[], std::string& src, std::string& dest);
 
-
 int exec_move(int argc, char* argv[])
 {
     std::string srcPath;
@@ -86,21 +85,17 @@ int exec_move(int argc, char* argv[])
     PashDocUtil::GetNodeDirectory(srcNode, oldPath);
     PashDocUtil::AddChildNode(destGroup, srcNode);
     PashDocUtil::GetNodeDirectory(srcNode, newPath);
-    EXEC_PRINT_MSG("Moved \"%s\" to \"%s\".\n",
-                   oldPath.c_str(), newPath.c_str());
+    EXEC_PRINT_MSG("Moved \"%s\" to \"%s\".\n", oldPath.c_str(), newPath.c_str());
 
     g_doc.Mark();
 
     return 0;
 }
 
-
 static int _move_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "move", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "move", nullptr);
 }
-
 
 static int _move_parse_args(int argc, char* argv[], std::string& src, std::string& dest)
 {

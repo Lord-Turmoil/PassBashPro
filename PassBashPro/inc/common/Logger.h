@@ -27,16 +27,14 @@
 
 #include "Constants.h"
 
-#include <vector>
 #include <string>
-
+#include <vector>
 
 enum class LoggerStatus
 {
     GOOD,
     BAD
 };
-
 
 class Logger
 {
@@ -56,15 +54,12 @@ private:
     {
     }
 
-
     static std::vector<std::string> m_logs;
     static std::vector<std::string> m_msgs;
     static char m_buffer[LOGGER_BUFFER_SIZE];
 };
 
-
 #define LOG_LOC R"(In "%s": )"
-
 
 #define LOG_ERROR(FORMAT, ...)   Logger::LogError(__func__, FORMAT, __VA_ARGS__)
 #define LOG_MESSAGE(FORMAT, ...) Logger::LogMessage(__func__, FORMAT, __VA_ARGS__)
@@ -77,6 +72,5 @@ private:
 
 #define HAS_ERROR() (!Logger::Good())
 #define STATUS()    (Logger::Good())
-
 
 #endif

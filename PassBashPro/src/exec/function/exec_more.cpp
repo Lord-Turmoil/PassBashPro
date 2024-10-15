@@ -27,7 +27,6 @@ static char _param[] = "-m";
 
 static int _more_usage();
 
-
 int exec_more(int argc, char* argv[])
 {
     std::string path;
@@ -56,9 +55,7 @@ int exec_more(int argc, char* argv[])
     return 0;
 }
 
-
 static int _more_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "more", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "more", nullptr);
 }

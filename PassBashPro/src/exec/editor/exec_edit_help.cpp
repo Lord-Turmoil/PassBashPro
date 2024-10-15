@@ -27,7 +27,6 @@ static char* _argv[EXEC_ARG_SIZE];
 static char _buffer[EXEC_BUFFER_SIZE];
 static char _cmd[] = "help";
 
-
 int exec_edit_help(int argc, char* argv[])
 {
     if (argc != 2)

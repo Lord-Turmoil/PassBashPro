@@ -25,9 +25,9 @@
 #ifndef _EDITOR_AUX_H_
 #define _EDITOR_AUX_H_
 
+#include <cnsl.h>
 #include <string>
 #include <tinyxml.h>
-#include <cnsl.h>
 
 extern const char EDIT_IGNORE[];
 extern const int EDIT_KEY_MAX_LENGTH;

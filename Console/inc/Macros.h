@@ -23,8 +23,10 @@
 #ifndef _CNSL_MACROS_H_
 #define _CNSL_MACROS_H_
 
-#define _CNSL_BEGIN	namespace cnsl {
-#define _CNSL_END	}
-#define _CNSL		::cnsl::
+#define _CNSL_BEGIN                                                                                                    \
+    namespace cnsl                                                                                                     \
+    {
+#define _CNSL_END }
+#define _CNSL     ::cnsl::
 
 #endif

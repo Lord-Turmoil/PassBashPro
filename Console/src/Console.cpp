@@ -26,7 +26,6 @@
 #include <cstdlib>
 #include <utility>
 
-
 _CNSL_BEGIN
 #ifdef min
 #undef min
@@ -38,14 +37,11 @@ _CNSL_BEGIN
 static ConsoleInfo gConsoleInfo;
 static HANDLE hOutput = nullptr;
 
-
-ConsoleInfo::ConsoleInfo() :
-    width(DFL_CNSL_WIDTH), height(DFL_CNSL_HEIGHT),
-    title(nullptr), copyright(nullptr), author(nullptr),
-    headerPrinter(nullptr), overflowReprint(true), headerReprint(true)
+ConsoleInfo::ConsoleInfo()
+    : width(DFL_CNSL_WIDTH), height(DFL_CNSL_HEIGHT), title(nullptr), copyright(nullptr), author(nullptr),
+      headerPrinter(nullptr), overflowReprint(true), headerReprint(true)
 {
 }
-
 
 ConsoleInfo::~ConsoleInfo()
 {
@@ -57,7 +53,6 @@ ConsoleInfo::~ConsoleInfo()
         free(author);
 }
 
-
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Cursor Control
@@ -67,18 +62,15 @@ static constexpr char DFL_TITLE[] = "Demo Project";
 static constexpr char DFL_COPYRIGHT[] = "Tony's Studio 2020 - 2023";
 static constexpr char DFL_AUTHOR[] = "Tony Skywalker";
 
-
 const ConsoleInfo* GetConsoleInfo()
 {
     return &gConsoleInfo;
 }
 
-
 static bool IsValidPosition(const COORD& coord)
 {
     return ((coord.X < gConsoleInfo.size.X) && (coord.Y < gConsoleInfo.size.Y));
 }
-
 
 void InitConsoleSize(SHORT width, SHORT height)
 {
@@ -86,7 +78,6 @@ void InitConsoleSize(SHORT width, SHORT height)
     sprintf_s(msg, "mode con cols=%hd", width);
     system(msg);
 }
-
 
 void InitConsole(SHORT width, SHORT height)
 {
@@ -100,25 +91,21 @@ void InitConsole(SHORT width, SHORT height)
     SetHeaderPrinter(DefaultHeaderPrinter);
 }
 
-
 void SetConsoleSize(SHORT width, SHORT height)
 {
     gConsoleInfo.width = width;
     gConsoleInfo.height = height;
 }
 
-
 SHORT GetConsoleWidth()
 {
     return gConsoleInfo.width;
 }
 
-
 SHORT GetConsoleHeight()
 {
     return gConsoleInfo.height;
 }
-
 
 COORD GetCursorPosition()
 {
@@ -128,7 +115,6 @@ COORD GetCursorPosition()
 
     return pBuffer.dwCursorPosition;
 }
-
 
 COORD SetCursorPosition(const COORD& coord)
 {
@@ -142,7 +128,6 @@ COORD SetCursorPosition(const COORD& coord)
 
     return ret;
 }
-
 
 bool SetCursorPosition(const COORD& coord, COORD* old)
 {
@@ -160,7 +145,6 @@ bool SetCursorPosition(const COORD& coord, COORD* old)
     return true;
 }
 
-
 void HideCursor()
 {
     CONSOLE_CURSOR_INFO pInfo;
@@ -170,7 +154,6 @@ void HideCursor()
     SetConsoleCursorInfo(hOutput, &pInfo);
 }
 
-
 void ShowCursor()
 {
     CONSOLE_CURSOR_INFO pInfo;
@@ -179,7 +162,6 @@ void ShowCursor()
     pInfo.bVisible = true;
     SetConsoleCursorInfo(hOutput, &pInfo);
 }
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -191,12 +173,10 @@ void Clear()
     system("cls");
 }
 
-
 void Clear(SHORT left)
 {
     Clear(left, gConsoleInfo.width);
 }
-
 
 void Clear(SHORT left, SHORT right)
 {
@@ -219,7 +199,6 @@ void Clear(SHORT left, SHORT right)
     SetCursorPosition(origin);
 }
 
-
 void Clear(const COORD& upperLeft, const COORD& bottomRight)
 {
     SHORT XBound = std::min(bottomRight.X, gConsoleInfo.width);
@@ -237,7 +216,6 @@ void Clear(const COORD& upperLeft, const COORD& bottomRight)
     }
 }
 
-
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Text Attribute
@@ -246,13 +224,11 @@ void Clear(const COORD& upperLeft, const COORD& bottomRight)
 static constexpr WORD DFL_FOREGROUND = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
 static constexpr WORD DFL_BACKGROUND = 0;
 
-
 static void ApplyTextAttribute()
 {
     WORD color = gConsoleInfo.attr.foreground | gConsoleInfo.attr.background;
     SetConsoleTextAttribute(hOutput, color);
 }
-
 
 void SetTextAttribute(const TextAttribute& attr, TextAttribute* old)
 {
@@ -262,7 +238,6 @@ void SetTextAttribute(const TextAttribute& attr, TextAttribute* old)
 
     ApplyTextAttribute();
 }
-
 
 WORD SetTextForeground(const WORD foreground)
 {
@@ -274,7 +249,6 @@ WORD SetTextForeground(const WORD foreground)
     return old;
 }
 
-
 WORD SetTextBackground(const WORD background)
 {
     WORD old = gConsoleInfo.attr.background;
@@ -285,7 +259,6 @@ WORD SetTextBackground(const WORD background)
     return old;
 }
 
-
 void RestoreTextAttribute()
 {
     SetTextForeground(DFL_FOREGROUND);
@@ -293,22 +266,17 @@ void RestoreTextAttribute()
     ApplyTextAttribute();
 }
 
-
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Header
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-void SetHeader(
-    const char* title,
-    const char* copyright,
-    const char* author)
+void SetHeader(const char* title, const char* copyright, const char* author)
 {
     SetTitle(title);
     SetCopyright(copyright);
     SetAuthor(author);
 }
-
 
 void SetTitle(const char* title)
 {
@@ -330,7 +298,6 @@ void SetTitle(const char* title)
         free(old);
 }
 
-
 void SetCopyright(const char* copyright)
 {
     char* old = gConsoleInfo.copyright;
@@ -350,7 +317,6 @@ void SetCopyright(const char* copyright)
     if (old)
         free(old);
 }
-
 
 void SetAuthor(const char* author)
 {
@@ -372,18 +338,15 @@ void SetAuthor(const char* author)
         free(old);
 }
 
-
 void OverflowReprint(bool reprint)
 {
     gConsoleInfo.overflowReprint = reprint;
 }
 
-
 void HeaderReprint(bool reprint)
 {
     gConsoleInfo.headerReprint = reprint;
 }
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -395,7 +358,6 @@ void SetHeaderPrinter(void (*printer)(void))
 {
     gConsoleInfo.headerPrinter = printer;
 }
-
 
 void DefaultHeaderPrinter()
 {
@@ -428,13 +390,11 @@ void DefaultHeaderPrinter()
     SetTextAttribute(old, nullptr);
 }
 
-
 void Print()
 {
     if (gConsoleInfo.headerPrinter)
         gConsoleInfo.headerPrinter();
 }
-
 
 void Reprint()
 {
@@ -449,6 +409,5 @@ void Reprint()
         putchar('\n');
     }
 }
-
 
 _CNSL_END

@@ -20,9 +20,9 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
+#include <vector>
 #include "../../../inc/exec/service/ServiceHeader.h"
 #include "../../../inc/utility/Auxiliary.h"
-#include <vector>
 
 static char HOST_IGNORE[] = " ";
 static char HOST_QUOTE[] = R"('")";
@@ -49,7 +49,6 @@ static int _host_peek_command();
 
 static int _host_peeker_standard(char* buffer, char** cmd, int* argc, char* argv[]);
 static int _host_peeker_advanced(char* buffer, char** cmd, int* argc, char* argv[]);
-
 
 int srv_host(int argc, char* argv[])
 {
@@ -86,7 +85,6 @@ int srv_host(int argc, char* argv[])
     return 0;
 }
 
-
 static void _host_greet()
 {
     cnsl::InsertText(GREETING_COLOR, "Pash Host fully operational!\n");
@@ -95,7 +93,6 @@ static void _host_greet()
 
     cnsl::FlushInput();
 }
-
 
 static const char* _get_completion(const char* input, int* revert)
 {
@@ -177,7 +174,6 @@ static const char* _get_completion(const char* input, int* revert)
     return completion;
 }
 
-
 static void _get_candidates(const std::string& path)
 {
     XMLElementPtr node = PashDocUtil::GetNodeByPath(path);
@@ -196,7 +192,6 @@ static void _get_candidates(const std::string& path)
     *candidate = nullptr;
 }
 
-
 static void _host_parse_command(char* cmd)
 {
     std::string temp(cmd);
@@ -212,9 +207,7 @@ static void _host_parse_command(char* cmd)
         pattern = " $" + std::to_string(i);
         pattern += " ";
         dst = " " + g_var[i] + " ";
-        for (auto pos = temp.find(pattern);
-             pos != std::string::npos;
-             pos = temp.find(pattern))
+        for (auto pos = temp.find(pattern); pos != std::string::npos; pos = temp.find(pattern))
         {
             temp.replace(pos, pattern.length(), dst);
         }
@@ -225,7 +218,6 @@ static void _host_parse_command(char* cmd)
 
     strcpy_s(cmd, EXEC_BUFFER_SIZE, temp.c_str());
 }
-
 
 static int _host_peek_command()
 {
@@ -251,7 +243,6 @@ static int _host_peek_command()
     return 0;
 }
 
-
 static int _host_peeker_standard(char* buffer, char** cmd, int* argc, char* argv[])
 {
     *cmd = nullptr;
@@ -272,7 +263,6 @@ static int _host_peeker_standard(char* buffer, char** cmd, int* argc, char* argv
     return 0;
 }
 
-
 static bool _is_in(char ch, const char* ignore)
 {
     for (const char* p = ignore; *p; p++)
@@ -282,7 +272,6 @@ static bool _is_in(char ch, const char* ignore)
     }
     return false;
 }
-
 
 static int _host_peeker_advanced(char* buffer, char** cmd, int* argc, char* argv[])
 {

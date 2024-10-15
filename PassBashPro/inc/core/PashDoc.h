@@ -27,7 +27,6 @@
 
 #include "../utility/xml.h"
 
-
 struct Env;
 using EnvPtr = std::shared_ptr<Env>;
 
@@ -50,8 +49,15 @@ public:
 
     bool IsLoaded() const;
 
-    XMLElementPtr GetRoot() { return m_root; }
-    XMLElementPtr GetCurrent() { return m_current; }
+    XMLElementPtr GetRoot()
+    {
+        return m_root;
+    }
+
+    XMLElementPtr GetCurrent()
+    {
+        return m_current;
+    }
 
     /*
     ** Only group can be set to current, and it returns last current.
@@ -92,6 +98,5 @@ private:
 
     bool m_modified;
 };
-
 
 #endif

@@ -41,18 +41,15 @@ constexpr int USERNAME_MAX_LENGTH = 24;
 
 constexpr int EXEC_ARG_SIZE = 32;
 
-
 // XML tag identifier.
 constexpr char GROUP_TAG[] = "Group";
 constexpr char ITEM_TAG[] = "Item";
 constexpr char ENTRY_TAG[] = "Entry";
 
-
 // Special directory identifier.
 constexpr char PARENT_DIR_NAME[] = "..";
 constexpr char SELF_DIR_NAME[] = ".";
 constexpr char ROOT_DIR_NAME[] = "./";
-
 
 // Working mode.
 constexpr int MODE_IDLE = 0; // not logged in
@@ -69,7 +66,6 @@ constexpr char CACHE_FILE[] = "cache";
 constexpr char CONFIG_FILE[] = "config";
 constexpr char DATA_FILE[] = "data";
 constexpr char PROFILE_FILE[] = ".profile";
-
 
 constexpr int TERMINATION = 66;
 

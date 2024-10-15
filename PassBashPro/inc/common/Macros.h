@@ -25,7 +25,6 @@
 #ifndef _MACROS_H_
 #define _MACROS_H_
 
-
 #if defined(_DEBUG) || defined(DEBUG)
 #define PASH_DEBUG
 #endif
@@ -36,7 +35,6 @@
 #else
 #define PASH_ASSERT(expression)
 #endif
-
 
 // Whether enable cheat test or not.
 #define PASH_CHEAT 1

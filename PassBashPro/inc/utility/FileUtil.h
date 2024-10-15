@@ -25,9 +25,8 @@
 #ifndef _FILE_UTIL_H_
 #define _FILE_UTIL_H_
 
-#include <vector>
 #include <string>
-
+#include <vector>
 
 /********************************************************************
 ** A collection of file operations.
@@ -55,15 +54,9 @@ public:
     static bool CopyFileToNew(const char* src, const char* dst, bool overwrite = true);
     static bool MoveFileToNew(const char* src, const char* dst);
 
-    static bool GetFiles(const char* path,
-                         std::vector<std::string>* files,
-                         std::vector<std::string>* names);
-    static bool GetDirectories(const char* path,
-                               std::vector<std::string>* dirs,
-                               std::vector<std::string>* names);
-    static bool GetContent(const char* path,
-                           std::vector<std::string>* paths,
-                           std::vector<std::string>* names);
+    static bool GetFiles(const char* path, std::vector<std::string>* files, std::vector<std::string>* names);
+    static bool GetDirectories(const char* path, std::vector<std::string>* dirs, std::vector<std::string>* names);
+    static bool GetContent(const char* path, std::vector<std::string>* paths, std::vector<std::string>* names);
 
 private:
     enum FileType : unsigned int
@@ -73,19 +66,13 @@ private:
         _ALL = _FILE | _DIR
     };
 
-
-    static bool _GetContent(const char* path,
-                            std::vector<std::string>* paths,
-                            std::vector<std::string>* names,
+    static bool _GetContent(const char* path, std::vector<std::string>* paths, std::vector<std::string>* names,
                             FileType type);
-    static void _GetContentAux(const char* path,
-                               std::vector<std::string>* paths,
-                               std::vector<std::string>* names,
+    static void _GetContentAux(const char* path, std::vector<std::string>* paths, std::vector<std::string>* names,
                                FileType type);
 
     static void _DeleteDirectory(const char* path);
     static void _DeleteDirectory(const wchar_t* path);
-
 
     FileUtil()
     {

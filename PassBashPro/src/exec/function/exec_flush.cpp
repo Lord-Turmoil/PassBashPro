@@ -24,7 +24,6 @@
 
 #include <algorithm>
 
-
 int exec_flush(int argc, char* argv[])
 {
     g_history.Clear();

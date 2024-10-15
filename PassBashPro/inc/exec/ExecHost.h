@@ -25,9 +25,8 @@
 #ifndef _EXEC_HOST_H_
 #define _EXEC_HOST_H_
 
-#include "ExecFactory.h"
 #include "../template/Singleton.h"
-
+#include "ExecFactory.h"
 
 class ExecHost : public Singleton<ExecHost>
 {
@@ -50,11 +49,9 @@ private:
     {
     }
 
-
     ~ExecHost() override
     {
     }
-
 
     std::unordered_map<std::string, ExecFactoryPtr> m_pool;
 };

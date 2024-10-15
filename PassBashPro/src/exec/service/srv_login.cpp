@@ -20,12 +20,11 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
-#include "../../../inc/exec/service/ServiceHeader.h"
 #include "../../../inc/core/Profile.h"
+#include "../../../inc/exec/service/ServiceHeader.h"
 #include "../../../inc/utility/Auxiliary.h"
 
 #include <tea.h>
-
 
 static char _encoded_password[PASSWORD_BUFFER_SIZE];
 static char _decoded_password[PASSWORD_BUFFER_SIZE];
@@ -34,7 +33,6 @@ static constexpr int MAX_CANDIDATE_NUM = 64;
 static const char* _candidates[MAX_CANDIDATE_NUM + 4];
 
 static const char* _get_completion(const char* input, int* revert);
-
 
 static void _login_header();
 static void _login_footer();
@@ -49,7 +47,6 @@ static bool _login_init_env(EnvPtr env);
 static bool _confirm_abort();
 
 static int _handle_user_not_exists(const char* username);
-
 
 int srv_login(int argc, char* argv[])
 {
@@ -125,18 +122,15 @@ RE_LOGIN:
     return 0;
 }
 
-
 static void _login_header()
 {
     cnsl::InsertText(GREETING_COLOR, "Logging in to PassBash...\n\n");
 }
 
-
 static void _login_footer()
 {
     cnsl::InsertText(GREETING_COLOR, "\nCredential confirmed!\n\n");
 }
-
 
 static int _login_list_users()
 {
@@ -163,7 +157,6 @@ static int _login_list_users()
     return 0;
 }
 
-
 /********************************************************************
 ** Receive username to login, and set g_env to the selected user.
 */
@@ -183,7 +176,7 @@ static int _login_receive_username()
     options.verifier = UsernameVerifier;
     options.completer = _get_completion;
 
-    for (; ;)
+    for (;;)
     {
         int ret = GetString(buffer, options);
         while (ret < options.minLen)
@@ -217,7 +210,6 @@ static int _login_receive_username()
     return 0;
 }
 
-
 /********************************************************************
 ** Receive password and make validation. Set g_env->password to the
 ** correct password after validation.
@@ -241,8 +233,7 @@ static int _login_receive_password()
         ret = GetString(buffer, options);
         if (ret == -1)
             return TERMINATION;
-    }
-    while (ret == 0);
+    } while (ret == 0);
     _FormatPassword(buffer);
 
     while (!VerifyProfile(buffer))
@@ -261,8 +252,7 @@ static int _login_receive_password()
             ret = GetString(buffer, options);
             if (ret == -1)
                 return TERMINATION;
-        }
-        while (ret == 0);
+        } while (ret == 0);
         _FormatPassword(buffer);
     }
 
@@ -271,19 +261,15 @@ static int _login_receive_password()
     return 0;
 }
 
-
 static bool _login_check_env(EnvPtr env)
 {
-    return (FileUtil::Exists(env->configPath.c_str()) &&
-        FileUtil::Exists(env->dataPath.c_str()));
+    return (FileUtil::Exists(env->configPath.c_str()) && FileUtil::Exists(env->dataPath.c_str()));
 }
-
 
 static bool _login_init_env(EnvPtr env)
 {
     return g_doc.Load(env);
 }
-
 
 static bool _confirm_abort()
 {
@@ -301,7 +287,6 @@ static bool _confirm_abort()
 
     return tolower(buffer[0]) == 'y';
 }
-
 
 static const char* _get_completion(const char* input, int* revert)
 {
@@ -334,7 +319,6 @@ static const char* _get_completion(const char* input, int* revert)
 
     return completion;
 }
-
 
 static int _handle_user_not_exists(const char* username)
 {

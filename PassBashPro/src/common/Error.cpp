@@ -23,10 +23,9 @@
 #include "../../inc/common/Error.h"
 #include "../../inc/common/Logger.h"
 
-#include <cstdio>
-#include <cstdarg>
 #include <cnsl.h>
-
+#include <cstdarg>
+#include <cstdio>
 
 void _panic(const char* filename, int line, const char* func, const char* format, ...)
 {

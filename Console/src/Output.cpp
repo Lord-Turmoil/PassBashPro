@@ -21,14 +21,15 @@
  ******************************************************************************/
 
 #include "../inc/Output.h"
-#include "../inc/Console.h"
 #include "../inc/Common.h"
+#include "../inc/Console.h"
 
-#include <cstring>
-#include <cstdio>
 #include <cstdarg>
+#include <cstdio>
+#include <cstring>
 
 _CNSL_BEGIN
+
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Output Control
@@ -38,7 +39,6 @@ static bool IsNewLine(char ch)
 {
     return (ch == LINE_FEED) || (ch == CHARRIGE);
 }
-
 
 void InsertLineFeed()
 {
@@ -52,19 +52,16 @@ void InsertLineFeed()
     }
 }
 
-
 void InsertLineFeed(int n)
 {
     for (int i = 0; i < n; i++)
         InsertLineFeed();
 }
 
-
 void InsertCarrige()
 {
     putchar(CHARRIGE);
 }
-
 
 void InsertNewLine()
 {
@@ -72,13 +69,11 @@ void InsertNewLine()
     InsertLineFeed();
 }
 
-
 void InsertNewLine(int n)
 {
     for (int i = 0; i < n; i++)
         InsertNewLine();
 }
-
 
 void InsertReverseLineFeed()
 {
@@ -90,13 +85,11 @@ void InsertReverseLineFeed()
     }
 }
 
-
 void InsertReverseLineFeed(int n)
 {
     for (int i = 0; i < n; i++)
         InsertReverseLineFeed();
 }
-
 
 void InsertReverseNewLine()
 {
@@ -104,26 +97,22 @@ void InsertReverseNewLine()
     InsertReverseLineFeed();
 }
 
-
 void InsertReverseNewLine(int n)
 {
     for (int i = 0; i < n; i++)
         InsertReverseNewLine();
 }
 
-
 void InsertBackspace()
 {
     putchar(BACKSPACE);
 }
-
 
 void InsertBackspace(int n)
 {
     for (int i = 0; i < n; i++)
         InsertBackspace();
 }
-
 
 void InsertDelete()
 {
@@ -132,13 +121,11 @@ void InsertDelete()
     putchar(BACKSPACE);
 }
 
-
 void InsertDelete(int n)
 {
     for (int i = 0; i < n; i++)
         InsertDelete();
 }
-
 
 void InsertChar(const char ch)
 {
@@ -150,13 +137,11 @@ void InsertChar(const char ch)
         putchar(ch);
 }
 
-
 void InsertChar(const char ch, int n)
 {
     for (int i = 0; i < n; i++)
         InsertChar(ch);
 }
-
 
 void InsertText(const char* format, ...)
 {
@@ -179,7 +164,6 @@ void InsertText(const char* format, ...)
             InsertChar(*p);
     }
 }
-
 
 void InsertText(WORD foreground, const char* format, ...)
 {
@@ -204,7 +188,6 @@ void InsertText(WORD foreground, const char* format, ...)
     SetTextForeground(old);
 }
 
-
 void InsertSplitLine(char split)
 {
     if (IsNewLine(split))
@@ -220,7 +203,6 @@ void InsertSplitLine(char split)
 
     InsertNewLine();
 }
-
 
 void InsertHeaderLine(const char* header, char split)
 {
@@ -253,6 +235,5 @@ void InsertHeaderLine(const char* header, char split)
 
     InsertNewLine();
 }
-
 
 _CNSL_END

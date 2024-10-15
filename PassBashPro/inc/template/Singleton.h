@@ -26,12 +26,10 @@
 #ifndef _SINGLETON_H_
 #define _SINGLETON_H_
 
-
 /********************************************************************
 ** Lazy singleton.
 */
-template<typename T>
-class Singleton
+template <typename T> class Singleton
 {
 public:
     static T* GetInstance()
@@ -42,7 +40,6 @@ public:
             m_instance = new T();
         return m_instance;
     }
-
 
     Singleton(const Singleton&) = delete;
     Singleton& operator=(const Singleton&) = delete;
@@ -61,30 +58,23 @@ protected:
         }
     };
 
-
     Singleton()
     {
     }
-
 
     virtual ~Singleton()
     {
     }
 
-
     static T* m_instance;
 };
 
-
-template<typename T>
-T* Singleton<T>::m_instance = nullptr;
-
+template <typename T> T* Singleton<T>::m_instance = nullptr;
 
 /********************************************************************
 ** Hungry singleton.
 */
-template<typename T>
-class SingletonHungry
+template <typename T> class SingletonHungry
 {
 public:
     static T* GetInstance()
@@ -94,7 +84,6 @@ public:
         // This instance will always be available.
         return m_instance;
     }
-
 
     SingletonHungry(const SingletonHungry&) = delete;
     SingletonHungry& operator=(const SingletonHungry&) = delete;
@@ -113,15 +102,12 @@ protected:
         }
     };
 
-
     SingletonHungry() = default;
     virtual ~SingletonHungry() = default;
 
     static T* m_instance;
 };
 
-
-template<typename T>
-T* SingletonHungry<T>::m_instance = new T();
+template <typename T> T* SingletonHungry<T>::m_instance = new T();
 
 #endif

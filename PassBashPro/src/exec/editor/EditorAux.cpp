@@ -22,7 +22,6 @@
 
 #include "../../../inc/exec/editor/EditorHeader.h"
 
-
 void _edit_print_header(bool showPrompt)
 {
     static char buffer[128];
@@ -34,13 +33,11 @@ void _edit_print_header(bool showPrompt)
         cnsl::InsertText(MESSAGE_COLOR, "Use \"help\" for more information.\n");
 }
 
-
 void _edit_print_footer()
 {
     cnsl::InsertNewLine();
     cnsl::InsertHeaderLine("Pash Editor End", '-');
 }
-
 
 void _edit_print_prompt()
 {
@@ -50,7 +47,6 @@ void _edit_print_prompt()
     cnsl::InsertText(PWD_COLOR, "%s", _edit_item_path.c_str());
     cnsl::InsertText(PROMPT_COLOR, "> ");
 }
-
 
 int _edit_parse_cmd(char* cmd, char** type, char** arg)
 {
@@ -73,7 +69,6 @@ int _edit_parse_cmd(char* cmd, char** type, char** arg)
     return 0;
 }
 
-
 int _edit_parse_params(char* arg, int argc, const char* params[])
 {
     if (arg == nullptr)
@@ -93,7 +88,6 @@ int _edit_parse_params(char* arg, int argc, const char* params[])
     return cnt;
 }
 
-
 int _set_key(const char* idStr, const char* newKey)
 {
     int id;
@@ -112,9 +106,7 @@ int _set_key(const char* idStr, const char* newKey)
 
     if (strlen(newKey) > EDIT_KEY_MAX_LENGTH)
     {
-        cnsl::InsertText(ERROR_COLOR,
-                         "New key is too long! No longer than %d characters!\n",
-                         EDIT_KEY_MAX_LENGTH);
+        cnsl::InsertText(ERROR_COLOR, "New key is too long! No longer than %d characters!\n", EDIT_KEY_MAX_LENGTH);
         return 3;
     }
     entry->SetAttribute("key", newKey);
@@ -123,7 +115,6 @@ int _set_key(const char* idStr, const char* newKey)
 
     return 0;
 }
-
 
 int _set_value(const char* idStr, const char* value)
 {
@@ -143,9 +134,7 @@ int _set_value(const char* idStr, const char* value)
 
     if (strlen(value) > EDIT_VALUE_MAX_LENGTH)
     {
-        cnsl::InsertText(ERROR_COLOR,
-                         "Value is too long! No longer than %d characters!\n",
-                         EDIT_VALUE_MAX_LENGTH);
+        cnsl::InsertText(ERROR_COLOR, "Value is too long! No longer than %d characters!\n", EDIT_VALUE_MAX_LENGTH);
         return 3;
     }
     entry->SetAttribute("value", value);
@@ -154,7 +143,6 @@ int _set_value(const char* idStr, const char* value)
 
     return 0;
 }
-
 
 int _set_weight(const char* idStr, const char* weightStr)
 {
@@ -167,9 +155,7 @@ int _set_weight(const char* idStr, const char* weightStr)
 
     if (strlen(weightStr) > EDIT_WEIGHT_MAX_LENGTH)
     {
-        cnsl::InsertText(ERROR_COLOR,
-                         "Weight is too long! No longer than %d characters!\n",
-                         EDIT_VALUE_MAX_LENGTH);
+        cnsl::InsertText(ERROR_COLOR, "Weight is too long! No longer than %d characters!\n", EDIT_VALUE_MAX_LENGTH);
         return 2;
     }
     int weight;
@@ -192,7 +178,6 @@ int _set_weight(const char* idStr, const char* weightStr)
     return 0;
 }
 
-
 int _set_entry(const char* key, const char* value, const char* weightStr)
 {
     if (!key)
@@ -203,9 +188,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 
     if (PashDocUtil::GetEntryNode(_edit_item, key))
     {
-        cnsl::InsertText(ERROR_COLOR,
-                         "Entry with key \"%s\" already exists!\n",
-                         key);
+        cnsl::InsertText(ERROR_COLOR, "Entry with key \"%s\" already exists!\n", key);
         return 2;
     }
 
@@ -222,9 +205,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
 
     if (key && (strlen(key) > EDIT_KEY_MAX_LENGTH))
     {
-        cnsl::InsertText(ERROR_COLOR,
-                         "Key is too long! No longer than %d characters!\n",
-                         EDIT_KEY_MAX_LENGTH);
+        cnsl::InsertText(ERROR_COLOR, "Key is too long! No longer than %d characters!\n", EDIT_KEY_MAX_LENGTH);
         PashDocUtil::DeleteNode(entry);
         return 4;
     }
@@ -232,9 +213,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
     {
         if (strlen(value) > EDIT_VALUE_MAX_LENGTH)
         {
-            cnsl::InsertText(ERROR_COLOR,
-                             "Value is too long! No longer than %d characters!\n",
-                             EDIT_VALUE_MAX_LENGTH);
+            cnsl::InsertText(ERROR_COLOR, "Value is too long! No longer than %d characters!\n", EDIT_VALUE_MAX_LENGTH);
             PashDocUtil::DeleteNode(entry);
             return 5;
         }
@@ -244,9 +223,7 @@ int _set_entry(const char* key, const char* value, const char* weightStr)
     {
         if (strlen(weightStr) > EDIT_WEIGHT_MAX_LENGTH)
         {
-            cnsl::InsertText(ERROR_COLOR,
-                             "Key is too long! No longer than %d characters!\n",
-                             EDIT_WEIGHT_MAX_LENGTH);
+            cnsl::InsertText(ERROR_COLOR, "Key is too long! No longer than %d characters!\n", EDIT_WEIGHT_MAX_LENGTH);
             PashDocUtil::DeleteNode(entry);
             return 6;
         }

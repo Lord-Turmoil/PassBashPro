@@ -25,7 +25,6 @@
 
 #include <tea.h>
 
-
 static int _mode; //  0 for encrypt and 1 for decrypt
 static std::string _password;
 static char _buffer[PASSWORD_BUFFER_SIZE];
@@ -39,7 +38,6 @@ static int _tea_parse_args(int argc, char* argv[]);
 static int _open_files(FILE** pfin, const char* src, FILE** pfout, const char* dst);
 static void _close_files(FILE** fin, FILE** fout);
 static int _enctypt(FILE* fin, FILE* fout);
-
 
 int exec_tea(int argc, char* argv[])
 {
@@ -95,7 +93,6 @@ int exec_tea(int argc, char* argv[])
     return 0;
 }
 
-
 static void _tea_init()
 {
     _mode = 0;
@@ -103,13 +100,10 @@ static void _tea_init()
     _src = _dst = "";
 }
 
-
 static int _tea_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "tea", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "tea", nullptr);
 }
-
 
 static int _tea_parse_args(int argc, char* argv[])
 {
@@ -173,7 +167,6 @@ static int _tea_parse_args(int argc, char* argv[])
     return 0;
 }
 
-
 static int _open_files(FILE** pfin, const char* src, FILE** pfout, const char* dst)
 {
     if (FileUtil::Exists(dst))
@@ -201,7 +194,6 @@ static int _open_files(FILE** pfin, const char* src, FILE** pfout, const char* d
     return 0;
 }
 
-
 static void _close_files(FILE** fin, FILE** fout)
 {
     if (fin && *fin)
@@ -215,7 +207,6 @@ static void _close_files(FILE** fin, FILE** fout)
         *fout = nullptr;
     }
 }
-
 
 static int _enctypt(FILE* fin, FILE* fout)
 {

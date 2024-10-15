@@ -25,6 +25,7 @@
 #include <Windows.h>
 
 _CNSL_BEGIN
+
 struct InputContext
 {
     char* buffer;
@@ -37,20 +38,12 @@ struct InputContext
 
     char ch;
 
-
-    InputContext() :
-        buffer(nullptr),
-        history_end(nullptr),
-        history_begin(nullptr),
-        history(nullptr),
-        pos(0),
-        length(0),
-        origin({ 0, 0 }),
-        ch(0)
+    InputContext()
+        : buffer(nullptr), history_end(nullptr), history_begin(nullptr), history(nullptr), pos(0), length(0),
+          origin({ 0, 0 }), ch(0)
     {
     }
 };
-
 
 bool IsTerminator(char ch);
 

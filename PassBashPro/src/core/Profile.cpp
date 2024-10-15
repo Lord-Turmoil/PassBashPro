@@ -22,7 +22,6 @@
 
 #include "../../inc/core/Profile.h"
 
-
 bool ProfilePool::Add(ProfilePtr profile)
 {
     for (auto& it : m_profiles)
@@ -34,7 +33,6 @@ bool ProfilePool::Add(ProfilePtr profile)
 
     return true;
 }
-
 
 bool ProfilePool::Remove(const std::string& username)
 {
@@ -50,24 +48,20 @@ bool ProfilePool::Remove(const std::string& username)
     return false;
 }
 
-
 void ProfilePool::Clear()
 {
     m_profiles.clear();
 }
-
 
 bool ProfilePool::IsEmpty()
 {
     return m_profiles.empty();
 }
 
-
 int ProfilePool::Size()
 {
     return static_cast<int>(m_profiles.size());
 }
-
 
 ProfilePtr ProfilePool::Get(const std::string& username)
 {

@@ -20,13 +20,12 @@
  *   Visual Studio 2022 Community                                             *
  ******************************************************************************/
 
-#include "../../inc/exec/ExecHeader.h"
 #include "../../inc/core/Env.h"
+#include "../../inc/exec/ExecHeader.h"
 #include "../../inc/utility/Auxiliary.h"
 
-#include <regex>
 #include <hash.h>
-
+#include <regex>
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -50,7 +49,6 @@ int _PrintPrompt()
 
     return 0;
 }
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -104,7 +102,6 @@ int _ParseOptionalArgs(int argc, char* argv[], std::string& _1)
     return 0;
 }
 
-
 int _ParseArgs(int argc, char* argv[], std::string& _1)
 {
     int opt;
@@ -157,7 +154,6 @@ int _ParseArgs(int argc, char* argv[], std::string& _1)
 
     return 0;
 }
-
 
 int _ParseArgs(int argc, char* argv[], std::string& _1, std::string& _2)
 {
@@ -221,7 +217,6 @@ int _ParseArgs(int argc, char* argv[], std::string& _1, std::string& _2)
     return 0;
 }
 
-
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Common operations.
@@ -254,11 +249,8 @@ int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
     maxKey = std::max(maxKey, 20);
     maxValue = std::max(maxValue, 20);
     maxWeight = std::min(total - maxKey - maxValue, 12);
-    cnsl::InsertText(MESSAGE_COLOR, "     %4s | %*s | %*s | %*s\n",
-                     "ID",
-                     maxKey, "Key",
-                     maxValue, "Value",
-                     maxWeight, "Weight");
+    cnsl::InsertText(MESSAGE_COLOR, "     %4s | %*s | %*s | %*s\n", "ID", maxKey, "Key", maxValue, "Value", maxWeight,
+                     "Weight");
 
     int id = 0;
     auto hidden = "******";
@@ -274,18 +266,12 @@ int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
 
         if (key && _STR_SAME(it.key, key))
         {
-            cnsl::InsertText(color, "%4d | %*s | %*s | %*d\n",
-                             id,
-                             maxKey, it.key,
-                             maxValue, value,
-                             maxWeight, it.weight);
+            cnsl::InsertText(color, "%4d | %*s | %*s | %*d\n", id, maxKey, it.key, maxValue, value, maxWeight,
+                             it.weight);
         }
         else
         {
-            cnsl::InsertText(ENTRY_COLOR[id & 1], "%4d | %*s | %*s | %*d\n",
-                             id,
-                             maxKey, it.key,
-                             maxValue, value,
+            cnsl::InsertText(ENTRY_COLOR[id & 1], "%4d | %*s | %*s | %*d\n", id, maxKey, it.key, maxValue, value,
                              maxWeight, it.weight);
         }
 
@@ -297,7 +283,6 @@ int _ShowItem(XMLElementPtr node, bool detail, const char* key, WORD color)
 
     return 0;
 }
-
 
 int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color)
 {
@@ -326,11 +311,8 @@ int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color
     maxKey = std::max(maxKey, 20);
     maxValue = std::max(maxValue, 20);
     maxWeight = std::min(total - maxKey - maxValue, 12);
-    cnsl::InsertText(MESSAGE_COLOR, "%4s | %*s | %*s | %*s\n",
-                     "ID",
-                     maxKey, "Key",
-                     maxValue, "Value",
-                     maxWeight, "Weight");
+    cnsl::InsertText(MESSAGE_COLOR, "%4s | %*s | %*s | %*s\n", "ID", maxKey, "Key", maxValue, "Value", maxWeight,
+                     "Weight");
 
     int id = 0;
     auto hidden = "******";
@@ -341,18 +323,12 @@ int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color
         value = (!detail && _IsSensitive(it.key)) ? hidden : it.value;
         if (key && _STR_SAME(it.key, key))
         {
-            cnsl::InsertText(color, "%4d | %*s | %*s | %*d\n",
-                             id,
-                             maxKey, it.key,
-                             maxValue, value,
-                             maxWeight, it.weight);
+            cnsl::InsertText(color, "%4d | %*s | %*s | %*d\n", id, maxKey, it.key, maxValue, value, maxWeight,
+                             it.weight);
         }
         else
         {
-            cnsl::InsertText(ENTRY_COLOR[id & 1], "%4d | %*s | %*s | %*d\n",
-                             id,
-                             maxKey, it.key,
-                             maxValue, value,
+            cnsl::InsertText(ENTRY_COLOR[id & 1], "%4d | %*s | %*s | %*d\n", id, maxKey, it.key, maxValue, value,
                              maxWeight, it.weight);
         }
         id++;
@@ -361,17 +337,10 @@ int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color
     return 0;
 }
 
-
 bool _IsSensitive(const char* descr)
 {
-    static const char* const SENSITIVE_PATTERN[] = {
-        ".*password.*",
-        ".*pwd.*",
-        ".*pin.*",
-        ".*token.*",
-        ".*secret.*",
-        ".key.*"
-    };
+    static const char* const SENSITIVE_PATTERN[] = { ".*password.*", ".*pwd.*",    ".*pin.*",
+                                                     ".*token.*",    ".*secret.*", ".key.*" };
     static constexpr int SENSITIVE_CNT = 3;
 
     std::regex pattern;
@@ -386,13 +355,12 @@ bool _IsSensitive(const char* descr)
     return false;
 }
 
-
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Password operations.
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-// fill password with '\0'. 
+// fill password with '\0'.
 void _FormatPassword(char* password)
 {
     char* p;
@@ -402,7 +370,6 @@ void _FormatPassword(char* password)
         *(p++) = '\0';
     *p = '\0';
 }
-
 
 void _FormatPassword(const char* buffer, char* password)
 {
@@ -416,7 +383,6 @@ void _FormatPassword(const char* buffer, char* password)
     *q = '\0';
 }
 
-
 void _HashPassword(char* hashPass)
 {
     hash::MD5 md5;
@@ -426,7 +392,6 @@ void _HashPassword(char* hashPass)
 
     // hashPass[PASSWORD_MAX_LENGTH] = '\0';
 }
-
 
 void _HashPassword(const char* password, char* hashPass)
 {

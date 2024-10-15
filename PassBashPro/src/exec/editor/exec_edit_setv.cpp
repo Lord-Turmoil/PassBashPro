@@ -24,7 +24,6 @@
 
 static void _setv_usage();
 
-
 int exec_edit_setv(int argc, char* argv[])
 {
     const char* params[2] = { nullptr, nullptr };
@@ -39,9 +38,7 @@ int exec_edit_setv(int argc, char* argv[])
     return _set_value(params[0], params[1]);
 }
 
-
 static void _setv_usage()
 {
-    ExecHost::GetInstance()
-            ->execl(EXEC_EDIT, "help", "help", "setv", nullptr);
+    ExecHost::GetInstance()->execl(EXEC_EDIT, "help", "help", "setv", nullptr);
 }

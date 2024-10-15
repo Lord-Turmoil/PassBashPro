@@ -24,9 +24,9 @@
 #define _CNSL_H_
 
 #include "inc/Console.h"
-#include "inc/Output.h"
 #include "inc/Input.h"
 #include "inc/InputAux.h"
+#include "inc/Output.h"
 
 #if defined(DEBUG) || defined(_DEBUG)
 #pragma comment(lib, "console_b.lib")

@@ -30,14 +30,12 @@
 
 #include <string>
 
-
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ** Common utilities.
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
 int _PrintPrompt();
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -47,7 +45,6 @@ int _PrintPrompt();
 int _ParseOptionalArgs(int argc, char* argv[], std::string& _1);
 int _ParseArgs(int argc, char* argv[], std::string& _1);
 int _ParseArgs(int argc, char* argv[], std::string& _1, std::string& _2);
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -65,13 +62,12 @@ bool _IsSensitive(const char* descr);
 ** Password operations.
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-// fill password with '/0'. 
+// fill password with '/0'.
 void _FormatPassword(char* password);
 void _FormatPassword(const char* buffer, char* password);
 
 void _HashPassword(char* hashPass);
 void _HashPassword(const char* password, char* hashPass);
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

@@ -23,8 +23,8 @@
 #ifndef _CNSL_INPUT_H_
 #define _CNSL_INPUT_H_
 
-#include "Macros.h"
 #include "Console.h"
+#include "Macros.h"
 #include "Output.h"
 
 #include <sstream>
@@ -33,7 +33,6 @@
 _CNSL_BEGIN
 constexpr int INPUT_BUFFER_SIZE = 128;
 extern char _default_buffer[INPUT_BUFFER_SIZE];
-
 
 struct InputHistory
 {
@@ -46,10 +45,8 @@ struct InputHistory
     std::vector<char*> _record;
 };
 
-
 using Completer = const char* (*)(const char*, int*);
-using CharsetVerifier = bool(*)(char);
-
+using CharsetVerifier = bool (*)(char);
 
 struct InputOptions
 {
@@ -67,28 +64,18 @@ struct InputOptions
     char decoy;
     bool interruptible;
 
-
-    InputOptions() :
-        minLen(1),
-        maxLen(INPUT_BUFFER_SIZE - 1),
-        history(nullptr),
-        completer(nullptr),
-        verifier(nullptr),
-        placeholder(nullptr),
-        decoy(0),
-        interruptible(false)
+    InputOptions()
+        : minLen(1), maxLen(INPUT_BUFFER_SIZE - 1), history(nullptr), completer(nullptr), verifier(nullptr),
+          placeholder(nullptr), decoy(0), interruptible(false)
     {
     }
 
-
-    InputOptions(int _minLen, int _maxLen, char _decoy = 0, bool _interruptible = false) :
-        minLen(_minLen), maxLen(_maxLen),
-        history(nullptr), completer(nullptr), verifier(nullptr),
-        placeholder(nullptr), decoy(_decoy), interruptible(_interruptible)
+    InputOptions(int _minLen, int _maxLen, char _decoy = 0, bool _interruptible = false)
+        : minLen(_minLen), maxLen(_maxLen), history(nullptr), completer(nullptr), verifier(nullptr),
+          placeholder(nullptr), decoy(_decoy), interruptible(_interruptible)
     {
     }
 };
-
 
 /*
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -100,13 +87,12 @@ int GetString(char* buffer, const InputOptions& options);
 // Get a string with default options.
 int GetString(char* buffer);
 
+template <typename _Ty> bool DefaultVerifier(_Ty value)
+{
+    return true;
+}
 
-template<typename _Ty>
-bool DefaultVerifier(_Ty value) { return true; }
-
-
-template<typename _Ty>
-bool GetNumber(_Ty* value, bool (*verifier)(_Ty), const char* prompt)
+template <typename _Ty> bool GetNumber(_Ty* value, bool (*verifier)(_Ty), const char* prompt)
 {
     COORD origin = GetCursorPosition();
 
@@ -141,27 +127,20 @@ bool GetNumber(_Ty* value, bool (*verifier)(_Ty), const char* prompt)
     return !err;
 }
 
-
-template<typename _Ty>
-bool GetNumber(_Ty* value)
+template <typename _Ty> bool GetNumber(_Ty* value)
 {
     return GetNumber(value, DefaultVerifier<_Ty>, nullptr);
 }
 
-
-template<typename _Ty>
-bool GetNumber(_Ty* value, bool (*verifier)(_Ty))
+template <typename _Ty> bool GetNumber(_Ty* value, bool (*verifier)(_Ty))
 {
     return GetNumber(value, verifier, nullptr);
 }
 
-
-template<typename _Ty>
-bool GetNumber(_Ty* value, const char* prompt) // error prompt
+template <typename _Ty> bool GetNumber(_Ty* value, const char* prompt) // error prompt
 {
     return GetNumber(value, DefaultVerifier, prompt);
 }
-
 
 void FlushInput();
 

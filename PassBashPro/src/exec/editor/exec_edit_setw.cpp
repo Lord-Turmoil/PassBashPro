@@ -24,7 +24,6 @@
 
 static void _setw_usage();
 
-
 int exec_edit_setw(int argc, char* argv[])
 {
     const char* params[2] = { nullptr, nullptr };
@@ -39,9 +38,7 @@ int exec_edit_setw(int argc, char* argv[])
     return _set_weight(params[0], params[1]);
 }
 
-
 static void _setw_usage()
 {
-    ExecHost::GetInstance()
-            ->execl(EXEC_EDIT, "help", "help", "setw", nullptr);
+    ExecHost::GetInstance()->execl(EXEC_EDIT, "help", "help", "setw", nullptr);
 }

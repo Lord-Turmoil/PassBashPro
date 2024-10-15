@@ -25,10 +25,11 @@
 #ifndef _HASH_DEFINES_H_
 #define _HASH_DEFINES_H_
 
-
-#define _HASH_BEGIN	namespace hash {
-#define _HASH_END	}
-#define _HASH		::hash::
+#define _HASH_BEGIN                                                                                                    \
+    namespace hash                                                                                                     \
+    {
+#define _HASH_END }
+#define _HASH     ::hash::
 
 _HASH_BEGIN
 _HASH_END

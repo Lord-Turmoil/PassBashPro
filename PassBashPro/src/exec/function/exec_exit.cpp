@@ -22,7 +22,6 @@
 
 #include "../../../inc/exec/function/FuncHeader.h"
 
-
 int exec_exit(int argc, char* argv[])
 {
     return TERMINATION;

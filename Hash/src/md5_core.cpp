@@ -29,12 +29,12 @@
 #include "../inc/md5_core.h"
 
 _HASH_BEGIN
+
 /// same as reset()
 MD5::MD5()
 {
     Reset();
 }
-
 
 /// restart
 void MD5::Reset()
@@ -49,31 +49,26 @@ void MD5::Reset()
     m_hash[3] = 0x10325476;
 }
 
-
 // mix functions for processBlock()
 static inline uint32_t f1(uint32_t b, uint32_t c, uint32_t d)
 {
     return d ^ (b & (c ^ d)); // original: f = (b & c) | ((~b) & d);
 }
 
-
 static inline uint32_t f2(uint32_t b, uint32_t c, uint32_t d)
 {
     return c ^ (d & (b ^ c)); // original: f = (b & d) | (c & (~d));
 }
-
 
 static inline uint32_t f3(uint32_t b, uint32_t c, uint32_t d)
 {
     return b ^ c ^ d;
 }
 
-
 static inline uint32_t f4(uint32_t b, uint32_t c, uint32_t d)
 {
     return c ^ (b | ~d);
 }
-
 
 static inline uint32_t rotate(uint32_t a, uint32_t c)
 {
@@ -90,13 +85,9 @@ inline uint32_t swap(uint32_t x)
     return _byteswap_ulong(x);
 #endif
 
-    return (x >> 24) |
-        ((x >> 8) & 0x0000FF00) |
-        ((x << 8) & 0x00FF0000) |
-        (x << 24);
+    return (x >> 24) | ((x >> 8) & 0x0000FF00) | ((x << 8) & 0x00FF0000) | (x << 24);
 }
 #endif
-
 
 /// process 64 bytes
 void MD5::_ProcessBlock(const void* data)
@@ -224,7 +215,6 @@ void MD5::_ProcessBlock(const void* data)
     m_hash[3] += d;
 }
 
-
 /// add arbitrary number of bytes
 void MD5::Add(const void* data, size_t numBytes)
 {
@@ -268,11 +258,11 @@ void MD5::Add(const void* data, size_t numBytes)
     }
 }
 
-
 /// process final block, less than 64 bytes
 void MD5::_ProcessBuffer()
 {
-    // the input bytes are considered as bits strings, where the first bit is the most significant bit of the byte
+    // the input bytes are considered as bits strings, where the first bit is the
+    // most significant bit of the byte
 
     // - append "1" bit to message
     // - append "0" bits until message length in bit mod 512 is 448
@@ -341,7 +331,6 @@ void MD5::_ProcessBuffer()
         _ProcessBlock(extra);
 }
 
-
 /// return latest hash as 32 hex characters
 std::string MD5::GetHash()
 {
@@ -361,7 +350,6 @@ std::string MD5::GetHash()
 
     return result;
 }
-
 
 /// return latest hash as bytes
 void MD5::GetHash(unsigned char buffer[HashBytes])
@@ -387,7 +375,6 @@ void MD5::GetHash(unsigned char buffer[HashBytes])
     }
 }
 
-
 /// compute MD5 of a memory block
 std::string MD5::operator()(const void* data, size_t numBytes)
 {
@@ -396,7 +383,6 @@ std::string MD5::operator()(const void* data, size_t numBytes)
     return GetHash();
 }
 
-
 /// compute MD5 of a string, excluding final zero
 std::string MD5::operator()(const std::string& text)
 {
@@ -404,6 +390,5 @@ std::string MD5::operator()(const std::string& text)
     Add(text.c_str(), text.size());
     return GetHash();
 }
-
 
 _HASH_END

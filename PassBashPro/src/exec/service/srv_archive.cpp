@@ -39,7 +39,6 @@ static int _archive_delete();
 static int _archive_move(const char* dst, const char* src, bool keepOriginal = false);
 static int _archive_list();
 
-
 int srv_archive(int argc, char* argv[])
 {
     PASH_PANIC_ON(g_env == nullptr);
@@ -103,7 +102,6 @@ int srv_archive(int argc, char* argv[])
     return 0;
 }
 
-
 // move file in
 static int _archive_archive(bool keepOriginal)
 {
@@ -130,7 +128,6 @@ static int _archive_archive(bool keepOriginal)
     return _archive_move(dstPath.c_str(), _src.c_str(), keepOriginal);
 }
 
-
 static int _archive_output(bool keepOriginal)
 {
     if (_src == "config" || _src == "data" || _src[0] == '.')
@@ -155,7 +152,6 @@ static int _archive_output(bool keepOriginal)
 
     return _archive_move(_dst.c_str(), srcPath.c_str(), keepOriginal);
 }
-
 
 static int _archive_delete()
 {
@@ -187,7 +183,6 @@ static int _archive_delete()
     return 0;
 }
 
-
 // For now, just assume that the parent directory must exists.
 static int _archive_move(const char* dst, const char* src, bool keepOriginal)
 {
@@ -215,7 +210,6 @@ static int _archive_move(const char* dst, const char* src, bool keepOriginal)
     }
     return ret ? 0 : 31;
 }
-
 
 static int _archive_list()
 {
@@ -257,7 +251,6 @@ static int _archive_list()
     return 0;
 }
 
-
 static void _archive_init()
 {
     _out = false;
@@ -265,13 +258,10 @@ static void _archive_init()
     _delete = false;
 }
 
-
 static int _archive_usage()
 {
-    return ExecHost::GetInstance()
-            ->execl(EXEC_GLOBAL, "help", "help", "archive", nullptr);
+    return ExecHost::GetInstance()->execl(EXEC_GLOBAL, "help", "help", "archive", nullptr);
 }
-
 
 static int _archive_parse_args(int argc, char* argv[])
 {

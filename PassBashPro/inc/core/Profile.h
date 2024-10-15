@@ -27,10 +27,9 @@
 
 #include "../template/Singleton.h"
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
-
 
 struct Profile
 {
@@ -38,15 +37,12 @@ struct Profile
 
     std::string path; // root path of a user
 
-    Profile(const std::string& _username, const std::string& _path)
-        : username(_username), path(_path)
+    Profile(const std::string& _username, const std::string& _path) : username(_username), path(_path)
     {
     }
 };
 
-
 using ProfilePtr = std::shared_ptr<Profile>;
-
 
 class ProfilePool : public Singleton<ProfilePool>
 {
@@ -61,7 +57,6 @@ public:
 
     ProfilePtr Get(const std::string& username);
 
-
     ProfilePtr operator[](size_t id)
     {
         return m_profiles[id];
@@ -70,7 +65,6 @@ public:
 private:
     std::vector<ProfilePtr> m_profiles;
 };
-
 
 using ProfilePoolPtr = ProfilePool*;
 

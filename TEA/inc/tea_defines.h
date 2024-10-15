@@ -23,9 +23,11 @@
 #ifndef _TEA_DEFINES_H_
 #define _TEA_DEFINES_H_
 
-#define _TEA_BEGIN	namespace tea {
-#define _TEA_END	}
-#define _TEA		::tea::
+#define _TEA_BEGIN                                                                                                     \
+    namespace tea                                                                                                      \
+    {
+#define _TEA_END }
+#define _TEA     ::tea::
 
 _TEA_BEGIN
 using DATA = unsigned long;
@@ -41,7 +43,7 @@ using DATA = unsigned long;
 #endif
 
 constexpr size_t NCHAR = 2 * sizeof(long); //  64 bit =  8 Byte =  8 char
-constexpr size_t KCHAR = TEA_K * NCHAR; // 128 bit = 16 Byte = 16 char
+constexpr size_t KCHAR = TEA_K * NCHAR;    // 128 bit = 16 Byte = 16 char
 
 _TEA_END
 

@@ -28,16 +28,15 @@
 #ifndef _XML_H_
 #define _XML_H_
 
-#include <vector>
+#include <memory>
 #include <string>
 #include <tinyxml.h>
-#include <memory>
+#include <vector>
 
 using XMLElementPtrList = std::vector<XMLElementPtr>;
 
 class XMLFile;
 using XMLFilePtr = std::unique_ptr<XMLFile>;
-
 
 /********************************************************************
 ** There is a embarrassing situation that... Windows API supports
@@ -52,7 +51,6 @@ public:
     XMLFile() : m_filename(""), m_isLoaded(false)
     {
     }
-
 
     ~XMLFile();
 
@@ -92,15 +90,21 @@ public:
     std::vector<XMLElement*> GetElementsByAttrName(const char* attr, const char* name);
 
 public:
-    XMLDoc& Doc() { return m_doc; }
-    bool IsLoaded() const { return m_isLoaded; }
+    XMLDoc& Doc()
+    {
+        return m_doc;
+    }
+
+    bool IsLoaded() const
+    {
+        return m_isLoaded;
+    }
 
 private:
     XMLDoc m_doc;
     std::string m_filename;
     bool m_isLoaded;
 };
-
 
 /********************************************************************
 ** Utility functions for XML file operations.
@@ -117,7 +121,6 @@ private:
     XMLUtil()
     {
     }
-
 
     static void _GetElementsByTagName(XMLElement* node, const char* tag, std::vector<XMLElement*>& results);
     static void _GetElementsByAttrName(XMLElement* node, const char* attr, const char* name,
