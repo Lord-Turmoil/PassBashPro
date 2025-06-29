@@ -33,7 +33,7 @@ char Logger::m_buffer[LOGGER_BUFFER_SIZE];
 
 static char _format[LOGGER_BUFFER_SIZE];
 
-static LoggerStatus status = LoggerStatus::GOOD;
+static auto status = LoggerStatus::GOOD;
 
 void Logger::LogError(const char* func, const char* format, ...)
 {

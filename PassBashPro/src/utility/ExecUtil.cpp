@@ -339,8 +339,8 @@ int _ShowItemSimple(XMLElementPtr node, bool detail, const char* key, WORD color
 
 bool _IsSensitive(const char* descr)
 {
-    static const char* const SENSITIVE_PATTERN[] = { ".*password.*", ".*pwd.*",    ".*pin.*",
-                                                     ".*token.*",    ".*secret.*", ".key.*" };
+    static const char* const SENSITIVE_PATTERN[] = { ".*password.*", ".*pwd.*", ".*pin.*",
+                                                     ".*token.*", ".*secret.*", ".key.*" };
     static constexpr int SENSITIVE_CNT = 3;
 
     std::regex pattern;

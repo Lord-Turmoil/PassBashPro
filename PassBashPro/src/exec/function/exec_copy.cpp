@@ -77,7 +77,7 @@ int _copy(const std::string& data)
 
     SetClipboardData(CF_TEXT, hHandle);
     GlobalUnlock(hHandle);
-  CloseClipboard();
+    CloseClipboard();
 
     return 0;
 }

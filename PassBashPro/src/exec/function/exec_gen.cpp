@@ -38,7 +38,7 @@ static const int DEFAULT_TOP = std::min(VAR_SIZE, 3);
 
 static bool hasLength;
 static int length; // length of password
-static int top;    // generate how many results
+static int top; // generate how many results
 
 static bool useDefault;
 static bool hasAlpha;

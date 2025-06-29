@@ -294,7 +294,7 @@ static int _profile_receive_username(bool showHelp)
     if (showHelp)
     {
         cnsl::InsertText(FOREGROUND_LIGHT(MESSAGE_COLOR), "This is the identity of a profile, you can create more "
-                                                          "profiles later.\n");
+                         "profiles later.\n");
     }
 
     cnsl::InsertText("Please enter the ");

@@ -46,7 +46,7 @@ int srv_import(int argc, char* argv[])
     {
         EXEC_PRINT_ERR("Cannot find data to import!\n");
         EXEC_PRINT_MSG("Please ensure the data file name is the same as your "
-                       "profile name, and placed under ");
+            "profile name, and placed under ");
         wchar_t _buffer[PASH_BUFFER_SIZE];
         if (_wgetcwd(_buffer, PASH_BUFFER_SIZE - 1))
         {

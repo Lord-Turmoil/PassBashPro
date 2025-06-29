@@ -58,7 +58,9 @@ int exec_help(int argc, char* argv[])
             _help_usage();
     }
 
-    std::transform(target.begin(), target.end(), target.begin(), [](char c) { return tolower(c); });
+    std::transform(target.begin(), target.end(), target.begin(), [](char c) {
+        return tolower(c);
+    });
 
     if (showAll)
         return _help_all();

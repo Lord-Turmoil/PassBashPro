@@ -34,11 +34,11 @@ _CNSL_BEGIN
 ** Output Control
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
-void InsertLineFeed();      // Row++, col does not change.
+void InsertLineFeed(); // Row++, col does not change.
 void InsertLineFeed(int n); // Insert n line feeds.
-void InsertCarrige();       // Row does not change, col back to zero.
-void InsertNewLine();       // Row++, col back to zero.
-void InsertNewLine(int n);  // Insert n new lines.
+void InsertCarrige(); // Row does not change, col back to zero.
+void InsertNewLine(); // Row++, col back to zero.
+void InsertNewLine(int n); // Insert n new lines.
 
 void InsertReverseLineFeed();
 void InsertReverseLineFeed(int n);

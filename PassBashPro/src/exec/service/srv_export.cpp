@@ -55,7 +55,7 @@ int srv_export(int argc, char* argv[])
     {
         EXEC_PRINT_ERR("Failed to get export path!\n");
         EXEC_PRINT_MSG("You can still find the exported data at root directory of "
-                       "PassBash.\n");
+            "PassBash.\n");
         return 5;
     }
 

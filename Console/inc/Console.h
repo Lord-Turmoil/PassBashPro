@@ -114,8 +114,8 @@ void ShowCursor();
 **+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
 void Clear();
-void Clear(SHORT left);                                       // Clear left to end of current line.
-void Clear(SHORT left, SHORT right);                          // Clear left to right of current line.
+void Clear(SHORT left); // Clear left to end of current line.
+void Clear(SHORT left, SHORT right); // Clear left to right of current line.
 void Clear(const COORD& upperLeft, const COORD& bottomRight); // Clear an area.
 
 /*
