@@ -1,3 +1,7 @@
+.vs/
+.vscode/
+.claude/
+
 # Prerequisites
 *.d
 
@@ -39,5 +43,3 @@ Work/
 Publish/
 int/
 lib/
-.vs/
-/PassBashPro/TODO.txt
